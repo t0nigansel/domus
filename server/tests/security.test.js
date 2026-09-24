@@ -1,37 +1,9 @@
-import { describe, it, expect, afterAll } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import app from '../index.js';
+import app from '../app.js';
 import { specs } from '../swagger.js';
-import db from '../db.js';
 
 describe('Dynamic Security Tests (Fuzzing)', () => {
-    // Cleanup after all tests
-    afterAll(async () => {
-        // Since we are using lowdb with a real file, we should 
-        // clear any test data that might have been persisted.
-        // We look for any entities created during fuzzing.
-        await db.update((data) => {
-            const entities = ['tenants', 'properties', 'issues', 'documents', 'costs', 'contacts'];
-            entities.forEach(entity => {
-                if (data[entity]) {
-                    data[entity] = data[entity].filter(item => {
-                        // Keep items that don't look like our payloads
-                        // Our payloads are either "A".repeat(10000) or 
-                        // contain common attack strings.
-                        const itemStr = JSON.stringify(item);
-                        return !itemStr.includes("' OR '1'='1") &&
-                            !itemStr.includes("DROP TABLE") &&
-                            !itemStr.includes("<script>") &&
-                            !itemStr.includes("onerror=") &&
-                            !itemStr.includes("../../../etc/passwd") &&
-                            !itemStr.includes("| ls -la") &&
-                            !itemStr.includes('{"$gt": ""}') &&
-                            !itemStr.includes("AAAAAAAAAA"); // Match repeat(10000)
-                    });
-                }
-            });
-        });
-    });
     // 1. Define "Naughty Strings" (Attack Vectors)
     const payloads = [
         { name: 'SQL Injection 1', value: "' OR '1'='1" },

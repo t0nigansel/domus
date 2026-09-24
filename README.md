@@ -67,11 +67,24 @@ To run the agent analysis on a push to another branch, include `[run-agents]` in
 
 This repository is public. Be careful where your real data ends up:
 
-- **`server/db.json` is currently tracked by Git.** Everything you enter in the app is written to this file, so a `git commit -a` would publish your tenants' personal data. Don't enter real data until this file is removed from version control and added to `.gitignore`.
+- Everything you enter is written to `server/db.json`, which is ignored by Git. To keep it outside the project, set `DOMUS_DB_FILE=/path/to/domus.json`.
 - `server/initialData.js` and `src/db/demoData.js` are committed and must only contain fictional demo data.
 - Put backups and exports in `data/` (ignored by Git) or outside the project directory.
 - Watch out for real tenant or property details in screenshots.
-- The API server has no authentication. Only run it on a trusted machine.
+- Tests use an in-memory database and never touch your data.
+
+## API server security
+
+The API has no authentication, so it's locked down to local use:
+
+| Setting | Default | Purpose |
+|---------|---------|---------|
+| `HOST` | `127.0.0.1` | Only reachable from this machine. Don't set `0.0.0.0` on untrusted networks. |
+| `PORT` | `3001` | |
+| `CORS_ORIGINS` | `http://localhost:5173,http://localhost:4173` | Browser origins allowed to call the API. |
+| `ALLOWED_HOSTS` | `localhost,127.0.0.1,[::1]` | Accepted `Host` headers (blocks DNS rebinding). |
+
+Writes (`POST`/`PUT`) must be sent as `application/json`.
 
 ## License
 

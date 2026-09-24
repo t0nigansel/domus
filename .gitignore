@@ -39,3 +39,6 @@ coverage/
 
 # Agent configuration
 agents/config.js
+
+# API data (personal data - never commit)
+server/db.json

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import request from 'supertest';
-import app from '../index.js'; // Ensure your app is exported from index.js
+import app from '../app.js';
 import { specs } from '../swagger.js';
 
 describe('Dynamic API Tests (OpenAPI Driven)', () => {

@@ -4,6 +4,18 @@ import db from './db.js';
 export const createCrudRouter = (entityName) => {
     const router = express.Router();
 
+    // Writes must be JSON objects. Requiring the JSON content type also means
+    // browsers can't send cross-site writes without a CORS preflight.
+    const requireJsonObject = (req, res, next) => {
+        if (!req.is('application/json')) {
+            return res.status(415).json({ error: 'Content-Type must be application/json' });
+        }
+        if (typeof req.body !== 'object' || req.body === null || Array.isArray(req.body)) {
+            return res.status(400).json({ error: 'Request body must be a JSON object' });
+        }
+        next();
+    };
+
     // GET all
     router.get('/', (req, res) => {
         const data = db.data[entityName] || [];
@@ -22,7 +34,7 @@ export const createCrudRouter = (entityName) => {
     });
 
     // POST create
-    router.post('/', async (req, res) => {
+    router.post('/', requireJsonObject, async (req, res) => {
         const newItem = req.body;
         // Simple ID generation if not provided
         if (!newItem.id) {
@@ -38,7 +50,7 @@ export const createCrudRouter = (entityName) => {
     });
 
     // PUT update
-    router.put('/:id', async (req, res) => {
+    router.put('/:id', requireJsonObject, async (req, res) => {
         const { id } = req.params;
         const updates = req.body;
         let updatedItem = null;
