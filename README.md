@@ -1,101 +1,78 @@
 # Domus - Property Management System
 
-[![CI Pipeline](https://github.com/tonileet/domus/actions/workflows/ci.yml/badge.svg)](https://github.com/tonileet/domus/actions/workflows/ci.yml)
-[![Nightly Tests](https://github.com/tonileet/domus/actions/workflows/nightly-agents.yml/badge.svg)](https://github.com/tonileet/domus/actions/workflows/nightly-agents.yml)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![CI Pipeline](https://github.com/t0nigansel/domus/actions/workflows/ci.yml/badge.svg)](https://github.com/t0nigansel/domus/actions/workflows/ci.yml)
+[![Nightly Tests](https://github.com/t0nigansel/domus/actions/workflows/nightly-agents.yml/badge.svg)](https://github.com/t0nigansel/domus/actions/workflows/nightly-agents.yml)
+[![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](LICENSE)
 
-A modern property management application built with React and Vite, featuring automated testing and CI/CD pipelines.
+A property management application for small landlords: properties, tenants, issues, documents, costs and contacts.
 
-Currently, two official plugins are available:
+> This project was previously hosted at `github.com/tonileet/domus` and is now maintained here.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture
 
-## React Compiler
+| Part | Location | Tech |
+|------|----------|------|
+| Frontend | `src/` | React 19, React Router 7, Vite |
+| API server | `server/` | Express, lowdb (JSON file storage), Swagger docs |
+| Test agents | `agents/` | Node scripts that run lint, unit, E2E and API tests and write reports |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend talks to the API at `http://localhost:3001/api` (see `src/utils/api.js`).
+The API stores all data in `server/db.json`, seeded from `server/initialData.js` if the file doesn't exist.
 
 ## Quick Start
 
 ### Development
-```bash
-# Install dependencies
-npm install
 
-# Start development server
+Start the API server and the frontend in two terminals:
+
+```bash
+# Terminal 1 - API server (http://localhost:3001, docs at /api-docs)
+cd server
+npm install
+npm start
+
+# Terminal 2 - frontend (http://localhost:5173)
+npm install
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+Without the API server, the app shows "Error loading data".
 
 ### Testing
+
 ```bash
-# Run linter
-npm run lint
-
-# Run unit tests
-npm test
-
-# Run E2E tests (requires Playwright)
-npm run test:e2e
-
-# Run all test agents
-npm run test:agents
+npm run lint          # ESLint
+npm test              # Vitest (frontend unit tests and server API tests)
+npm run test:e2e      # Playwright (install browsers first: npx playwright install)
+npm run test:agents   # Run all test agents and write a report to test-results/
 ```
 
 ### Build
-```bash
-# Build for production
-npm run build
 
-# Preview production build
+```bash
+npm run build
 npm run preview
 ```
 
-## CI/CD Pipeline
+## CI/CD
 
-This project uses GitHub Actions for continuous integration and deployment:
+GitHub Actions workflows:
 
-### Automated Checks (on every commit)
-- ✅ **ESLint** - Code quality and style checks
-- ✅ **Unit Tests** - Vitest with coverage reporting
-- ✅ **E2E Tests** - Playwright browser tests
-- ✅ **Build Verification** - Ensures the app builds successfully
+- [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push and pull request to `main`/`develop`: lint, unit tests with coverage, E2E tests and build.
+- [`.github/workflows/nightly-agents.yml`](.github/workflows/nightly-agents.yml) runs all test agents at 02:00 UTC and opens a GitHub issue (label `nightly-test-failure`) when they fail.
 
-### Nightly Checks
-- 🌙 **Full Test Agent Analysis** - Comprehensive code quality report
-- 🤖 **Automated Issue Creation** - Creates GitHub issues when tests fail
+To run the agent analysis on a push to another branch, include `[run-agents]` in the commit message.
 
-### Workflow Files
-- [`.github/workflows/ci.yml`](.github/workflows/ci.yml) - Main CI pipeline
-- [`.github/workflows/nightly-agents.yml`](.github/workflows/nightly-agents.yml) - Scheduled test agents
+## Data Privacy
 
-### Pull Request Integration
-Pull requests automatically receive:
-- Linting results
-- Test coverage reports
-- E2E test results
-- Build status
+This repository is public. Be careful where your real data ends up:
 
-To trigger additional agent analysis in a PR, include `[run-agents]` in your commit message.
+- **`server/db.json` is currently tracked by Git.** Everything you enter in the app is written to this file, so a `git commit -a` would publish your tenants' personal data. Don't enter real data until this file is removed from version control and added to `.gitignore`.
+- `server/initialData.js` and `src/db/demoData.js` are committed and must only contain fictional demo data.
+- Put backups and exports in `data/` (ignored by Git) or outside the project directory.
+- Watch out for real tenant or property details in screenshots.
+- The API server has no authentication. Only run it on a trusted machine.
 
-## Data Privacy & Public Persistence
+## License
 
-This application is designed to be maintained in a public repository without leaking your personal data.
-
-### Where is my data?
-- **All data** (properties, tenants, costs, etc.) is stored locally in your browser's **IndexedDB**.
-- It is **never** sent to a server or stored as files within this repository.
-- This means your data stays on your machine and is not tracked by Git.
-
-### Critical Safety Rules
-1. **Never** put real personal information in `src/db/migration.js`. This file is for library defaults or demo data and **will** be committed.
-2. If you want to export data for backup, save it in the `data/` folder (which is ignored by Git) or anywhere outside this project directory.
-3. Be careful when sharing screenshots of the application if it contains real tenant or property details.
-
-### Backup & Restore
-(Coming Soon) Export/Import functionality to easily move your data between browsers or devices.
-
+[GPL-3.0](LICENSE)

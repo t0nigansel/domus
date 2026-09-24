@@ -7,7 +7,7 @@ Thank you for your interest in contributing to Domus! This guide will help you u
 ### 1. Fork and Clone
 
 ```bash
-git clone https://github.com/tonileet/domus.git
+git clone https://github.com/t0nigansel/domus.git
 cd domus
 npm install
 ```
@@ -165,7 +165,7 @@ npm run lint
 
 ## Getting Help
 
-- Check existing [issues](https://github.com/tonileet/domus/issues)
+- Check existing [issues](https://github.com/t0nigansel/domus/issues)
 - Read the [README](../README.md)
 - Ask in pull request comments
 - Review [test agent documentation](../agents/README.md)

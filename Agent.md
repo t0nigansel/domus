@@ -5,8 +5,8 @@ Global project context holder for Domus.
 Ensures architectural consistency and prevents scope bleed between agents.
 
 ## Project Context
-- Frontend-only app (Vite + React)
-- Currently uses mock data
+- React frontend (Vite) + Express/lowdb API server in `server/`
+- Data is persisted by the API in `server/db.json` (seeded with demo data)
 - Dark-first UI with minimal, calm design
 - Domain-driven navigation:
   Dashboard, Properties, Tenants, Issues, Documents, Costs
