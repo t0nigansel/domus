@@ -59,6 +59,7 @@ const TenantDetails = () => {
 
                     <section className="info-card">
                         <h3>Lease Details</h3>
+                        {tenant.leaseManaged && <Link className="btn-outline" to={`/rentals?propertyId=${tenant.propertyId}`}>Mietverhältnisse und Historie</Link>}
                         <div className="info-list">
                             <div className="info-row-detail">
                                 <Home size={18} className="text-muted" />

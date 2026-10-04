@@ -9,6 +9,7 @@ import TenantDetails from './pages/TenantDetails';
 import Documents from './pages/Documents';
 import Costs from './pages/Costs';
 import Contacts from './pages/Contacts';
+import Rentals from './pages/Rentals';
 import { DataProvider } from './context/DataContext';
 
 
@@ -27,6 +28,8 @@ function App() {
             <Route path="documents" element={<Documents />} />
             <Route path="costs" element={<Costs />} />
             <Route path="contacts" element={<Contacts />} />
+            <Route path="rentals" element={<Rentals />} />
+            <Route path="rentals/:id" element={<Rentals />} />
           </Route>
         </Routes>
       </BrowserRouter>

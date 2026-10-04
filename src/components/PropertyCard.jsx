@@ -11,7 +11,9 @@ const PropertyCard = ({ property }) => {
     const { issues } = useData();
     const hasOpenIssues = issues.some(i => i.propertyId === property.id && i.status === 'Open');
 
-    const totalRent = (property.coldRent || 0) + (property.nebenkosten || 0);
+    const nonRental = ['NonRental', 'Usufruct'].includes(property.occupancyKind);
+    const totalRent = Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten)
+        ? `${property.coldRent + property.nebenkosten} €` : 'Noch offen';
 
     return (
         <div className="property-card">
@@ -33,7 +35,7 @@ const PropertyCard = ({ property }) => {
                 <div className="property-meta">
                     <div className="meta-item">
                         <span className="label">Rent</span>
-                        <span className="value">{totalRent} €</span>
+                        <span className="value">{nonRental ? 'Kein Mietverhältnis' : totalRent}</span>
                     </div>
                     {property.size && (
                         <div className="meta-item">

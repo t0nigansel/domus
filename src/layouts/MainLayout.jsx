@@ -11,6 +11,7 @@ const MainLayout = () => {
     const navigation = [
         { name: 'Dashboard', path: '/', icon: LayoutDashboard },
         { name: 'Properties', path: '/properties', icon: Building },
+        { name: 'Vermietungen', path: '/rentals', icon: FileText },
         { name: 'Issues', path: '/issues', icon: AlertCircle },
         { name: 'Tenants', path: '/tenants', icon: Users },
         { name: 'Documents', path: '/documents', icon: FileText },

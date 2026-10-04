@@ -409,3 +409,10 @@
 .text-success {
     color: var(--color-success);
 }
+
+@media (max-width: 600px) {
+    .details-header { flex-direction: column; gap: 16px; }
+    .title-row { flex-wrap: wrap; }
+    .details-title { overflow-wrap: anywhere; }
+    .rent-display { flex-wrap: wrap; }
+}

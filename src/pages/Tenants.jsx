@@ -105,6 +105,7 @@ const Tenants = () => {
             <PageHeader title="Tenants" onAction={() => setIsAddingTenant(true)} />
 
             <CollapsiblePanel title="New Tenant" isOpen={isAddingTenant} onClose={() => setIsAddingTenant(false)}>
+                <p>Für Wohnungen mit bestätigten Mietverhältnissen neue Parteien über <Link to="/rentals">Vermietungen</Link> anlegen.</p>
                 <form onSubmit={handleAddSubmit}>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
@@ -150,7 +151,7 @@ const Tenants = () => {
                                 className="edit-select"
                             >
                                 <option value="">Select Property...</option>
-                                {properties.map(p => (
+                                {properties.filter(p => !p.leaseManaged).map(p => (
                                     <option key={p.id} value={p.id}>{p.name}</option>
                                 ))}
                             </select>
@@ -171,7 +172,6 @@ const Tenants = () => {
                             <label>Lease End</label>
                             <input
                                 type="date"
-                                required
                                 value={newTenantData.leaseEnd}
                                 onChange={e => setNewTenantData({ ...newTenantData, leaseEnd: e.target.value })}
                                 className="edit-input"
@@ -223,6 +223,7 @@ const Tenants = () => {
                                 {isExpanded && (
                                     <div className="tenant-edit-form" onClick={e => e.stopPropagation()}>
                                         <form onSubmit={(e) => handleInlineSave(e, tenant.id)}>
+                                            {tenant.leaseManaged && <p>Zeitraum und Zuordnung unter <Link to={`/rentals?propertyId=${tenant.propertyId}`}>Mietverh?ltnisse</Link> verwalten.</p>}
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 1 }}>
                                                     <label>Name</label>
@@ -259,7 +260,7 @@ const Tenants = () => {
                                                 <div className="form-group" style={{ flex: 1 }}>
                                                     <label>Property</label>
                                                     <select
-                                                        name="propertyId"
+                                                        name="propertyId" disabled={tenant.leaseManaged}
                                                         value={editFormData.propertyId}
                                                         onChange={handleEditFormChange}
                                                         className="edit-select"
@@ -276,7 +277,7 @@ const Tenants = () => {
                                                     <label>Lease Start</label>
                                                     <input
                                                         type="date"
-                                                        name="leaseStart"
+                                                        name="leaseStart" disabled={tenant.leaseManaged}
                                                         value={editFormData.leaseStart}
                                                         onChange={handleEditFormChange}
                                                         className="edit-input"
@@ -286,7 +287,7 @@ const Tenants = () => {
                                                     <label>Lease End</label>
                                                     <input
                                                         type="date"
-                                                        name="leaseEnd"
+                                                        name="leaseEnd" disabled={tenant.leaseManaged}
                                                         value={editFormData.leaseEnd}
                                                         onChange={handleEditFormChange}
                                                         className="edit-input"
@@ -298,7 +299,7 @@ const Tenants = () => {
                                                 <button type="button" className="btn-outline small" onClick={() => setExpandedTenantId(null)}>Cancel</button>
                                                 <button
                                                     type="button"
-                                                    className="btn-danger small"
+                                                    className="btn-danger small" disabled={tenant.leaseManaged}
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         setDeleteModal({ open: true, tenantId: tenant.id, tenantName: tenant.name });

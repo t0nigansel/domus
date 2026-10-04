@@ -17,14 +17,15 @@ const Dashboard = () => {
         const activeIssuesCount = issues.filter(i => i.status === 'Open').length;
 
         // Calculate Revenue (sum of total rent for occupied units)
-        const totalRevenue = properties
-            .filter(p => p.status === 'Occupied')
+        const rentedProperties = properties.filter(p => p.status === 'Occupied' && !['NonRental', 'Usufruct'].includes(p.occupancyKind));
+        const revenueIncomplete = rentedProperties.some(p => !Number.isFinite(p.coldRent) || !Number.isFinite(p.nebenkosten));
+        const totalRevenue = rentedProperties
             .reduce((sum, p) => sum + (p.coldRent + p.nebenkosten), 0);
 
         const occupancyRate = Math.round((occupied / totalProperties) * 100);
 
         return {
-            revenue: totalRevenue,
+            revenue: revenueIncomplete ? null : totalRevenue,
             occupancy: occupancyRate,
             maintenance: maintenance,
             issues: activeIssuesCount,
@@ -89,7 +90,7 @@ const Dashboard = () => {
             </header>
 
             <section className="stats-grid">
-                <StatCard title="Total Revenue" value={`€${stats.revenue}`} icon={Wallet} color="primary" trend="+2.5%" />
+                <StatCard title="Total Revenue" value={stats.revenue === null ? 'Angaben fehlen' : `€${stats.revenue}`} icon={Wallet} color="primary" />
                 <StatCard title="Occupancy Rate" value={`${stats.occupancy}%`} icon={CheckCircle} color="success" trend={`${stats.total} total units`} />
                 <StatCard
                     title="Open Issues"

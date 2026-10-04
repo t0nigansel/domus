@@ -25,6 +25,7 @@ dist-ssr
 
 # Local data and secrets
 data/
+rohdaten/
 *.local
 .env
 .env.*
@@ -42,3 +43,6 @@ agents/config.js
 
 # API data (personal data - never commit)
 server/db.json
+server/*.bak
+
+rohdaten

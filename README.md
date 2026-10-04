@@ -38,6 +38,80 @@ npm run dev
 
 Without the API server, the app shows "Error loading data".
 
+## Wohnungsakte und Dateien
+
+Die Wohnungsdetailseite enthält eine Wohnungsakte mit Adresse, Fläche, Zimmern,
+Ausstattung und Energieangaben. Leere Zahlenfelder bleiben unbekannt. Vorhandene
+Miet- und Belegungsdaten werden beim Speichern dieser Stammdaten nicht verändert.
+
+Fotos, Grundrisse und Dokumente können auf der Wohnungsseite oder unter Documents
+hochgeladen werden (PDF, DOC/DOCX, JPG, PNG, WebP; maximal 20 MB pro Datei).
+Unter Documents lassen sich auch zunächst nicht zugeordnete Dateien nachträglich
+einer Wohnung zuordnen. Beschreibung, Kategorie, Reihenfolge, Titelbild und
+Freigabe für Inserate sind bearbeitbar. Neue Dateien sind standardmäßig intern.
+
+Mit **Rohdaten einlesen** werden unterstützte Dateien aus `rohdaten/` angezeigt.
+Der anschließende Import kopiert die ausgewählte Datei; Originale bleiben erhalten.
+Identische Inhalte werden je Wohnung nur einmal importiert. Eine geänderte Datei
+aus demselben Rohdatenpfad erhält eine neue Version. Die Quellenliste
+`rohdaten/informationsquellen.md` wird in diesem ersten Ausbauschritt noch nicht
+ausgewertet.
+
+| Einstellung | Standard | Zweck |
+| --- | --- | --- |
+| `DOMUS_RAW_DIR` | `rohdaten/` im Projekt | Eingangsordner für manuelle Importe |
+| `DOMUS_FILES_DIR` | `data/files/` im Projekt | Verwaltete Kopien der Dateien |
+
+Dateimetadaten und Zuordnungen liegen in der bestehenden Datenbank. Für ein
+vollständiges Backup die Datenbank **und** den verwalteten Dateiordner sichern.
+`rohdaten/` und `data/` sind von Git ausgeschlossen. Bei extern konfigurierten
+Speicherorten den gleichen Schutz sicherstellen. Der Dateiimport ist für die
+bestehende lokale Einzelbenutzerinstallation vorgesehen.
+
+Datei-Endpunkte: `GET /api/files/raw-files`, `POST /api/files/import`,
+`POST /api/files/upload`, `GET /api/files/:id/content` und
+`PUT /api/files/:id/metadata`. Uploads verwenden JSON mit Base64-Inhalt;
+die Dateiinhalte selbst werden als Dateien außerhalb der JSON-Datenbank gespeichert.
+
+## Vermietungen und Mietverhältnisse
+
+Unter **Vermietungen** oder über die Wohnungsdetailseite lässt sich ein eigener
+Vorgang für eine Neuvermietung anlegen. Konditionen und ein manueller Inseratentwurf
+bleiben vom aktuellen Mietverhältnis getrennt. Bewerbungen können mehrere
+Vertragsparteien enthalten; Besichtigungen haben Datum, Ortszeit, Status und Notizen.
+Vorgänge können archiviert werden und bleiben anschließend lesbar.
+
+Nach Auswahl einer Bewerbung lässt sich ein extern unterschriebener Vertrag aus
+der Wohnungsakte zuordnen (Kategorie `Leases` / Mietverträge). Nach ausdrücklicher
+Bestätigung legt der Abschluss genau ein Mietverhältnis an, auch bei wiederholtem
+Klick oder einer wiederholten API-Anfrage. Nachrichtenversand, Veröffentlichung,
+LLM-Funktionen und Vertragsgenerierung sind noch nicht Teil dieses Ausbauschritts.
+
+Mietverhältnisse unterstützen mehrere Vertragsparteien, einen Mietbeginn und ein
+optionales Ende. Das Enddatum ist der letzte Miettag. Zeiträume für dieselbe Wohnung
+oder dieselbe Person dürfen sich nicht überschneiden. Geplante Mietverhältnisse
+verändern weder die heutige Belegung noch die heutige Miete. Der Server berechnet
+den Status beim Lesen anhand seines lokalen Datums; nach einem Datumswechsel die
+Ansicht neu laden. Mietenden lassen sich in der Übersicht festlegen oder korrigieren.
+Kontaktdaten bleiben unter Tenants bearbeitbar; bestätigte Vertragsparteien können
+nicht über die bisherige Mieter-Löschfunktion aus der Historie entfernt werden.
+
+Beim ersten Serverstart mit dieser Version werden die zusätzlichen Sammlungen
+angelegt. Vorher wird eine bestehende Datenbank einmalig nach
+`<Datenbankdatei>.before-rentals-v1.bak` kopiert. Die bestehenden Datensätze werden
+nicht automatisch zu Verträgen zusammengeführt. Unter **Bestandsmieter prüfen**
+werden gemeinsame Parteien, Zeitraum und Konditionen ausdrücklich bestätigt.
+Früher vorbelegte einjährige Laufzeiten sollten dabei am Originalvertrag geprüft
+werden. Bei einer Anschlussvermietung müssen aktive Bestandsmieter dieser Wohnung
+zuerst bestätigt und deren Enddatum gegebenenfalls eingetragen werden.
+
+API: `GET/POST /api/rentals`, `PUT /api/rentals/:id`,
+`POST /api/rentals/:id/applications`, `PUT /api/rentals/:id/applications/:applicationId`,
+`POST /api/rentals/:id/viewings`, `PUT /api/rentals/:id/viewings/:viewingId`,
+`POST /api/rentals/:id/complete`, `POST /api/rentals/leases/confirm` und
+`PUT /api/rentals/leases/:id/end`. Die Übersicht liefert Vorgänge, Mietverhältnisse
+und noch nicht bestätigte Bestandsmieter. Monatsbeträge werden intern in Cent gespeichert.
+
 ### Testing
 
 ```bash

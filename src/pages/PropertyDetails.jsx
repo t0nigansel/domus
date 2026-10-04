@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, MapPin, Euro, Home, User, FileText, Settings, Save, X, Activity, Users, PawPrint, Plus, Trash2 } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import './PropertyDetails.css';
+import PropertyDossier from './PropertyDossier';
 
 const PropertyDetails = () => {
     const { id } = useParams();
@@ -183,6 +184,13 @@ const PropertyDetails = () => {
                 </div>
             </header>
 
+            <PropertyDossier key={property.id} property={property} />
+            <section className="details-card">
+                <h2>Vermietung und Mietverhältnisse</h2>
+                <p>Interessenten, Besichtigungen, Vertragsparteien und Mietzeiträume für diese Wohnung verwalten.</p>
+                <Link className="btn-outline" to={`/rentals?propertyId=${property.id}`}>Vermietungen öffnen</Link>
+            </section>
+
             <div className="details-grid">
                 {/* Left Column: Stats & Info */}
                 <div className="details-main">
@@ -224,8 +232,8 @@ const PropertyDetails = () => {
                                             </div>
                                         ) : (
                                             <div className="rent-display">
-                                                <span className="value">{property.coldRent + property.nebenkosten} €</span>
-                                                <span className="small-detail">({property.coldRent} € + {property.nebenkosten} €)</span>
+                                                <span className="value">{['NonRental', 'Usufruct'].includes(property.occupancyKind) ? 'Kein Mietverhältnis' : Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) ? `${property.coldRent + property.nebenkosten} €` : 'Noch offen'}</span>
+                                                {Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) && <span className="small-detail">({property.coldRent} € + {property.nebenkosten} €)</span>}
                                             </div>
                                         )}
                                     </div>
@@ -302,7 +310,7 @@ const PropertyDetails = () => {
                     <section className="details-card">
                         <div className="card-header-row">
                             <h2 className="card-title">Tenants ({propertyTenants.length})</h2>
-                            {!isAddingTenant && (
+                            {property.leaseManaged ? <Link className="btn-text" to={`/rentals?propertyId=${property.id}`}>Mietverhältnisse verwalten</Link> : !isAddingTenant && (
                                 <button className="btn-text" onClick={() => setIsAddingTenant(true)}>
                                     <Plus size={16} /> Add Tenant
                                 </button>
@@ -349,7 +357,8 @@ const PropertyDetails = () => {
                                             </div>
                                             <button
                                                 className="btn-icon-danger"
-                                                title="Remove Tenant"
+                                                title={tenant.leaseManaged ? 'Mietverhältnis unter Vermietungen beenden' : 'Remove Tenant'}
+                                                disabled={tenant.leaseManaged}
                                                 onClick={() => removeTenant(tenant.id)}
                                             >
                                                 <Trash2 size={16} />
@@ -455,25 +464,6 @@ const PropertyDetails = () => {
 
                 {/* Right Column: Documents & Tasks */}
                 <div className="details-sidebar">
-                    <section className="details-card">
-                        <div className="card-header-row">
-                            <h2 className="card-title">Documents</h2>
-                            <button className="btn-text">Upload</button>
-                        </div>
-                        <ul className="document-list">
-                            <li className="document-item">
-                                <FileText size={16} />
-                                <span>Insurance Policy.pdf</span>
-                            </li>
-                            {property.status === 'Occupied' && (
-                                <li className="document-item">
-                                    <FileText size={16} />
-                                    <span>Lease Agreement.pdf</span>
-                                </li>
-                            )}
-                        </ul>
-                    </section>
-
                     <section className="details-card">
                         <h2 className="card-title">Notes</h2>
                         {isEditing ? (

@@ -79,16 +79,13 @@ export const DataProvider = ({ children }) => {
         updateContact,
         deleteContact,
         addDocument,
+        refreshDocuments,
 
         // Refresh Methods (exposed if needed for manual refreshes)
-        refreshAll: () => {
-            refreshProperties();
-            refreshTenants();
-            refreshIssues();
-            refreshCosts();
-            refreshContacts();
-            refreshDocuments();
-        }
+        refreshAll: () => Promise.all([
+            refreshProperties(), refreshTenants(), refreshIssues(),
+            refreshCosts(), refreshContacts(), refreshDocuments()
+        ])
     };
 
     if (loading) {

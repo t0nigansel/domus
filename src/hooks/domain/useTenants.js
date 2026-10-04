@@ -33,7 +33,7 @@ export const useTenants = (properties = []) => {
                 propertyId,
                 propertyName: property?.name || 'Unknown Property',
                 leaseStart: new Date().toISOString().split('T')[0],
-                leaseEnd: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+                leaseEnd: null,
                 status: TENANT_STATUS.ACTIVE,
                 paymentHistory: [],
                 ...tenantData
@@ -57,6 +57,9 @@ export const useTenants = (properties = []) => {
 
     const updateTenant = async (id, updatedFields) => {
         try {
+            if (tenants.find(t => t.id === id)?.leaseManaged) {
+                updatedFields = Object.fromEntries(['name', 'email', 'phone'].filter(key => updatedFields[key] !== undefined).map(key => [key, updatedFields[key]]));
+            }
             // If propertyId is being updated, also update propertyName for consistency
             if (updatedFields.propertyId !== undefined) {
                 const property = properties.find(p => p.id === updatedFields.propertyId);
@@ -75,16 +78,16 @@ export const useTenants = (properties = []) => {
         try {
             const tenant = tenants.find(t => t.id === tenantId);
 
+            if (tenant?.leaseManaged) throw new Error('Mietverhältnis unter Vermietungen beenden.');
+
             // Mark tenant as past instead of deleting
             const updated = await tenantService.update(tenantId, {
-                propertyId: null,
-                propertyName: null,
                 status: TENANT_STATUS.PAST
             });
             setTenants(prev => prev.map(t => t.id === tenantId ? updated : t));
 
             // Update property occupant count
-            if (tenant && tenant.propertyId) {
+            if (tenant && tenant.propertyId && tenant.status === TENANT_STATUS.ACTIVE) {
                 const property = properties.find(p => p.id === tenant.propertyId);
                 if (property) {
                     await propertyService.update(property.id, {
@@ -102,8 +105,10 @@ export const useTenants = (properties = []) => {
         try {
             const tenant = tenants.find(t => t.id === tenantId);
 
+            if (tenant?.leaseManaged) throw new Error('Vertragsparteien bleiben im Mietverhältnis erhalten.');
+
             // Update property occupant count before deleting
-            if (tenant && tenant.propertyId) {
+            if (tenant && tenant.propertyId && tenant.status === TENANT_STATUS.ACTIVE) {
                 const property = properties.find(p => p.id === tenant.propertyId);
                 if (property) {
                     await propertyService.update(property.id, {

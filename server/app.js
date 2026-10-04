@@ -3,6 +3,8 @@ import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { createCrudRouter } from './createCrudRouter.js';
 import { specs } from './swagger.js';
+import { fileRouter } from './fileRouter.js';
+import { rentalRouter } from './rentalRouter.js';
 
 // Origins allowed to call the API from a browser (comma-separated).
 // Defaults to the Vite dev server and preview server.
@@ -30,7 +32,9 @@ app.use((req, res, next) => {
     next();
 });
 app.use(cors({ origin: allowedOrigins }));
+app.use('/api/files', fileRouter);
 app.use(express.json());
+app.use('/api/rentals', rentalRouter);
 
 // Swagger Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
@@ -59,7 +63,8 @@ app.get('/api', (req, res) => {
             '/api/issues',
             '/api/documents',
             '/api/costs',
-            '/api/contacts'
+            '/api/contacts',
+            '/api/rentals'
         ],
         documentation: '/api-docs'
     });

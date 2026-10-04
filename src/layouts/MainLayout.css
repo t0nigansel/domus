@@ -72,3 +72,14 @@
     /* Ensure content doesn't overflow horizontally unexpectedly */
     min-width: 0;
 }
+
+@media (max-width: 700px) {
+    .layout { flex-direction: column; }
+    .sidebar { position: static; width: 100%; height: auto; border-right: 0; border-bottom: 1px solid var(--color-border); }
+    .sidebar-header { height: 52px; }
+    .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 8px; flex: none; }
+    .sidebar-nav .nav-item { flex: 0 0 auto; padding: 12px; gap: 8px; }
+    .sidebar-footer { padding: 4px 12px; }
+    .sidebar-footer .nav-item { padding: 8px; min-height: 44px; }
+    .main-content { margin-left: 0; width: 100%; }
+}
