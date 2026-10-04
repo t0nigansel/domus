@@ -163,6 +163,9 @@ class UnitTester {
    * Generate Vitest configuration
    */
   async generateVitestConfig() {
+    // Never overwrite a config the project already maintains
+    if (await fs.access(path.join(this.config.projectRoot, 'vitest.config.js')).then(() => true, () => false)) return;
+
     const config = `import { defineConfig, configDefaults } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
@@ -193,6 +196,9 @@ export default defineConfig({
    * Generate test setup file
    */
   async generateTestSetup() {
+    // Never overwrite a config the project already maintains
+    if (await fs.access(path.join(this.config.testsDir, 'setup.js')).then(() => true, () => false)) return;
+
     const setup = `import { afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
@@ -201,15 +207,6 @@ import '@testing-library/jest-dom/vitest';
 afterEach(() => {
   cleanup();
 });
-
-// Mock IndexedDB for tests
-global.indexedDB = {
-  open: () => ({
-    onsuccess: null,
-    onerror: null,
-    onupgradeneeded: null,
-  }),
-};
 `;
 
     const setupPath = path.join(this.config.testsDir, 'setup.js');

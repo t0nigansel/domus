@@ -27,6 +27,8 @@ const inside = (root, target) => {
 };
 
 function fileFormat(name) {
+    // Control characters are rejected on purpose: they are never valid in stored file names.
+    // eslint-disable-next-line no-control-regex
     if (typeof name !== 'string' || !name || name.length > 240 || /[\\/\x00-\x1f]/.test(name)) {
         throw failure('Ungültiger Dateiname.');
     }

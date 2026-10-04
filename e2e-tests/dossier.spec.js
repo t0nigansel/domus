@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('Wohnungsakte saves details, imports a plan and keeps publication opt-in', async ({ page }) => {
     let property = { id: 'demo', name: 'Testwohnung', location: 'Top Left', status: 'Vacant', condition: 'Good', coldRent: 800, nebenkosten: 100, occupants: 0 };
     let documents = [];
-    await page.route('http://localhost:3001/api/**', async route => {
+    await page.route('**/api/**', async route => {
         const req = route.request();
         const endpoint = new URL(req.url()).pathname;
         let body = [];

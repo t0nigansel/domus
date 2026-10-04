@@ -122,6 +122,9 @@ class E2ETester {
    * Generate Playwright configuration
    */
   async generatePlaywrightConfig() {
+    // Never overwrite a config the project already maintains
+    if (await fs.access(path.join(this.config.projectRoot, 'playwright.config.js')).then(() => true, () => false)) return;
+
     const config = `import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({

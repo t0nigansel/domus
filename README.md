@@ -16,27 +16,33 @@ A property management application for small landlords: properties, tenants, issu
 | API server | `server/` | Express, lowdb (JSON file storage), Swagger docs |
 | Test agents | `agents/` | Node scripts that run lint, unit, E2E and API tests and write reports |
 
-The frontend talks to the API at `http://localhost:3001/api` (see `src/utils/api.js`).
+The frontend calls the API under the same origin at `/api` (see `src/utils/api.js`); in development and preview, Vite forwards these requests to the API server.
 The API stores all data in `server/db.json`, seeded from `server/initialData.js` if the file doesn't exist.
+
+Domus is being rebuilt as a multi-user web application, see [SaaS-Umbauplan.md](SaaS-Umbauplan.md).
 
 ## Quick Start
 
+Requires Node.js 22 or newer. The repository uses npm workspaces (`server/` is a workspace), so one install covers everything.
+
 ### Development
 
-Start the API server and the frontend in two terminals:
-
 ```bash
-# Terminal 1 - API server (http://localhost:3001, docs at /api-docs)
-cd server
 npm install
-npm start
-
-# Terminal 2 - frontend (http://localhost:5173)
-npm install
-npm run dev
+cp .env.example .env   # optional, defaults work locally
+npm run dev            # API on http://localhost:3001, app on http://localhost:5173
 ```
 
-Without the API server, the app shows "Error loading data".
+`npm run dev:web` and `npm run dev:api` start only one side. Without the API server, the app shows "Error loading data".
+
+### Database (from phase 1 of the rebuild)
+
+PostgreSQL runs in Docker for local development (requires Docker Desktop):
+
+```bash
+npm run db:up     # start PostgreSQL on 127.0.0.1:5432 and wait until it's ready
+npm run db:down   # stop it (data stays in the Docker volume)
+```
 
 ## Wohnungsakte und Dateien
 
@@ -142,7 +148,7 @@ To run the agent analysis on a push to another branch, include `[run-agents]` in
 This repository is public. Be careful where your real data ends up:
 
 - Everything you enter is written to `server/db.json`, which is ignored by Git. To keep it outside the project, set `DOMUS_DB_FILE=/path/to/domus.json`.
-- `server/initialData.js` and `src/db/demoData.js` are committed and must only contain fictional demo data.
+- `server/initialData.js` is committed and must only contain fictional demo data.
 - Put backups and exports in `data/` (ignored by Git) or outside the project directory.
 - Watch out for real tenant or property details in screenshots.
 - Tests use an in-memory database and never touch your data.

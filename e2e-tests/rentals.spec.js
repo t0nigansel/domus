@@ -21,7 +21,7 @@ test('full manual rental workflow uses isolated API and keeps future occupancy u
             child.once('error', error => { clearTimeout(timer); reject(error); });
             child.once('exit', code => { clearTimeout(timer); reject(new Error(`Isolated API exited: ${code}`)); });
         });
-        await page.route('http://localhost:3001/api/**', async route => {
+        await page.route('**/api/**', async route => {
             const url = new URL(route.request().url());
             const response = await route.fetch({ url: `http://127.0.0.1:${port}${url.pathname}${url.search}` });
             await route.fulfill({ response });

@@ -1,11 +1,8 @@
 import app from './app.js';
+import { config } from './config.js';
 
-const PORT = Number(process.env.PORT) || 3001;
-// Listen on loopback only so the API isn't reachable from other devices.
-// Set HOST=0.0.0.0 to expose it on the network (it has no authentication).
-const HOST = process.env.HOST || '127.0.0.1';
-
-app.listen(PORT, HOST, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`Documentation available at http://localhost:${PORT}/api-docs`);
+// Binds to 127.0.0.1 unless HOST says otherwise (the API has no authentication yet).
+app.listen(config.port, config.host, () => {
+    console.log(`Server is running on http://localhost:${config.port}`);
+    console.log(`Documentation available at http://localhost:${config.port}/api-docs`);
 });

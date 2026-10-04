@@ -5,20 +5,7 @@ import { createCrudRouter } from './createCrudRouter.js';
 import { specs } from './swagger.js';
 import { fileRouter } from './fileRouter.js';
 import { rentalRouter } from './rentalRouter.js';
-
-// Origins allowed to call the API from a browser (comma-separated).
-// Defaults to the Vite dev server and preview server.
-const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173,http://localhost:4173')
-    .split(',')
-    .map(origin => origin.trim())
-    .filter(Boolean);
-
-// The API is meant for local use only. Rejecting other Host headers
-// blocks DNS rebinding attacks from websites opened in the browser.
-const allowedHostnames = (process.env.ALLOWED_HOSTS || 'localhost,127.0.0.1,[::1]')
-    .split(',')
-    .map(host => host.trim().toLowerCase())
-    .filter(Boolean);
+import { config } from './config.js';
 
 const app = express();
 app.disable('x-powered-by');
@@ -26,12 +13,12 @@ app.disable('x-powered-by');
 // Middleware
 app.use((req, res, next) => {
     const hostname = (req.headers.host || '').toLowerCase().replace(/:\d+$/, '');
-    if (!allowedHostnames.includes(hostname)) {
+    if (!config.allowedHosts.includes(hostname)) {
         return res.status(403).json({ error: 'Host not allowed' });
     }
     next();
 });
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({ origin: config.corsOrigins }));
 app.use('/api/files', fileRouter);
 app.use(express.json());
 app.use('/api/rentals', rentalRouter);

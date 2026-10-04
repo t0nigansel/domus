@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently -k -n api,web -c blue,green \"npm run dev -w server\" \"vite\"",
+    "dev:web": "vite",
+    "dev:api": "npm run dev -w server",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,11 +17,12 @@
     "test:agents": "node agents/index.js",
     "test:agents:parallel": "node agents/index.js --parallel",
     "test:agents:lint": "node agents/index.js --no-unittest --no-e2e",
-    "test:agents:unit": "node agents/index.js --no-linter --no-e2e"
+    "test:agents:unit": "node agents/index.js --no-linter --no-e2e",
+    "db:up": "docker compose up -d --wait postgres",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres"
   },
   "dependencies": {
-    "dexie": "^4.2.1",
-    "dexie-react-hooks": "^4.2.0",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -32,21 +35,22 @@
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "^6.1.1",
     "@vitest/coverage-v8": "^4.0.18",
     "@vitest/ui": "^4.0.18",
-    "cors": "^2.8.6",
+    "concurrently": "^10.0.5",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
-    "express": "^5.2.1",
     "globals": "^16.5.0",
     "jsdom": "^27.4.0",
-    "lowdb": "^7.0.1",
-    "supertest": "^7.2.2",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1",
-    "vite": "^5.4.21",
+    "vite": "^8.3.2",
     "vitest": "^4.0.18"
+  },
+  "workspaces": [
+    "server"
+  ],
+  "engines": {
+    "node": ">=22"
   }
 }

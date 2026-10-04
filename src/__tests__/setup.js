@@ -6,12 +6,3 @@ import '@testing-library/jest-dom/vitest';
 afterEach(() => {
   cleanup();
 });
-
-// Mock IndexedDB for tests
-global.indexedDB = {
-  open: () => ({
-    onsuccess: null,
-    onerror: null,
-    onupgradeneeded: null,
-  }),
-};

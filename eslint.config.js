@@ -8,7 +8,7 @@ export default defineConfig([
   globalIgnores(['dist', 'test-results', 'playwright-report', 'coverage']),
   // Node.js files (agents, configs, tests)
   {
-    files: ['agents/**/*.js', '*.config.js', 'e2e-tests/**/*.js', 'src/__tests__/**/*.js'],
+    files: ['agents/**/*.js', 'server/**/*.js', '*.config.js', 'e2e-tests/**/*.js', 'src/__tests__/**/*.js'],
     extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 2020,

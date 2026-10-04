@@ -21,7 +21,7 @@ describe('api', () => {
 
       const result = await api.get('/test');
       expect(result).toEqual(mockData);
-      expect(fetch).toHaveBeenCalledWith('http://localhost:3001/api/test');
+      expect(fetch).toHaveBeenCalledWith('/api/test');
     });
 
     it('should throw error when GET request fails', async () => {
@@ -45,7 +45,7 @@ describe('api', () => {
 
       const result = await api.post('/test', postData);
       expect(result).toEqual(mockData);
-      expect(fetch).toHaveBeenCalledWith('http://localhost:3001/api/test', {
+      expect(fetch).toHaveBeenCalledWith('/api/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(postData)
@@ -64,7 +64,7 @@ describe('api', () => {
 
       const result = await api.put('/test/1', putData);
       expect(result).toEqual(mockData);
-      expect(fetch).toHaveBeenCalledWith('http://localhost:3001/api/test/1', {
+      expect(fetch).toHaveBeenCalledWith('/api/test/1', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(putData)
@@ -82,7 +82,7 @@ describe('api', () => {
 
       const result = await api.delete('/test/1');
       expect(result).toEqual(mockData);
-      expect(fetch).toHaveBeenCalledWith('http://localhost:3001/api/test/1', {
+      expect(fetch).toHaveBeenCalledWith('/api/test/1', {
         method: 'DELETE'
       });
     });

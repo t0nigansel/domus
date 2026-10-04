@@ -101,7 +101,7 @@ export const DataProvider = ({ children }) => {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
                 <h3>Error loading data</h3>
                 <p>{error.message || String(error)}</p>
-                <p>Please ensure the API server is running (cd server && npm start)</p>
+                <p>Please ensure the API server is running (npm run dev)</p>
             </div>
         )
     }

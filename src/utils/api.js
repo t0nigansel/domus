@@ -1,4 +1,5 @@
-export const API_BASE_URL = 'http://localhost:3001/api';
+// Same-origin by default; in development Vite proxies /api to the API server.
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export const api = {
     get: async (endpoint) => {
