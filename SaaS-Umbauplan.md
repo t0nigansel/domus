@@ -12,12 +12,12 @@ Zielarchitektur: Cloudflare Workers für Oberfläche und API, verwaltetes Postgr
 | Projektstruktur | npm-Workspaces, gemeinsamer Entwicklungsstart, zentrale Serverkonfiguration | Cloudflare-Konfiguration und getrennte Umgebungen |
 | API | Express 5, generischer CRUD-Router, eigene Datei- und Vermietungsrouten | Authentifizierung, Kontoprüfung und definierte Eingabeschemas |
 | Daten | `server/db.js` nutzt lowdb und eine globale JSON-Datei | Relationales Schema, Migrationen, Transaktionen und Kontentrennung |
-| PostgreSQL | Docker-Compose, Startskripte und Umgebungsvariablen vorbereitet | Anbindung der Anwendung; Drizzle und Migrationen fehlen |
+| PostgreSQL | Docker lokal vorbereitet; getrennte Neon-Projekte in Frankfurt, Auth-Schema und Hyperdrive angebunden | Relationale Fachmigration und Drizzle fehlen weiterhin |
 | Dateien | Lokale Dateien, serverseitiger Rohdatenimport, Base64-Uploads | Private R2-Ablage, Browser-Upload und Kontingente |
 | Sicherheit | Lokale Host-/Origin-Beschränkungen und einzelne Fachprüfungen | Benutzerrechte und Schutz für einen öffentlich erreichbaren Dienst |
 | Tests | Vitest, Supertest, Playwright und GitHub Actions vorhanden | Isolationstests, PostgreSQL-/Workers-Integration und Wiederherstellungstest |
 
-Die Grundlagen der früheren Phase 0 sind weitgehend vorhanden. PostgreSQL, PGlite, Drizzle und better-auth sind noch nicht in die Anwendung integriert. Ob Docker auf dem Entwicklungsrechner tatsächlich läuft, wird bei der Umsetzung geprüft.
+Die Grundlagen der früheren Phase 0 sind vorhanden. Der Cloud-Worker enthält better-auth mit PostgreSQL-Anbindung; der echte Anmeldezugang bleibt bis zur Mail-Konfiguration und dem Konto-Onboarding geschlossen. Die fachliche Anwendung verwendet weiterhin lowdb. PGlite und Drizzle sind noch nicht integriert. Docker ist installiert, der lokale Docker-Daemon war bei der Prüfung nicht gestartet.
 
 Erhalten bleiben Oberfläche, Navigation und Fachlogik in `src/domain/`, einschließlich Wohnungsakte, Vermietung und Mietverhältnissen. Ein Framework- oder TypeScript-Wechsel gehört nicht zum Umbau.
 
@@ -37,7 +37,7 @@ Browser unter einer gemeinsamen App-Domain
 | Hosting | Ein Worker für die API mit statischem Vite-Build; SPA-Fallback für die Oberfläche, `/api/*` immer an den Worker |
 | Backend | Express behalten; Einstiegspunkt und Abhängigkeiten in Phase 0 unter Workers prüfen |
 | Datenbank | Verwaltetes PostgreSQL mit Drizzle und versionierten Migrationen; Cloud-Anbindung über Hyperdrive |
-| Anbieter | PostgreSQL-Anbieter und Region anhand Wiederherstellung, Datenschutz, Verfügbarkeit und Kosten auswählen; noch nicht festgelegt |
+| Anbieter | Neon, zwei getrennte Projekte in AWS Frankfurt (`aws-eu-central-1`), PostgreSQL 17; auf ausdrücklichen Wunsch des Nutzers eingerichtet |
 | D1 | Nicht gewählt; SQLite/D1 würde den bisherigen PostgreSQL-Plan und dessen Absicherung verändern |
 | Lokal | PostgreSQL aus `docker-compose.yml`; lokale Workers-Entwicklung mit Wrangler bzw. Cloudflare-Vite-Integration nach Kompatibilitätsprüfung |
 | Tests | Bestehende Tests übernehmen; PGlite für unterstützte schnelle Tests, echtes PostgreSQL für RLS, Rollen und Parallelität; Workers-Tests für Laufzeit und Bindings |
@@ -199,7 +199,24 @@ Geprüft: lokale Workers-Laufzeit mit Express, SPA-Direktnavigation, gesperrter 
 
 Cloudflare Builds ist mit `t0nigansel/domus` verbunden. Nur Pushes auf `saas/phase-0` deployen den Worker `domus-preview`; zusätzliche Branch-Previews sind deaktiviert. Build-Befehl: `npm run lint && npm test -- --run && npm run test:cloud`; Deploy-Befehl: `npx wrangler deploy --env preview`. Produktion bleibt ein separates explizites Deployment. Die vorhandene GitHub-App-Verbindung wurde genutzt, ohne einen manuellen CI-Token im Repository anzulegen. Der erste automatische Build für Commit `9a6485a` war erfolgreich: Build `98bdd6db-4dc3-4968-a616-f43853bb1dc5`, deployte Version `29bc0a55-93a0-427d-a955-1ea7cb61c5f5`.
 
-Noch offen: PostgreSQL-Anbieter verbinden und getrennte Datenbanken über Hyperdrive anbinden; Auth-Schema auf PostgreSQL prüfen, echte E-Mail-Zustellung und Absenderdomain einrichten; Organisations-Onboarding, relationale Fachmigration und vollständige Kontentrennung umsetzen; anschließend die restlichen Pilot-Freigaben. Keine Bestandsdateien wurden hochgeladen. Es wurden keine neuen Cloudflare-API-Tokens für die lokale CLI angelegt; sie verwendet den bereits vorhandenen OAuth-Zugang.
+### Neon und Hyperdrive: Frankfurt
+
+Auf ausdrücklichen Wunsch am 11.11.2026 eingerichtet. Beide Neon-Projekte verwenden den Free-Plan, PostgreSQL 17 und eine eigene Datenbank `domus`. Der Neon-Standardbranch heißt in beiden Projekten `production`; die fachliche Preview-Trennung erfolgt durch separate Projekte, nicht durch eine Kopie von Produktionsdaten.
+
+| Umgebung | Neon-Projekt | Projekt-ID | Standort | Hyperdrive |
+| --- | --- | --- | --- | --- |
+| Produktion | `domus-production` | `steep-lab-75898258` | AWS Frankfurt, `aws-eu-central-1` | `domus-production-db`, `b9c1a073416646c0ac8929022803bce9` |
+| Vorschau | `domus-preview` | `super-frost-38384375` | AWS Frankfurt, `aws-eu-central-1` | `domus-preview-db`, `5eca7963027f4c258cb9b9a60a25fa58` |
+
+Beide Hyperdrive-Konfigurationen sind in `wrangler.jsonc` unter `HYPERDRIVE` der passenden Umgebung hinterlegt, einschließlich der standardmäßig gewählten Preview-Konfiguration. Query-Caching ist deaktiviert; das Ursprungslimit beträgt fünf Verbindungen je Konfiguration. TLS prüft Zertifikat und Hostnamen (`verify-full`) über die verifizierte ISRG-Root-X1-CA, Cloudflare-Zertifikat `domus-neon-ca` (`256858a9-e23c-4ab4-bb73-f72156ba0afc`).
+
+Die acht Auth-Tabellen einschließlich Organisationen, Mitgliedschaften, Einladungen und Datenbank-Rate-Limit sind angelegt. Migrationen laufen als `domus_owner`; Worker verwenden ausschließlich `domus_runtime`. Diese Rolle besitzt DML-Rechte auf die Auth-Tabellen, aber keine Tabellen-/Schema-Eigentümerschaft, DDL-, Rollenverwaltungs-, Superuser- oder RLS-Bypass-Rechte. Fachliche Tabellen und deren RLS-Regeln sind noch umzusetzen.
+
+Verbindungsangaben liegen ausschließlich lokal unter `data/neon-<preview|production>-connection.txt` (Eigentümerzugang) und `data/neon-<preview|production>-runtime.txt` (Anwendungszugang), alle von Git ausgeschlossen. Keine Zugangsdaten stehen im Repository. Das anfänglich vom Editor als Dateiname übernommene Produktionspasswort wurde ersetzt, die versehentlich erzeugte Datei entfernt; auch das anfängliche Preview-Eigentümerpasswort wurde ersetzt.
+
+Live geprüft über einen vorübergehenden, mit einem unabhängigen Secret geschützten Cloudflare-Test-Worker: Verbindung mit der eingeschränkten Rolle, parallele transaktionslokale Kontokontexte samt Rollback und Rücksetzung sowie Registrierung, Pilotbeschränkung, E-Mail-Verifizierung, Anmeldung und Sitzung über das echte PostgreSQL-/Hyperdrive-Backend. E-Mails wurden dabei intern abgefangen und nicht versandt. Testkonten, Sitzungen, Rate-Limit-Testeinträge sowie der temporäre Worker und sein Secret wurden danach entfernt; beide Auth-Datenbanken sind leer. Dies ersetzt noch nicht die späteren fachlichen Isolationstests oder einen Backup-Wiederherstellungstest.
+
+Noch offen: echte E-Mail-Zustellung und Absenderdomain; Organisations-Onboarding, relationale Fachmigration und vollständige fachliche Kontentrennung; anschließend die restlichen Pilot-Freigaben. Keine Bestandsdaten oder Bestandsdateien wurden hochgeladen. Es wurden keine neuen Cloudflare-API-Tokens für die lokale CLI angelegt; sie verwendet den bereits vorhandenen OAuth-Zugang.
 
 ## 9. Technische Referenzen
 

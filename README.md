@@ -61,11 +61,21 @@ required settings exist. Organization onboarding and domain data migration are
 still pending; an enabled auth handler alone is not a usable SaaS release.
 
 Required runtime secrets: `BETTER_AUTH_SECRET`, `PILOT_EMAILS`, `RESEND_API_KEY`,
-`MAIL_FROM`. `BETTER_AUTH_URL` is configured separately per environment. Bind a
-separate Hyperdrive configuration as `HYPERDRIVE` in each environment after creating
-the PostgreSQL databases, with query caching disabled for protected data. Never
-commit database credentials or provider keys to Wrangler configuration. Local
-settings can be copied from `.dev.vars.example` to ignored `.dev.vars`.
+`MAIL_FROM`. `BETTER_AUTH_URL` is configured separately per environment. Each
+environment now has its own Neon PostgreSQL 17 project in AWS Frankfurt
+(`aws-eu-central-1`), connected as `HYPERDRIVE`. Query caching is disabled and TLS
+uses `verify-full`. The Worker connects as `domus_runtime`, which has no ownership,
+DDL, role-management or RLS-bypass privileges. The eight Better Auth tables are
+created; domain data still uses the local installation until its migration.
+
+Never commit database credentials or provider keys to Wrangler configuration.
+Local settings can be copied from `.dev.vars.example` to ignored `.dev.vars`.
+Hyperdrive uses the local Docker database during local development, not Neon;
+override its local URL with
+`CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE` when needed.
+Administrative and runtime connection files are stored only in the ignored
+`data/` directory, separately for preview and production. Production credentials
+must not be copied into CI or local runtime configuration.
 
 Auth schema migration uses a separate administrative connection:
 

@@ -21,6 +21,13 @@
   "r2_buckets": [
     { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
   ],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "5eca7963027f4c258cb9b9a60a25fa58",
+      "localConnectionString": "postgres://domus:domus-dev-only@127.0.0.1:5432/domus"
+    }
+  ],
   "env": {
     "preview": {
       "name": "domus-preview",
@@ -30,6 +37,13 @@
       },
       "r2_buckets": [
         { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
+      ],
+      "hyperdrive": [
+        {
+          "binding": "HYPERDRIVE",
+          "id": "5eca7963027f4c258cb9b9a60a25fa58",
+          "localConnectionString": "postgres://domus:domus-dev-only@127.0.0.1:5432/domus"
+        }
       ]
     },
     "production": {
@@ -40,6 +54,13 @@
       },
       "r2_buckets": [
         { "binding": "FILES", "bucket_name": "domus-files", "jurisdiction": "eu" }
+      ],
+      "hyperdrive": [
+        {
+          "binding": "HYPERDRIVE",
+          "id": "b9c1a073416646c0ac8929022803bce9",
+          "localConnectionString": "postgres://domus:domus-dev-only@127.0.0.1:5432/domus"
+        }
       ]
     }
   }
