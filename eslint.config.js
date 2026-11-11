@@ -5,10 +5,10 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'test-results', 'playwright-report', 'coverage']),
+  globalIgnores(['dist', 'dist-cloud', '.wrangler', 'test-results', 'playwright-report', 'coverage']),
   // Node.js files (agents, configs, tests)
   {
-    files: ['agents/**/*.js', 'server/**/*.js', '*.config.js', 'e2e-tests/**/*.js', 'src/__tests__/**/*.js'],
+    files: ['agents/**/*.js', 'server/**/*.js', 'scripts/**/*.js', '*.config.js', 'e2e-tests/**/*.js', 'src/__tests__/**/*.js'],
     extends: [js.configs.recommended],
     languageOptions: {
       ecmaVersion: 2020,

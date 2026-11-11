@@ -9,6 +9,11 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-cloud
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
 dist-ssr
 *.local
 

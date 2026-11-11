@@ -19,7 +19,7 @@ A property management application for small landlords: properties, tenants, issu
 The frontend calls the API under the same origin at `/api` (see `src/utils/api.js`); in development and preview, Vite forwards these requests to the API server.
 The API stores all data in `server/db.json`, seeded from `server/initialData.js` if the file doesn't exist.
 
-Domus is being rebuilt as a multi-user web application, see [SaaS-Umbauplan.md](SaaS-Umbauplan.md).
+Domus is planned as a multi-user SaaS on Cloudflare Workers, with managed PostgreSQL via Hyperdrive and private R2 file storage. The current application still uses local lowdb storage without authentication. See [SaaS-Umbauplan.md](SaaS-Umbauplan.md) for the implementation phases and closed-pilot release criteria.
 
 ## Quick Start
 
@@ -34,6 +34,52 @@ npm run dev            # API on http://localhost:3001, app on http://localhost:5
 ```
 
 `npm run dev:web` and `npm run dev:api` start only one side. Without the API server, the app shows "Error loading data".
+
+### Cloudflare deployment (infrastructure stage)
+
+`wrangler.jsonc` targets the existing `domus-preview` Worker by default. Explicit
+environments `preview` and `production` select `domus-preview` and `domus`, with
+separate private EU R2 buckets bound as `FILES`. Deployments upload only the cloud
+build under `dist-cloud/`, never local data directories or `server/db.json`.
+
+```bash
+npm run dev:cloud           # build and run locally with emulated storage
+npm run test:cloud          # local Workers runtime, routing, R2 and auth checks
+npm run deploy:preview     # deploy to domus-preview
+npm run deploy:production  # deploy to domus
+```
+
+The cloud build currently shows a pilot preparation page. The separate Express
+cloud entrypoint exposes `/api/health`; domain APIs return `503` until account
+isolation and data migration are implemented. The local lowdb API is deliberately
+not imported by the Worker. The existing local application remains available with
+`npm run dev`.
+
+Better Auth is wired for PostgreSQL, verified email/password login, database-backed
+rate limits and an explicit pilot email allowlist. It stays disabled until all
+required settings exist. Organization onboarding and domain data migration are
+still pending; an enabled auth handler alone is not a usable SaaS release.
+
+Required runtime secrets: `BETTER_AUTH_SECRET`, `PILOT_EMAILS`, `RESEND_API_KEY`,
+`MAIL_FROM`. `BETTER_AUTH_URL` is configured separately per environment. Bind a
+separate Hyperdrive configuration as `HYPERDRIVE` in each environment after creating
+the PostgreSQL databases, with query caching disabled for protected data. Never
+commit database credentials or provider keys to Wrangler configuration. Local
+settings can be copied from `.dev.vars.example` to ignored `.dev.vars`.
+
+Auth schema migration uses a separate administrative connection:
+
+```bash
+# Set DOMUS_MIGRATION_DATABASE_URL securely in your environment or ignored .env.
+npm run db:migrate:auth             # print proposed SQL only
+npm run db:migrate:auth -- --apply  # explicitly apply to that database
+```
+
+Do not run migrations inside Worker requests. Use a non-owner runtime database
+role for future RLS-protected domain data. Cloudflare Builds can deploy the
+`saas/phase-0` branch to `domus-preview` after lint, unit and cloud runtime checks;
+the production Worker is deployed separately. See the SaaS plan for the live setup
+status and remaining release gates.
 
 ### Database (from phase 1 of the rebuild)
 

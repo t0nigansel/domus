@@ -8,6 +8,12 @@
     "dev:web": "vite",
     "dev:api": "npm run dev -w server",
     "build": "vite build",
+    "build:cloud": "vite build --mode cloud --outDir dist-cloud",
+    "dev:cloud": "npm run build:cloud && wrangler dev --env preview",
+    "test:cloud": "npm run build:cloud && node scripts/cloud-smoke.js",
+    "deploy:preview": "npm run build:cloud && wrangler deploy --env preview",
+    "deploy:production": "npm run build:cloud && wrangler deploy --env production",
+    "db:migrate:auth": "node --env-file-if-exists=.env scripts/cloud-auth-migrate.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
@@ -45,7 +51,8 @@
     "globals": "^16.5.0",
     "jsdom": "^27.4.0",
     "vite": "^8.3.2",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "wrangler": "^4.160.1"
   },
   "workspaces": [
     "server"

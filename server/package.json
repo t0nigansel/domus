@@ -10,9 +10,11 @@
         "test": "vitest"
     },
     "dependencies": {
+        "better-auth": "^1.7.20",
         "cors": "^2.8.6",
         "express": "^5.2.1",
         "lowdb": "^7.0.1",
+        "pg": "^8.23.1",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.1"
     },

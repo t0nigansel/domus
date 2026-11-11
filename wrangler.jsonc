@@ -1,0 +1,46 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "domus-preview",
+  "account_id": "f218aabec74d3c0817a632fe07cbb3d5",
+  "main": "server/cloud/worker.js",
+  "compatibility_date": "2026-11-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist-cloud",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api", "/api/*", "/api-docs", "/api-docs/*"]
+  },
+  "observability": { "enabled": true },
+  "vars": {
+    "DOMUS_ENV": "preview",
+    "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
+  },
+  "r2_buckets": [
+    { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
+  ],
+  "env": {
+    "preview": {
+      "name": "domus-preview",
+      "vars": {
+        "DOMUS_ENV": "preview",
+        "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
+      },
+      "r2_buckets": [
+        { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
+      ]
+    },
+    "production": {
+      "name": "domus",
+      "vars": {
+        "DOMUS_ENV": "production",
+        "BETTER_AUTH_URL": "https://domus.toni-gansel.workers.dev"
+      },
+      "r2_buckets": [
+        { "binding": "FILES", "bucket_name": "domus-files", "jurisdiction": "eu" }
+      ]
+    }
+  }
+}
