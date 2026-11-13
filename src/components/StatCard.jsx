@@ -1,7 +1,9 @@
+import { useTranslation } from '../i18n';
 import React from 'react';
 import './StatCard.css';
 
 const StatCard = ({ title, value, icon, trend, color = 'primary', ...props }) => {
+    const { t } = useTranslation();
     const IconComponent = icon;
     return (
         <div className="stat-card" {...props}>
@@ -9,9 +11,9 @@ const StatCard = ({ title, value, icon, trend, color = 'primary', ...props }) =>
                 <IconComponent size={24} color={`var(--color-${color})`} />
             </div>
             <div className="stat-content">
-                <p className="stat-title">{title}</p>
+                <p className="stat-title">{t(title)}</p>
                 <h3 className="stat-value">{value}</h3>
-                {trend && <span className="stat-trend">{trend}</span>}
+                {trend && <span className="stat-trend">{t(trend)}</span>}
             </div>
         </div>
     );

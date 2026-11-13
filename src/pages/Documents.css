@@ -1,7 +1,4 @@
 .documents-container {
-    padding: var(--spacing-lg);
-    max-width: 1400px;
-    margin: 0 auto;
     height: calc(100vh - var(--header-height));
     /* Rough calc to fit viewport */
     display: flex;
@@ -75,15 +72,10 @@
 }
 
 .category-btn.active {
-    background-color: #e0e7ff;
+    background-color: var(--color-primary-soft);
     color: var(--color-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-    .category-btn.active {
-        background-color: #312e81;
-    }
-}
 
 .count {
     margin-left: auto;

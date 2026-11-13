@@ -1,72 +1,4 @@
-/* Issues Page Styles */
-.issues-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-}
-
-.search-bar {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    padding: 8px 12px;
-    border-radius: var(--radius-md);
-    flex: 1;
-    min-width: 250px;
-}
-
-.search-bar input {
-    border: none;
-    background: none;
-    outline: none;
-    width: 100%;
-    color: var(--color-text-main);
-}
-
-.filter-group {
-    display: flex;
-    gap: var(--spacing-sm);
-    background-color: var(--color-bg-base);
-    padding: 4px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-}
-
-.filter-btn {
-    padding: 6px 16px;
-    border-radius: var(--radius-sm);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text-muted);
-    transition: all 0.2s;
-}
-
-.filter-btn:hover {
-    color: var(--color-text-main);
-    background-color: var(--color-bg-surface-hover);
-}
-
-.filter-btn.active {
-    background-color: var(--color-bg-surface);
-    color: var(--color-primary);
-    box-shadow: var(--shadow-sm);
-}
-
 /* Add Issue Panel */
-.add-issue-panel {
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
-    animation: slideDown 0.2s ease-out;
-}
-
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -83,133 +15,6 @@
     margin-bottom: var(--spacing-md);
     font-size: 1.125rem;
 }
-
-/* Issues List */
-.all-issues-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-/* Clickable Rows */
-/* Clickable Rows */
-.issue-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md) var(--spacing-lg);
-    transition: transform 0.2s, box-shadow 0.2s;
-    /* Ensure content stacks when flex-dir changes */
-    gap: var(--spacing-md);
-}
-
-.issue-row.expanded {
-    flex-direction: column;
-    align-items: stretch;
-    background-color: var(--color-bg-surface);
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-sm);
-    cursor: default;
-    /* Reset hover transform for expanded state so it doesn't look like a button */
-    transform: none !important;
-}
-
-.issue-row.clickable-row {
-    cursor: pointer;
-}
-
-.issue-row.clickable-row:hover {
-    transform: translateX(4px);
-    box-shadow: var(--shadow-sm);
-    border-color: var(--color-primary);
-    background-color: var(--color-bg-surface-hover);
-}
-
-/* When expanded, disable the hover effect on the main row container */
-.issue-row.expanded:hover {
-    background-color: var(--color-bg-surface);
-    transform: none;
-}
-
-.issue-row.item-status-closed {
-    opacity: 0.6;
-    background-color: var(--color-bg-base);
-}
-
-.issue-main-info {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xl);
-    flex: 1;
-    width: 100%;
-    /* Ensure full width in column mode */
-}
-
-/* ... existing styles ... */
-
-.issue-title-block {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    min-width: 300px;
-}
-
-.issue-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2px;
-}
-
-.issue-subtitle {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-}
-
-.issue-details-block {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg);
-}
-
-.date-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    background-color: var(--color-bg-base);
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
-}
-
-.issue-actions {
-    margin-left: var(--spacing-lg);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .issue-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .issue-main-info {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--spacing-md);
-    }
-
-    .issue-actions {
-        margin-left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-    }
-}
-
 
 /* Inline Edit Form Styles */
 .issue-edit-form {
@@ -314,8 +119,8 @@
 }
 
 .btn-icon-danger:hover {
-    background-color: #fee2e2;
-    color: #b91c1c;
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
 }
 
 .btn-text.small {
@@ -329,3 +134,44 @@
     align-items: center;
     gap: 4px;
 }
+/* Gemeinsames Formular für Anlegen und Bearbeiten (IssueForm) */
+.issue-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.issue-form .form-row {
+    margin-bottom: 0;
+    flex-wrap: wrap;
+}
+
+.issue-form .form-row .form-group {
+    min-width: 180px;
+}
+
+.issue-form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.issue-attachments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.required-mark {
+    color: var(--color-danger);
+}
+
+.optional-mark {
+    font-weight: 400;
+    color: var(--color-text-muted);
+}
+
+.text-primary {
+    color: var(--color-primary);
+}
+

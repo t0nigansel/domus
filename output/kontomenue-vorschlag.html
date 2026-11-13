@@ -1,0 +1,108 @@
+<div id="domus-account-proposal" class="viz-dotted-background">
+  <style>
+    #domus-account-proposal { padding: 24px 12px; display: flex; justify-content: center; }
+    #domus-account-proposal .domus-sidebar {
+      --account-bg: light-dark(#f8fafc, #0f172a);
+      --account-panel: light-dark(#ffffff, #182235);
+      --account-text: light-dark(#172033, #eef2f8);
+      --account-muted: light-dark(#526177, #a8b7cc);
+      --account-line: light-dark(#d9e1eb, #334158);
+      --account-hover: light-dark(#e8eef7, #233149);
+      --account-avatar: light-dark(#dbeafe, #244570);
+      --account-avatar-text: light-dark(#1e40af, #dbeafe);
+      width: min(100%, 292px); height: 368px; position: relative;
+      background: var(--account-bg); color: var(--account-text);
+      font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.45;
+      border: 1px solid var(--account-line); border-radius: 12px;
+    }
+    #domus-account-proposal button, #domus-account-proposal select { font: inherit; color: inherit; }
+    #domus-account-proposal .account-menu {
+      position: absolute; bottom: 88px; left: 12px; right: 12px; padding: 8px;
+      background: var(--account-panel); border: 1px solid var(--account-line); border-radius: 12px;
+    }
+    #domus-account-proposal .account-menu[hidden] { display: none; }
+    #domus-account-proposal .account-summary { padding: 12px 10px 16px; }
+    #domus-account-proposal .account-name { font-weight: 600; }
+    #domus-account-proposal .account-email { font-size: 12px; color: var(--account-muted); overflow-wrap: anywhere; margin-top: 4px; }
+    #domus-account-proposal .account-divider { border: 0; border-top: 1px solid var(--account-line); margin: 0 2px; }
+    #domus-account-proposal .account-appearance { display: flex; align-items: center; gap: 10px; padding: 12px 10px; }
+    #domus-account-proposal .account-appearance label { flex: 1; }
+    #domus-account-proposal select { background: var(--account-panel); border: 1px solid var(--account-line); border-radius: 6px; padding: 7px 5px; max-width: 96px; }
+    #domus-account-proposal .account-logout { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 46px; padding: 10px; border: 0; border-radius: 6px; background: transparent; text-align: left; }
+    #domus-account-proposal .account-logout:hover, #domus-account-proposal .account-trigger:hover { background: var(--account-hover); }
+    #domus-account-proposal .account-trigger {
+      position: absolute; bottom: 12px; left: 12px; width: calc(100% - 24px);
+      display: flex; align-items: center; gap: 11px; padding: 10px; min-height: 60px;
+      border: 0; border-radius: 8px; background: transparent; text-align: left;
+    }
+    #domus-account-proposal .account-trigger[aria-expanded="true"] { background: var(--account-hover); }
+    #domus-account-proposal .account-avatar { display: grid; place-items: center; flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%; background: var(--account-avatar); color: var(--account-avatar-text); font-size: 12px; font-weight: 600; }
+    #domus-account-proposal .account-trigger-name { flex: 1; font-weight: 500; }
+    #domus-account-proposal .account-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--account-muted); }
+    #domus-account-proposal .account-chevron { transition: transform .15s; }
+    #domus-account-proposal .account-trigger[aria-expanded="false"] .account-chevron { transform: rotate(180deg); }
+    @media (prefers-reduced-motion: reduce) { #domus-account-proposal .account-chevron { transition: none; } }
+  </style>
+  <section class="domus-sidebar" aria-label="Vorschlag für den unteren Menübereich">
+    <div class="account-menu" id="domus-proposed-account-menu" role="group" aria-label="Konto und Darstellung">
+      <div class="account-summary">
+        <div class="account-name">Toni Gansel</div>
+        <div class="account-email">toni.gansel@gmail.com</div>
+      </div>
+      <hr class="account-divider">
+      <div class="account-appearance">
+        <i data-lucide="sun-moon" class="account-icon" aria-hidden="true"></i>
+        <label for="domus-proposed-appearance">Darstellung</label>
+        <select id="domus-proposed-appearance" class="cursor-interaction">
+          <option value="system">System</option>
+          <option value="light">Hell</option>
+          <option value="dark">Dunkel</option>
+        </select>
+      </div>
+      <hr class="account-divider">
+      <button type="button" class="account-logout cursor-interaction"><i data-lucide="log-out" class="account-icon" aria-hidden="true"></i>Abmelden</button>
+    </div>
+    <button type="button" class="account-trigger cursor-interaction" aria-expanded="true" aria-controls="domus-proposed-account-menu">
+      <span class="account-avatar" aria-hidden="true">TG</span>
+      <span class="account-trigger-name">Toni Immobilien</span>
+      <i data-lucide="chevron-up" class="account-icon account-chevron" aria-hidden="true"></i>
+    </button>
+  </section>
+  <script>
+    (() => {
+      const root = document.getElementById('domus-account-proposal');
+      const sidebar = root.querySelector('.domus-sidebar');
+      const trigger = root.querySelector('.account-trigger');
+      const menu = root.querySelector('.account-menu');
+      const appearance = root.querySelector('select');
+      const saved = window.openai?.widgetState?.privateContent;
+      let open = saved?.open ?? true;
+      let theme = ['system', 'light', 'dark'].includes(saved?.theme) ? saved.theme : 'system';
+      function render() {
+        trigger.setAttribute('aria-expanded', String(open));
+        menu.hidden = !open;
+        appearance.value = theme;
+        sidebar.style.colorScheme = theme === 'system' ? 'light dark' : theme;
+      }
+      function save() {
+        window.openai?.setWidgetState?.({ privateContent: { open, theme } }).catch(() => {});
+      }
+      trigger.addEventListener('click', () => { open = !open; render(); save(); });
+      appearance.addEventListener('change', () => { theme = appearance.value; render(); save(); });
+      root.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && open) { open = false; render(); trigger.focus(); save(); }
+      });
+      root.addEventListener('click', event => {
+        if (!menu.contains(event.target) && !trigger.contains(event.target) && open) { open = false; render(); save(); }
+      });
+      window.addEventListener('openai:set_globals', event => {
+        const state = event.detail?.globals?.widgetState?.privateContent;
+        if (!state) return;
+        open = state.open ?? open;
+        if (['system', 'light', 'dark'].includes(state.theme)) theme = state.theme;
+        render();
+      });
+      render();
+    })();
+  </script>
+</div>

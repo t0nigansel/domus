@@ -1,160 +1,14 @@
-.costs-container {
-    padding: var(--spacing-lg);
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* Flex Layout for Costs List */
-.cost-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    background-color: var(--color-bg-base);
-}
-
-/* Row Styling (Matching Tenants Page) */
-.cost-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-md) var(--spacing-lg);
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-    gap: var(--spacing-md);
-}
-
-.cost-row:hover {
-    transform: translateX(4px);
-    box-shadow: var(--shadow-sm);
-    border-color: var(--color-primary);
-    background-color: var(--color-bg-surface-hover);
-}
-
-/* Expanded State */
-.cost-row.expanded {
-    flex-direction: column;
-    align-items: stretch;
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-sm);
-    cursor: default;
-    transform: none;
-}
-
-.cost-row.expanded:hover {
-    background-color: var(--color-bg-surface);
-    transform: none;
-}
-
-/* Main Info Wrapper */
-.cost-main-info {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xl);
-    flex: 1;
-    width: 100%;
-}
-
-/* Title Block (Icon + Titles) */
-.cost-title-block {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    min-width: 300px;
-}
-
-.cost-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2px;
-    color: var(--color-text-main);
-}
-
-.cost-subtitle {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-}
-
-/* Details Block (Right Side) */
-.cost-details-block {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
-}
-
-.amount-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text-main);
-    background-color: var(--color-bg-base);
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-}
-
-.date-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    background-color: var(--color-bg-base);
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
-}
-
-.utility-badge {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #0891b2;
-    background-color: #cffafe;
-    padding: 4px 8px;
-    border-radius: var(--radius-full);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-@media (prefers-color-scheme: dark) {
-    .utility-badge {
-        background-color: #164e63;
-        color: #cffafe;
-    }
-}
-
-/* Inline Edit Form */
-.cost-edit-form {
-    padding-top: var(--spacing-md);
-    margin-top: var(--spacing-sm);
-    border-top: 1px solid var(--color-border);
-    animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 /* Helper Text */
 .text-success {
-    color: #16a34a;
+    color: var(--color-success);
 }
 
 .text-warning {
-    color: #d97706;
+    color: var(--color-warning);
 }
 
 .text-danger {
-    color: #dc2626;
+    color: var(--color-danger);
 }
 
 .text-muted {
@@ -307,7 +161,7 @@
 
 .remove-attachment:hover {
     background-color: var(--color-bg-surface);
-    color: #dc2626;
+    color: var(--color-danger);
 }
 
 /* Associations Container */

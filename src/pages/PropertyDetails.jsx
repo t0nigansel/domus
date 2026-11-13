@@ -1,15 +1,19 @@
+import { useTranslation } from '../i18n';
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, MapPin, Euro, Home, User, FileText, Settings, Save, X, Activity, Users, PawPrint, Plus, Trash2 } from 'lucide-react';
 import { useData } from '../context/DataContext';
+import { issueStatusClass } from '../constants/status';
 import './PropertyDetails.css';
 import PropertyDossier from './PropertyDossier';
+import PropertyRentalSummary from '../components/PropertyRentalSummary';
 
 const PropertyDetails = () => {
+    const { t } = useTranslation();
     const { id } = useParams();
     const { properties, tenants, issues, updateProperty, addTenant, removeTenant, addIssue, resolveIssue } = useData();
     const property = properties.find(p => p.id === id);
-    const propertyTenants = tenants.filter(t => t.propertyId === id && t.status === 'Active');
+    const propertyTenants = tenants.filter(tenant => tenant.propertyId === id && tenant.status === 'Active');
     const propertyIssues = issues.filter(i => i.propertyId === id);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -77,8 +81,8 @@ const PropertyDetails = () => {
     if (!property) {
         return (
             <div className="property-not-found">
-                <h2>Property Not Found</h2>
-                <Link to="/properties" className="btn-primary">Back to Properties</Link>
+                <h2>{t("Property Not Found")}</h2>
+                <Link to="/properties" className="btn-primary">{t("Back to Properties")}</Link>
             </div>
         );
     }
@@ -98,7 +102,7 @@ const PropertyDetails = () => {
             <div className="details-header-nav">
                 <Link to="/properties" className="back-link">
                     <ArrowLeft size={20} />
-                    <span>Back to Properties</span>
+                    <span>{t("Back to Properties")}</span>
                 </Link>
             </div>
 
@@ -125,20 +129,20 @@ const PropertyDetails = () => {
                                 onChange={handleChange}
                                 className="edit-select status-select"
                             >
-                                <option value="Occupied">Occupied</option>
-                                <option value="Vacant">Vacant</option>
-                                <option value="Maintenance">Maintenance</option>
+                                <option value="Occupied">{t("Occupied")}</option>
+                                <option value="Vacant">{t("Vacant")}</option>
+                                <option value="Maintenance">{t("Maintenance")}</option>
                             </select>
                         ) : (
                             <span
                                 className="status-badge-large"
                                 style={{
                                     backgroundColor: getStatusColor(property.status),
-                                    color: property.status === 'Occupied' ? '#166534' :
-                                        property.status === 'Vacant' ? '#991b1b' : '#9a3412'
+                                    color: property.status === 'Occupied' ? 'var(--color-success)' :
+                                        property.status === 'Vacant' ? 'var(--color-danger)' : 'var(--color-warning)'
                                 }}
                             >
-                                {property.status}
+                                {t(property.status)}
                             </span>
                         )}
                     </div>
@@ -152,10 +156,10 @@ const PropertyDetails = () => {
                                 onChange={handleChange}
                                 className="edit-select"
                             >
-                                <option value="Bottom Left">Bottom Left</option>
-                                <option value="Bottom Right">Bottom Right</option>
-                                <option value="Top Left">Top Left</option>
-                                <option value="Top Right">Top Right</option>
+                                <option value="Bottom Left">{t("Bottom Left")}</option>
+                                <option value="Bottom Right">{t("Bottom Right")}</option>
+                                <option value="Top Left">{t("Top Left")}</option>
+                                <option value="Top Right">{t("Top Right")}</option>
                             </select>
                         ) : (
                             <span className="text-muted">{property.location}</span>
@@ -168,46 +172,42 @@ const PropertyDetails = () => {
                         <>
                             <button className="btn-primary" onClick={handleSave}>
                                 <Save size={18} />
-                                <span>Save</span>
+                                <span>{t("Save")}</span>
                             </button>
                             <button className="btn-outline" onClick={handleCancel}>
                                 <X size={18} />
-                                <span>Cancel</span>
+                                <span>{t("Cancel")}</span>
                             </button>
                         </>
                     ) : (
                         <button className="btn-outline" onClick={handleEdit}>
                             <Settings size={18} />
-                            <span>Edit Property</span>
+                            <span>{t("Edit Property")}</span>
                         </button>
                     )}
                 </div>
             </header>
 
             <PropertyDossier key={property.id} property={property} />
-            <section className="details-card">
-                <h2>Vermietung und Mietverhältnisse</h2>
-                <p>Interessenten, Besichtigungen, Vertragsparteien und Mietzeiträume für diese Wohnung verwalten.</p>
-                <Link className="btn-outline" to={`/rentals?propertyId=${property.id}`}>Vermietungen öffnen</Link>
-            </section>
+            <PropertyRentalSummary key={`rental-${property.id}`} property={property} />
 
             <div className="details-grid">
                 {/* Left Column: Stats & Info */}
                 <div className="details-main">
                     {/* Key Stats */}
                     <section className="details-card">
-                        <h2 className="card-title">Property Overview</h2>
+                        <h2 className="card-title">{t("Property Overview")}</h2>
                         <div className="stats-row">
                             {/* Rent Section */}
                             <div className="stat-item full-width-mobile">
                                 <Euro className="stat-icon" />
                                 <div>
-                                    <p className="label">Monthly Rent (Total)</p>
+                                    <p className="label">{t("Monthly Rent (Total)")}</p>
                                     <div className="value-group">
                                         {isEditing ? (
                                             <div className="rent-edit-group">
                                                 <div className="input-group">
-                                                    <label>Cold</label>
+                                                    <label>{t("Cold")}</label>
                                                     <input
                                                         type="number"
                                                         name="coldRent"
@@ -219,7 +219,7 @@ const PropertyDetails = () => {
                                                 </div>
                                                 <span>+</span>
                                                 <div className="input-group">
-                                                    <label>Utils</label>
+                                                    <label>{t("Utils")}</label>
                                                     <input
                                                         type="number"
                                                         name="nebenkosten"
@@ -232,7 +232,7 @@ const PropertyDetails = () => {
                                             </div>
                                         ) : (
                                             <div className="rent-display">
-                                                <span className="value">{['NonRental', 'Usufruct'].includes(property.occupancyKind) ? 'Kein Mietverhältnis' : Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) ? `${property.coldRent + property.nebenkosten} €` : 'Noch offen'}</span>
+                                                <span className="value">{['NonRental', 'Usufruct'].includes(property.occupancyKind) ? t("Kein Mietverhältnis") : Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) ? `${property.coldRent + property.nebenkosten} €` : t("Noch offen")}</span>
                                                 {Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) && <span className="small-detail">({property.coldRent} € + {property.nebenkosten} €)</span>}
                                             </div>
                                         )}
@@ -244,7 +244,7 @@ const PropertyDetails = () => {
                             <div className="stat-item">
                                 <Activity className="stat-icon" />
                                 <div>
-                                    <p className="label">Condition</p>
+                                    <p className="label">{t("Condition")}</p>
                                     {isEditing ? (
                                         <select
                                             name="condition"
@@ -252,12 +252,12 @@ const PropertyDetails = () => {
                                             onChange={handleChange}
                                             className="edit-select"
                                         >
-                                            <option value="Good">Good</option>
-                                            <option value="Ok">Ok</option>
-                                            <option value="Bad">Bad</option>
+                                            <option value="Good">{t("Good")}</option>
+                                            <option value="Ok">{t("Ok")}</option>
+                                            <option value="Bad">{t("Bad")}</option>
                                         </select>
                                     ) : (
-                                        <p className="value">{property.condition}</p>
+                                        <p className="value">{t(property.condition)}</p>
                                     )}
                                 </div>
                             </div>
@@ -268,7 +268,7 @@ const PropertyDetails = () => {
                             <div className="stat-item">
                                 <Users className="stat-icon" />
                                 <div>
-                                    <p className="label">Occupants</p>
+                                    <p className="label">{t("Occupants")}</p>
                                     {isEditing ? (
                                         <input
                                             type="number"
@@ -288,7 +288,7 @@ const PropertyDetails = () => {
                             <div className="stat-item">
                                 <PawPrint className="stat-icon" />
                                 <div>
-                                    <p className="label">Pets</p>
+                                    <p className="label">{t("Pets")}</p>
                                     {isEditing ? (
                                         <input
                                             type="text"
@@ -309,11 +309,10 @@ const PropertyDetails = () => {
                     {/* Tenant Information Multi-View */}
                     <section className="details-card">
                         <div className="card-header-row">
-                            <h2 className="card-title">Tenants ({propertyTenants.length})</h2>
-                            {property.leaseManaged ? <Link className="btn-text" to={`/rentals?propertyId=${property.id}`}>Mietverhältnisse verwalten</Link> : !isAddingTenant && (
+                            <h2 className="card-title">{t("Tenants (")}{propertyTenants.length})</h2>
+                            {property.leaseManaged ? <Link className="btn-text" to={`/rentals?propertyId=${property.id}`}>{t("Mietverhältnisse verwalten")}</Link> : !isAddingTenant && (
                                 <button className="btn-text" onClick={() => setIsAddingTenant(true)}>
-                                    <Plus size={16} /> Add Tenant
-                                </button>
+                                    <Plus size={16} />{t("Add Tenant")}</button>
                             )}
                         </div>
                         {isAddingTenant && (
@@ -321,7 +320,7 @@ const PropertyDetails = () => {
                                 <div className="form-row">
                                     <input
                                         type="text"
-                                        placeholder="Full Name"
+                                        placeholder={t("Full Name")}
                                         required
                                         value={newTenantData.name}
                                         onChange={e => setNewTenantData({ ...newTenantData, name: e.target.value })}
@@ -329,15 +328,15 @@ const PropertyDetails = () => {
                                     />
                                     <input
                                         type="email"
-                                        placeholder="Email"
+                                        placeholder={t("Email")}
                                         value={newTenantData.email}
                                         onChange={e => setNewTenantData({ ...newTenantData, email: e.target.value })}
                                         className="edit-input"
                                     />
                                 </div>
                                 <div className="form-actions">
-                                    <button type="submit" className="btn-primary small">Add</button>
-                                    <button type="button" className="btn-outline small" onClick={() => setIsAddingTenant(false)}>Cancel</button>
+                                    <button type="submit" className="btn-primary small">{t("Add")}</button>
+                                    <button type="button" className="btn-outline small" onClick={() => setIsAddingTenant(false)}>{t("Cancel")}</button>
                                 </div>
                             </form>
                         )}
@@ -353,11 +352,11 @@ const PropertyDetails = () => {
                                                 <Link to={`/tenants/${tenant.id}`} className="tenant-link">
                                                     <h3>{tenant.name}</h3>
                                                 </Link>
-                                                <p className="text-muted small">{tenant.email || 'No email'}</p>
+                                                <p className="text-muted small">{tenant.email || t("No email")}</p>
                                             </div>
                                             <button
                                                 className="btn-icon-danger"
-                                                title={tenant.leaseManaged ? 'Mietverhältnis unter Vermietungen beenden' : 'Remove Tenant'}
+                                                title={tenant.leaseManaged ? t("Mietverhältnis unter Vermietungen beenden") : t("Remove Tenant")}
                                                 disabled={tenant.leaseManaged}
                                                 onClick={() => removeTenant(tenant.id)}
                                             >
@@ -370,7 +369,7 @@ const PropertyDetails = () => {
                         ) : (
                             <div className="empty-tenant-state">
                                 <User size={48} className="text-muted" style={{ opacity: 0.3 }} />
-                                <p>No tenants assigned.</p>
+                                <p>{t("No tenants assigned.")}</p>
                             </div>
                         )}
                     </section>
@@ -380,11 +379,10 @@ const PropertyDetails = () => {
                 <div className="details-main" style={{ marginTop: 'var(--spacing-lg)' }}>
                     <section className="details-card">
                         <div className="card-header-row">
-                            <h2 className="card-title">Issues</h2>
+                            <h2 className="card-title">{t("Issues")}</h2>
                             {!isAddingIssue && (
                                 <button className="btn-text" onClick={() => setIsAddingIssue(true)}>
-                                    <Plus size={16} /> Report Issue
-                                </button>
+                                    <Plus size={16} />{t("Report Issue")}</button>
                             )}
                         </div>
 
@@ -393,7 +391,7 @@ const PropertyDetails = () => {
                                 <div className="form-row">
                                     <input
                                         type="text"
-                                        placeholder="Issue Title"
+                                        placeholder={t("Issue Title")}
                                         required
                                         value={newIssueData.title}
                                         onChange={e => setNewIssueData({ ...newIssueData, title: e.target.value })}
@@ -406,15 +404,15 @@ const PropertyDetails = () => {
                                         className="edit-select"
                                         style={{ flex: 1 }}
                                     >
-                                        <option value="Low">Low Priority</option>
-                                        <option value="Medium">Medium Priority</option>
-                                        <option value="High">High Priority</option>
+                                        <option value="Low">{t("Low Priority")}</option>
+                                        <option value="Medium">{t("Medium Priority")}</option>
+                                        <option value="High">{t("High Priority")}</option>
                                     </select>
                                 </div>
                                 <div className="form-row">
                                     <input
                                         type="text"
-                                        placeholder="Description"
+                                        placeholder={t("Description")}
                                         value={newIssueData.description}
                                         onChange={e => setNewIssueData({ ...newIssueData, description: e.target.value })}
                                         className="edit-input"
@@ -422,8 +420,8 @@ const PropertyDetails = () => {
                                     />
                                 </div>
                                 <div className="form-actions">
-                                    <button type="submit" className="btn-primary small">Save Issue</button>
-                                    <button type="button" className="btn-outline small" onClick={() => setIsAddingIssue(false)}>Cancel</button>
+                                    <button type="submit" className="btn-primary small">{t("Save Issue")}</button>
+                                    <button type="button" className="btn-outline small" onClick={() => setIsAddingIssue(false)}>{t("Cancel")}</button>
                                 </div>
                             </form>
                         )}
@@ -431,24 +429,22 @@ const PropertyDetails = () => {
                         {propertyIssues.length > 0 ? (
                             <div className="issues-list-grid">
                                 {propertyIssues.map(issue => (
-                                    <div key={issue.id} className={`issue-card item-status-${issue.status.toLowerCase()}`}>
+                                    <div key={issue.id} className={`issue-card item-status-${issueStatusClass(issue.status)}`}>
                                         <div className="issue-header-row">
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                <Activity size={16} className={issue.status === 'Open' ? 'text-warning' : 'text-success'} />
+                                                <Activity size={16} className={issue.status === 'Closed' ? 'text-success' : 'text-warning'} />
                                                 <h4 style={{ margin: 0 }}>{issue.title}</h4>
                                             </div>
-                                            <span className={`priority-badge ${issue.priority.toLowerCase()}`}>{issue.priority}</span>
+                                            <span className={`priority-badge ${issue.priority.toLowerCase()}`}>{t(issue.priority)}</span>
                                         </div>
-                                        <p className="text-muted small mt-2">{issue.description || 'No description'}</p>
+                                        <p className="text-muted small mt-2">{issue.description || t("No description")}</p>
                                         <div className="issue-footer-row mt-3">
-                                            <span className="text-muted small">Due: {issue.dueDate || 'No Date'}</span>
-                                            {issue.status === 'Open' && (
+                                            <span className="text-muted small">{t("Due:")}{" "}{issue.dueDate || t("No Date")}</span>
+                                            {issue.status !== 'Closed' && (
                                                 <button
                                                     className="btn-outline small"
                                                     onClick={() => resolveIssue(issue.id)}
-                                                >
-                                                    Mark Resolved
-                                                </button>
+                                                >{t("Mark Resolved")}</button>
                                             )}
                                         </div>
                                     </div>
@@ -456,7 +452,7 @@ const PropertyDetails = () => {
                             </div>
                         ) : (
                             <div className="empty-state">
-                                <p>No open issues for this property.</p>
+                                <p>{t("No open issues for this property.")}</p>
                             </div>
                         )}
                     </section>
@@ -465,7 +461,7 @@ const PropertyDetails = () => {
                 {/* Right Column: Documents & Tasks */}
                 <div className="details-sidebar">
                     <section className="details-card">
-                        <h2 className="card-title">Notes</h2>
+                        <h2 className="card-title">{t("Notes")}</h2>
                         {isEditing ? (
                             <textarea
                                 name="notes"
@@ -476,7 +472,7 @@ const PropertyDetails = () => {
                             />
                         ) : (
                             <p className="text-muted small">
-                                {property.notes || 'No notes added.'}
+                                {property.notes || t("No notes added.")}
                             </p>
                         )}
                     </section>

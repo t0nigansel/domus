@@ -1,3 +1,4 @@
+import { useTranslation } from '../i18n';
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, User, Phone, Mail, Home, Calendar, Clock } from 'lucide-react';
@@ -5,24 +6,25 @@ import { useData } from '../context/DataContext';
 import './TenantDetails.css';
 
 const TenantDetails = () => {
+    const { t } = useTranslation();
     const { id } = useParams();
     const { tenants } = useData();
-    const tenant = tenants.find(t => t.id === id);
+    const tenant = tenants.find(tenant => tenant.id === id);
 
     if (!tenant) {
         return (
             <div className="tenant-not-found">
-                <h2>Tenant Not Found</h2>
-                <Link to="/tenants" className="btn-primary">Back to Tenants</Link>
+                <h2>{t("Tenant Not Found")}</h2>
+                <Link to="/contacts?filter=tenants" className="btn-primary">{t("Back to Tenants")}</Link>
             </div>
         );
     }
 
     return (
         <div className="tenant-details-container">
-            <Link to="/tenants" className="back-link">
+            <Link to="/contacts?filter=tenants" className="back-link">
                 <ArrowLeft size={20} />
-                <span>Back to Tenants</span>
+                <span>{t("Back to Tenants")}</span>
             </Link>
 
             <header className="tenant-header-main">
@@ -33,18 +35,18 @@ const TenantDetails = () => {
                     <div>
                         <h1 className="tenant-name-large">{tenant.name}</h1>
                         <span className={`status-badge-small ${tenant.status.toLowerCase()}`}>
-                            {tenant.status}
+                            {t(tenant.status)}
                         </span>
                     </div>
                 </div>
-                <button className="btn-outline">Edit Profile</button>
+                <button className="btn-outline">{t("Edit Profile")}</button>
             </header>
 
             <div className="tenant-grid">
                 {/* Contact & Lease Info */}
                 <div className="left-col">
                     <section className="info-card">
-                        <h3>Contact Information</h3>
+                        <h3>{t("Contact Information")}</h3>
                         <div className="info-list">
                             <div className="info-row-detail">
                                 <Mail size={18} className="text-muted" />
@@ -58,8 +60,8 @@ const TenantDetails = () => {
                     </section>
 
                     <section className="info-card">
-                        <h3>Lease Details</h3>
-                        {tenant.leaseManaged && <Link className="btn-outline" to={`/rentals?propertyId=${tenant.propertyId}`}>Mietverhältnisse und Historie</Link>}
+                        <h3>{t("Lease Details")}</h3>
+                        {tenant.leaseManaged && <Link className="btn-outline" to={`/rentals?propertyId=${tenant.propertyId}`}>{t("Mietverhältnisse und Historie")}</Link>}
                         <div className="info-list">
                             <div className="info-row-detail">
                                 <Home size={18} className="text-muted" />
@@ -79,16 +81,16 @@ const TenantDetails = () => {
                 <div className="right-col">
                     <section className="info-card">
                         <div className="card-header-row">
-                            <h3>Payment History</h3>
-                            <button className="btn-text">Log Payment</button>
+                            <h3>{t("Payment History")}</h3>
+                            <button className="btn-text">{t("Log Payment")}</button>
                         </div>
                         {tenant.paymentHistory.length > 0 ? (
                             <table className="payments-table">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
+                                        <th>{t("Date")}</th>
+                                        <th>{t("Amount")}</th>
+                                        <th>{t("Status")}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,7 +99,7 @@ const TenantDetails = () => {
                                             <td>{payment.date}</td>
                                             <td>${payment.amount}</td>
                                             <td>
-                                                <span className="status-pd paid">Paid</span>
+                                                <span className="status-pd paid">{t("Paid")}</span>
                                             </td>
                                         </tr>
                                     ))}
@@ -106,7 +108,7 @@ const TenantDetails = () => {
                         ) : (
                             <div className="empty-history">
                                 <Clock size={24} className="text-muted" />
-                                <p>No payment history available.</p>
+                                <p>{t("No payment history available.")}</p>
                             </div>
                         )}
                     </section>

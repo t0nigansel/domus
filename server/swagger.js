@@ -94,6 +94,7 @@ const options = {
                         dueDate: { type: 'string', format: 'date' },
                         paidDate: { type: 'string', format: 'date' },
                         utilityBillable: { type: 'boolean' },
+                        recurrence: { type: 'string', enum: ['none', 'monthly', 'yearly'], default: 'none', description: 'Amount applies per occurrence; does not generate future entries.' },
                         tenantIds: { type: 'array', items: { type: 'string' } }
                     }
                 },
@@ -101,13 +102,13 @@ const options = {
                     type: 'object',
                     properties: {
                         id: { type: 'string' },
-                        name: { type: 'string' },
-                        role: { type: 'string' },
-                        organization: { type: 'string' },
-                        email: { type: 'string' },
+                        name: { type: 'string', description: 'Pflichtfeld' },
+                        role: { type: 'string', description: 'Funktion, z. B. Elektriker' },
+                        description: { type: 'string' },
                         phone: { type: 'string' },
+                        email: { type: 'string', format: 'email' },
                         address: { type: 'string' },
-                        notes: { type: 'string' }
+                        contactInfo: { type: 'string', deprecated: true, description: 'Altfeld: Telefon oder E-Mail in einem Feld' }
                     }
                 }
             },

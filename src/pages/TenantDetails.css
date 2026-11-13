@@ -112,7 +112,7 @@
 }
 
 .status-pd.paid {
-    color: #166534;
+    color: var(--color-success);
     font-weight: 500;
 }
 

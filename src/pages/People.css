@@ -1,0 +1,28 @@
+/* Umschalter Mieter / Sonstiger Kontakt im Hinzufügen-Panel */
+.people-switch {
+    display: inline-flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-xs);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+}
+
+.people-switch button {
+    min-height: 34px;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-text-muted);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.people-switch button.active {
+    background-color: var(--color-btn-bg);
+    color: var(--color-btn-fg);
+}

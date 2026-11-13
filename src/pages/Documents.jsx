@@ -1,61 +1,42 @@
+import { useTranslation } from '../i18n';
 import React, { useState } from 'react';
-import { Search, Folder } from 'lucide-react';
 import { useData } from '../context/DataContext';
-import { PageHeader, CollapsiblePanel } from '../components/common';
+import { PageHeader, CollapsiblePanel, ListToolbar } from '../components/common';
 import { useQuickAction } from '../hooks/useQuickAction';
-import './Documents.css';
 import DocumentWorkspace from './DocumentWorkspace';
+import { DOCUMENT_CATEGORIES } from '../domain/documents';
 
 const Documents = () => {
+    const { t } = useTranslation();
     const { documents } = useData();
     const [isAddingDocument, setIsAddingDocument] = useQuickAction();
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const categories = ['All', 'Photos', 'FloorPlans', 'Energy', 'Leases', 'Invoices', 'Insurance', 'Misc'];
+    // Gleiche Zuordnung wie der Filter in DocumentWorkspace (d.category === Kategorie).
+    const categoryCounts = documents.reduce((counts, document) => {
+        counts[document.category] = (counts[document.category] || 0) + 1;
+        return counts;
+    }, { All: documents.length });
+    const filters = [['All', t('Alle'), documents.length], ...Object.entries(DOCUMENT_CATEGORIES).map(([key, label]) => [key, t(label), categoryCounts[key] || 0])];
 
     return (
-        <div className="documents-container">
-            <PageHeader title="Documents" onAction={() => setIsAddingDocument(true)} />
+        <div className="page-container">
+            <PageHeader title={t("Documents")} onAction={() => setIsAddingDocument(true)} />
 
-            <CollapsiblePanel title="Upload Document" isOpen={isAddingDocument} onClose={() => setIsAddingDocument(false)}>
+            <CollapsiblePanel title={t("Upload Document")} isOpen={isAddingDocument} onClose={() => setIsAddingDocument(false)}>
                 <DocumentWorkspace showFiles={false} />
             </CollapsiblePanel>
 
-            <div className="documents-layout">
-                {/* Sidebar Filter */}
-                <aside className="docs-sidebar">
-                    <div className="search-wrapper">
-                        <Search size={18} className="search-icon" />
-                        <input
-                            type="text"
-                            placeholder="Search files..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </div>
+            <ListToolbar
+                search={{ value: searchTerm, onChange: setSearchTerm, placeholder: t("Search files...") }}
+                filters={filters}
+                filter={selectedCategory}
+                onFilter={setSelectedCategory}
+                filterLabel={t("Categories")}
+            />
 
-                    <nav className="category-nav">
-                        <p className="nav-label">Categories</p>
-                        {categories.map(cat => (
-                            <button
-                                key={cat}
-                                className={`category-btn ${selectedCategory === cat ? 'active' : ''}`}
-                                onClick={() => setSelectedCategory(cat)}
-                            >
-                                <Folder size={18} />
-                                <span>{cat}</span>
-                                {cat === 'All' && <span className="count">{documents.length}</span>}
-                            </button>
-                        ))}
-                    </nav>
-                </aside>
-
-                {/* Main Grid */}
-                <main className="docs-grid-area">
-                    <DocumentWorkspace showControls={false} categoryFilter={selectedCategory} searchTerm={searchTerm} />
-                </main>
-            </div>
+            <DocumentWorkspace showControls={false} categoryFilter={selectedCategory} searchTerm={searchTerm} />
         </div>
     );
 };

@@ -2,6 +2,7 @@ import express from 'express';
 import db from './db.js';
 import { tenancyView } from '../src/domain/rentals.js';
 import { localToday } from './rentalService.js';
+import { COST_RECURRENCES } from '../src/domain/costs.js';
 
 export const createCrudRouter = (entityName) => {
     const router = express.Router();
@@ -32,6 +33,9 @@ export const createCrudRouter = (entityName) => {
         }
         if (typeof req.body !== 'object' || req.body === null || Array.isArray(req.body)) {
             return res.status(400).json({ error: 'Request body must be a JSON object' });
+        }
+        if (entityName === 'costs' && Object.hasOwn(req.body, 'recurrence') && !COST_RECURRENCES.includes(req.body.recurrence)) {
+            return res.status(400).json({ error: 'recurrence: invalid selection.' });
         }
         next();
     };

@@ -1,3 +1,4 @@
+import { useTranslation } from '../i18n';
 import React, { createContext, useContext } from 'react';
 import { useProperties, useTenants, useIssues, useCosts, useContacts, useDocuments } from '../hooks/domain';
 import { ToastProvider } from '../components/common';
@@ -10,6 +11,7 @@ export const useData = () => {
 };
 
 export const DataProvider = ({ children }) => {
+    const { t } = useTranslation();
     // Domain Hooks
     const {
         properties, loading: propertiesLoading, error: propertiesError,
@@ -91,7 +93,7 @@ export const DataProvider = ({ children }) => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <p>Loading application data...</p>
+                <p>{t("Loading application data...")}</p>
             </div>
         );
     }
@@ -99,9 +101,10 @@ export const DataProvider = ({ children }) => {
     if (error) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
-                <h3>Error loading data</h3>
-                <p>{error.message || String(error)}</p>
-                <p>Please ensure the API server is running (npm run dev)</p>
+                <h3>{t("Error loading data")}</h3>
+                <p>{t(error.message || String(error))}</p>
+                <p>{import.meta.env.MODE === 'cloud' ? t("Bitte lade die Seite erneut oder melde dich noch einmal an.") : t("Please ensure the API server is running (npm run dev)")}</p>
+                <button className="btn-outline" onClick={() => window.location.reload()}>{t("Erneut laden")}</button>
             </div>
         )
     }

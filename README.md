@@ -13,13 +13,14 @@ A property management application for small landlords: properties, tenants, issu
 | Part | Location | Tech |
 |------|----------|------|
 | Frontend | `src/` | React 19, React Router 7, Vite |
-| API server | `server/` | Express, lowdb (JSON file storage), Swagger docs |
+| Local API | `server/` | Express, lowdb (JSON file storage), Swagger docs |
+| Cloud API | `server/cloud/` | Workers, Better Auth, PostgreSQL, private R2 |
 | Test agents | `agents/` | Node scripts that run lint, unit, E2E and API tests and write reports |
 
 The frontend calls the API under the same origin at `/api` (see `src/utils/api.js`); in development and preview, Vite forwards these requests to the API server.
-The API stores all data in `server/db.json`, seeded from `server/initialData.js` if the file doesn't exist.
+The local API stores data in `server/db.json`, seeded from `server/initialData.js` if the file doesn't exist. The cloud API starts accounts empty and stores their data in PostgreSQL.
 
-Domus is planned as a multi-user SaaS on Cloudflare Workers, with managed PostgreSQL via Hyperdrive and private R2 file storage. The current application still uses local lowdb storage without authentication. See [SaaS-Umbauplan.md](SaaS-Umbauplan.md) for the implementation phases and closed-pilot release criteria.
+The cloud application runs on Cloudflare Workers with verified email/password login, account-isolated PostgreSQL via Hyperdrive and private R2 files. The local development entrypoint continues to use lowdb. See [SaaS-Umbauplan.md](SaaS-Umbauplan.md) for deployment status and the remaining pilot operations work.
 
 ## Quick Start
 
@@ -35,7 +36,7 @@ npm run dev            # API on http://localhost:3001, app on http://localhost:5
 
 `npm run dev:web` and `npm run dev:api` start only one side. Without the API server, the app shows "Error loading data".
 
-### Cloudflare deployment (infrastructure stage)
+### Cloudflare deployment
 
 `wrangler.jsonc` targets the existing `domus-preview` Worker by default. Explicit
 environments `preview` and `production` select `domus-preview` and `domus`, with
@@ -45,28 +46,38 @@ build under `dist-cloud/`, never local data directories or `server/db.json`.
 ```bash
 npm run dev:cloud           # build and run locally with emulated storage
 npm run test:cloud          # local Workers runtime, routing, R2 and auth checks
+npm run test:cloud:integration # isolated Docker PostgreSQL, Workers, R2 and browser flows
 npm run deploy:preview     # deploy to domus-preview
 npm run deploy:production  # deploy to domus
 ```
 
-The cloud build currently shows a pilot preparation page. The separate Express
-cloud entrypoint exposes `/api/health`; domain APIs return `503` until account
-isolation and data migration are implemented. The local lowdb API is deliberately
-not imported by the Worker. The existing local application remains available with
-`npm run dev`.
+The cloud build includes registration, verification, login, logout and password
+reset. Domain routes require a verified session. The first verified access creates
+one empty account with its owner membership. Account identifiers are determined
+server-side. PostgreSQL RLS and composite foreign keys protect domain records and
+relationships. Writes within an account are serialized while the existing rental
+rules run, including idempotent rental completion. Read requests use a consistent,
+read-only snapshot. The Worker does not import the local filesystem/lowdb API.
 
-Better Auth is wired for PostgreSQL, verified email/password login, database-backed
-rate limits and an explicit pilot email allowlist. It stays disabled until all
-required settings exist. Organization onboarding and domain data migration are
-still pending; an enabled auth handler alone is not a usable SaaS release.
+Better Auth uses PostgreSQL, database-backed rate limits and a pilot email
+allowlist. Password resets invalidate existing sessions. Team administration is
+currently closed. Files use bounded multipart uploads, signature checks, private
+downloads, a 20 MB upload limit and a 1 GB account quota. The one-time legacy import
+also preserves historical file formats and larger files. A daily job removes R2
+objects that have had no metadata reference for at least 24 hours.
 
-Required runtime secrets: `BETTER_AUTH_SECRET`, `PILOT_EMAILS`, `RESEND_API_KEY`,
-`MAIL_FROM`. `BETTER_AUTH_URL` is configured separately per environment. Each
+Required runtime secrets are `BETTER_AUTH_SECRET` and `PILOT_EMAILS`. Transactional
+mail uses the `EMAIL` Cloudflare binding, restricted to `MAIL_FROM`. The temporary
+sender is `no-reply@faktio.net`; the Domus-domain migration is tracked in `ToDo.MD`.
+`RESEND_API_KEY` remains supported for environments using Resend instead of the
+binding. `BETTER_AUTH_URL` is configured separately per environment. Each
 environment now has its own Neon PostgreSQL 17 project in AWS Frankfurt
 (`aws-eu-central-1`), connected as `HYPERDRIVE`. Query caching is disabled and TLS
 uses `verify-full`. The Worker connects as `domus_runtime`, which has no ownership,
 DDL, role-management or RLS-bypass privileges. The eight Better Auth tables are
-created; domain data still uses the local installation until its migration.
+created. Domain tables store relational identifiers, relationships, amounts and
+dates, with JSONB retaining the existing application's record shape. Domain SQL
+migrations use the existing `pg` dependency.
 
 Never commit database credentials or provider keys to Wrangler configuration.
 Local settings can be copied from `.dev.vars.example` to ignored `.dev.vars`.
@@ -83,6 +94,13 @@ Auth schema migration uses a separate administrative connection:
 # Set DOMUS_MIGRATION_DATABASE_URL securely in your environment or ignored .env.
 npm run db:migrate:auth             # print proposed SQL only
 npm run db:migrate:auth -- --apply  # explicitly apply to that database
+npm run db:migrate:domain          # print versioned domain SQL
+npm run db:migrate:domain -- --apply
+
+# After the owner registers and verifies their email, select the corresponding
+# migration connection and explicit target account. The default is a dry run.
+npm run db:import:cloud -- --environment production --email owner@example.com
+npm run db:import:cloud -- --environment production --email owner@example.com --apply
 ```
 
 Do not run migrations inside Worker requests. Use a non-owner runtime database

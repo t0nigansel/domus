@@ -1,0 +1,4362 @@
+{
+  "Recurrence": {
+    "de": "Wiederholung",
+    "en": "Recurrence"
+  },
+  "/ month": {
+    "de": "/ Monat",
+    "en": "/ month"
+  },
+  "/ year": {
+    "de": "/ Jahr",
+    "en": "/ year"
+  },
+  "One-off": {
+    "de": "Einmalig",
+    "en": "One-off"
+  },
+  "Monthly": {
+    "de": "Monatlich",
+    "en": "Monthly"
+  },
+  "Yearly": {
+    "de": "Jährlich",
+    "en": "Yearly"
+  },
+  "recurrence": {
+    "de": "Wiederholung",
+    "en": "Recurrence"
+  },
+  "Select a recurrence for regularly occurring costs.": {
+    "de": "Wähle für regelmäßig anfallende Kosten einen Rhythmus aus.",
+    "en": "Select a recurrence for regularly occurring costs."
+  },
+  "The amount applies per due date. The recurrence is saved; further cost entries are not created automatically.": {
+    "de": "Der Betrag gilt je Fälligkeit. Der Rhythmus wird gespeichert; weitere Kostenbuchungen werden nicht automatisch angelegt.",
+    "en": "The amount applies per due date. The recurrence is saved; further cost entries are not created automatically."
+  },
+  "Abbrechen": {
+    "de": "Abbrechen",
+    "en": "Cancel"
+  },
+  "Cancel": {
+    "de": "Abbrechen",
+    "en": "Cancel"
+  },
+  "Abgesagt": {
+    "de": "Abgesagt",
+    "en": "Cancelled"
+  },
+  "Cancelled": {
+    "de": "Abgesagt",
+    "en": "Cancelled"
+  },
+  "Abmelden": {
+    "de": "Abmelden",
+    "en": "Sign out"
+  },
+  "Sign out": {
+    "de": "Abmelden",
+    "en": "Sign out"
+  },
+  "Abmelden …": {
+    "de": "Abmelden …",
+    "en": "Signing out …"
+  },
+  "Signing out …": {
+    "de": "Abmelden …",
+    "en": "Signing out …"
+  },
+  "Abschließen und Mietverhältnis anlegen": {
+    "de": "Abschließen und Mietverhältnis anlegen",
+    "en": "Complete and create tenancy"
+  },
+  "Complete and create tenancy": {
+    "de": "Abschließen und Mietverhältnis anlegen",
+    "en": "Complete and create tenancy"
+  },
+  "Aktive Anliegen": {
+    "de": "Aktive Anliegen",
+    "en": "Active Issues"
+  },
+  "Active Issues": {
+    "de": "Aktive Anliegen",
+    "en": "Active Issues"
+  },
+  "Hinzufügen": {
+    "de": "Hinzufügen",
+    "en": "Add"
+  },
+  "Add": {
+    "de": "Hinzufügen",
+    "en": "Add"
+  },
+  "Datei hinzufügen": {
+    "de": "Datei hinzufügen",
+    "en": "Add File"
+  },
+  "Add File": {
+    "de": "Datei hinzufügen",
+    "en": "Add File"
+  },
+  "Mieter hinzufügen": {
+    "de": "Mieter hinzufügen",
+    "en": "Add Tenant"
+  },
+  "Add Tenant": {
+    "de": "Mieter hinzufügen",
+    "en": "Add Tenant"
+  },
+  "Zusätzliche Notizen": {
+    "de": "Zusätzliche Notizen",
+    "en": "Additional notes"
+  },
+  "Additional notes": {
+    "de": "Zusätzliche Notizen",
+    "en": "Additional notes"
+  },
+  "Adresse oder Lage": {
+    "de": "Adresse oder Lage",
+    "en": "Address or Area"
+  },
+  "Address or Area": {
+    "de": "Adresse oder Lage",
+    "en": "Address or Area"
+  },
+  "Alle": {
+    "de": "Alle",
+    "en": "All"
+  },
+  "All": {
+    "de": "Alle",
+    "en": "All"
+  },
+  "Alle Wohnungen": {
+    "de": "Alle Wohnungen",
+    "en": "All properties"
+  },
+  "All properties": {
+    "de": "Alle Wohnungen",
+    "en": "All properties"
+  },
+  "Alles an einem Ort.": {
+    "de": "Alles an einem Ort.",
+    "en": "Everything in one place."
+  },
+  "Everything in one place.": {
+    "de": "Alles an einem Ort.",
+    "en": "Everything in one place."
+  },
+  "Als Titelbild verwenden": {
+    "de": "Als Titelbild verwenden",
+    "en": "Use as cover image"
+  },
+  "Use as cover image": {
+    "de": "Als Titelbild verwenden",
+    "en": "Use as cover image"
+  },
+  "Betrag": {
+    "de": "Betrag",
+    "en": "Amount"
+  },
+  "Amount": {
+    "de": "Betrag",
+    "en": "Amount"
+  },
+  "Betrag (€)": {
+    "de": "Betrag (€)",
+    "en": "Amount (€)"
+  },
+  "Amount (€)": {
+    "de": "Betrag (€)",
+    "en": "Amount (€)"
+  },
+  "Anfrage": {
+    "de": "Anfrage",
+    "en": "Inquiry"
+  },
+  "Inquiry": {
+    "de": "Anfrage",
+    "en": "Inquiry"
+  },
+  "Angaben bearbeiten": {
+    "de": "Angaben bearbeiten",
+    "en": "Edit details"
+  },
+  "Edit details": {
+    "de": "Angaben bearbeiten",
+    "en": "Edit details"
+  },
+  "Anmelden": {
+    "de": "Anmelden",
+    "en": "Sign in"
+  },
+  "Sign in": {
+    "de": "Anmelden",
+    "en": "Sign in"
+  },
+  "Ansehen": {
+    "de": "Ansehen",
+    "en": "View"
+  },
+  "View": {
+    "de": "Ansehen",
+    "en": "View"
+  },
+  "Zuordnungen": {
+    "de": "Zuordnungen",
+    "en": "Associations"
+  },
+  "Associations": {
+    "de": "Zuordnungen",
+    "en": "Associations"
+  },
+  "Zuordnungen (optional)": {
+    "de": "Zuordnungen (optional)",
+    "en": "Associations (Optional)"
+  },
+  "Associations (Optional)": {
+    "de": "Zuordnungen (optional)",
+    "en": "Associations (Optional)"
+  },
+  "Anlagen": {
+    "de": "Anlagen",
+    "en": "Attachments"
+  },
+  "Attachments": {
+    "de": "Anlagen",
+    "en": "Attachments"
+  },
+  "Anlagen (Rechnungen usw.)": {
+    "de": "Anlagen (Rechnungen usw.)",
+    "en": "Attachments (Invoices, etc.)"
+  },
+  "Attachments (Invoices, etc.)": {
+    "de": "Anlagen (Rechnungen usw.)",
+    "en": "Attachments (Invoices, etc.)"
+  },
+  "Zurück zu den Wohnungen": {
+    "de": "Zurück zu den Wohnungen",
+    "en": "Back to Properties"
+  },
+  "Back to Properties": {
+    "de": "Zurück zu den Wohnungen",
+    "en": "Back to Properties"
+  },
+  "Zurück zu den Mietern": {
+    "de": "Zurück zu den Mietern",
+    "en": "Back to Tenants"
+  },
+  "Back to Tenants": {
+    "de": "Zurück zu den Mietern",
+    "en": "Back to Tenants"
+  },
+  "Schlecht": {
+    "de": "Schlecht",
+    "en": "Bad"
+  },
+  "Bad": {
+    "de": "Schlecht",
+    "en": "Bad"
+  },
+  "Bearbeitungsphase": {
+    "de": "Bearbeitungsphase",
+    "en": "Workflow stage"
+  },
+  "Workflow stage": {
+    "de": "Bearbeitungsphase",
+    "en": "Workflow stage"
+  },
+  "Beginn unbekannt": {
+    "de": "Beginn unbekannt",
+    "en": "Start date unknown"
+  },
+  "Start date unknown": {
+    "de": "Beginn unbekannt",
+    "en": "Start date unknown"
+  },
+  "Beginn und Ende bestimmen den Status automatisch. Ein Enddatum zählt als letzter Miettag.": {
+    "de": "Beginn und Ende bestimmen den Status automatisch. Ein Enddatum zählt als letzter Miettag.",
+    "en": "The start and end dates determine the status automatically. The end date is the last day of the tenancy."
+  },
+  "The start and end dates determine the status automatically. The end date is the last day of the tenancy.": {
+    "de": "Beginn und Ende bestimmen den Status automatisch. Ein Enddatum zählt als letzter Miettag.",
+    "en": "The start and end dates determine the status automatically. The end date is the last day of the tenancy."
+  },
+  "Belegung laut Eigentümer": {
+    "de": "Belegung laut Eigentümer",
+    "en": "Occupancy confirmed by the owner"
+  },
+  "Occupancy confirmed by the owner": {
+    "de": "Belegung laut Eigentümer",
+    "en": "Occupancy confirmed by the owner"
+  },
+  "Beschwerde beim Landesbeauftragten für den Datenschutz Niedersachsen": {
+    "de": "Beschwerde beim Landesbeauftragten für den Datenschutz Niedersachsen",
+    "en": "Complaint to the Lower Saxony data protection authority"
+  },
+  "Complaint to the Lower Saxony data protection authority": {
+    "de": "Beschwerde beim Landesbeauftragten für den Datenschutz Niedersachsen",
+    "en": "Complaint to the Lower Saxony data protection authority"
+  },
+  "Besichtigung hinzufügen": {
+    "de": "Besichtigung hinzufügen",
+    "en": "Add viewing"
+  },
+  "Add viewing": {
+    "de": "Besichtigung hinzufügen",
+    "en": "Add viewing"
+  },
+  "Besichtigungen": {
+    "de": "Besichtigungen",
+    "en": "Viewings"
+  },
+  "Viewings": {
+    "de": "Besichtigungen",
+    "en": "Viewings"
+  },
+  "Bestandsmieter prüfen": {
+    "de": "Bestandsmieter prüfen",
+    "en": "Review existing tenants"
+  },
+  "Review existing tenants": {
+    "de": "Bestandsmieter prüfen",
+    "en": "Review existing tenants"
+  },
+  "Bestandsvertrag bestätigen": {
+    "de": "Bestandsvertrag bestätigen",
+    "en": "Confirm existing tenancy"
+  },
+  "Confirm existing tenancy": {
+    "de": "Bestandsvertrag bestätigen",
+    "en": "Confirm existing tenancy"
+  },
+  "Bestätigte Stammdaten deiner Wohnung. Unbekannte Angaben bleiben leer.": {
+    "de": "Bestätigte Stammdaten deiner Wohnung. Unbekannte Angaben bleiben leer.",
+    "en": "Confirmed property details. Unknown values remain blank."
+  },
+  "Confirmed property details. Unknown values remain blank.": {
+    "de": "Bestätigte Stammdaten deiner Wohnung. Unbekannte Angaben bleiben leer.",
+    "en": "Confirmed property details. Unknown values remain blank."
+  },
+  "Bestätigungslink erneut senden": {
+    "de": "Bestätigungslink erneut senden",
+    "en": "Resend verification link"
+  },
+  "Resend verification link": {
+    "de": "Bestätigungslink erneut senden",
+    "en": "Resend verification link"
+  },
+  "Betreiber von Domus": {
+    "de": "Betreiber von Domus",
+    "en": "Domus operator"
+  },
+  "Domus operator": {
+    "de": "Betreiber von Domus",
+    "en": "Domus operator"
+  },
+  "Bewerbung": {
+    "de": "Bewerbung",
+    "en": "Application"
+  },
+  "Application": {
+    "de": "Bewerbung",
+    "en": "Application"
+  },
+  "Bewerbung bearbeiten": {
+    "de": "Bewerbung bearbeiten",
+    "en": "Edit application"
+  },
+  "Edit application": {
+    "de": "Bewerbung bearbeiten",
+    "en": "Edit application"
+  },
+  "Bewerbung hinzufügen": {
+    "de": "Bewerbung hinzufügen",
+    "en": "Add application"
+  },
+  "Add application": {
+    "de": "Bewerbung hinzufügen",
+    "en": "Add application"
+  },
+  "Bewerbung speichern": {
+    "de": "Bewerbung speichern",
+    "en": "Save application"
+  },
+  "Save application": {
+    "de": "Bewerbung speichern",
+    "en": "Save application"
+  },
+  "Bewohner mit Nießbrauch, kein Mieter": {
+    "de": "Bewohner mit Nießbrauch, kein Mieter",
+    "en": "Resident with usufruct rights, not a tenant"
+  },
+  "Resident with usufruct rights, not a tenant": {
+    "de": "Bewohner mit Nießbrauch, kein Mieter",
+    "en": "Resident with usufruct rights, not a tenant"
+  },
+  "Bewohner, kein Mietverhältnis": {
+    "de": "Bewohner, kein Mietverhältnis",
+    "en": "Resident without a tenancy"
+  },
+  "Resident without a tenancy": {
+    "de": "Bewohner, kein Mietverhältnis",
+    "en": "Resident without a tenancy"
+  },
+  "Bezeichnung": {
+    "de": "Bezeichnung",
+    "en": "Title"
+  },
+  "Title": {
+    "de": "Titel",
+    "en": "Title"
+  },
+  "Bitte auswählen": {
+    "de": "Bitte auswählen",
+    "en": "Please select"
+  },
+  "Please select": {
+    "de": "Bitte auswählen",
+    "en": "Please select"
+  },
+  "Bitte lade die Seite erneut oder melde dich noch einmal an.": {
+    "de": "Bitte lade die Seite erneut oder melde dich noch einmal an.",
+    "en": "Please reload the page or sign in again."
+  },
+  "Please reload the page or sign in again.": {
+    "de": "Bitte lade die Seite erneut oder melde dich noch einmal an.",
+    "en": "Please reload the page or sign in again."
+  },
+  "Bitte warten …": {
+    "de": "Bitte warten …",
+    "en": "Please wait …"
+  },
+  "Please wait …": {
+    "de": "Bitte warten …",
+    "en": "Please wait …"
+  },
+  "Unten links": {
+    "de": "Unten links",
+    "en": "Bottom Left"
+  },
+  "Bottom Left": {
+    "de": "Unten links",
+    "en": "Bottom Left"
+  },
+  "Unten rechts": {
+    "de": "Unten rechts",
+    "en": "Bottom Right"
+  },
+  "Bottom Right": {
+    "de": "Unten rechts",
+    "en": "Bottom Right"
+  },
+  "Kategorien": {
+    "de": "Kategorien",
+    "en": "Categories"
+  },
+  "Categories": {
+    "de": "Kategorien",
+    "en": "Categories"
+  },
+  "Geschlossen": {
+    "de": "Geschlossen",
+    "en": "Closed"
+  },
+  "Closed": {
+    "de": "Geschlossen",
+    "en": "Closed"
+  },
+  "Kalt": {
+    "de": "Kalt",
+    "en": "Cold"
+  },
+  "Cold": {
+    "de": "Kalt",
+    "en": "Cold"
+  },
+  "Kaltmiete (€)": {
+    "de": "Kaltmiete (€)",
+    "en": "Cold Rent (€)"
+  },
+  "Cold Rent (€)": {
+    "de": "Kaltmiete (€)",
+    "en": "Cold Rent (€)"
+  },
+  "Zustand": {
+    "de": "Zustand",
+    "en": "Condition"
+  },
+  "Condition": {
+    "de": "Zustand",
+    "en": "Condition"
+  },
+  "Kontaktdaten": {
+    "de": "Kontaktdaten",
+    "en": "Contact Info"
+  },
+  "Contact Info": {
+    "de": "Kontaktdaten",
+    "en": "Contact Info"
+  },
+  "Kontaktinformationen": {
+    "de": "Kontaktinformationen",
+    "en": "Contact Information"
+  },
+  "Contact Information": {
+    "de": "Kontaktinformationen",
+    "en": "Contact Information"
+  },
+  "Kontakte": {
+    "de": "Kontakte",
+    "en": "Contacts"
+  },
+  "Contacts": {
+    "de": "Kontakte",
+    "en": "Contacts"
+  },
+  "Kosten": {
+    "de": "Kosten",
+    "en": "Costs"
+  },
+  "Costs": {
+    "de": "Kosten",
+    "en": "Costs"
+  },
+  "Anliegen erstellen": {
+    "de": "Anliegen erstellen",
+    "en": "Create Request"
+  },
+  "Create Request": {
+    "de": "Anliegen erstellen",
+    "en": "Create Request"
+  },
+  "Darstellung": {
+    "de": "Darstellung",
+    "en": "Appearance"
+  },
+  "Appearance": {
+    "de": "Darstellung",
+    "en": "Appearance"
+  },
+  "Übersicht": {
+    "de": "Übersicht",
+    "en": "Dashboard"
+  },
+  "Dashboard": {
+    "de": "Übersicht",
+    "en": "Dashboard"
+  },
+  "Datum": {
+    "de": "Datum",
+    "en": "Date"
+  },
+  "Date": {
+    "de": "Datum",
+    "en": "Date"
+  },
+  "Dateien aus rohdaten/": {
+    "de": "Dateien aus rohdaten/",
+    "en": "Files from rohdaten/"
+  },
+  "Files from rohdaten/": {
+    "de": "Dateien aus rohdaten/",
+    "en": "Files from rohdaten/"
+  },
+  "Dateien hochladen (bis 20 MB je Datei)": {
+    "de": "Dateien hochladen (bis 20 MB je Datei)",
+    "en": "Upload files (up to 20 MB each)"
+  },
+  "Upload files (up to 20 MB each)": {
+    "de": "Dateien hochladen (bis 20 MB je Datei)",
+    "en": "Upload files (up to 20 MB each)"
+  },
+  "Dateien verwalten": {
+    "de": "Dateien verwalten",
+    "en": "Manage files"
+  },
+  "Manage files": {
+    "de": "Dateien verwalten",
+    "en": "Manage files"
+  },
+  "Dateien werden verarbeitet …": {
+    "de": "Dateien werden verarbeitet …",
+    "en": "Processing files …"
+  },
+  "Processing files …": {
+    "de": "Dateien werden verarbeitet …",
+    "en": "Processing files …"
+  },
+  "Datenschutz-Grundverordnung": {
+    "de": "Datenschutz-Grundverordnung",
+    "en": "General Data Protection Regulation"
+  },
+  "General Data Protection Regulation": {
+    "de": "Datenschutz-Grundverordnung",
+    "en": "General Data Protection Regulation"
+  },
+  "Datenschutzerklärung": {
+    "de": "Datenschutzerklärung",
+    "en": "Privacy policy"
+  },
+  "Privacy policy": {
+    "de": "Datenschutzerklärung",
+    "en": "Privacy policy"
+  },
+  "Datum und Uhrzeit gelten am Ort der Wohnung.": {
+    "de": "Datum und Uhrzeit gelten am Ort der Wohnung.",
+    "en": "Dates and times are local to the property."
+  },
+  "Dates and times are local to the property.": {
+    "de": "Datum und Uhrzeit gelten am Ort der Wohnung.",
+    "en": "Dates and times are local to the property."
+  },
+  "Deine Immobilien.": {
+    "de": "Deine Immobilien.",
+    "en": "Your properties."
+  },
+  "Your properties.": {
+    "de": "Deine Immobilien.",
+    "en": "Your properties."
+  },
+  "Löschen": {
+    "de": "Löschen",
+    "en": "Delete"
+  },
+  "Delete": {
+    "de": "Löschen",
+    "en": "Delete"
+  },
+  "Kontakt löschen": {
+    "de": "Kontakt löschen",
+    "en": "Delete Contact"
+  },
+  "Delete Contact": {
+    "de": "Kontakt löschen",
+    "en": "Delete Contact"
+  },
+  "Mieter löschen": {
+    "de": "Mieter löschen",
+    "en": "Delete Tenant"
+  },
+  "Delete Tenant": {
+    "de": "Mieter löschen",
+    "en": "Delete Tenant"
+  },
+  "Der Abschluss ist gespeichert. Zeitraum und Status findest du in der Übersicht unter Mietverhältnisse.": {
+    "de": "Der Abschluss ist gespeichert. Zeitraum und Status findest du in der Übersicht unter Mietverhältnisse.",
+    "en": "Completion has been saved. Dates and status are shown under tenancies in the overview."
+  },
+  "Completion has been saved. Dates and status are shown under tenancies in the overview.": {
+    "de": "Der Abschluss ist gespeichert. Zeitraum und Status findest du in der Übersicht unter Mietverhältnisse.",
+    "en": "Completion has been saved. Dates and status are shown under tenancies in the overview."
+  },
+  "Der Vorgang bleibt lesbar. Es wird kein Mietverhältnis angelegt.": {
+    "de": "Der Vorgang bleibt lesbar. Es wird kein Mietverhältnis angelegt.",
+    "en": "The workflow remains available to read. No tenancy will be created."
+  },
+  "The workflow remains available to read. No tenancy will be created.": {
+    "de": "Der Vorgang bleibt lesbar. Es wird kein Mietverhältnis angelegt.",
+    "en": "The workflow remains available to read. No tenancy will be created."
+  },
+  "Der Zugang wird vorbereitet.": {
+    "de": "Der Zugang wird vorbereitet.",
+    "en": "Access is being prepared."
+  },
+  "Access is being prepared.": {
+    "de": "Der Zugang wird vorbereitet.",
+    "en": "Access is being prepared."
+  },
+  "Beschreibung": {
+    "de": "Beschreibung",
+    "en": "Description"
+  },
+  "Description": {
+    "de": "Beschreibung",
+    "en": "Description"
+  },
+  "Ausführliche Beschreibung …": {
+    "de": "Ausführliche Beschreibung …",
+    "en": "Detailed description..."
+  },
+  "Detailed description...": {
+    "de": "Ausführliche Beschreibung …",
+    "en": "Detailed description..."
+  },
+  "Deutschland": {
+    "de": "Deutschland",
+    "en": "Germany"
+  },
+  "Germany": {
+    "de": "Deutschland",
+    "en": "Germany"
+  },
+  "Dieser Vorgang wurde archiviert.": {
+    "de": "Dieser Vorgang wurde archiviert.",
+    "en": "This workflow has been archived."
+  },
+  "This workflow has been archived.": {
+    "de": "Dieser Vorgang wurde archiviert.",
+    "en": "This workflow has been archived."
+  },
+  "Dokumente": {
+    "de": "Dokumente",
+    "en": "Documents"
+  },
+  "Documents": {
+    "de": "Dokumente",
+    "en": "Documents"
+  },
+  "Domus wird geladen …": {
+    "de": "Domus wird geladen …",
+    "en": "Loading Domus …"
+  },
+  "Loading Domus …": {
+    "de": "Domus wird geladen …",
+    "en": "Loading Domus …"
+  },
+  "Domus-Zugang": {
+    "de": "Domus-Zugang",
+    "en": "Domus access"
+  },
+  "Domus access": {
+    "de": "Domus-Zugang",
+    "en": "Domus access"
+  },
+  "Fällig am": {
+    "de": "Fällig am",
+    "en": "Due Date"
+  },
+  "Due Date": {
+    "de": "Fällig am",
+    "en": "Due Date"
+  },
+  "Fällig:": {
+    "de": "Fällig:",
+    "en": "Due:"
+  },
+  "Due:": {
+    "de": "Fällig:",
+    "en": "Due:"
+  },
+  "Dunkel": {
+    "de": "Dunkel",
+    "en": "Dark"
+  },
+  "Dark": {
+    "de": "Dunkel",
+    "en": "Dark"
+  },
+  "Durchgeführt": {
+    "de": "Durchgeführt",
+    "en": "Completed"
+  },
+  "Completed": {
+    "de": "Abgeschlossen",
+    "en": "Completed"
+  },
+  "E-Mail": {
+    "de": "E-Mail",
+    "en": "Email"
+  },
+  "Email": {
+    "de": "E-Mail",
+    "en": "Email"
+  },
+  "E-Mail-Adresse": {
+    "de": "E-Mail-Adresse",
+    "en": "Email address"
+  },
+  "Email address": {
+    "de": "E-Mail-Adresse",
+    "en": "Email address"
+  },
+  "Profil bearbeiten": {
+    "de": "Profil bearbeiten",
+    "en": "Edit Profile"
+  },
+  "Edit Profile": {
+    "de": "Profil bearbeiten",
+    "en": "Edit Profile"
+  },
+  "Wohnung bearbeiten": {
+    "de": "Wohnung bearbeiten",
+    "en": "Edit Property"
+  },
+  "Edit Property": {
+    "de": "Wohnung bearbeiten",
+    "en": "Edit Property"
+  },
+  "Eingeladen? Zugang erstellen": {
+    "de": "Eingeladen? Zugang erstellen",
+    "en": "Invited? Create an account"
+  },
+  "Invited? Create an account": {
+    "de": "Eingeladen? Zugang erstellen",
+    "en": "Invited? Create an account"
+  },
+  "Elektriker, Installateur usw.": {
+    "de": "Elektriker, Installateur usw.",
+    "en": "Electrician, Plumber, etc."
+  },
+  "Electrician, Plumber, etc.": {
+    "de": "Elektriker, Installateur usw.",
+    "en": "Electrician, Plumber, etc."
+  },
+  "Dateinamen eingeben (z. B. rechnung_2024.pdf)": {
+    "de": "Dateinamen eingeben (z. B. rechnung_2024.pdf)",
+    "en": "Enter file name (e.g., invoice_2024.pdf)"
+  },
+  "Enter file name (e.g., invoice_2024.pdf)": {
+    "de": "Dateinamen eingeben (z. B. rechnung_2024.pdf)",
+    "en": "Enter file name (e.g., invoice_2024.pdf)"
+  },
+  "Ergebnis und offene Fragen": {
+    "de": "Ergebnis und offene Fragen",
+    "en": "Outcome and open questions"
+  },
+  "Outcome and open questions": {
+    "de": "Ergebnis und offene Fragen",
+    "en": "Outcome and open questions"
+  },
+  "Erneut laden": {
+    "de": "Erneut laden",
+    "en": "Reload"
+  },
+  "Reload": {
+    "de": "Erneut laden",
+    "en": "Reload"
+  },
+  "Erneut versuchen": {
+    "de": "Erneut versuchen",
+    "en": "Try again"
+  },
+  "Try again": {
+    "de": "Erneut versuchen",
+    "en": "Try again"
+  },
+  "Fehler beim Laden der Daten": {
+    "de": "Fehler beim Laden der Daten",
+    "en": "Error loading data"
+  },
+  "Error loading data": {
+    "de": "Fehler beim Laden der Daten",
+    "en": "Error loading data"
+  },
+  "Fotos, Grundrisse und Dokumente": {
+    "de": "Fotos, Grundrisse und Dokumente",
+    "en": "Photos, floor plans and documents"
+  },
+  "Photos, floor plans and documents": {
+    "de": "Fotos, Grundrisse und Dokumente",
+    "en": "Photos, floor plans and documents"
+  },
+  "Vollständiger Name": {
+    "de": "Vollständiger Name",
+    "en": "Full Name"
+  },
+  "Full Name": {
+    "de": "Vollständiger Name",
+    "en": "Full Name"
+  },
+  "Vollständiger Name oder Firma": {
+    "de": "Vollständiger Name oder Firma",
+    "en": "Full Name or Company"
+  },
+  "Full Name or Company": {
+    "de": "Vollständiger Name oder Firma",
+    "en": "Full Name or Company"
+  },
+  "Funktion": {
+    "de": "Funktion",
+    "en": "Function"
+  },
+  "Function": {
+    "de": "Funktion",
+    "en": "Function"
+  },
+  "Für Datenschutzanfragen kannst du die oben genannte E-Mail-Adresse verwenden.": {
+    "de": "Für Datenschutzanfragen kannst du die oben genannte E-Mail-Adresse verwenden.",
+    "en": "You can use the email address above for data protection enquiries."
+  },
+  "You can use the email address above for data protection enquiries.": {
+    "de": "Für Datenschutzanfragen kannst du die oben genannte E-Mail-Adresse verwenden.",
+    "en": "You can use the email address above for data protection enquiries."
+  },
+  "Für Inserate freigegeben": {
+    "de": "Für Inserate freigegeben",
+    "en": "Approved for listings"
+  },
+  "Approved for listings": {
+    "de": "Für Inserate freigegeben",
+    "en": "Approved for listings"
+  },
+  "Für Vertrag auswählen": {
+    "de": "Für Vertrag auswählen",
+    "en": "Select for contract"
+  },
+  "Select for contract": {
+    "de": "Für Vertrag auswählen",
+    "en": "Select for contract"
+  },
+  "Für Wohnungen mit bestätigten Mietverhältnissen neue Parteien über": {
+    "de": "Für Wohnungen mit bestätigten Mietverhältnissen neue Parteien über",
+    "en": "For properties with confirmed tenancies, add new parties through"
+  },
+  "For properties with confirmed tenancies, add new parties through": {
+    "de": "Für Wohnungen mit bestätigten Mietverhältnissen neue Parteien über",
+    "en": "For properties with confirmed tenancies, add new parties through"
+  },
+  "Für eingeladene Pilotnutzer. Dein Verwaltungskonto startet leer.": {
+    "de": "Für eingeladene Pilotnutzer. Dein Verwaltungskonto startet leer.",
+    "en": "For invited pilot users. Your property management account starts empty."
+  },
+  "For invited pilot users. Your property management account starts empty.": {
+    "de": "Für eingeladene Pilotnutzer. Dein Verwaltungskonto startet leer.",
+    "en": "For invited pilot users. Your property management account starts empty."
+  },
+  "Gemeinsame Vertragsparteien auswählen": {
+    "de": "Gemeinsame Vertragsparteien auswählen",
+    "en": "Select joint parties"
+  },
+  "Select joint parties": {
+    "de": "Gemeinsame Vertragsparteien auswählen",
+    "en": "Select joint parties"
+  },
+  "Allgemein": {
+    "de": "Allgemein",
+    "en": "General"
+  },
+  "General": {
+    "de": "Allgemein",
+    "en": "General"
+  },
+  "Geplant": {
+    "de": "Geplant",
+    "en": "Planned"
+  },
+  "Planned": {
+    "de": "Geplant",
+    "en": "Planned"
+  },
+  "Gut": {
+    "de": "Gut",
+    "en": "Good"
+  },
+  "Good": {
+    "de": "Gut",
+    "en": "Good"
+  },
+  "Größer als 20 MB": {
+    "de": "Größer als 20 MB",
+    "en": "Larger than 20 MB"
+  },
+  "Larger than 20 MB": {
+    "de": "Größer als 20 MB",
+    "en": "Larger than 20 MB"
+  },
+  "Offene Anliegen vorhanden": {
+    "de": "Offene Anliegen vorhanden",
+    "en": "Has Open Issues"
+  },
+  "Has Open Issues": {
+    "de": "Offene Anliegen vorhanden",
+    "en": "Has Open Issues"
+  },
+  "Hell": {
+    "de": "Hell",
+    "en": "Light"
+  },
+  "Light": {
+    "de": "Hell",
+    "en": "Light"
+  },
+  "Herunterladen": {
+    "de": "Herunterladen",
+    "en": "Download"
+  },
+  "Download": {
+    "de": "Herunterladen",
+    "en": "Download"
+  },
+  "Hoch": {
+    "de": "Hoch",
+    "en": "High"
+  },
+  "High": {
+    "de": "Hoch",
+    "en": "High"
+  },
+  "Hohe Priorität": {
+    "de": "Hohe Priorität",
+    "en": "High Priority"
+  },
+  "High Priority": {
+    "de": "Hohe Priorität",
+    "en": "High Priority"
+  },
+  "Ich habe die Vertragsdaten geprüft und die ausgewählte Datei enthält den unterschriebenen Vertrag.": {
+    "de": "Ich habe die Vertragsdaten geprüft und die ausgewählte Datei enthält den unterschriebenen Vertrag.",
+    "en": "I have reviewed the tenancy details and the selected file contains the signed agreement."
+  },
+  "I have reviewed the tenancy details and the selected file contains the signed agreement.": {
+    "de": "Ich habe die Vertragsdaten geprüft und die ausgewählte Datei enthält den unterschriebenen Vertrag.",
+    "en": "I have reviewed the tenancy details and the selected file contains the signed agreement."
+  },
+  "Importieren": {
+    "de": "Importieren",
+    "en": "Import"
+  },
+  "Import": {
+    "de": "Importieren",
+    "en": "Import"
+  },
+  "Importierte Angaben zur Prüfung": {
+    "de": "Importierte Angaben zur Prüfung",
+    "en": "Imported details for review"
+  },
+  "Imported details for review": {
+    "de": "Importierte Angaben zur Prüfung",
+    "en": "Imported details for review"
+  },
+  "Impressum": {
+    "de": "Impressum",
+    "en": "Legal notice"
+  },
+  "Legal notice": {
+    "de": "Impressum",
+    "en": "Legal notice"
+  },
+  "Inseratentwurf (manuell)": {
+    "de": "Inseratentwurf (manuell)",
+    "en": "Listing draft (manual)"
+  },
+  "Listing draft (manual)": {
+    "de": "Inseratentwurf (manuell)",
+    "en": "Listing draft (manual)"
+  },
+  "Interessenten und Vertragsparteien": {
+    "de": "Interessenten und Vertragsparteien",
+    "en": "Applicants and parties"
+  },
+  "Applicants and parties": {
+    "de": "Interessenten und Vertragsparteien",
+    "en": "Applicants and parties"
+  },
+  "Interessenten, Besichtigungen, Vertragsparteien und Mietzeiträume für diese Wohnung verwalten.": {
+    "de": "Interessenten, Besichtigungen, Vertragsparteien und Mietzeiträume für diese Wohnung verwalten.",
+    "en": "Manage applicants, viewings, parties and tenancy dates for this property."
+  },
+  "Manage applicants, viewings, parties and tenancy dates for this property.": {
+    "de": "Interessenten, Besichtigungen, Vertragsparteien und Mietzeiträume für diese Wohnung verwalten.",
+    "en": "Manage applicants, viewings, parties and tenancy dates for this property."
+  },
+  "Intern": {
+    "de": "Intern",
+    "en": "Internal"
+  },
+  "Internal": {
+    "de": "Intern",
+    "en": "Internal"
+  },
+  "Interne Notizen": {
+    "de": "Interne Notizen",
+    "en": "Internal notes"
+  },
+  "Internal notes": {
+    "de": "Interne Notizen",
+    "en": "Internal notes"
+  },
+  "Titel des Anliegens": {
+    "de": "Titel des Anliegens",
+    "en": "Issue Title"
+  },
+  "Issue Title": {
+    "de": "Titel des Anliegens",
+    "en": "Issue Title"
+  },
+  "Anliegen": {
+    "de": "Anliegen",
+    "en": "Issues"
+  },
+  "Issues": {
+    "de": "Anliegen",
+    "en": "Issues"
+  },
+  "Anliegen und Anfragen": {
+    "de": "Anliegen und Anfragen",
+    "en": "Issues & Requests"
+  },
+  "Issues & Requests": {
+    "de": "Anliegen und Anfragen",
+    "en": "Issues & Requests"
+  },
+  "Kaltmiete (€ / Monat)": {
+    "de": "Kaltmiete (€ / Monat)",
+    "en": "Cold rent (€ / month)"
+  },
+  "Cold rent (€ / month)": {
+    "de": "Kaltmiete (€ / Monat)",
+    "en": "Cold rent (€ / month)"
+  },
+  "Kategorie": {
+    "de": "Kategorie",
+    "en": "Category"
+  },
+  "Category": {
+    "de": "Kategorie",
+    "en": "Category"
+  },
+  "Kategorie für neue Dateien": {
+    "de": "Kategorie für neue Dateien",
+    "en": "Category for new files"
+  },
+  "Category for new files": {
+    "de": "Kategorie für neue Dateien",
+    "en": "Category for new files"
+  },
+  "Kaution (€)": {
+    "de": "Kaution (€)",
+    "en": "Deposit (€)"
+  },
+  "Deposit (€)": {
+    "de": "Kaution (€)",
+    "en": "Deposit (€)"
+  },
+  "Kein Mietverhältnis": {
+    "de": "Kein Mietverhältnis",
+    "en": "No tenancy"
+  },
+  "No tenancy": {
+    "de": "Kein Mietverhältnis",
+    "en": "No tenancy"
+  },
+  "Keine": {
+    "de": "Keine",
+    "en": "None"
+  },
+  "None": {
+    "de": "Keine",
+    "en": "None"
+  },
+  "Keine ungeprüften Bestandsmieter für diese Wohnung.": {
+    "de": "Keine ungeprüften Bestandsmieter für diese Wohnung.",
+    "en": "No existing tenants awaiting review for this property."
+  },
+  "No existing tenants awaiting review for this property.": {
+    "de": "Keine ungeprüften Bestandsmieter für diese Wohnung.",
+    "en": "No existing tenants awaiting review for this property."
+  },
+  "Keine unterstützten Dateien gefunden.": {
+    "de": "Keine unterstützten Dateien gefunden.",
+    "en": "No supported files found."
+  },
+  "No supported files found.": {
+    "de": "Keine unterstützten Dateien gefunden.",
+    "en": "No supported files found."
+  },
+  "Mietvertragsdetails": {
+    "de": "Mietvertragsdetails",
+    "en": "Lease Details"
+  },
+  "Lease Details": {
+    "de": "Mietvertragsdetails",
+    "en": "Lease Details"
+  },
+  "Mietende": {
+    "de": "Mietende",
+    "en": "Lease End"
+  },
+  "Lease End": {
+    "de": "Mietende",
+    "en": "Lease End"
+  },
+  "Mietbeginn": {
+    "de": "Mietbeginn",
+    "en": "Lease Start"
+  },
+  "Lease Start": {
+    "de": "Mietbeginn",
+    "en": "Lease Start"
+  },
+  "Letzter Miettag (leer = unbefristet)": {
+    "de": "Letzter Miettag (leer = unbefristet)",
+    "en": "Last day of tenancy (blank = open-ended)"
+  },
+  "Last day of tenancy (blank = open-ended)": {
+    "de": "Letzter Miettag (leer = unbefristet)",
+    "en": "Last day of tenancy (blank = open-ended)"
+  },
+  "Anwendungsdaten werden geladen …": {
+    "de": "Anwendungsdaten werden geladen …",
+    "en": "Loading application data..."
+  },
+  "Loading application data...": {
+    "de": "Anwendungsdaten werden geladen …",
+    "en": "Loading application data..."
+  },
+  "Lage": {
+    "de": "Lage",
+    "en": "Location"
+  },
+  "Location": {
+    "de": "Lage",
+    "en": "Location"
+  },
+  "Ausgabe erfassen": {
+    "de": "Ausgabe erfassen",
+    "en": "Log Expense"
+  },
+  "Log Expense": {
+    "de": "Ausgabe erfassen",
+    "en": "Log Expense"
+  },
+  "Zahlung erfassen": {
+    "de": "Zahlung erfassen",
+    "en": "Log Payment"
+  },
+  "Log Payment": {
+    "de": "Zahlung erfassen",
+    "en": "Log Payment"
+  },
+  "Niedrig": {
+    "de": "Niedrig",
+    "en": "Low"
+  },
+  "Low": {
+    "de": "Niedrig",
+    "en": "Low"
+  },
+  "Niedrige Priorität": {
+    "de": "Niedrige Priorität",
+    "en": "Low Priority"
+  },
+  "Low Priority": {
+    "de": "Niedrige Priorität",
+    "en": "Low Priority"
+  },
+  "Lädt …": {
+    "de": "Lädt …",
+    "en": "Loading …"
+  },
+  "Loading …": {
+    "de": "Lädt …",
+    "en": "Loading …"
+  },
+  "Instandhaltung": {
+    "de": "Instandhaltung",
+    "en": "Maintenance"
+  },
+  "Maintenance": {
+    "de": "Instandhaltung",
+    "en": "Maintenance"
+  },
+  "Als erledigt markieren": {
+    "de": "Als erledigt markieren",
+    "en": "Mark Resolved"
+  },
+  "Mark Resolved": {
+    "de": "Als erledigt markieren",
+    "en": "Mark Resolved"
+  },
+  "Mittel": {
+    "de": "Mittel",
+    "en": "Medium"
+  },
+  "Medium": {
+    "de": "Mittel",
+    "en": "Medium"
+  },
+  "Mittlere Priorität": {
+    "de": "Mittlere Priorität",
+    "en": "Medium Priority"
+  },
+  "Medium Priority": {
+    "de": "Mittlere Priorität",
+    "en": "Medium Priority"
+  },
+  "Microsoft-Datenschutzbestimmungen": {
+    "de": "Microsoft-Datenschutzbestimmungen",
+    "en": "Microsoft privacy statement"
+  },
+  "Microsoft privacy statement": {
+    "de": "Microsoft-Datenschutzbestimmungen",
+    "en": "Microsoft privacy statement"
+  },
+  "Mietende (leer = unbefristet)": {
+    "de": "Mietende (leer = unbefristet)",
+    "en": "Tenancy end (blank = open-ended)"
+  },
+  "Tenancy end (blank = open-ended)": {
+    "de": "Mietende (leer = unbefristet)",
+    "en": "Tenancy end (blank = open-ended)"
+  },
+  "Mietende festlegen oder korrigieren": {
+    "de": "Mietende festlegen oder korrigieren",
+    "en": "Set or correct tenancy end"
+  },
+  "Set or correct tenancy end": {
+    "de": "Mietende festlegen oder korrigieren",
+    "en": "Set or correct tenancy end"
+  },
+  "Mietende speichern": {
+    "de": "Mietende speichern",
+    "en": "Save tenancy end"
+  },
+  "Save tenancy end": {
+    "de": "Mietende speichern",
+    "en": "Save tenancy end"
+  },
+  "Mieter": {
+    "de": "Mieter",
+    "en": "Tenant"
+  },
+  "Tenant": {
+    "de": "Mieter",
+    "en": "Tenant"
+  },
+  "Mietverhältnis unter Vermietungen beenden": {
+    "de": "Mietverhältnis unter Vermietungen beenden",
+    "en": "End the tenancy under Rentals"
+  },
+  "End the tenancy under Rentals": {
+    "de": "Mietverhältnis unter Vermietungen beenden",
+    "en": "End the tenancy under Rentals"
+  },
+  "Mietverhältnis übernehmen": {
+    "de": "Mietverhältnis übernehmen",
+    "en": "Create tenancy"
+  },
+  "Create tenancy": {
+    "de": "Mietverhältnis übernehmen",
+    "en": "Create tenancy"
+  },
+  "Mietverhältnisse": {
+    "de": "Mietverhältnisse",
+    "en": "Tenancies"
+  },
+  "Tenancies": {
+    "de": "Mietverhältnisse",
+    "en": "Tenancies"
+  },
+  "Mietverhältnisse und Historie": {
+    "de": "Mietverhältnisse und Historie",
+    "en": "Tenancies and history"
+  },
+  "Tenancies and history": {
+    "de": "Mietverhältnisse und Historie",
+    "en": "Tenancies and history"
+  },
+  "Mietverhältnisse verwalten": {
+    "de": "Mietverhältnisse verwalten",
+    "en": "Manage tenancies"
+  },
+  "Manage tenancies": {
+    "de": "Mietverhältnisse verwalten",
+    "en": "Manage tenancies"
+  },
+  "Mindestens 12 Zeichen": {
+    "de": "Mindestens 12 Zeichen",
+    "en": "At least 12 characters"
+  },
+  "At least 12 characters": {
+    "de": "Mindestens 12 Zeichen",
+    "en": "At least 12 characters"
+  },
+  "Mitvermietete Bestandteile": {
+    "de": "Mitvermietete Bestandteile",
+    "en": "Items included in the tenancy"
+  },
+  "Items included in the tenancy": {
+    "de": "Mitvermietete Bestandteile",
+    "en": "Items included in the tenancy"
+  },
+  "Monatliche Gesamtmiete": {
+    "de": "Monatliche Gesamtmiete",
+    "en": "Monthly Rent (Total)"
+  },
+  "Monthly Rent (Total)": {
+    "de": "Monatliche Gesamtmiete",
+    "en": "Monthly Rent (Total)"
+  },
+  "Nach Prüfung in die Stammdaten übernehmen.": {
+    "de": "Nach Prüfung in die Stammdaten übernehmen.",
+    "en": "Transfer to the property details after review."
+  },
+  "Transfer to the property details after review.": {
+    "de": "Nach Prüfung in die Stammdaten übernehmen.",
+    "en": "Transfer to the property details after review."
+  },
+  "Nach externer Unterzeichnung: Vertrag in der Wohnungsakte als „Mietverträge“ hochladen und hier zuordnen. Eine Vertragsgenerierung folgt in einem späteren Schritt.": {
+    "de": "Nach externer Unterzeichnung: Vertrag in der Wohnungsakte als „Mietverträge“ hochladen und hier zuordnen. Eine Vertragsgenerierung folgt in einem späteren Schritt.",
+    "en": "After signing externally, upload the contract under Lease agreements in the property dossier and link it here. Contract generation will be added at a later stage."
+  },
+  "After signing externally, upload the contract under Lease agreements in the property dossier and link it here. Contract generation will be added at a later stage.": {
+    "de": "Nach externer Unterzeichnung: Vertrag in der Wohnungsakte als „Mietverträge“ hochladen und hier zuordnen. Eine Vertragsgenerierung folgt in einem späteren Schritt.",
+    "en": "After signing externally, upload the contract under Lease agreements in the property dossier and link it here. Contract generation will be added at a later stage."
+  },
+  "Nebenkosten (€ / Monat)": {
+    "de": "Nebenkosten (€ / Monat)",
+    "en": "Utilities (€ / month)"
+  },
+  "Utilities (€ / month)": {
+    "de": "Nebenkosten (€ / Monat)",
+    "en": "Utilities (€ / month)"
+  },
+  "Nebenkosten (€)": {
+    "de": "Nebenkosten (€)",
+    "en": "Utilities (€)"
+  },
+  "Utilities (€)": {
+    "de": "Nebenkosten (€)",
+    "en": "Utilities (€)"
+  },
+  "Reparaturbedürftig": {
+    "de": "Reparaturbedürftig",
+    "en": "Needs Repair"
+  },
+  "Needs Repair": {
+    "de": "Reparaturbedürftig",
+    "en": "Needs Repair"
+  },
+  "Neon-Vertragsbedingungen": {
+    "de": "Neon-Vertragsbedingungen",
+    "en": "Neon terms"
+  },
+  "Neon terms": {
+    "de": "Neon-Vertragsbedingungen",
+    "en": "Neon terms"
+  },
+  "Neue Vermietung": {
+    "de": "Neue Vermietung",
+    "en": "New rental"
+  },
+  "New rental": {
+    "de": "Neue Vermietung",
+    "en": "New rental"
+  },
+  "Neuen Reset-Link anfordern": {
+    "de": "Neuen Reset-Link anfordern",
+    "en": "Request a new reset link"
+  },
+  "Request a new reset link": {
+    "de": "Neuen Reset-Link anfordern",
+    "en": "Request a new reset link"
+  },
+  "Neuer Kontakt": {
+    "de": "Neuer Kontakt",
+    "en": "New Contact"
+  },
+  "New Contact": {
+    "de": "Neuer Kontakt",
+    "en": "New Contact"
+  },
+  "Neue Kosten": {
+    "de": "Neue Kosten",
+    "en": "New Cost"
+  },
+  "New Cost": {
+    "de": "Neue Kosten",
+    "en": "New Cost"
+  },
+  "Neues Anliegen": {
+    "de": "Neues Anliegen",
+    "en": "New Issue"
+  },
+  "New Issue": {
+    "de": "Neues Anliegen",
+    "en": "New Issue"
+  },
+  "Neue Wohnung": {
+    "de": "Neue Wohnung",
+    "en": "New Property"
+  },
+  "New Property": {
+    "de": "Neue Wohnung",
+    "en": "New Property"
+  },
+  "Neuer Mieter": {
+    "de": "Neuer Mieter",
+    "en": "New Tenant"
+  },
+  "New Tenant": {
+    "de": "Neuer Mieter",
+    "en": "New Tenant"
+  },
+  "Kein Datum": {
+    "de": "Kein Datum",
+    "en": "No Date"
+  },
+  "No Date": {
+    "de": "Kein Datum",
+    "en": "No Date"
+  },
+  "Keine Wohnung": {
+    "de": "Keine Wohnung",
+    "en": "No Property"
+  },
+  "No Property": {
+    "de": "Keine Wohnung",
+    "en": "No Property"
+  },
+  "Keine Anlagen.": {
+    "de": "Keine Anlagen.",
+    "en": "No attachments."
+  },
+  "No attachments.": {
+    "de": "Keine Anlagen.",
+    "en": "No attachments."
+  },
+  "Keine Beschreibung": {
+    "de": "Keine Beschreibung",
+    "en": "No description"
+  },
+  "No description": {
+    "de": "Keine Beschreibung",
+    "en": "No description"
+  },
+  "Kein Fälligkeitsdatum": {
+    "de": "Kein Fälligkeitsdatum",
+    "en": "No due date"
+  },
+  "No due date": {
+    "de": "Kein Fälligkeitsdatum",
+    "en": "No due date"
+  },
+  "Keine E-Mail-Adresse": {
+    "de": "Keine E-Mail-Adresse",
+    "en": "No email"
+  },
+  "No email": {
+    "de": "Keine E-Mail-Adresse",
+    "en": "No email"
+  },
+  "Keine Anliegen für die gewählten Filter gefunden.": {
+    "de": "Keine Anliegen für die gewählten Filter gefunden.",
+    "en": "No issues found matching your filters."
+  },
+  "No issues found matching your filters.": {
+    "de": "Keine Anliegen für die gewählten Filter gefunden.",
+    "en": "No issues found matching your filters."
+  },
+  "Keine Notizen vorhanden.": {
+    "de": "Keine Notizen vorhanden.",
+    "en": "No notes added."
+  },
+  "No notes added.": {
+    "de": "Keine Notizen vorhanden.",
+    "en": "No notes added."
+  },
+  "Keine offenen Anliegen für diese Wohnung.": {
+    "de": "Keine offenen Anliegen für diese Wohnung.",
+    "en": "No open issues for this property."
+  },
+  "No open issues for this property.": {
+    "de": "Keine offenen Anliegen für diese Wohnung.",
+    "en": "No open issues for this property."
+  },
+  "Keine offenen Anliegen.": {
+    "de": "Keine offenen Anliegen.",
+    "en": "No open issues. Great job!"
+  },
+  "No open issues. Great job!": {
+    "de": "Keine offenen Anliegen.",
+    "en": "No open issues. Great job!"
+  },
+  "Keine Zahlungen vorhanden.": {
+    "de": "Keine Zahlungen vorhanden.",
+    "en": "No payment history available."
+  },
+  "No payment history available.": {
+    "de": "Keine Zahlungen vorhanden.",
+    "en": "No payment history available."
+  },
+  "Keine Mieter zugeordnet.": {
+    "de": "Keine Mieter zugeordnet.",
+    "en": "No tenants assigned."
+  },
+  "No tenants assigned.": {
+    "de": "Keine Mieter zugeordnet.",
+    "en": "No tenants assigned."
+  },
+  "Noch keine Dateien zugeordnet.": {
+    "de": "Noch keine Dateien zugeordnet.",
+    "en": "No files assigned yet."
+  },
+  "No files assigned yet.": {
+    "de": "Noch keine Dateien zugeordnet.",
+    "en": "No files assigned yet."
+  },
+  "Noch keine Interessenten erfasst.": {
+    "de": "Noch keine Interessenten erfasst.",
+    "en": "No applicants recorded yet."
+  },
+  "No applicants recorded yet.": {
+    "de": "Noch keine Interessenten erfasst.",
+    "en": "No applicants recorded yet."
+  },
+  "Noch keine Mietverhältnisse bestätigt.": {
+    "de": "Noch keine Mietverhältnisse bestätigt.",
+    "en": "No tenancies confirmed yet."
+  },
+  "No tenancies confirmed yet.": {
+    "de": "Noch keine Mietverhältnisse bestätigt.",
+    "en": "No tenancies confirmed yet."
+  },
+  "Noch keine Vermietung angelegt.": {
+    "de": "Noch keine Vermietung angelegt.",
+    "en": "No rentals created yet."
+  },
+  "No rentals created yet.": {
+    "de": "Noch keine Vermietung angelegt.",
+    "en": "No rentals created yet."
+  },
+  "Noch offen": {
+    "de": "Noch offen",
+    "en": "Not specified yet"
+  },
+  "Not specified yet": {
+    "de": "Noch offen",
+    "en": "Not specified yet"
+  },
+  "Notizen": {
+    "de": "Notizen",
+    "en": "Notes"
+  },
+  "Notes": {
+    "de": "Notizen",
+    "en": "Notes"
+  },
+  "Notizen und offene Fragen": {
+    "de": "Notizen und offene Fragen",
+    "en": "Notes and open questions"
+  },
+  "Notes and open questions": {
+    "de": "Notizen und offene Fragen",
+    "en": "Notes and open questions"
+  },
+  "Nur Metadaten vorhanden; Datei noch nicht hinterlegt.": {
+    "de": "Nur Metadaten vorhanden; Datei noch nicht hinterlegt.",
+    "en": "Only metadata is available; the file has not been uploaded yet."
+  },
+  "Only metadata is available; the file has not been uploaded yet.": {
+    "de": "Nur Metadaten vorhanden; Datei noch nicht hinterlegt.",
+    "en": "Only metadata is available; the file has not been uploaded yet."
+  },
+  "Belegungsquote": {
+    "de": "Belegungsquote",
+    "en": "Occupancy Rate"
+  },
+  "Occupancy Rate": {
+    "de": "Belegungsquote",
+    "en": "Occupancy Rate"
+  },
+  "Bewohner": {
+    "de": "Bewohner",
+    "en": "Occupants"
+  },
+  "Occupants": {
+    "de": "Bewohner",
+    "en": "Occupants"
+  },
+  "Belegt": {
+    "de": "Belegt",
+    "en": "Occupied"
+  },
+  "Occupied": {
+    "de": "Belegt",
+    "en": "Occupied"
+  },
+  "Ohne Wohnungszuordnung": {
+    "de": "Ohne Wohnungszuordnung",
+    "en": "No property assigned"
+  },
+  "No property assigned": {
+    "de": "Ohne Wohnungszuordnung",
+    "en": "No property assigned"
+  },
+  "In Ordnung": {
+    "de": "In Ordnung",
+    "en": "Ok"
+  },
+  "Ok": {
+    "de": "In Ordnung",
+    "en": "Ok"
+  },
+  "Offen": {
+    "de": "Offen",
+    "en": "Open"
+  },
+  "Open": {
+    "de": "Offen",
+    "en": "Open"
+  },
+  "Offene Anliegen": {
+    "de": "Offene Anliegen",
+    "en": "Open Issues"
+  },
+  "Open Issues": {
+    "de": "Offene Anliegen",
+    "en": "Open Issues"
+  },
+  "Bezahlt": {
+    "de": "Bezahlt",
+    "en": "Paid"
+  },
+  "Paid": {
+    "de": "Bezahlt",
+    "en": "Paid"
+  },
+  "Zahlungsdatum": {
+    "de": "Zahlungsdatum",
+    "en": "Paid Date"
+  },
+  "Paid Date": {
+    "de": "Zahlungsdatum",
+    "en": "Paid Date"
+  },
+  "Zahlungsdatum (optional)": {
+    "de": "Zahlungsdatum (optional)",
+    "en": "Paid Date (Optional)"
+  },
+  "Paid Date (Optional)": {
+    "de": "Zahlungsdatum (optional)",
+    "en": "Paid Date (Optional)"
+  },
+  "Partei entfernen": {
+    "de": "Partei entfernen",
+    "en": "Remove party"
+  },
+  "Remove party": {
+    "de": "Partei entfernen",
+    "en": "Remove party"
+  },
+  "Passwort": {
+    "de": "Passwort",
+    "en": "Password"
+  },
+  "Password": {
+    "de": "Passwort",
+    "en": "Password"
+  },
+  "Passwort speichern": {
+    "de": "Passwort speichern",
+    "en": "Save password"
+  },
+  "Save password": {
+    "de": "Passwort speichern",
+    "en": "Save password"
+  },
+  "Passwort vergessen?": {
+    "de": "Passwort vergessen?",
+    "en": "Forgot password?"
+  },
+  "Forgot password?": {
+    "de": "Passwort vergessen?",
+    "en": "Forgot password?"
+  },
+  "Zahlungsverlauf": {
+    "de": "Zahlungsverlauf",
+    "en": "Payment History"
+  },
+  "Payment History": {
+    "de": "Zahlungsverlauf",
+    "en": "Payment History"
+  },
+  "Haustiere": {
+    "de": "Haustiere",
+    "en": "Pets"
+  },
+  "Pets": {
+    "de": "Haustiere",
+    "en": "Pets"
+  },
+  "Telefon": {
+    "de": "Telefon",
+    "en": "Phone"
+  },
+  "Phone": {
+    "de": "Telefon",
+    "en": "Phone"
+  },
+  "Telefon oder E-Mail": {
+    "de": "Telefon oder E-Mail",
+    "en": "Phone or Email"
+  },
+  "Phone or Email": {
+    "de": "Telefon oder E-Mail",
+    "en": "Phone or Email"
+  },
+  "Bitte prüfe, ob der API-Server läuft (npm run dev).": {
+    "de": "Bitte prüfe, ob der API-Server läuft (npm run dev).",
+    "en": "Please ensure the API server is running (npm run dev)"
+  },
+  "Please ensure the API server is running (npm run dev)": {
+    "de": "Bitte prüfe, ob der API-Server läuft (npm run dev).",
+    "en": "Please ensure the API server is running (npm run dev)"
+  },
+  "Priorität": {
+    "de": "Priorität",
+    "en": "Priority"
+  },
+  "Priority": {
+    "de": "Priorität",
+    "en": "Priority"
+  },
+  "Wohnungen": {
+    "de": "Wohnungen",
+    "en": "Properties"
+  },
+  "Properties": {
+    "de": "Wohnungen",
+    "en": "Properties"
+  },
+  "Wohnung": {
+    "de": "Wohnung",
+    "en": "Property"
+  },
+  "Property": {
+    "de": "Wohnung",
+    "en": "Property"
+  },
+  "Wohnungsname": {
+    "de": "Wohnungsname",
+    "en": "Property Name"
+  },
+  "Property Name": {
+    "de": "Wohnungsname",
+    "en": "Property Name"
+  },
+  "Wohnung nicht gefunden": {
+    "de": "Wohnung nicht gefunden",
+    "en": "Property Not Found"
+  },
+  "Property Not Found": {
+    "de": "Wohnung nicht gefunden",
+    "en": "Property Not Found"
+  },
+  "Wohnungsübersicht": {
+    "de": "Wohnungsübersicht",
+    "en": "Property Overview"
+  },
+  "Property Overview": {
+    "de": "Wohnungsübersicht",
+    "en": "Property Overview"
+  },
+  "Quelle ansehen": {
+    "de": "Quelle ansehen",
+    "en": "View source"
+  },
+  "View source": {
+    "de": "Quelle ansehen",
+    "en": "View source"
+  },
+  "Schnellaktionen": {
+    "de": "Schnellaktionen",
+    "en": "Quick Actions"
+  },
+  "Quick Actions": {
+    "de": "Schnellaktionen",
+    "en": "Quick Actions"
+  },
+  "Raum / Beschreibung": {
+    "de": "Raum / Beschreibung",
+    "en": "Room / description"
+  },
+  "Room / description": {
+    "de": "Raum / Beschreibung",
+    "en": "Room / description"
+  },
+  "Rechtliche Informationen": {
+    "de": "Rechtliche Informationen",
+    "en": "Legal information"
+  },
+  "Legal information": {
+    "de": "Rechtliche Informationen",
+    "en": "Legal information"
+  },
+  "Registrieren": {
+    "de": "Registrieren",
+    "en": "Register"
+  },
+  "Register": {
+    "de": "Registrieren",
+    "en": "Register"
+  },
+  "Reihenfolge": {
+    "de": "Reihenfolge",
+    "en": "Order"
+  },
+  "Order": {
+    "de": "Reihenfolge",
+    "en": "Order"
+  },
+  "Mieter entfernen": {
+    "de": "Mieter entfernen",
+    "en": "Remove Tenant"
+  },
+  "Remove Tenant": {
+    "de": "Mieter entfernen",
+    "en": "Remove Tenant"
+  },
+  "Renoviert": {
+    "de": "Renoviert",
+    "en": "Renovated"
+  },
+  "Renovated": {
+    "de": "Renoviert",
+    "en": "Renovated"
+  },
+  "Miete": {
+    "de": "Miete",
+    "en": "Rent"
+  },
+  "Rent": {
+    "de": "Miete",
+    "en": "Rent"
+  },
+  "Anliegen melden": {
+    "de": "Anliegen melden",
+    "en": "Report Issue"
+  },
+  "Report Issue": {
+    "de": "Anliegen melden",
+    "en": "Report Issue"
+  },
+  "Reset-Link anfordern": {
+    "de": "Reset-Link anfordern",
+    "en": "Request reset link"
+  },
+  "Request reset link": {
+    "de": "Reset-Link anfordern",
+    "en": "Request reset link"
+  },
+  "Rohdaten einlesen": {
+    "de": "Rohdaten einlesen",
+    "en": "Read source files"
+  },
+  "Read source files": {
+    "de": "Rohdaten einlesen",
+    "en": "Read source files"
+  },
+  "Speichern": {
+    "de": "Speichern",
+    "en": "Save"
+  },
+  "Save": {
+    "de": "Speichern",
+    "en": "Save"
+  },
+  "Änderungen speichern": {
+    "de": "Änderungen speichern",
+    "en": "Save Changes"
+  },
+  "Save Changes": {
+    "de": "Änderungen speichern",
+    "en": "Save Changes"
+  },
+  "Kontakt speichern": {
+    "de": "Kontakt speichern",
+    "en": "Save Contact"
+  },
+  "Save Contact": {
+    "de": "Kontakt speichern",
+    "en": "Save Contact"
+  },
+  "Kosten speichern": {
+    "de": "Kosten speichern",
+    "en": "Save Cost"
+  },
+  "Save Cost": {
+    "de": "Kosten speichern",
+    "en": "Save Cost"
+  },
+  "Anliegen speichern": {
+    "de": "Anliegen speichern",
+    "en": "Save Issue"
+  },
+  "Save Issue": {
+    "de": "Anliegen speichern",
+    "en": "Save Issue"
+  },
+  "Wohnung speichern": {
+    "de": "Wohnung speichern",
+    "en": "Save Property"
+  },
+  "Save Property": {
+    "de": "Wohnung speichern",
+    "en": "Save Property"
+  },
+  "Mieter speichern": {
+    "de": "Mieter speichern",
+    "en": "Save Tenant"
+  },
+  "Save Tenant": {
+    "de": "Mieter speichern",
+    "en": "Save Tenant"
+  },
+  "Schließen": {
+    "de": "Schließen",
+    "en": "Close"
+  },
+  "Close": {
+    "de": "Schließen",
+    "en": "Close"
+  },
+  "Dateien suchen …": {
+    "de": "Dateien suchen …",
+    "en": "Search files..."
+  },
+  "Search files...": {
+    "de": "Dateien suchen …",
+    "en": "Search files..."
+  },
+  "Anliegen suchen …": {
+    "de": "Anliegen suchen …",
+    "en": "Search issues..."
+  },
+  "Search issues...": {
+    "de": "Anliegen suchen …",
+    "en": "Search issues..."
+  },
+  "Wohnung auswählen …": {
+    "de": "Wohnung auswählen …",
+    "en": "Select Property..."
+  },
+  "Select Property...": {
+    "de": "Wohnung auswählen …",
+    "en": "Select Property..."
+  },
+  "Fläche": {
+    "de": "Fläche",
+    "en": "Size"
+  },
+  "Size": {
+    "de": "Fläche",
+    "en": "Size"
+  },
+  "Speichert …": {
+    "de": "Speichert …",
+    "en": "Saving …"
+  },
+  "Saving …": {
+    "de": "Speichert …",
+    "en": "Saving …"
+  },
+  "Wohnfläche (m²)": {
+    "de": "Wohnfläche (m²)",
+    "en": "Living area (m²)"
+  },
+  "Square Meter (m²)": {
+    "de": "Wohnfläche (m²)",
+    "en": "Square Meter (m²)"
+  },
+  "Stammdaten speichern": {
+    "de": "Stammdaten speichern",
+    "en": "Save property details"
+  },
+  "Save property details": {
+    "de": "Stammdaten speichern",
+    "en": "Save property details"
+  },
+  "Stand 13. November 2026": {
+    "de": "Stand 13. November 2026",
+    "en": "Last updated 13 November 2026"
+  },
+  "Last updated 13 November 2026": {
+    "de": "Stand 13. November 2026",
+    "en": "Last updated 13 November 2026"
+  },
+  "Mieter nicht gefunden": {
+    "de": "Mieter nicht gefunden",
+    "en": "Tenant Not Found"
+  },
+  "Tenant Not Found": {
+    "de": "Mieter nicht gefunden",
+    "en": "Tenant Not Found"
+  },
+  "Mieter (": {
+    "de": "Mieter (",
+    "en": "Tenants ("
+  },
+  "Tenants (": {
+    "de": "Mieter (",
+    "en": "Tenants ("
+  },
+  "Termin bearbeiten": {
+    "de": "Termin bearbeiten",
+    "en": "Edit viewing"
+  },
+  "Edit viewing": {
+    "de": "Termin bearbeiten",
+    "en": "Edit viewing"
+  },
+  "Termin speichern": {
+    "de": "Termin speichern",
+    "en": "Save viewing"
+  },
+  "Save viewing": {
+    "de": "Termin speichern",
+    "en": "Save viewing"
+  },
+  "Terminstatus": {
+    "de": "Terminstatus",
+    "en": "Viewing status"
+  },
+  "Viewing status": {
+    "de": "Terminstatus",
+    "en": "Viewing status"
+  },
+  "Titel": {
+    "de": "Titel",
+    "en": "Title"
+  },
+  "Oben links": {
+    "de": "Oben links",
+    "en": "Top Left"
+  },
+  "Top Left": {
+    "de": "Oben links",
+    "en": "Top Left"
+  },
+  "Oben rechts": {
+    "de": "Oben rechts",
+    "en": "Top Right"
+  },
+  "Top Right": {
+    "de": "Oben rechts",
+    "en": "Top Right"
+  },
+  "Gesamteinnahmen": {
+    "de": "Gesamteinnahmen",
+    "en": "Total Revenue"
+  },
+  "Total Revenue": {
+    "de": "Gesamteinnahmen",
+    "en": "Total Revenue"
+  },
+  "Uhrzeit": {
+    "de": "Uhrzeit",
+    "en": "Time"
+  },
+  "Time": {
+    "de": "Uhrzeit",
+    "en": "Time"
+  },
+  "Unbekannte Wohnung": {
+    "de": "Unbekannte Wohnung",
+    "en": "Unknown Property"
+  },
+  "Unknown Property": {
+    "de": "Unbekannte Wohnung",
+    "en": "Unknown Property"
+  },
+  "Unterschriebener Mietvertrag": {
+    "de": "Unterschriebener Mietvertrag",
+    "en": "Signed tenancy agreement"
+  },
+  "Signed tenancy agreement": {
+    "de": "Unterschriebener Mietvertrag",
+    "en": "Signed tenancy agreement"
+  },
+  "Dokument hochladen": {
+    "de": "Dokument hochladen",
+    "en": "Upload Document"
+  },
+  "Upload Document": {
+    "de": "Dokument hochladen",
+    "en": "Upload Document"
+  },
+  "Wird hochgeladen …": {
+    "de": "Wird hochgeladen …",
+    "en": "Uploading …"
+  },
+  "Uploading …": {
+    "de": "Wird hochgeladen …",
+    "en": "Uploading …"
+  },
+  "Umlagefähig": {
+    "de": "Umlagefähig",
+    "en": "Utility Billable"
+  },
+  "Utility Billable": {
+    "de": "Umlagefähig",
+    "en": "Utility Billable"
+  },
+  "Umlagefähig (auf Mieter umlegbar)": {
+    "de": "Umlagefähig (auf Mieter umlegbar)",
+    "en": "Utility Billable (can be passed to tenants)"
+  },
+  "Utility Billable (can be passed to tenants)": {
+    "de": "Umlagefähig (auf Mieter umlegbar)",
+    "en": "Utility Billable (can be passed to tenants)"
+  },
+  "Nebenkosten": {
+    "de": "Nebenkosten",
+    "en": "Utils"
+  },
+  "Utils": {
+    "de": "Nebenkosten",
+    "en": "Utils"
+  },
+  "Leerstehend": {
+    "de": "Leerstehend",
+    "en": "Vacant"
+  },
+  "Vacant": {
+    "de": "Leerstehend",
+    "en": "Vacant"
+  },
+  "Verfügbar ab": {
+    "de": "Verfügbar ab",
+    "en": "Available from"
+  },
+  "Available from": {
+    "de": "Verfügbar ab",
+    "en": "Available from"
+  },
+  "Vermietung anlegen": {
+    "de": "Vermietung anlegen",
+    "en": "Create rental"
+  },
+  "Create rental": {
+    "de": "Vermietung anlegen",
+    "en": "Create rental"
+  },
+  "Vermietung nicht gefunden.": {
+    "de": "Vermietung nicht gefunden.",
+    "en": "Rental not found."
+  },
+  "Rental not found.": {
+    "de": "Vermietung nicht gefunden.",
+    "en": "Rental not found."
+  },
+  "Vermietung und Mietverhältnisse": {
+    "de": "Vermietung und Mietverhältnisse",
+    "en": "Rental and tenancies"
+  },
+  "Rental and tenancies": {
+    "de": "Vermietung und Mietverhältnisse",
+    "en": "Rental and tenancies"
+  },
+  "Vermietungen": {
+    "de": "Vermietungen",
+    "en": "Rentals"
+  },
+  "Rentals": {
+    "de": "Vermietungen",
+    "en": "Rentals"
+  },
+  "Vermietungen öffnen": {
+    "de": "Vermietungen öffnen",
+    "en": "Open rentals"
+  },
+  "Open rentals": {
+    "de": "Vermietungen öffnen",
+    "en": "Open rentals"
+  },
+  "Vertrag herunterladen": {
+    "de": "Vertrag herunterladen",
+    "en": "Download agreement"
+  },
+  "Download agreement": {
+    "de": "Vertrag herunterladen",
+    "en": "Download agreement"
+  },
+  "Vertragspartei": {
+    "de": "Vertragspartei",
+    "en": "Party"
+  },
+  "Party": {
+    "de": "Vertragspartei",
+    "en": "Party"
+  },
+  "Vertragsparteien:": {
+    "de": "Vertragsparteien:",
+    "en": "Parties:"
+  },
+  "Parties:": {
+    "de": "Vertragsparteien:",
+    "en": "Parties:"
+  },
+  "Vorbereiten, Interessenten begleiten und Mietverhältnisse festhalten.": {
+    "de": "Vorbereiten, Interessenten begleiten und Mietverhältnisse festhalten.",
+    "en": "Prepare rentals, manage applicants and record tenancies."
+  },
+  "Prepare rentals, manage applicants and record tenancies.": {
+    "de": "Vorbereiten, Interessenten begleiten und Mietverhältnisse festhalten.",
+    "en": "Prepare rentals, manage applicants and record tenancies."
+  },
+  "Vorbereitung und Inserat": {
+    "de": "Vorbereitung und Inserat",
+    "en": "Preparation and listing"
+  },
+  "Preparation and listing": {
+    "de": "Vorbereitung und Inserat",
+    "en": "Preparation and listing"
+  },
+  "Vorgang abbrechen": {
+    "de": "Vorgang abbrechen",
+    "en": "Cancel workflow"
+  },
+  "Cancel workflow": {
+    "de": "Vorgang abbrechen",
+    "en": "Cancel workflow"
+  },
+  "Vorgang archivieren": {
+    "de": "Vorgang archivieren",
+    "en": "Archive workflow"
+  },
+  "Archive workflow": {
+    "de": "Vorgang archivieren",
+    "en": "Archive workflow"
+  },
+  "Vorgang speichern": {
+    "de": "Vorgang speichern",
+    "en": "Save workflow"
+  },
+  "Save workflow": {
+    "de": "Vorgang speichern",
+    "en": "Save workflow"
+  },
+  "Vorgänge": {
+    "de": "Vorgänge",
+    "en": "Workflows"
+  },
+  "Workflows": {
+    "de": "Vorgänge",
+    "en": "Workflows"
+  },
+  "Vorhandene Zuordnungen bleiben erhalten. Wähle ausdrücklich die Personen aus, die denselben Vertrag unterschrieben haben, und bestätige Zeitraum und Konditionen. Früher vorbelegte Enddaten bitte am Vertrag prüfen.": {
+    "de": "Vorhandene Zuordnungen bleiben erhalten. Wähle ausdrücklich die Personen aus, die denselben Vertrag unterschrieben haben, und bestätige Zeitraum und Konditionen. Früher vorbelegte Enddaten bitte am Vertrag prüfen.",
+    "en": "Existing assignments are retained. Select the people who signed the same agreement, then confirm the dates and terms. Check any previously prefilled end dates against the agreement."
+  },
+  "Existing assignments are retained. Select the people who signed the same agreement, then confirm the dates and terms. Check any previously prefilled end dates against the agreement.": {
+    "de": "Vorhandene Zuordnungen bleiben erhalten. Wähle ausdrücklich die Personen aus, die denselben Vertrag unterschrieben haben, und bestätige Zeitraum und Konditionen. Früher vorbelegte Enddaten bitte am Vertrag prüfen.",
+    "en": "Existing assignments are retained. Select the people who signed the same agreement, then confirm the dates and terms. Check any previously prefilled end dates against the agreement."
+  },
+  "Weitere Vertragspartei": {
+    "de": "Weitere Vertragspartei",
+    "en": "Add another party"
+  },
+  "Add another party": {
+    "de": "Weitere Vertragspartei",
+    "en": "Add another party"
+  },
+  "Wohnung filtern": {
+    "de": "Wohnung filtern",
+    "en": "Filter by property"
+  },
+  "Filter by property": {
+    "de": "Wohnung filtern",
+    "en": "Filter by property"
+  },
+  "Wohnung für Bestandsvertrag": {
+    "de": "Wohnung für Bestandsvertrag",
+    "en": "Property for existing tenancy"
+  },
+  "Property for existing tenancy": {
+    "de": "Wohnung für Bestandsvertrag",
+    "en": "Property for existing tenancy"
+  },
+  "Wohnung für neue Dateien": {
+    "de": "Wohnung für neue Dateien",
+    "en": "Property for new files"
+  },
+  "Property for new files": {
+    "de": "Wohnung für neue Dateien",
+    "en": "Property for new files"
+  },
+  "Wohnungsakte": {
+    "de": "Wohnungsakte",
+    "en": "Property dossier"
+  },
+  "Property dossier": {
+    "de": "Wohnungsakte",
+    "en": "Property dossier"
+  },
+  "Wohnungszuordnung": {
+    "de": "Wohnungszuordnung",
+    "en": "Property assignment"
+  },
+  "Property assignment": {
+    "de": "Wohnungszuordnung",
+    "en": "Property assignment"
+  },
+  "Wähle die passende Kategorie und importiere die gewünschte Datei. Originale bleiben erhalten.": {
+    "de": "Wähle die passende Kategorie und importiere die gewünschte Datei. Originale bleiben erhalten.",
+    "en": "Choose the appropriate category and import the file. Originals are retained."
+  },
+  "Choose the appropriate category and import the file. Originals are retained.": {
+    "de": "Wähle die passende Kategorie und importiere die gewünschte Datei. Originale bleiben erhalten.",
+    "en": "Choose the appropriate category and import the file. Originals are retained."
+  },
+  "Zeitraum und Zuordnung unter": {
+    "de": "Zeitraum und Zuordnung unter",
+    "en": "Manage dates and assignments under"
+  },
+  "Manage dates and assignments under": {
+    "de": "Zeitraum und Zuordnung unter",
+    "en": "Manage dates and assignments under"
+  },
+  "Zuerst eine Bewerbung für den Vertrag auswählen.": {
+    "de": "Zuerst eine Bewerbung für den Vertrag auswählen.",
+    "en": "First select an application for the agreement."
+  },
+  "First select an application for the agreement.": {
+    "de": "Zuerst eine Bewerbung für den Vertrag auswählen.",
+    "en": "First select an application for the agreement."
+  },
+  "Zur Anmeldung": {
+    "de": "Zur Anmeldung",
+    "en": "Back to sign-in"
+  },
+  "Back to sign-in": {
+    "de": "Zur Anmeldung",
+    "en": "Back to sign-in"
+  },
+  "Zur Übersicht": {
+    "de": "Zur Übersicht",
+    "en": "Back to overview"
+  },
+  "Back to overview": {
+    "de": "Zur Übersicht",
+    "en": "Back to overview"
+  },
+  "anlegen.": {
+    "de": "anlegen.",
+    "en": "to create them."
+  },
+  "to create them.": {
+    "de": "anlegen.",
+    "en": "to create them."
+  },
+  "bis": {
+    "de": "bis",
+    "en": "to"
+  },
+  "to": {
+    "de": "bis",
+    "en": "to"
+  },
+  "kein Ende angegeben": {
+    "de": "kein Ende angegeben",
+    "en": "no end date specified"
+  },
+  "no end date specified": {
+    "de": "kein Ende angegeben",
+    "en": "no end date specified"
+  },
+  "unbefristet": {
+    "de": "unbefristet",
+    "en": "open-ended"
+  },
+  "open-ended": {
+    "de": "unbefristet",
+    "en": "open-ended"
+  },
+  "verwalten.": {
+    "de": "verwalten.",
+    "en": "to manage them."
+  },
+  "to manage them.": {
+    "de": "verwalten.",
+    "en": "to manage them."
+  },
+  "· Kaltmiete": {
+    "de": "· Kaltmiete",
+    "en": "· Cold rent"
+  },
+  "· Cold rent": {
+    "de": "· Kaltmiete",
+    "en": "· Cold rent"
+  },
+  "· Nebenkosten": {
+    "de": "· Nebenkosten",
+    "en": "· Utilities"
+  },
+  "· Utilities": {
+    "de": "· Nebenkosten",
+    "en": "· Utilities"
+  },
+  "· Stand": {
+    "de": "· Stand",
+    "en": "· As of"
+  },
+  "· As of": {
+    "de": "· Stand",
+    "en": "· As of"
+  },
+  "· bisher": {
+    "de": "· bisher",
+    "en": "· Previously"
+  },
+  "· Previously": {
+    "de": "· bisher",
+    "en": "· Previously"
+  },
+  "Öffnen": {
+    "de": "Öffnen",
+    "en": "Open workflow"
+  },
+  "Open workflow": {
+    "de": "Öffnen",
+    "en": "Open workflow"
+  },
+  "• Fällig:": {
+    "de": "• Fällig:",
+    "en": "• Due:"
+  },
+  "• Due:": {
+    "de": "• Fällig:",
+    "en": "• Due:"
+  },
+  "← Zur Übersicht und den Mietverhältnissen": {
+    "de": "← Zur Übersicht und den Mietverhältnissen",
+    "en": "← Back to overview and tenancies"
+  },
+  "← Back to overview and tenancies": {
+    "de": "← Zur Übersicht und den Mietverhältnissen",
+    "en": "← Back to overview and tenancies"
+  },
+  "← Zurück zu Domus": {
+    "de": "← Zurück zu Domus",
+    "en": "← Back to Domus"
+  },
+  "← Back to Domus": {
+    "de": "← Zurück zu Domus",
+    "en": "← Back to Domus"
+  },
+  " · Ausgewählt": {
+    "de": " · Ausgewählt",
+    "en": " · Selected"
+  },
+  " · Selected": {
+    "de": " · Ausgewählt",
+    "en": " · Selected"
+  },
+  " · Titelbild": {
+    "de": " · Titelbild",
+    "en": " · Cover image"
+  },
+  " · Cover image": {
+    "de": " · Titelbild",
+    "en": " · Cover image"
+  },
+  "Name": {
+    "de": "Name",
+    "en": "Name"
+  },
+  "Status": {
+    "de": "Status",
+    "en": "Status"
+  },
+  "System": {
+    "de": "System",
+    "en": "System"
+  },
+  "Version": {
+    "de": "Version",
+    "en": "Version"
+  },
+  "m²": {
+    "de": "m²",
+    "en": "m²"
+  },
+  "Tenants": {
+    "de": "Mieter",
+    "en": "Tenants"
+  },
+  "z. B. 85": {
+    "de": "z. B. 85",
+    "en": "e.g. 85"
+  },
+  "e.g. 85": {
+    "de": "z. B. 85",
+    "en": "e.g. 85"
+  },
+  "z. B. Wohnung 4, Haus am Park": {
+    "de": "z. B. Wohnung 4, Haus am Park",
+    "en": "e.g. Sunset Apartments, Apt 4"
+  },
+  "e.g. Sunset Apartments, Apt 4": {
+    "de": "z. B. Wohnung 4, Haus am Park",
+    "en": "e.g. Sunset Apartments, Apt 4"
+  },
+  "z. B. Gebäudeversicherung": {
+    "de": "z. B. Gebäudeversicherung",
+    "en": "e.g., Property Insurance"
+  },
+  "e.g., Property Insurance": {
+    "de": "z. B. Gebäudeversicherung",
+    "en": "e.g., Property Insurance"
+  },
+  "email@example.com": {
+    "de": "email@example.com",
+    "en": "email@example.com"
+  },
+  "· Domus": {
+    "de": "· Domus",
+    "en": "· Domus"
+  },
+  "Lokale Nutzung": {
+    "de": "Lokale Nutzung",
+    "en": "Local use"
+  },
+  "Local use": {
+    "de": "Lokale Nutzung",
+    "en": "Local use"
+  },
+  "Sprache": {
+    "de": "Sprache",
+    "en": "Language"
+  },
+  "Language": {
+    "de": "Sprache",
+    "en": "Language"
+  },
+  "Kontomenü für {name}": {
+    "de": "Kontomenü für {name}",
+    "en": "Account menu for {name}"
+  },
+  "Account menu for {name}": {
+    "de": "Kontomenü für {name}",
+    "en": "Account menu for {name}"
+  },
+  "Vorbereitung": {
+    "de": "Vorbereitung",
+    "en": "Preparation"
+  },
+  "Preparation": {
+    "de": "Vorbereitung",
+    "en": "Preparation"
+  },
+  "Inserat": {
+    "de": "Inserat",
+    "en": "Listing"
+  },
+  "Listing": {
+    "de": "Inserat",
+    "en": "Listing"
+  },
+  "Anfragen": {
+    "de": "Anfragen",
+    "en": "Inquiries"
+  },
+  "Inquiries": {
+    "de": "Anfragen",
+    "en": "Inquiries"
+  },
+  "Auswahl": {
+    "de": "Auswahl",
+    "en": "Selection"
+  },
+  "Selection": {
+    "de": "Auswahl",
+    "en": "Selection"
+  },
+  "Vertrag": {
+    "de": "Vertrag",
+    "en": "Contract"
+  },
+  "Contract": {
+    "de": "Vertrag",
+    "en": "Contract"
+  },
+  "Abgeschlossen": {
+    "de": "Abgeschlossen",
+    "en": "Completed"
+  },
+  "Archiviert": {
+    "de": "Archiviert",
+    "en": "Archived"
+  },
+  "Archived": {
+    "de": "Archiviert",
+    "en": "Archived"
+  },
+  "Neu": {
+    "de": "Neu",
+    "en": "New"
+  },
+  "New": {
+    "de": "Neu",
+    "en": "New"
+  },
+  "Kontaktiert": {
+    "de": "Kontaktiert",
+    "en": "Contacted"
+  },
+  "Contacted": {
+    "de": "Kontaktiert",
+    "en": "Contacted"
+  },
+  "Interessiert": {
+    "de": "Interessiert",
+    "en": "Interested"
+  },
+  "Interested": {
+    "de": "Interessiert",
+    "en": "Interested"
+  },
+  "Zurückgezogen": {
+    "de": "Zurückgezogen",
+    "en": "Withdrawn"
+  },
+  "Withdrawn": {
+    "de": "Zurückgezogen",
+    "en": "Withdrawn"
+  },
+  "Rejected": {
+    "de": "Abgesagt",
+    "en": "Rejected"
+  },
+  "Aktiv": {
+    "de": "Aktiv",
+    "en": "Active"
+  },
+  "Active": {
+    "de": "Aktiv",
+    "en": "Active"
+  },
+  "Beendet": {
+    "de": "Beendet",
+    "en": "Ended"
+  },
+  "Ended": {
+    "de": "Beendet",
+    "en": "Ended"
+  },
+  "Ehemalig": {
+    "de": "Ehemalig",
+    "en": "Past"
+  },
+  "Past": {
+    "de": "Ehemalig",
+    "en": "Past"
+  },
+  "Ausstehend": {
+    "de": "Ausstehend",
+    "en": "Pending"
+  },
+  "Pending": {
+    "de": "Ausstehend",
+    "en": "Pending"
+  },
+  "Fotos": {
+    "de": "Fotos",
+    "en": "Photos"
+  },
+  "Photos": {
+    "de": "Fotos",
+    "en": "Photos"
+  },
+  "Grundrisse": {
+    "de": "Grundrisse",
+    "en": "Floor plans"
+  },
+  "FloorPlans": {
+    "de": "Grundrisse",
+    "en": "Floor plans"
+  },
+  "Energieausweise": {
+    "de": "Energieausweise",
+    "en": "Energy certificates"
+  },
+  "Energy": {
+    "de": "Energieausweise",
+    "en": "Energy certificates"
+  },
+  "Mietverträge": {
+    "de": "Mietverträge",
+    "en": "Lease agreements"
+  },
+  "Leases": {
+    "de": "Mietverträge",
+    "en": "Lease agreements"
+  },
+  "Rechnungen": {
+    "de": "Rechnungen",
+    "en": "Invoices"
+  },
+  "Invoices": {
+    "de": "Rechnungen",
+    "en": "Invoices"
+  },
+  "Versicherungen": {
+    "de": "Versicherungen",
+    "en": "Insurance"
+  },
+  "Insurance": {
+    "de": "Versicherungen",
+    "en": "Insurance"
+  },
+  "Sonstiges": {
+    "de": "Sonstiges",
+    "en": "Miscellaneous"
+  },
+  "Misc": {
+    "de": "Sonstiges",
+    "en": "Miscellaneous"
+  },
+  "Straße und Hausnummer": {
+    "de": "Straße und Hausnummer",
+    "en": "Street and house number"
+  },
+  "Street and house number": {
+    "de": "Straße und Hausnummer",
+    "en": "Street and house number"
+  },
+  "Postleitzahl": {
+    "de": "Postleitzahl",
+    "en": "Postal code"
+  },
+  "Postal code": {
+    "de": "Postleitzahl",
+    "en": "Postal code"
+  },
+  "Ort": {
+    "de": "Ort",
+    "en": "City"
+  },
+  "City": {
+    "de": "Ort",
+    "en": "City"
+  },
+  "Etage": {
+    "de": "Etage",
+    "en": "Floor"
+  },
+  "Floor": {
+    "de": "Etage",
+    "en": "Floor"
+  },
+  "Living area (m²)": {
+    "de": "Wohnfläche (m²)",
+    "en": "Living area (m²)"
+  },
+  "Zimmer": {
+    "de": "Zimmer",
+    "en": "Rooms"
+  },
+  "Rooms": {
+    "de": "Zimmer",
+    "en": "Rooms"
+  },
+  "Ausstattung": {
+    "de": "Ausstattung",
+    "en": "Amenities"
+  },
+  "Amenities": {
+    "de": "Ausstattung",
+    "en": "Amenities"
+  },
+  "Heizungsart": {
+    "de": "Heizungsart",
+    "en": "Heating"
+  },
+  "Heating": {
+    "de": "Heizungsart",
+    "en": "Heating"
+  },
+  "Energieklasse": {
+    "de": "Energieklasse",
+    "en": "Energy rating"
+  },
+  "Energy rating": {
+    "de": "Energieklasse",
+    "en": "Energy rating"
+  },
+  "Energiekennwert (kWh/m²a)": {
+    "de": "Energiekennwert (kWh/m²a)",
+    "en": "Energy demand (kWh/m²a)"
+  },
+  "Energy demand (kWh/m²a)": {
+    "de": "Energiekennwert (kWh/m²a)",
+    "en": "Energy demand (kWh/m²a)"
+  },
+  "Modernisierungen": {
+    "de": "Modernisierungen",
+    "en": "Modernisations"
+  },
+  "Modernisations": {
+    "de": "Modernisierungen",
+    "en": "Modernisations"
+  },
+  "Überfällig": {
+    "de": "Überfällig",
+    "en": "Overdue"
+  },
+  "Overdue": {
+    "de": "Überfällig",
+    "en": "Overdue"
+  },
+  "Unbezahlt": {
+    "de": "Unbezahlt",
+    "en": "Unpaid"
+  },
+  "Unpaid": {
+    "de": "Unbezahlt",
+    "en": "Unpaid"
+  },
+  "Bezahlt am {date}": {
+    "de": "Bezahlt am {date}",
+    "en": "Paid on {date}"
+  },
+  "Paid on {date}": {
+    "de": "Bezahlt am {date}",
+    "en": "Paid on {date}"
+  },
+  "{count} Einheiten insgesamt": {
+    "de": "{count} Einheiten insgesamt",
+    "en": "{count} total units"
+  },
+  "{count} total units": {
+    "de": "{count} Einheiten insgesamt",
+    "en": "{count} total units"
+  },
+  "Möchtest du {name} dauerhaft löschen?": {
+    "de": "Möchtest du {name} dauerhaft löschen?",
+    "en": "Are you sure you want to permanently delete {name}?"
+  },
+  "Are you sure you want to permanently delete {name}?": {
+    "de": "Möchtest du {name} dauerhaft löschen?",
+    "en": "Are you sure you want to permanently delete {name}?"
+  },
+  "Möchtest du {name} dauerhaft löschen? Dies kann nicht rückgängig gemacht werden.": {
+    "de": "Möchtest du {name} dauerhaft löschen? Dies kann nicht rückgängig gemacht werden.",
+    "en": "Are you sure you want to permanently delete {name}? This action cannot be undone."
+  },
+  "Are you sure you want to permanently delete {name}? This action cannot be undone.": {
+    "de": "Möchtest du {name} dauerhaft löschen? Dies kann nicht rückgängig gemacht werden.",
+    "en": "Are you sure you want to permanently delete {name}? This action cannot be undone."
+  },
+  "Version {version}": {
+    "de": "Version {version}",
+    "en": "Version {version}"
+  },
+  "Ältere Quellen: {values} {unit}.": {
+    "de": "Ältere Quellen: {values} {unit}.",
+    "en": "Older sources: {values} {unit}."
+  },
+  "Older sources: {values} {unit}.": {
+    "de": "Ältere Quellen: {values} {unit}.",
+    "en": "Older sources: {values} {unit}."
+  },
+  "Neuvermietung {name}": {
+    "de": "Neuvermietung {name}",
+    "en": "New rental {name}"
+  },
+  "New rental {name}": {
+    "de": "Neuvermietung {name}",
+    "en": "New rental {name}"
+  },
+  "{added} Datei(en) gespeichert, {duplicates} bereits vorhanden.": {
+    "de": "{added} Datei(en) gespeichert, {duplicates} bereits vorhanden.",
+    "en": "{added} file(s) saved, {duplicates} already present."
+  },
+  "{added} file(s) saved, {duplicates} already present.": {
+    "de": "{added} Datei(en) gespeichert, {duplicates} bereits vorhanden.",
+    "en": "{added} file(s) saved, {duplicates} already present."
+  },
+  "Datei ist dieser Wohnung bereits zugeordnet.": {
+    "de": "Datei ist dieser Wohnung bereits zugeordnet.",
+    "en": "This file is already assigned to this property."
+  },
+  "This file is already assigned to this property.": {
+    "de": "Datei ist dieser Wohnung bereits zugeordnet.",
+    "en": "This file is already assigned to this property."
+  },
+  "Datei importiert. Das Original bleibt unverändert.": {
+    "de": "Datei importiert. Das Original bleibt unverändert.",
+    "en": "File imported. The original is retained."
+  },
+  "File imported. The original is retained.": {
+    "de": "Datei importiert. Das Original bleibt unverändert.",
+    "en": "File imported. The original is retained."
+  },
+  "Dokumentangaben gespeichert.": {
+    "de": "Dokumentangaben gespeichert.",
+    "en": "Document details saved."
+  },
+  "Document details saved.": {
+    "de": "Dokumentangaben gespeichert.",
+    "en": "Document details saved."
+  },
+  "Stammdaten gespeichert.": {
+    "de": "Stammdaten gespeichert.",
+    "en": "Property details saved."
+  },
+  "Property details saved.": {
+    "de": "Stammdaten gespeichert.",
+    "en": "Property details saved."
+  },
+  "Gespeichert.": {
+    "de": "Gespeichert.",
+    "en": "Saved."
+  },
+  "Saved.": {
+    "de": "Gespeichert.",
+    "en": "Saved."
+  },
+  "Bitte gültige positive Zahlen eintragen.": {
+    "de": "Bitte gültige positive Zahlen eintragen.",
+    "en": "Please enter valid positive numbers."
+  },
+  "Please enter valid positive numbers.": {
+    "de": "Bitte gültige positive Zahlen eintragen.",
+    "en": "Please enter valid positive numbers."
+  },
+  "Kontakt hinzugefügt.": {
+    "de": "Kontakt hinzugefügt.",
+    "en": "Contact added successfully"
+  },
+  "Contact added successfully": {
+    "de": "Kontakt hinzugefügt.",
+    "en": "Contact added successfully"
+  },
+  "Kontakt konnte nicht hinzugefügt werden.": {
+    "de": "Kontakt konnte nicht hinzugefügt werden.",
+    "en": "Failed to add contact"
+  },
+  "Failed to add contact": {
+    "de": "Kontakt konnte nicht hinzugefügt werden.",
+    "en": "Failed to add contact"
+  },
+  "Kontakt aktualisiert.": {
+    "de": "Kontakt aktualisiert.",
+    "en": "Contact updated successfully"
+  },
+  "Contact updated successfully": {
+    "de": "Kontakt aktualisiert.",
+    "en": "Contact updated successfully"
+  },
+  "Kontakt konnte nicht aktualisiert werden.": {
+    "de": "Kontakt konnte nicht aktualisiert werden.",
+    "en": "Failed to update contact"
+  },
+  "Failed to update contact": {
+    "de": "Kontakt konnte nicht aktualisiert werden.",
+    "en": "Failed to update contact"
+  },
+  "Kontakt gelöscht.": {
+    "de": "Kontakt gelöscht.",
+    "en": "Contact deleted successfully"
+  },
+  "Contact deleted successfully": {
+    "de": "Kontakt gelöscht.",
+    "en": "Contact deleted successfully"
+  },
+  "Kontakt konnte nicht gelöscht werden.": {
+    "de": "Kontakt konnte nicht gelöscht werden.",
+    "en": "Failed to delete contact"
+  },
+  "Failed to delete contact": {
+    "de": "Kontakt konnte nicht gelöscht werden.",
+    "en": "Failed to delete contact"
+  },
+  "Kosten hinzugefügt.": {
+    "de": "Kosten hinzugefügt.",
+    "en": "Cost added successfully"
+  },
+  "Cost added successfully": {
+    "de": "Kosten hinzugefügt.",
+    "en": "Cost added successfully"
+  },
+  "Kosten konnten nicht hinzugefügt werden.": {
+    "de": "Kosten konnten nicht hinzugefügt werden.",
+    "en": "Failed to add cost"
+  },
+  "Failed to add cost": {
+    "de": "Kosten konnten nicht hinzugefügt werden.",
+    "en": "Failed to add cost"
+  },
+  "Kosten aktualisiert.": {
+    "de": "Kosten aktualisiert.",
+    "en": "Cost updated successfully"
+  },
+  "Cost updated successfully": {
+    "de": "Kosten aktualisiert.",
+    "en": "Cost updated successfully"
+  },
+  "Kosten konnten nicht aktualisiert werden.": {
+    "de": "Kosten konnten nicht aktualisiert werden.",
+    "en": "Failed to update cost"
+  },
+  "Failed to update cost": {
+    "de": "Kosten konnten nicht aktualisiert werden.",
+    "en": "Failed to update cost"
+  },
+  "Wohnung hinzugefügt.": {
+    "de": "Wohnung hinzugefügt.",
+    "en": "Property added successfully"
+  },
+  "Property added successfully": {
+    "de": "Wohnung hinzugefügt.",
+    "en": "Property added successfully"
+  },
+  "Wohnung konnte nicht hinzugefügt werden.": {
+    "de": "Wohnung konnte nicht hinzugefügt werden.",
+    "en": "Failed to add property"
+  },
+  "Failed to add property": {
+    "de": "Wohnung konnte nicht hinzugefügt werden.",
+    "en": "Failed to add property"
+  },
+  "Anliegen erledigt.": {
+    "de": "Anliegen erledigt.",
+    "en": "Issue resolved"
+  },
+  "Issue resolved": {
+    "de": "Anliegen erledigt.",
+    "en": "Issue resolved"
+  },
+  "Anliegen konnte nicht erledigt werden.": {
+    "de": "Anliegen konnte nicht erledigt werden.",
+    "en": "Failed to resolve issue"
+  },
+  "Failed to resolve issue": {
+    "de": "Anliegen konnte nicht erledigt werden.",
+    "en": "Failed to resolve issue"
+  },
+  "Anliegen erfasst.": {
+    "de": "Anliegen erfasst.",
+    "en": "Issue reported successfully"
+  },
+  "Issue reported successfully": {
+    "de": "Anliegen erfasst.",
+    "en": "Issue reported successfully"
+  },
+  "Anliegen konnte nicht erfasst werden.": {
+    "de": "Anliegen konnte nicht erfasst werden.",
+    "en": "Failed to report issue"
+  },
+  "Failed to report issue": {
+    "de": "Anliegen konnte nicht erfasst werden.",
+    "en": "Failed to report issue"
+  },
+  "Anliegen aktualisiert.": {
+    "de": "Anliegen aktualisiert.",
+    "en": "Issue updated successfully"
+  },
+  "Issue updated successfully": {
+    "de": "Anliegen aktualisiert.",
+    "en": "Issue updated successfully"
+  },
+  "Anliegen konnte nicht aktualisiert werden.": {
+    "de": "Anliegen konnte nicht aktualisiert werden.",
+    "en": "Failed to update issue"
+  },
+  "Failed to update issue": {
+    "de": "Anliegen konnte nicht aktualisiert werden.",
+    "en": "Failed to update issue"
+  },
+  "Mieter hinzugefügt.": {
+    "de": "Mieter hinzugefügt.",
+    "en": "Tenant added successfully"
+  },
+  "Tenant added successfully": {
+    "de": "Mieter hinzugefügt.",
+    "en": "Tenant added successfully"
+  },
+  "Mieter konnte nicht hinzugefügt werden.": {
+    "de": "Mieter konnte nicht hinzugefügt werden.",
+    "en": "Failed to add tenant"
+  },
+  "Failed to add tenant": {
+    "de": "Mieter konnte nicht hinzugefügt werden.",
+    "en": "Failed to add tenant"
+  },
+  "Mieter aktualisiert.": {
+    "de": "Mieter aktualisiert.",
+    "en": "Tenant updated successfully"
+  },
+  "Tenant updated successfully": {
+    "de": "Mieter aktualisiert.",
+    "en": "Tenant updated successfully"
+  },
+  "Mieter konnte nicht aktualisiert werden.": {
+    "de": "Mieter konnte nicht aktualisiert werden.",
+    "en": "Failed to update tenant"
+  },
+  "Failed to update tenant": {
+    "de": "Mieter konnte nicht aktualisiert werden.",
+    "en": "Failed to update tenant"
+  },
+  "Mieter gelöscht.": {
+    "de": "Mieter gelöscht.",
+    "en": "Tenant deleted successfully"
+  },
+  "Tenant deleted successfully": {
+    "de": "Mieter gelöscht.",
+    "en": "Tenant deleted successfully"
+  },
+  "Mieter konnte nicht gelöscht werden.": {
+    "de": "Mieter konnte nicht gelöscht werden.",
+    "en": "Failed to delete tenant"
+  },
+  "Failed to delete tenant": {
+    "de": "Mieter konnte nicht gelöscht werden.",
+    "en": "Failed to delete tenant"
+  },
+  "E-Mail-Adresse oder Passwort stimmen nicht.": {
+    "de": "E-Mail-Adresse oder Passwort stimmen nicht.",
+    "en": "The email address or password is incorrect."
+  },
+  "The email address or password is incorrect.": {
+    "de": "E-Mail-Adresse oder Passwort stimmen nicht.",
+    "en": "The email address or password is incorrect."
+  },
+  "Bitte bestätige zuerst deine E-Mail-Adresse. Du kannst den Link unten erneut anfordern.": {
+    "de": "Bitte bestätige zuerst deine E-Mail-Adresse. Du kannst den Link unten erneut anfordern.",
+    "en": "Please verify your email address first. You can request another link below."
+  },
+  "Please verify your email address first. You can request another link below.": {
+    "de": "Bitte bestätige zuerst deine E-Mail-Adresse. Du kannst den Link unten erneut anfordern.",
+    "en": "Please verify your email address first. You can request another link below."
+  },
+  "Dieser Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.": {
+    "de": "Dieser Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.",
+    "en": "This link is invalid or has expired. Please request a new one."
+  },
+  "This link is invalid or has expired. Please request a new one.": {
+    "de": "Dieser Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.",
+    "en": "This link is invalid or has expired. Please request a new one."
+  },
+  "Dieser Link ist abgelaufen. Bitte fordere einen neuen an.": {
+    "de": "Dieser Link ist abgelaufen. Bitte fordere einen neuen an.",
+    "en": "This link has expired. Please request a new one."
+  },
+  "This link has expired. Please request a new one.": {
+    "de": "Dieser Link ist abgelaufen. Bitte fordere einen neuen an.",
+    "en": "This link has expired. Please request a new one."
+  },
+  "Bitte verwende mindestens 12 Zeichen für dein Passwort.": {
+    "de": "Bitte verwende mindestens 12 Zeichen für dein Passwort.",
+    "en": "Please use at least 12 characters for your password."
+  },
+  "Please use at least 12 characters for your password.": {
+    "de": "Bitte verwende mindestens 12 Zeichen für dein Passwort.",
+    "en": "Please use at least 12 characters for your password."
+  },
+  "Zu viele Versuche. Bitte versuche es später erneut.": {
+    "de": "Zu viele Versuche. Bitte versuche es später erneut.",
+    "en": "Too many attempts. Please try again later."
+  },
+  "Too many attempts. Please try again later.": {
+    "de": "Zu viele Versuche. Bitte versuche es später erneut.",
+    "en": "Too many attempts. Please try again later."
+  },
+  "Die Registrierung ist derzeit nur für freigeschaltete E-Mail-Adressen möglich.": {
+    "de": "Die Registrierung ist derzeit nur für freigeschaltete E-Mail-Adressen möglich.",
+    "en": "Registration is currently limited to invited email addresses."
+  },
+  "Registration is currently limited to invited email addresses.": {
+    "de": "Die Registrierung ist derzeit nur für freigeschaltete E-Mail-Adressen möglich.",
+    "en": "Registration is currently limited to invited email addresses."
+  },
+  "Die Anfrage konnte gerade nicht verarbeitet werden. Bitte versuche es erneut.": {
+    "de": "Die Anfrage konnte gerade nicht verarbeitet werden. Bitte versuche es erneut.",
+    "en": "Your request could not be processed. Please try again."
+  },
+  "Your request could not be processed. Please try again.": {
+    "de": "Die Anfrage konnte gerade nicht verarbeitet werden. Bitte versuche es erneut.",
+    "en": "Your request could not be processed. Please try again."
+  },
+  "Dein Zugang konnte gerade nicht geladen werden. Bitte versuche es erneut.": {
+    "de": "Dein Zugang konnte gerade nicht geladen werden. Bitte versuche es erneut.",
+    "en": "Your account could not be loaded. Please try again."
+  },
+  "Your account could not be loaded. Please try again.": {
+    "de": "Dein Zugang konnte gerade nicht geladen werden. Bitte versuche es erneut.",
+    "en": "Your account could not be loaded. Please try again."
+  },
+  "Domus ist gerade nicht erreichbar.": {
+    "de": "Domus ist gerade nicht erreichbar.",
+    "en": "Domus is currently unavailable."
+  },
+  "Domus is currently unavailable.": {
+    "de": "Domus ist gerade nicht erreichbar.",
+    "en": "Domus is currently unavailable."
+  },
+  "Deine E-Mail-Adresse ist bestätigt. Du kannst dich jetzt anmelden.": {
+    "de": "Deine E-Mail-Adresse ist bestätigt. Du kannst dich jetzt anmelden.",
+    "en": "Your email address has been verified. You can now sign in."
+  },
+  "Your email address has been verified. You can now sign in.": {
+    "de": "Deine E-Mail-Adresse ist bestätigt. Du kannst dich jetzt anmelden.",
+    "en": "Your email address has been verified. You can now sign in."
+  },
+  "Bei Domus anmelden": {
+    "de": "Bei Domus anmelden",
+    "en": "Sign in to Domus"
+  },
+  "Sign in to Domus": {
+    "de": "Bei Domus anmelden",
+    "en": "Sign in to Domus"
+  },
+  "Zugang erstellen": {
+    "de": "Zugang erstellen",
+    "en": "Create an account"
+  },
+  "Create an account": {
+    "de": "Zugang erstellen",
+    "en": "Create an account"
+  },
+  "Passwort zurücksetzen": {
+    "de": "Passwort zurücksetzen",
+    "en": "Reset password"
+  },
+  "Reset password": {
+    "de": "Passwort zurücksetzen",
+    "en": "Reset password"
+  },
+  "Neues Passwort setzen": {
+    "de": "Neues Passwort setzen",
+    "en": "Set a new password"
+  },
+  "Set a new password": {
+    "de": "Neues Passwort setzen",
+    "en": "Set a new password"
+  },
+  "Wenn deine Adresse für den Pilot freigeschaltet ist, erhältst du eine E-Mail. Bitte bestätige den Link und melde dich anschließend an.": {
+    "de": "Wenn deine Adresse für den Pilot freigeschaltet ist, erhältst du eine E-Mail. Bitte bestätige den Link und melde dich anschließend an.",
+    "en": "If your address is invited to the pilot, you will receive an email. Verify the link and then sign in."
+  },
+  "If your address is invited to the pilot, you will receive an email. Verify the link and then sign in.": {
+    "de": "Wenn deine Adresse für den Pilot freigeschaltet ist, erhältst du eine E-Mail. Bitte bestätige den Link und melde dich anschließend an.",
+    "en": "If your address is invited to the pilot, you will receive an email. Verify the link and then sign in."
+  },
+  "Wenn ein Zugang zu dieser Adresse besteht, erhältst du einen Link zum Zurücksetzen. Bitte prüfe auch den Spamordner.": {
+    "de": "Wenn ein Zugang zu dieser Adresse besteht, erhältst du einen Link zum Zurücksetzen. Bitte prüfe auch den Spamordner.",
+    "en": "If an account exists for this address, you will receive a reset link. Please also check your spam folder."
+  },
+  "If an account exists for this address, you will receive a reset link. Please also check your spam folder.": {
+    "de": "Wenn ein Zugang zu dieser Adresse besteht, erhältst du einen Link zum Zurücksetzen. Bitte prüfe auch den Spamordner.",
+    "en": "If an account exists for this address, you will receive a reset link. Please also check your spam folder."
+  },
+  "Der Reset-Link ist unvollständig. Bitte fordere einen neuen Link an.": {
+    "de": "Der Reset-Link ist unvollständig. Bitte fordere einen neuen Link an.",
+    "en": "The reset link is incomplete. Please request a new one."
+  },
+  "The reset link is incomplete. Please request a new one.": {
+    "de": "Der Reset-Link ist unvollständig. Bitte fordere einen neuen Link an.",
+    "en": "The reset link is incomplete. Please request a new one."
+  },
+  "Dein Passwort wurde geändert. Bitte melde dich mit dem neuen Passwort an.": {
+    "de": "Dein Passwort wurde geändert. Bitte melde dich mit dem neuen Passwort an.",
+    "en": "Your password has been changed. Please sign in with your new password."
+  },
+  "Your password has been changed. Please sign in with your new password.": {
+    "de": "Dein Passwort wurde geändert. Bitte melde dich mit dem neuen Passwort an.",
+    "en": "Your password has been changed. Please sign in with your new password."
+  },
+  "Falls deine Adresse noch nicht bestätigt ist, erhältst du einen neuen Bestätigungslink.": {
+    "de": "Falls deine Adresse noch nicht bestätigt ist, erhältst du einen neuen Bestätigungslink.",
+    "en": "If your address is awaiting verification, you will receive a new verification link."
+  },
+  "If your address is awaiting verification, you will receive a new verification link.": {
+    "de": "Falls deine Adresse noch nicht bestätigt ist, erhältst du einen neuen Bestätigungslink.",
+    "en": "If your address is awaiting verification, you will receive a new verification link."
+  },
+  "Ein JSON-Objekt ist erforderlich.": {
+    "de": "Ein JSON-Objekt ist erforderlich.",
+    "en": "A JSON object is required."
+  },
+  "A JSON object is required.": {
+    "de": "Ein JSON-Objekt ist erforderlich.",
+    "en": "A JSON object is required."
+  },
+  "Die Kontozuordnung wird durch die Anmeldung festgelegt.": {
+    "de": "Die Kontozuordnung wird durch die Anmeldung festgelegt.",
+    "en": "The account is determined by your signed-in session."
+  },
+  "The account is determined by your signed-in session.": {
+    "de": "Die Kontozuordnung wird durch die Anmeldung festgelegt.",
+    "en": "The account is determined by your signed-in session."
+  },
+  "Ungültige Anlagen.": {
+    "de": "Ungültige Anlagen.",
+    "en": "Invalid attachments."
+  },
+  "Invalid attachments.": {
+    "de": "Ungültige Anlagen.",
+    "en": "Invalid attachments."
+  },
+  "Anlage nicht gefunden.": {
+    "de": "Anlage nicht gefunden.",
+    "en": "Attachment not found."
+  },
+  "Attachment not found.": {
+    "de": "Anlage nicht gefunden.",
+    "en": "Attachment not found."
+  },
+  "Ungültige Zahlungen.": {
+    "de": "Ungültige Zahlungen.",
+    "en": "Invalid payment entries."
+  },
+  "Invalid payment entries.": {
+    "de": "Ungültige Zahlungen.",
+    "en": "Invalid payment entries."
+  },
+  "Bitte eine Bezeichnung angeben.": {
+    "de": "Bitte eine Bezeichnung angeben.",
+    "en": "Please enter a title."
+  },
+  "Please enter a title.": {
+    "de": "Bitte eine Bezeichnung angeben.",
+    "en": "Please enter a title."
+  },
+  "Bitte einen Betrag angeben.": {
+    "de": "Bitte einen Betrag angeben.",
+    "en": "Please enter an amount."
+  },
+  "Please enter an amount.": {
+    "de": "Bitte einen Betrag angeben.",
+    "en": "Please enter an amount."
+  },
+  "Zuordnung nicht gefunden.": {
+    "de": "Zuordnung nicht gefunden.",
+    "en": "Assignment not found."
+  },
+  "Assignment not found.": {
+    "de": "Zuordnung nicht gefunden.",
+    "en": "Assignment not found."
+  },
+  "Eintrag nicht gefunden.": {
+    "de": "Eintrag nicht gefunden.",
+    "en": "Entry not found."
+  },
+  "Entry not found.": {
+    "de": "Eintrag nicht gefunden.",
+    "en": "Entry not found."
+  },
+  "Vertragsparteien bleiben historisch erhalten.": {
+    "de": "Vertragsparteien bleiben historisch erhalten.",
+    "en": "Tenancy parties are retained in the history."
+  },
+  "Tenancy parties are retained in the history.": {
+    "de": "Vertragsparteien bleiben historisch erhalten.",
+    "en": "Tenancy parties are retained in the history."
+  },
+  "Wohnung ist noch mit Daten verknüpft.": {
+    "de": "Wohnung ist noch mit Daten verknüpft.",
+    "en": "The property is still linked to other records."
+  },
+  "The property is still linked to other records.": {
+    "de": "Wohnung ist noch mit Daten verknüpft.",
+    "en": "The property is still linked to other records."
+  },
+  "Vertrag ist mit einem Mietverhältnis verknüpft.": {
+    "de": "Vertrag ist mit einem Mietverhältnis verknüpft.",
+    "en": "The agreement is linked to a tenancy."
+  },
+  "The agreement is linked to a tenancy.": {
+    "de": "Vertrag ist mit einem Mietverhältnis verknüpft.",
+    "en": "The agreement is linked to a tenancy."
+  },
+  "Dokument ist noch mit einem Anliegen verknüpft.": {
+    "de": "Dokument ist noch mit einem Anliegen verknüpft.",
+    "en": "The document is still linked to an issue."
+  },
+  "The document is still linked to an issue.": {
+    "de": "Dokument ist noch mit einem Anliegen verknüpft.",
+    "en": "The document is still linked to an issue."
+  },
+  "Zuordnung und Zeitraum werden im Mietverhältnis verwaltet.": {
+    "de": "Zuordnung und Zeitraum werden im Mietverhältnis verwaltet.",
+    "en": "Assignments and dates are managed in the tenancy."
+  },
+  "Assignments and dates are managed in the tenancy.": {
+    "de": "Zuordnung und Zeitraum werden im Mietverhältnis verwaltet.",
+    "en": "Assignments and dates are managed in the tenancy."
+  },
+  "Neue Vertragsparteien über eine Vermietung anlegen.": {
+    "de": "Neue Vertragsparteien über eine Vermietung anlegen.",
+    "en": "Add new parties through a rental workflow."
+  },
+  "Add new parties through a rental workflow.": {
+    "de": "Neue Vertragsparteien über eine Vermietung anlegen.",
+    "en": "Add new parties through a rental workflow."
+  },
+  "Ein zugeordneter Mietvertrag muss bei seinem Mietverhältnis bleiben.": {
+    "de": "Ein zugeordneter Mietvertrag muss bei seinem Mietverhältnis bleiben.",
+    "en": "A linked agreement must remain assigned to its tenancy."
+  },
+  "A linked agreement must remain assigned to its tenancy.": {
+    "de": "Ein zugeordneter Mietvertrag muss bei seinem Mietverhältnis bleiben.",
+    "en": "A linked agreement must remain assigned to its tenancy."
+  },
+  "Ungültiger Dateiname.": {
+    "de": "Ungültiger Dateiname.",
+    "en": "Invalid filename."
+  },
+  "Invalid filename.": {
+    "de": "Ungültiger Dateiname.",
+    "en": "Invalid filename."
+  },
+  "Dateiinhalt und Dateityp passen nicht zusammen. Unterstützt werden PDF, Word, JPG, PNG und WebP.": {
+    "de": "Dateiinhalt und Dateityp passen nicht zusammen. Unterstützt werden PDF, Word, JPG, PNG und WebP.",
+    "en": "The file content does not match its type. Supported formats are PDF, Word, JPG, PNG and WebP."
+  },
+  "The file content does not match its type. Supported formats are PDF, Word, JPG, PNG and WebP.": {
+    "de": "Dateiinhalt und Dateityp passen nicht zusammen. Unterstützt werden PDF, Word, JPG, PNG und WebP.",
+    "en": "The file content does not match its type. Supported formats are PDF, Word, JPG, PNG and WebP."
+  },
+  "Wohnung nicht gefunden.": {
+    "de": "Wohnung nicht gefunden.",
+    "en": "Property not found."
+  },
+  "Property not found.": {
+    "de": "Wohnung nicht gefunden.",
+    "en": "Property not found."
+  },
+  "Unbekannte Kategorie.": {
+    "de": "Unbekannte Kategorie.",
+    "en": "Unknown category."
+  },
+  "Unknown category.": {
+    "de": "Unbekannte Kategorie.",
+    "en": "Unknown category."
+  },
+  "Beschreibung ist zu lang.": {
+    "de": "Beschreibung ist zu lang.",
+    "en": "The description is too long."
+  },
+  "The description is too long.": {
+    "de": "Beschreibung ist zu lang.",
+    "en": "The description is too long."
+  },
+  "Ungültige Freigabe.": {
+    "de": "Ungültige Freigabe.",
+    "en": "Invalid publication setting."
+  },
+  "Invalid publication setting.": {
+    "de": "Ungültige Freigabe.",
+    "en": "Invalid publication setting."
+  },
+  "Ungültige Reihenfolge.": {
+    "de": "Ungültige Reihenfolge.",
+    "en": "Invalid sort order."
+  },
+  "Invalid sort order.": {
+    "de": "Ungültige Reihenfolge.",
+    "en": "Invalid sort order."
+  },
+  "Maximal 20 MB pro Datei. Leere Dateien sind nicht möglich.": {
+    "de": "Maximal 20 MB pro Datei. Leere Dateien sind nicht möglich.",
+    "en": "Files must be non-empty and no larger than 20 MB."
+  },
+  "Files must be non-empty and no larger than 20 MB.": {
+    "de": "Maximal 20 MB pro Datei; leere Dateien sind nicht möglich.",
+    "en": "Files must be non-empty and no larger than 20 MB."
+  },
+  "Maximal 20 MB pro Datei; leere Dateien sind nicht möglich.": {
+    "de": "Maximal 20 MB pro Datei; leere Dateien sind nicht möglich.",
+    "en": "Files must be non-empty and no larger than 20 MB."
+  },
+  "Das Speicherkontingent von 1 GB ist erreicht.": {
+    "de": "Das Speicherkontingent von 1 GB ist erreicht.",
+    "en": "The 1 GB storage quota has been reached."
+  },
+  "The 1 GB storage quota has been reached.": {
+    "de": "Das Speicherkontingent von 1 GB ist erreicht.",
+    "en": "The 1 GB storage quota has been reached."
+  },
+  "Die Anfrage ist zu groß.": {
+    "de": "Die Anfrage ist zu groß.",
+    "en": "The request is too large."
+  },
+  "The request is too large.": {
+    "de": "Die Anfrage ist zu groß.",
+    "en": "The request is too large."
+  },
+  "Ungültiges JSON.": {
+    "de": "Ungültiges JSON.",
+    "en": "Invalid JSON."
+  },
+  "Invalid JSON.": {
+    "de": "Ungültiges JSON.",
+    "en": "Invalid JSON."
+  },
+  "Ungültiger Ursprung der Anfrage.": {
+    "de": "Ungültiger Ursprung der Anfrage.",
+    "en": "Invalid request origin."
+  },
+  "Invalid request origin.": {
+    "de": "Ungültiger Ursprung der Anfrage.",
+    "en": "Invalid request origin."
+  },
+  "Bitte eine Datei als Multipart-Upload senden.": {
+    "de": "Bitte eine Datei als Multipart-Upload senden.",
+    "en": "Please send the file as a multipart upload."
+  },
+  "Please send the file as a multipart upload.": {
+    "de": "Bitte eine Datei als Multipart-Upload senden.",
+    "en": "Please send the file as a multipart upload."
+  },
+  "Ungültiger Upload.": {
+    "de": "Ungültiger Upload.",
+    "en": "Invalid upload."
+  },
+  "Invalid upload.": {
+    "de": "Ungültiger Upload.",
+    "en": "Invalid upload."
+  },
+  "Bitte eine Datei auswählen.": {
+    "de": "Bitte eine Datei auswählen.",
+    "en": "Please select a file."
+  },
+  "Please select a file.": {
+    "de": "Bitte eine Datei auswählen.",
+    "en": "Please select a file."
+  },
+  "Upload-Limit erreicht. Bitte später erneut versuchen.": {
+    "de": "Upload-Limit erreicht. Bitte später erneut versuchen.",
+    "en": "The upload limit has been reached. Please try again later."
+  },
+  "The upload limit has been reached. Please try again later.": {
+    "de": "Upload-Limit erreicht. Bitte später erneut versuchen.",
+    "en": "The upload limit has been reached. Please try again later."
+  },
+  "Datei nicht gefunden.": {
+    "de": "Datei nicht gefunden.",
+    "en": "File not found."
+  },
+  "File not found.": {
+    "de": "Datei nicht gefunden.",
+    "en": "File not found."
+  },
+  "Dokument nicht gefunden.": {
+    "de": "Dokument nicht gefunden.",
+    "en": "Document not found."
+  },
+  "Document not found.": {
+    "de": "Dokument nicht gefunden.",
+    "en": "Document not found."
+  },
+  "Dateifunktion nicht gefunden.": {
+    "de": "Dateifunktion nicht gefunden.",
+    "en": "File operation not found."
+  },
+  "File operation not found.": {
+    "de": "Dateifunktion nicht gefunden.",
+    "en": "File operation not found."
+  },
+  "Vermietungsfunktion nicht gefunden.": {
+    "de": "Vermietungsfunktion nicht gefunden.",
+    "en": "Rental operation not found."
+  },
+  "Rental operation not found.": {
+    "de": "Vermietungsfunktion nicht gefunden.",
+    "en": "Rental operation not found."
+  },
+  "Funktion nicht gefunden.": {
+    "de": "Funktion nicht gefunden.",
+    "en": "Operation not found."
+  },
+  "Operation not found.": {
+    "de": "Funktion nicht gefunden.",
+    "en": "Operation not found."
+  },
+  "Bitte zuerst deine E-Mail-Adresse bestätigen.": {
+    "de": "Bitte zuerst deine E-Mail-Adresse bestätigen.",
+    "en": "Please verify your email address first."
+  },
+  "Please verify your email address first.": {
+    "de": "Bitte zuerst deine E-Mail-Adresse bestätigen.",
+    "en": "Please verify your email address first."
+  },
+  "Kein Zugriff auf dieses Konto.": {
+    "de": "Kein Zugriff auf dieses Konto.",
+    "en": "You do not have access to this account."
+  },
+  "You do not have access to this account.": {
+    "de": "Kein Zugriff auf dieses Konto.",
+    "en": "You do not have access to this account."
+  },
+  "Bitte melde dich an.": {
+    "de": "Bitte melde dich an.",
+    "en": "Please sign in."
+  },
+  "Please sign in.": {
+    "de": "Bitte melde dich an.",
+    "en": "Please sign in."
+  },
+  "Der Eintrag ist noch mit anderen Daten verknüpft.": {
+    "de": "Der Eintrag ist noch mit anderen Daten verknüpft.",
+    "en": "The entry is still linked to other records."
+  },
+  "The entry is still linked to other records.": {
+    "de": "Der Eintrag ist noch mit anderen Daten verknüpft.",
+    "en": "The entry is still linked to other records."
+  },
+  "Der Eintrag ist bereits vorhanden.": {
+    "de": "Der Eintrag ist bereits vorhanden.",
+    "en": "The entry already exists."
+  },
+  "The entry already exists.": {
+    "de": "Der Eintrag ist bereits vorhanden.",
+    "en": "The entry already exists."
+  },
+  "Die Anfrage konnte gerade nicht verarbeitet werden. Bitte erneut versuchen.": {
+    "de": "Die Anfrage konnte gerade nicht verarbeitet werden. Bitte erneut versuchen.",
+    "en": "The request could not be processed. Please try again."
+  },
+  "The request could not be processed. Please try again.": {
+    "de": "Die Anfrage konnte gerade nicht verarbeitet werden. Bitte erneut versuchen.",
+    "en": "The request could not be processed. Please try again."
+  },
+  "Dieser Vorgang ist abgeschlossen oder archiviert.": {
+    "de": "Dieser Vorgang ist abgeschlossen oder archiviert.",
+    "en": "This workflow has been completed or archived."
+  },
+  "This workflow has been completed or archived.": {
+    "de": "Dieser Vorgang ist abgeschlossen oder archiviert.",
+    "en": "This workflow has been completed or archived."
+  },
+  "Zum Abschließen einen unterschriebenen Vertrag zuordnen.": {
+    "de": "Zum Abschließen einen unterschriebenen Vertrag zuordnen.",
+    "en": "Link a signed agreement to complete the workflow."
+  },
+  "Link a signed agreement to complete the workflow.": {
+    "de": "Zum Abschließen einen unterschriebenen Vertrag zuordnen.",
+    "en": "Link a signed agreement to complete the workflow."
+  },
+  "Eine aktive Bewerbung auswählen.": {
+    "de": "Eine aktive Bewerbung auswählen.",
+    "en": "Select an active application."
+  },
+  "Select an active application.": {
+    "de": "Eine aktive Bewerbung auswählen.",
+    "en": "Select an active application."
+  },
+  "Eine bis zehn Vertragsparteien angeben.": {
+    "de": "Eine bis zehn Vertragsparteien angeben.",
+    "en": "Enter between one and ten parties."
+  },
+  "Enter between one and ten parties.": {
+    "de": "Eine bis zehn Vertragsparteien angeben.",
+    "en": "Enter between one and ten parties."
+  },
+  "Bewerbung nicht gefunden.": {
+    "de": "Bewerbung nicht gefunden.",
+    "en": "Application not found."
+  },
+  "Application not found.": {
+    "de": "Bewerbung nicht gefunden.",
+    "en": "Application not found."
+  },
+  "Gültige Uhrzeit eingeben.": {
+    "de": "Gültige Uhrzeit eingeben.",
+    "en": "Enter a valid time."
+  },
+  "Enter a valid time.": {
+    "de": "Gültige Uhrzeit eingeben.",
+    "en": "Enter a valid time."
+  },
+  "Termin nicht gefunden.": {
+    "de": "Termin nicht gefunden.",
+    "en": "Viewing not found."
+  },
+  "Viewing not found.": {
+    "de": "Termin nicht gefunden.",
+    "en": "Viewing not found."
+  },
+  "Mietende muss am oder nach dem Mietbeginn liegen.": {
+    "de": "Mietende muss am oder nach dem Mietbeginn liegen.",
+    "en": "The tenancy end must be on or after the start date."
+  },
+  "The tenancy end must be on or after the start date.": {
+    "de": "Mietende muss am oder nach dem Mietbeginn liegen.",
+    "en": "The tenancy end must be on or after the start date."
+  },
+  "Aktive Bestandsmieter dieser Wohnung zuerst als Mietverhältnis bestätigen (gemeinsame Vertragsparteien gemeinsam auswählen).": {
+    "de": "Aktive Bestandsmieter dieser Wohnung zuerst als Mietverhältnis bestätigen (gemeinsame Vertragsparteien gemeinsam auswählen).",
+    "en": "First confirm a tenancy for the existing active tenants of this property. Select joint parties together."
+  },
+  "First confirm a tenancy for the existing active tenants of this property. Select joint parties together.": {
+    "de": "Aktive Bestandsmieter dieser Wohnung zuerst als Mietverhältnis bestätigen (gemeinsame Vertragsparteien gemeinsam auswählen).",
+    "en": "First confirm a tenancy for the existing active tenants of this property. Select joint parties together."
+  },
+  "Einen hinterlegten Mietvertrag dieser Wohnung auswählen.": {
+    "de": "Einen hinterlegten Mietvertrag dieser Wohnung auswählen.",
+    "en": "Select an uploaded agreement for this property."
+  },
+  "Select an uploaded agreement for this property.": {
+    "de": "Einen hinterlegten Mietvertrag dieser Wohnung auswählen.",
+    "en": "Select an uploaded agreement for this property."
+  },
+  "Vertragsparteien auswählen.": {
+    "de": "Vertragsparteien auswählen.",
+    "en": "Select the parties."
+  },
+  "Select the parties.": {
+    "de": "Vertragsparteien auswählen.",
+    "en": "Select the parties."
+  },
+  "Nur noch nicht zugeordnete Bestandsmieter dieser Wohnung auswählen.": {
+    "de": "Nur noch nicht zugeordnete Bestandsmieter dieser Wohnung auswählen.",
+    "en": "Select only existing tenants of this property who have not yet been assigned to a tenancy."
+  },
+  "Select only existing tenants of this property who have not yet been assigned to a tenancy.": {
+    "de": "Nur noch nicht zugeordnete Bestandsmieter dieser Wohnung auswählen.",
+    "en": "Select only existing tenants of this property who have not yet been assigned to a tenancy."
+  },
+  "Mietverhältnis nicht gefunden.": {
+    "de": "Mietverhältnis nicht gefunden.",
+    "en": "Tenancy not found."
+  },
+  "Tenancy not found.": {
+    "de": "Mietverhältnis nicht gefunden.",
+    "en": "Tenancy not found."
+  },
+  "Mietende liegt vor dem Mietbeginn.": {
+    "de": "Mietende liegt vor dem Mietbeginn.",
+    "en": "The tenancy end is before the start date."
+  },
+  "The tenancy end is before the start date.": {
+    "de": "Mietende liegt vor dem Mietbeginn.",
+    "en": "The tenancy end is before the start date."
+  },
+  "Archivierter Vorgang kann nicht abgeschlossen werden.": {
+    "de": "Archivierter Vorgang kann nicht abgeschlossen werden.",
+    "en": "An archived workflow cannot be completed."
+  },
+  "An archived workflow cannot be completed.": {
+    "de": "Archivierter Vorgang kann nicht abgeschlossen werden.",
+    "en": "An archived workflow cannot be completed."
+  },
+  "Unterschrift und Vertragsdaten ausdrücklich bestätigen.": {
+    "de": "Unterschrift und Vertragsdaten ausdrücklich bestätigen.",
+    "en": "Confirm the signature and tenancy details explicitly."
+  },
+  "Confirm the signature and tenancy details explicitly.": {
+    "de": "Unterschrift und Vertragsdaten ausdrücklich bestätigen.",
+    "en": "Confirm the signature and tenancy details explicitly."
+  },
+  "Zuerst eine aktive Bewerbung auswählen.": {
+    "de": "Zuerst eine aktive Bewerbung auswählen.",
+    "en": "Select an active application first."
+  },
+  "Select an active application first.": {
+    "de": "Zuerst eine aktive Bewerbung auswählen.",
+    "en": "Select an active application first."
+  },
+  "Datei konnte nicht verarbeitet werden.": {
+    "de": "Datei konnte nicht verarbeitet werden.",
+    "en": "The file could not be processed."
+  },
+  "The file could not be processed.": {
+    "de": "Datei konnte nicht verarbeitet werden.",
+    "en": "The file could not be processed."
+  },
+  "Datei konnte nicht hochgeladen werden.": {
+    "de": "Datei konnte nicht hochgeladen werden.",
+    "en": "The file could not be uploaded."
+  },
+  "The file could not be uploaded.": {
+    "de": "Datei konnte nicht hochgeladen werden.",
+    "en": "The file could not be uploaded."
+  },
+  "Datei konnte nicht gelesen werden.": {
+    "de": "Datei konnte nicht gelesen werden.",
+    "en": "The file could not be read."
+  },
+  "The file could not be read.": {
+    "de": "Datei konnte nicht gelesen werden.",
+    "en": "The file could not be read."
+  },
+  "Vermietung konnte nicht geladen werden.": {
+    "de": "Vermietung konnte nicht geladen werden.",
+    "en": "The rental could not be loaded."
+  },
+  "The rental could not be loaded.": {
+    "de": "Vermietung konnte nicht geladen werden.",
+    "en": "The rental could not be loaded."
+  },
+  "Mietverhältnis unter Vermietungen beenden.": {
+    "de": "Mietverhältnis unter Vermietungen beenden.",
+    "en": "End the tenancy under Rentals."
+  },
+  "End the tenancy under Rentals.": {
+    "de": "Mietverhältnis unter Vermietungen beenden.",
+    "en": "End the tenancy under Rentals."
+  },
+  "Vertragsparteien bleiben im Mietverhältnis erhalten.": {
+    "de": "Vertragsparteien bleiben im Mietverhältnis erhalten.",
+    "en": "Parties are retained in the tenancy."
+  },
+  "Parties are retained in the tenancy.": {
+    "de": "Vertragsparteien bleiben im Mietverhältnis erhalten.",
+    "en": "Parties are retained in the tenancy."
+  },
+  "{label}: gültiges Datum erforderlich.": {
+    "de": "{label}: gültiges Datum erforderlich.",
+    "en": "{label}: a valid date is required."
+  },
+  "{label}: a valid date is required.": {
+    "de": "{label}: gültiges Datum erforderlich.",
+    "en": "{label}: a valid date is required."
+  },
+  "{label}: ungültiges Datum.": {
+    "de": "{label}: ungültiges Datum.",
+    "en": "{label}: invalid date."
+  },
+  "{label}: invalid date.": {
+    "de": "{label}: ungültiges Datum.",
+    "en": "{label}: invalid date."
+  },
+  "{label}: Angabe fehlt oder ist zu lang.": {
+    "de": "{label}: Angabe fehlt oder ist zu lang.",
+    "en": "{label}: a value is missing or too long."
+  },
+  "{label}: a value is missing or too long.": {
+    "de": "{label}: Angabe fehlt oder ist zu lang.",
+    "en": "{label}: a value is missing or too long."
+  },
+  "{label}: positiven Eurobetrag mit höchstens zwei Nachkommastellen eingeben.": {
+    "de": "{label}: positiven Eurobetrag mit höchstens zwei Nachkommastellen eingeben.",
+    "en": "{label}: enter a positive euro amount with at most two decimal places."
+  },
+  "{label}: enter a positive euro amount with at most two decimal places.": {
+    "de": "{label}: positiven Eurobetrag mit höchstens zwei Nachkommastellen eingeben.",
+    "en": "{label}: enter a positive euro amount with at most two decimal places."
+  },
+  "{label}: Betrag zu groß.": {
+    "de": "{label}: Betrag zu groß.",
+    "en": "{label}: the amount is too large."
+  },
+  "{label}: the amount is too large.": {
+    "de": "{label}: Betrag zu groß.",
+    "en": "{label}: the amount is too large."
+  },
+  "{label}: ungültiger Status.": {
+    "de": "{label}: ungültiger Status.",
+    "en": "{label}: invalid status."
+  },
+  "{label}: invalid status.": {
+    "de": "{label}: ungültiger Status.",
+    "en": "{label}: invalid status."
+  },
+  "{label}: ungültige Zahl.": {
+    "de": "{label}: ungültige Zahl.",
+    "en": "{label}: invalid number."
+  },
+  "{label}: invalid number.": {
+    "de": "{label}: ungültige Zahl.",
+    "en": "{label}: invalid number."
+  },
+  "{label}: ganze Zahl erforderlich.": {
+    "de": "{label}: ganze Zahl erforderlich.",
+    "en": "{label}: a whole number is required."
+  },
+  "{label}: a whole number is required.": {
+    "de": "{label}: ganze Zahl erforderlich.",
+    "en": "{label}: a whole number is required."
+  },
+  "{label}: ungültige Auswahl.": {
+    "de": "{label}: ungültige Auswahl.",
+    "en": "{label}: invalid selection."
+  },
+  "{label}: invalid selection.": {
+    "de": "{label}: ungültige Auswahl.",
+    "en": "{label}: invalid selection."
+  },
+  "{label}: ungültige Zuordnung.": {
+    "de": "{label}: ungültige Zuordnung.",
+    "en": "{label}: invalid assignment."
+  },
+  "{label}: invalid assignment.": {
+    "de": "{label}: ungültige Zuordnung.",
+    "en": "{label}: invalid assignment."
+  },
+  "Zeitraum überschneidet sich mit Mietverhältnis {start} bis {end}. Zuerst den bestehenden Zeitraum prüfen.": {
+    "de": "Zeitraum überschneidet sich mit Mietverhältnis {start} bis {end}. Zuerst den bestehenden Zeitraum prüfen.",
+    "en": "The dates overlap with a tenancy from {start} to {end}. Please review the existing dates first."
+  },
+  "The dates overlap with a tenancy from {start} to {end}. Please review the existing dates first.": {
+    "de": "Zeitraum überschneidet sich mit Mietverhältnis {start} bis {end}. Zuerst den bestehenden Zeitraum prüfen.",
+    "en": "The dates overlap with a tenancy from {start} to {end}. Please review the existing dates first."
+  },
+  "1. Verantwortlicher und Kontakt": {
+    "de": "1. Verantwortlicher und Kontakt",
+    "en": "1. Controller and contact"
+  },
+  "2. Kontodaten und Immobilienverwaltung": {
+    "de": "2. Kontodaten und Immobilienverwaltung",
+    "en": "2. Account data and property management"
+  },
+  "3. Hosting, Datenbank, Dateien und Protokolle": {
+    "de": "3. Hosting, Datenbank, Dateien und Protokolle",
+    "en": "3. Hosting, database, files and logs"
+  },
+  "4. E-Mails und Kontaktanfragen": {
+    "de": "4. E-Mails und Kontaktanfragen",
+    "en": "4. Emails and contact enquiries"
+  },
+  "5. Cookies und Browserspeicher": {
+    "de": "5. Cookies und Browserspeicher",
+    "en": "5. Cookies and browser storage"
+  },
+  "6. Speicherdauer, Dateien und Löschanfragen": {
+    "de": "6. Speicherdauer, Dateien und Löschanfragen",
+    "en": "6. Retention, files and deletion requests"
+  },
+  "7. Automatisierte Entscheidungen": {
+    "de": "7. Automatisierte Entscheidungen",
+    "en": "7. Automated decisions"
+  },
+  "8. Deine Rechte": {
+    "de": "8. Deine Rechte",
+    "en": "8. Your rights"
+  },
+  "Domus unterstützt die Verwaltung von Immobilien, Mietern, Vermietungen und Unterlagen. Hier erfährst du, welche Daten dabei verarbeitet werden und wie du deine Rechte wahrnehmen kannst.": {
+    "de": "Domus unterstützt die Verwaltung von Immobilien, Mietern, Vermietungen und Unterlagen. Hier erfährst du, welche Daten dabei verarbeitet werden und wie du deine Rechte wahrnehmen kannst.",
+    "en": "Domus helps you manage properties, tenants, rentals and documents. This policy explains which data is processed and how you can exercise your rights."
+  },
+  "Dieser Kontakt gilt für den Betrieb von Domus und für Datenschutzanfragen. Die Faktio-Adresse wird vorläufig auch für Domus verwendet.": {
+    "de": "Dieser Kontakt gilt für den Betrieb von Domus und für Datenschutzanfragen. Die Faktio-Adresse wird vorläufig auch für Domus verwendet.",
+    "en": "This contact is responsible for operating Domus and handling data protection enquiries. The Faktio address is also being used for Domus on an interim basis."
+  },
+  "Für Registrierung und Anmeldung verarbeiten wir deinen Namen, deine E-Mail-Adresse, den Passwort-Hash, den Bestätigungsstatus, Sitzungen und deine Kontomitgliedschaft. Hinzu kommen Vorgänge zur E-Mail-Bestätigung und zum Zurücksetzen des Passworts.": {
+    "de": "Für Registrierung und Anmeldung verarbeiten wir deinen Namen, deine E-Mail-Adresse, den Passwort-Hash, den Bestätigungsstatus, Sitzungen und deine Kontomitgliedschaft. Hinzu kommen Vorgänge zur E-Mail-Bestätigung und zum Zurücksetzen des Passworts.",
+    "en": "To register and sign in, we process your name, email address, password hash, verification status, sessions and account membership. This also includes email verification and password reset processes."
+  },
+  "Zur Immobilienverwaltung werden die von dir eingegebenen Angaben zu Wohnungen, Eigentums- und Ausstattungsmerkmalen, Mietern und Kontakten, Bewerbungen, Besichtigungen, Mietverhältnissen, Anliegen und Kosten sowie hochgeladene Fotos und Dokumente verarbeitet. Dazu können Namen, Kontaktdaten, Mietzeiträume, Vertragsparteien, Mietbeträge und Zahlungsangaben gehören.": {
+    "de": "Zur Immobilienverwaltung werden die von dir eingegebenen Angaben zu Wohnungen, Eigentums- und Ausstattungsmerkmalen, Mietern und Kontakten, Bewerbungen, Besichtigungen, Mietverhältnissen, Anliegen und Kosten sowie hochgeladene Fotos und Dokumente verarbeitet. Dazu können Namen, Kontaktdaten, Mietzeiträume, Vertragsparteien, Mietbeträge und Zahlungsangaben gehören.",
+    "en": "Property management involves the information you enter about properties, ownership and amenities, tenants and contacts, applications, viewings, tenancies, issues and costs, as well as uploaded photos and documents. This may include names, contact details, tenancy dates, parties, rent amounts and payment information."
+  },
+  "Die Kontoverwaltung und die Bereitstellung der angeforderten Funktionen beruhen auf Art. 6 Abs. 1 Buchstabe b DSGVO. Sicherheitsmaßnahmen und die Abwehr missbräuchlicher Zugriffe dienen unserem berechtigten Interesse an einem sicheren Dienst nach Art. 6 Abs. 1 Buchstabe f DSGVO.": {
+    "de": "Die Kontoverwaltung und die Bereitstellung der angeforderten Funktionen beruhen auf Art. 6 Abs. 1 Buchstabe b DSGVO. Sicherheitsmaßnahmen und die Abwehr missbräuchlicher Zugriffe dienen unserem berechtigten Interesse an einem sicheren Dienst nach Art. 6 Abs. 1 Buchstabe f DSGVO.",
+    "en": "Account management and the requested features are provided under Article 6(1)(b) GDPR. Security measures and protection against abusive access serve our legitimate interest in a secure service under Article 6(1)(f) GDPR."
+  },
+  "Für die personenbezogenen Daten deiner Mieter, Bewerber und anderer Personen, die du zur eigenen Immobilienverwaltung eingibst, bestimmst du die Zwecke der Verarbeitung und die dafür erforderliche Rechtsgrundlage. Bei einer Nutzung für weitere Vermieter ist die Auftragsverarbeitung nach Art. 28 DSGVO mit dem Betreiber zu regeln.": {
+    "de": "Für die personenbezogenen Daten deiner Mieter, Bewerber und anderer Personen, die du zur eigenen Immobilienverwaltung eingibst, bestimmst du die Zwecke der Verarbeitung und die dafür erforderliche Rechtsgrundlage. Bei einer Nutzung für weitere Vermieter ist die Auftragsverarbeitung nach Art. 28 DSGVO mit dem Betreiber zu regeln.",
+    "en": "You determine the purposes and appropriate legal basis for processing personal data about tenants, applicants and other people that you enter for your own property management. Use by additional landlords requires data processing arrangements with the operator under Article 28 GDPR."
+  },
+  "Die erforderlichen Zugangsdaten ermöglichen dein Konto. Welche weiteren Inhalte du eingibst oder hochlädst, bestimmst du selbst.": {
+    "de": "Die erforderlichen Zugangsdaten ermöglichen dein Konto. Welche weiteren Inhalte du eingibst oder hochlädst, bestimmst du selbst.",
+    "en": "The required sign-in details enable your account. You decide which additional information to enter or upload."
+  },
+  "Die Website und die Anwendung werden über Cloudflare betrieben. Dabei können IP-Adresse, Zeitpunkt, angefragte Adresse, Browserinformationen sowie Verbindungs- und Fehlerdaten verarbeitet werden. Cloudflare übernimmt die Auslieferung der Anwendung, die Verbindung zur Datenbank und den Schutz der Infrastruktur.": {
+    "de": "Die Website und die Anwendung werden über Cloudflare betrieben. Dabei können IP-Adresse, Zeitpunkt, angefragte Adresse, Browserinformationen sowie Verbindungs- und Fehlerdaten verarbeitet werden. Cloudflare übernimmt die Auslieferung der Anwendung, die Verbindung zur Datenbank und den Schutz der Infrastruktur.",
+    "en": "The website and application are operated through Cloudflare. Processing may include IP addresses, timestamps, requested URLs, browser information, connection data and errors. Cloudflare delivers the application, connects it to the database and protects the infrastructure."
+  },
+  "Kontodaten und Fachdaten werden in einer PostgreSQL-Datenbank bei Neon (Databricks) am gewählten Standort Frankfurt am Main gespeichert. Hochgeladene Dateien liegen in einem privaten Cloudflare-R2-Bucket mit EU-Jurisdiktion. Downloads werden nach Prüfung der Anmeldung und Kontozuordnung bereitgestellt.": {
+    "de": "Kontodaten und Fachdaten werden in einer PostgreSQL-Datenbank bei Neon (Databricks) am gewählten Standort Frankfurt am Main gespeichert. Hochgeladene Dateien liegen in einem privaten Cloudflare-R2-Bucket mit EU-Jurisdiktion. Downloads werden nach Prüfung der Anmeldung und Kontozuordnung bereitgestellt.",
+    "en": "Account and property management data are stored in a PostgreSQL database with Neon (Databricks) at the selected Frankfurt am Main location. Uploaded files are held in a private Cloudflare R2 bucket with EU jurisdiction. Downloads are provided after checking the session and account assignment."
+  },
+  "Zur Zugriffssicherung werden Zähler für Anfragelimits in der Datenbank geführt. Bei Änderungen protokolliert Domus Konto, Nutzerkennung, Zeitpunkt, Aktion und betroffenen Datenbereich. Diese Verarbeitung dient der Sicherheit und Nachvollziehbarkeit auf Grundlage von Art. 6 Abs. 1 Buchstabe f DSGVO.": {
+    "de": "Zur Zugriffssicherung werden Zähler für Anfragelimits in der Datenbank geführt. Bei Änderungen protokolliert Domus Konto, Nutzerkennung, Zeitpunkt, Aktion und betroffenen Datenbereich. Diese Verarbeitung dient der Sicherheit und Nachvollziehbarkeit auf Grundlage von Art. 6 Abs. 1 Buchstabe f DSGVO.",
+    "en": "Request limit counters are stored in the database to protect access. When records change, Domus logs the account, user identifier, time, action and affected data area. This supports security and traceability under Article 6(1)(f) GDPR."
+  },
+  "Cloudflare und Neon gehören zu US-Unternehmen. Insbesondere technische Daten können auch außerhalb der EU beziehungsweise des EWR verarbeitet werden. Informationen zu den Anbietern und ihren Übermittlungsgarantien stehen im Cloudflare Data Processing Addendum und in den Neon-Vertragsbedingungen einschließlich der darin einbezogenen Databricks-Bedingungen. Auskünfte zu den konkret für Domus geltenden Vereinbarungen erhältst du beim Verantwortlichen.": {
+    "de": "Cloudflare und Neon gehören zu US-Unternehmen. Insbesondere technische Daten können auch außerhalb der EU beziehungsweise des EWR verarbeitet werden. Informationen zu den Anbietern und ihren Übermittlungsgarantien stehen im Cloudflare Data Processing Addendum und in den Neon-Vertragsbedingungen einschließlich der darin einbezogenen Databricks-Bedingungen. Auskünfte zu den konkret für Domus geltenden Vereinbarungen erhältst du beim Verantwortlichen.",
+    "en": "Cloudflare and Neon belong to US companies. Technical data in particular may also be processed outside the EU or EEA. Information about the providers and their transfer safeguards is available in the Cloudflare Data Processing Addendum and the Neon terms, including the incorporated Databricks terms. Contact the controller for details of the agreements applicable to Domus."
+  },
+  "E-Mail-Bestätigungen und Passwort-Reset-Links werden über Cloudflare Email Service verschickt. Dabei werden Empfängeradresse, Nachrichteninhalt und technische Zustellinformationen verarbeitet. Der vorläufige Absender ist no-reply@faktio.net.": {
+    "de": "E-Mail-Bestätigungen und Passwort-Reset-Links werden über Cloudflare Email Service verschickt. Dabei werden Empfängeradresse, Nachrichteninhalt und technische Zustellinformationen verarbeitet. Der vorläufige Absender ist no-reply@faktio.net.",
+    "en": "Email verification and password reset links are sent through Cloudflare Email Service. Recipient addresses, message content and technical delivery information are processed for this purpose. The interim sender is no-reply@faktio.net."
+  },
+  "Nachrichten an info@faktio.net werden über Cloudflare Email Routing an das Outlook-Postfach des Betreibers bei Microsoft weitergeleitet. Zur Bearbeitung verarbeiten wir deine Kontaktangaben und den Inhalt deiner Nachricht. Dabei kann eine Verarbeitung außerhalb des EWR stattfinden. Bitte sende die zur Klärung erforderlichen Angaben.": {
+    "de": "Nachrichten an info@faktio.net werden über Cloudflare Email Routing an das Outlook-Postfach des Betreibers bei Microsoft weitergeleitet. Zur Bearbeitung verarbeiten wir deine Kontaktangaben und den Inhalt deiner Nachricht. Dabei kann eine Verarbeitung außerhalb des EWR stattfinden. Bitte sende die zur Klärung erforderlichen Angaben.",
+    "en": "Messages to info@faktio.net are forwarded through Cloudflare Email Routing to the operator's Outlook mailbox with Microsoft. We process your contact details and message content to handle your enquiry. Processing may occur outside the EEA. Please send the information needed to resolve your enquiry."
+  },
+  "Die Bearbeitung erfolgt je nach Anliegen auf Grundlage von Art. 6 Abs. 1 Buchstabe b oder f DSGVO und bei gesetzlichen Datenschutzpflichten auf Grundlage von Buchstabe c.": {
+    "de": "Die Bearbeitung erfolgt je nach Anliegen auf Grundlage von Art. 6 Abs. 1 Buchstabe b oder f DSGVO und bei gesetzlichen Datenschutzpflichten auf Grundlage von Buchstabe c.",
+    "en": "Depending on your enquiry, processing is based on Article 6(1)(b) or (f) GDPR, or on point (c) for statutory data protection obligations."
+  },
+  "Domus verwendet technisch notwendige Anmelde-Cookies von Better Auth. Das Cookie": {
+    "de": "Domus verwendet technisch notwendige Anmelde-Cookies von Better Auth. Das Cookie",
+    "en": "Domus uses technically necessary Better Auth sign-in cookies. The cookie"
+  },
+  "ordnet die Anmeldung einer Sitzung zu. Eine Sitzung gilt regulär sieben Tage und kann bei weiterer Nutzung verlängert werden. Beim Abmelden wird die aktuelle Sitzung ungültig. Ein Passwort-Reset beendet bestehende Anmeldungen.": {
+    "de": "ordnet die Anmeldung einer Sitzung zu. Eine Sitzung gilt regulär sieben Tage und kann bei weiterer Nutzung verlängert werden. Beim Abmelden wird die aktuelle Sitzung ungültig. Ein Passwort-Reset beendet bestehende Anmeldungen.",
+    "en": "associates your sign-in with a session. A session normally lasts seven days and may be extended through continued use. Signing out invalidates the current session. Resetting a password ends existing sessions."
+  },
+  "Deine Wahl zwischen heller, dunkler oder der Systemdarstellung wird unter": {
+    "de": "Deine Wahl zwischen heller, dunkler oder der Systemdarstellung wird unter",
+    "en": "Your choice of light, dark or system appearance is saved under"
+  },
+  "im lokalen Browserspeicher abgelegt, bis du die Wahl änderst oder die Browserdaten löschst. Bei Systemdarstellung folgt Domus den Darstellungseinstellungen deines Geräts.": {
+    "de": "im lokalen Browserspeicher abgelegt, bis du die Wahl änderst oder die Browserdaten löschst. Bei Systemdarstellung folgt Domus den Darstellungseinstellungen deines Geräts.",
+    "en": "in local browser storage until you change the setting or clear your browser data. System appearance follows your device's display settings."
+  },
+  "Diese Speicherungen dienen der von dir angeforderten Anmeldung und Darstellungswahl nach § 25 Abs. 2 Nr. 2 TDDDG. Die anschließende Verarbeitung beruht auf Art. 6 Abs. 1 Buchstabe b beziehungsweise f DSGVO. Domus verwendet keine Werbe- oder Analyse-Tracker.": {
+    "de": "Diese Speicherungen dienen der von dir angeforderten Anmeldung und Darstellungswahl nach § 25 Abs. 2 Nr. 2 TDDDG. Die anschließende Verarbeitung beruht auf Art. 6 Abs. 1 Buchstabe b beziehungsweise f DSGVO. Domus verwendet keine Werbe- oder Analyse-Tracker.",
+    "en": "This storage supports the sign-in and appearance settings you request under Section 25(2)(2) TDDDG. Subsequent processing is based on Article 6(1)(b) or (f) GDPR. Domus uses no advertising or analytics trackers."
+  },
+  "Konto- und Verwaltungsdaten werden grundsätzlich für die Dauer der Nutzung gespeichert. Bestätigungslinks gelten 24 Stunden, Passwort-Reset-Links eine Stunde. Der Ablauf eines Links führt zur Ungültigkeit dieses Links und bewirkt keine Löschung sämtlicher zugehöriger Datenbankeinträge.": {
+    "de": "Konto- und Verwaltungsdaten werden grundsätzlich für die Dauer der Nutzung gespeichert. Bestätigungslinks gelten 24 Stunden, Passwort-Reset-Links eine Stunde. Der Ablauf eines Links führt zur Ungültigkeit dieses Links und bewirkt keine Löschung sämtlicher zugehöriger Datenbankeinträge.",
+    "en": "Account and property management data are generally stored for the duration of use. Verification links are valid for 24 hours and password reset links for one hour. Expiry invalidates the link without deleting every related database entry."
+  },
+  "Für technische Protokolle gelten die Speicherfristen der genutzten Dienste und Betriebseinstellungen. Auskunft über die konkret für deine Daten geltende Dauer erhältst du beim Verantwortlichen. Soweit gesetzliche Pflichten oder die Klärung konkreter Ansprüche eine weitere Aufbewahrung erfordern, werden die betroffenen Daten entsprechend länger gespeichert.": {
+    "de": "Für technische Protokolle gelten die Speicherfristen der genutzten Dienste und Betriebseinstellungen. Auskunft über die konkret für deine Daten geltende Dauer erhältst du beim Verantwortlichen. Soweit gesetzliche Pflichten oder die Klärung konkreter Ansprüche eine weitere Aufbewahrung erfordern, werden die betroffenen Daten entsprechend länger gespeichert.",
+    "en": "Technical logs are subject to the retention periods of the services and operational settings in use. Contact the controller for the period applicable to your data. Where legal obligations or specific claims require further retention, the relevant data is stored for longer."
+  },
+  "Für die Wartung, Bestandsübernahme und Wiederherstellung können geschützte lokale Kopien beim Betreiber bestehen. Bei einer Löschanfrage werden auch diese Kopien und die anwendbaren Aufbewahrungspflichten berücksichtigt. R2-Dateien ohne zugehörigen Datenbankeintrag werden durch einen täglichen Bereinigungslauf frühestens nach 24 Stunden entfernt.": {
+    "de": "Für die Wartung, Bestandsübernahme und Wiederherstellung können geschützte lokale Kopien beim Betreiber bestehen. Bei einer Löschanfrage werden auch diese Kopien und die anwendbaren Aufbewahrungspflichten berücksichtigt. R2-Dateien ohne zugehörigen Datenbankeintrag werden durch einen täglichen Bereinigungslauf frühestens nach 24 Stunden entfernt.",
+    "en": "Protected local copies may be held by the operator for maintenance, migration and recovery. Deletion requests take these copies and applicable retention obligations into account. A daily cleanup removes R2 files without a corresponding database entry after at least 24 hours."
+  },
+  "Eine automatische Kontolöschung steht in der aktuellen Pilotversion noch aus. Für Löschung, Berichtigung, Einschränkung oder die Herausgabe deiner Daten wende dich an den Verantwortlichen. Für die Aufbewahrung der von dir verwalteten Miet- und Geschäftsunterlagen gelten die jeweils anwendbaren Pflichten.": {
+    "de": "Eine automatische Kontolöschung steht in der aktuellen Pilotversion noch aus. Für Löschung, Berichtigung, Einschränkung oder die Herausgabe deiner Daten wende dich an den Verantwortlichen. Für die Aufbewahrung der von dir verwalteten Miet- und Geschäftsunterlagen gelten die jeweils anwendbaren Pflichten.",
+    "en": "Automatic account deletion is still pending in the current pilot version. Contact the controller to request deletion, correction, restriction or a copy of your data. The tenancy and business documents you manage are subject to the applicable retention obligations."
+  },
+  "Domus trifft keine automatisierten Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung und führt kein darauf gerichtetes Profiling durch.": {
+    "de": "Domus trifft keine automatisierten Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung und führt kein darauf gerichtetes Profiling durch.",
+    "en": "Domus makes no automated decisions with legal or similarly significant effects and performs no profiling for that purpose."
+  },
+  "Im Rahmen der gesetzlichen Voraussetzungen hast du Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit. Eine erteilte Einwilligung kannst du für die Zukunft widerrufen.": {
+    "de": "Im Rahmen der gesetzlichen Voraussetzungen hast du Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit. Eine erteilte Einwilligung kannst du für die Zukunft widerrufen.",
+    "en": "Subject to the legal conditions, you have rights to access, rectification, erasure, restriction of processing and data portability. You may withdraw consent with effect for the future."
+  },
+  "Gegen eine Verarbeitung aufgrund von Art. 6 Abs. 1 Buchstabe f DSGVO kannst du aus Gründen deiner besonderen Situation Widerspruch einlegen. Nutze dafür die oben genannte Kontaktadresse.": {
+    "de": "Gegen eine Verarbeitung aufgrund von Art. 6 Abs. 1 Buchstabe f DSGVO kannst du aus Gründen deiner besonderen Situation Widerspruch einlegen. Nutze dafür die oben genannte Kontaktadresse.",
+    "en": "You may object to processing based on Article 6(1)(f) GDPR for reasons arising from your particular situation. Please use the contact address above."
+  },
+  "Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren. Für den Betreiber in Niedersachsen ist dies insbesondere der Landesbeauftragte für den Datenschutz Niedersachsen.": {
+    "de": "Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren. Für den Betreiber in Niedersachsen ist dies insbesondere der Landesbeauftragte für den Datenschutz Niedersachsen.",
+    "en": "You may complain to a data protection supervisory authority. For the operator in Lower Saxony, this includes the State Commissioner for Data Protection of Lower Saxony."
+  },
+  "Cloudflare Data Processing Addendum": {
+    "de": "Cloudflare Data Processing Addendum",
+    "en": "Cloudflare Data Processing Addendum"
+  },
+  "m?": {
+    "de": "m?",
+    "en": "m?"
+  },
+  "Mietverh?ltnisse": {
+    "de": "Mietverhältnisse",
+    "en": "Tenancies"
+  },
+  "Angaben fehlen": {
+    "de": "Angaben fehlen",
+    "en": "Details missing"
+  },
+  "Requires attention": {
+    "de": "Handlungsbedarf",
+    "en": "Requires attention"
+  },
+  "Portfolio size": {
+    "de": "Bestandsumfang",
+    "en": "Portfolio size"
+  },
+  "API call failed: {status}": {
+    "de": "API-Anfrage fehlgeschlagen: {status}",
+    "en": "API call failed: {status}"
+  },
+  "Failed to fetch": {
+    "de": "Verbindung fehlgeschlagen. Bitte erneut versuchen.",
+    "en": "Connection failed. Please try again."
+  },
+  "NetworkError when attempting to fetch resource.": {
+    "de": "Verbindung fehlgeschlagen. Bitte erneut versuchen.",
+    "en": "Connection failed. Please try again."
+  },
+  "name": {
+    "de": "Name",
+    "en": "Name"
+  },
+  "title": {
+    "de": "Bezeichnung",
+    "en": "Title"
+  },
+  "coldRent": {
+    "de": "Kaltmiete",
+    "en": "Cold rent"
+  },
+  "utilities": {
+    "de": "Nebenkosten",
+    "en": "Utilities"
+  },
+  "deposit": {
+    "de": "Kaution",
+    "en": "Deposit"
+  },
+  "nebenkosten": {
+    "de": "Nebenkosten",
+    "en": "Utilities"
+  },
+  "amount": {
+    "de": "Betrag",
+    "en": "Amount"
+  },
+  "position": {
+    "de": "Reihenfolge",
+    "en": "Order"
+  },
+  "occupants": {
+    "de": "Bewohner",
+    "en": "Occupants"
+  },
+  "size": {
+    "de": "Fläche",
+    "en": "Area"
+  },
+  "rooms": {
+    "de": "Zimmer",
+    "en": "Rooms"
+  },
+  "Deine gewählte UI-Sprache wird unter": {
+    "de": "Deine gewählte UI-Sprache wird unter",
+    "en": "Your preferred interface language is saved under"
+  },
+  "lokal in deinem Browser gespeichert, bis du die Sprache änderst oder die Browserdaten löschst.": {
+    "de": "lokal in deinem Browser gespeichert, bis du die Sprache änderst oder die Browserdaten löschst.",
+    "en": "locally in your browser until you change the language or clear your browser data."
+  },
+  "Kaltmiete": {
+    "de": "Kaltmiete",
+    "en": "Cold rent"
+  },
+  "Kaution": {
+    "de": "Kaution",
+    "en": "Deposit"
+  },
+  "Address": {
+    "de": "Adresse",
+    "en": "Address"
+  },
+  "Adresse": {
+    "de": "Adresse",
+    "en": "Address"
+  },
+  "Street, postal code, city": {
+    "de": "Straße, PLZ, Ort",
+    "en": "Street, postal code, city"
+  },
+  "Straße, PLZ, Ort": {
+    "de": "Straße, PLZ, Ort",
+    "en": "Street, postal code, city"
+  },
+  "Required": {
+    "de": "Pflichtfeld",
+    "en": "Required"
+  },
+  "Pflichtfeld": {
+    "de": "Pflichtfeld",
+    "en": "Required"
+  },
+  "Dokumentname": {
+    "de": "Dokumentname",
+    "en": "Document name"
+  },
+  "Document name": {
+    "de": "Dokumentname",
+    "en": "Document name"
+  },
+  "In Progress": {
+    "de": "In Arbeit",
+    "en": "In progress"
+  },
+  "In Arbeit": {
+    "de": "In Arbeit",
+    "en": "In progress"
+  },
+  "Haus": {
+    "de": "Haus",
+    "en": "Building"
+  },
+  "Betrifft": {
+    "de": "Betrifft",
+    "en": "Concerns"
+  },
+  "optional": {
+    "de": "optional",
+    "en": "optional"
+  },
+  "Remove": {
+    "de": "Entfernen",
+    "en": "Remove"
+  },
+  "z. B. Heizung im Bad tropft": {
+    "de": "z. B. Heizung im Bad tropft",
+    "en": "e.g. bathroom radiator is leaking"
+  },
+  "Was ist passiert, wo genau, seit wann?": {
+    "de": "Was ist passiert, wo genau, seit wann?",
+    "en": "What happened, where exactly, since when?"
+  },
+  "Kein laufendes Mietverhältnis.": {
+    "de": "Kein laufendes Mietverhältnis.",
+    "en": "No current tenancy."
+  },
+  "Neu vermieten": {
+    "de": "Neu vermieten",
+    "en": "Re-let"
+  },
+  "← Zur Wohnung": {
+    "de": "← Zur Wohnung",
+    "en": "← Back to property"
+  },
+  "Weitere Kontakte": {
+    "de": "Weitere Kontakte",
+    "en": "Other contacts"
+  },
+  "Sonstiger Kontakt": {
+    "de": "Sonstiger Kontakt",
+    "en": "Other contact"
+  },
+  "Art des Kontakts": {
+    "de": "Art des Kontakts",
+    "en": "Contact type"
+  },
+  "Filter": {
+    "de": "Filter",
+    "en": "Filter"
+  },
+  "Suchen …": {
+    "de": "Suchen …",
+    "en": "Search…"
+  },
+  "Keine Treffer.": {
+    "de": "Keine Treffer.",
+    "en": "No results."
+  },
+  "+ {count} weitere": {
+    "de": "+ {count} weitere",
+    "en": "+ {count} more"
+  },
+  "Zuklappen": {
+    "de": "Zuklappen",
+    "en": "Collapse"
+  },
+  "Bearbeiten": {
+    "de": "Bearbeiten",
+    "en": "Edit"
+  },
+  "{count} offen": {
+    "de": "{count} offen",
+    "en": "{count} open"
+  },
+  "Noch keine Wohnungen angelegt.": {
+    "de": "Noch keine Wohnungen angelegt.",
+    "en": "No properties yet."
+  },
+  "Noch keine Kosten erfasst.": {
+    "de": "Noch keine Kosten erfasst.",
+    "en": "No costs recorded yet."
+  },
+  "Titelbild": {
+    "de": "Titelbild",
+    "en": "Cover image"
+  },
+  "Freigegeben": {
+    "de": "Freigegeben",
+    "en": "Published"
+  },
+  "Ohne Datei": {
+    "de": "Ohne Datei",
+    "en": "No file"
+  },
+  "Noch keine weiteren Kontakte.": {
+    "de": "Noch keine weiteren Kontakte.",
+    "en": "No other contacts yet."
+  },
+  "Noch keine Mieter angelegt.": {
+    "de": "Noch keine Mieter angelegt.",
+    "en": "No tenants yet."
+  }
+}

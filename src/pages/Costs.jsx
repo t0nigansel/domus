@@ -1,11 +1,29 @@
+import { useTranslation } from '../i18n';
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { Calendar, CheckCircle, AlertCircle, XCircle, Euro, Users, Paperclip, X } from 'lucide-react';
-import { PageHeader, CollapsiblePanel, useToast } from '../components/common';
+import { PageHeader, CollapsiblePanel, useToast, List, ListRow, ListEmpty, Badge } from '../components/common';
 import { useQuickAction } from '../hooks/useQuickAction';
+import { COST_RECURRENCES } from '../domain/costs';
 import './Costs.css';
 
+const recurrenceLabels = { none: 'One-off', monthly: 'Monthly', yearly: 'Yearly' };
+
+function RecurrenceField({ id, value, onChange }) {
+    const { t } = useTranslation();
+    return <div className="form-group">
+        <label htmlFor={id}>{t('Recurrence')}</label>
+        <select id={id} name="recurrence" className="edit-select" value={value} onChange={onChange} aria-describedby={`${id}-hint`}>
+            {COST_RECURRENCES.map(recurrence => <option key={recurrence} value={recurrence}>{t(recurrenceLabels[recurrence])}</option>)}
+        </select>
+        <p id={`${id}-hint`} className="cost-subtitle">{t(value === 'none'
+            ? 'Select a recurrence for regularly occurring costs.'
+            : 'The amount applies per due date. The recurrence is saved; further cost entries are not created automatically.')}</p>
+    </div>;
+}
+
 const Costs = () => {
+    const { t, locale } = useTranslation();
     const { costs, tenants, properties, issues, addCost, updateCost } = useData();
     const [isAddingCost, setIsAddingCost] = useQuickAction();
     const { addToast } = useToast();
@@ -21,6 +39,7 @@ const Costs = () => {
         amount: '',
         dueDate: '',
         paidDate: '',
+        recurrence: 'none',
         utilityBillable: false,
         tenantIds: [],
         propertyIds: [],
@@ -44,6 +63,7 @@ const Costs = () => {
                 amount: '',
                 dueDate: '',
                 paidDate: '',
+                recurrence: 'none',
                 utilityBillable: false,
                 tenantIds: [],
                 propertyIds: [],
@@ -83,6 +103,7 @@ const Costs = () => {
                 amount: cost.amount,
                 dueDate: cost.dueDate,
                 paidDate: cost.paidDate || '',
+                recurrence: cost.recurrence || 'none',
                 utilityBillable: cost.utilityBillable,
                 tenantIds: cost.tenantIds || [],
                 propertyIds: cost.propertyIds || [],
@@ -161,42 +182,42 @@ const Costs = () => {
     };
 
     const getStatusText = (cost) => {
-        if (cost.paidDate) return `Paid on ${cost.paidDate}`;
+        if (cost.paidDate) return t('Paid on {date}', { date: cost.paidDate });
 
         const today = new Date();
         const dueDate = new Date(cost.dueDate);
 
-        if (dueDate < today) return 'Overdue';
-        return 'Unpaid';
+        if (dueDate < today) return t('Overdue');
+        return t('Unpaid');
     };
 
     const formatAmount = (amount) => {
-        return new Intl.NumberFormat('de-DE', {
+        return new Intl.NumberFormat(locale, {
             style: 'currency',
             currency: 'EUR'
         }).format(amount);
     };
 
     return (
-        <div className="costs-container">
-            <PageHeader title="Costs" onAction={() => setIsAddingCost(true)} />
+        <div className="page-container">
+            <PageHeader title={t("Costs")} onAction={() => setIsAddingCost(true)} />
 
-            <CollapsiblePanel title="New Cost" isOpen={isAddingCost} onClose={() => setIsAddingCost(false)}>
+            <CollapsiblePanel title={t("New Cost")} isOpen={isAddingCost} onClose={() => setIsAddingCost(false)}>
                 <form onSubmit={handleAddSubmit}>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 2 }}>
-                            <label>Name</label>
+                            <label>{t("Name")}</label>
                             <input
                                 type="text"
                                 required
                                 value={newCostData.name}
                                 onChange={e => setNewCostData({ ...newCostData, name: e.target.value })}
                                 className="edit-input"
-                                placeholder="e.g., Property Insurance"
+                                placeholder={t("e.g., Property Insurance")}
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Amount (€)</label>
+                            <label>{t("Amount (€)")}</label>
                             <input
                                 type="number"
                                 step="0.01"
@@ -210,19 +231,19 @@ const Costs = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Description</label>
+                            <label>{t("Description")}</label>
                             <textarea
                                 value={newCostData.description}
                                 onChange={e => setNewCostData({ ...newCostData, description: e.target.value })}
                                 className="edit-textarea"
-                                placeholder="Detailed description..."
+                                placeholder={t("Detailed description...")}
                                 rows="2"
                             />
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Due Date</label>
+                            <label>{t("Due Date")}</label>
                             <input
                                 type="date"
                                 required
@@ -232,7 +253,7 @@ const Costs = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Paid Date (Optional)</label>
+                            <label>{t("Paid Date (Optional)")}</label>
                             <input
                                 type="date"
                                 value={newCostData.paidDate}
@@ -244,7 +265,7 @@ const Costs = () => {
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
                             <label className="checkbox-label-inline">
-                                <span>Utility Billable (can be passed to tenants)</span>
+                                <span>{t("Utility Billable (can be passed to tenants)")}</span>
                                 <input
                                     type="checkbox"
                                     checked={newCostData.utilityBillable}
@@ -253,14 +274,16 @@ const Costs = () => {
                             </label>
                         </div>
                     </div>
+                    <RecurrenceField id="new-cost-recurrence" value={newCostData.recurrence}
+                        onChange={e => setNewCostData({ ...newCostData, recurrence: e.target.value })} />
                     <div className="form-group">
-                        <label>Associations (Optional)</label>
+                        <label>{t("Associations (Optional)")}</label>
                         <div className="associations-container">
                             {/* Tenants */}
                             <div className="association-group">
-                                <div className="association-label">Tenants</div>
+                                <div className="association-label">{t("Tenants")}</div>
                                 <div className="tenant-selection">
-                                    {tenants.filter(t => t.status === 'Active').map(tenant => (
+                                    {tenants.filter(tenant => tenant.status === 'Active').map(tenant => (
                                         <label key={tenant.id} className="tenant-checkbox">
                                             <input
                                                 type="checkbox"
@@ -275,7 +298,7 @@ const Costs = () => {
 
                             {/* Properties */}
                             <div className="association-group">
-                                <div className="association-label">Properties</div>
+                                <div className="association-label">{t("Properties")}</div>
                                 <div className="tenant-selection">
                                     {properties.map(property => (
                                         <label key={property.id} className="tenant-checkbox">
@@ -292,9 +315,9 @@ const Costs = () => {
 
                             {/* Issues */}
                             <div className="association-group">
-                                <div className="association-label">Issues</div>
+                                <div className="association-label">{t("Issues")}</div>
                                 <div className="tenant-selection">
-                                    {issues.filter(i => i.status === 'Open').map(issue => (
+                                    {issues.filter(i => i.status !== 'Closed').map(issue => (
                                         <label key={issue.id} className="tenant-checkbox">
                                             <input
                                                 type="checkbox"
@@ -309,11 +332,11 @@ const Costs = () => {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label>Attachments (Invoices, etc.)</label>
+                        <label>{t("Attachments (Invoices, etc.)")}</label>
                         <div className="attachment-section">
                             <input
                                 type="text"
-                                placeholder="Enter file name (e.g., invoice_2024.pdf)"
+                                placeholder={t("Enter file name (e.g., invoice_2024.pdf)")}
                                 className="edit-input"
                                 onKeyPress={(e) => {
                                     if (e.key === 'Enter') {
@@ -345,54 +368,38 @@ const Costs = () => {
                         </div>
                     </div>
                     <div className="form-actions">
-                        <button type="submit" className="btn-primary small">Save Cost</button>
-                        <button type="button" className="btn-outline small" onClick={() => setIsAddingCost(false)}>Cancel</button>
+                        <button type="submit" className="btn-primary small">{t("Save Cost")}</button>
+                        <button type="button" className="btn-outline small" onClick={() => setIsAddingCost(false)}>{t("Cancel")}</button>
                     </div>
                 </form>
             </CollapsiblePanel>
 
-            <div className="table-container" style={{ marginTop: 'var(--spacing-lg)', background: 'none', border: 'none' }}>
-                {/* Cost List */}
-                <div className="cost-list">
+            {costs.length > 0 ? (
+                <List>
                     {costs.map(cost => {
                         const isExpanded = expandedCostId === cost.id;
                         return (
-                            <div
+                            <ListRow
                                 key={cost.id}
-                                className={`cost-row ${isExpanded ? 'expanded' : ''}`}
-                                onClick={() => toggleExpand(cost)}
+                                expanded={isExpanded}
+                                onToggle={() => toggleExpand(cost)}
+                                icon={getStatusIcon(cost)}
+                                title={cost.name}
+                                subtitle={getStatusText(cost)}
+                                meta={<>
+                                    {cost.utilityBillable && <Badge tone="primary">{t("Utility Billable")}</Badge>}
+                                    <Badge icon={Calendar}>{t("Due:")} {cost.dueDate}</Badge>
+                                    <Badge icon={Euro} tone="strong">
+                                        {formatAmount(cost.amount)}
+                                        {cost.recurrence === 'monthly' && ` ${t('/ month')}`}
+                                        {cost.recurrence === 'yearly' && ` ${t('/ year')}`}
+                                    </Badge>
+                                </>}
                             >
-                                <div className="cost-main-info">
-                                    <div className="cost-title-block">
-                                        {getStatusIcon(cost)}
-                                        <div>
-                                            <h3 className="cost-title">{cost.name}</h3>
-                                            <p className="cost-subtitle">{getStatusText(cost)}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="cost-details-block">
-                                        <span className="amount-badge">
-                                            <Euro size={14} />
-                                            {formatAmount(cost.amount)}
-                                        </span>
-                                        <span className="date-badge">
-                                            <Calendar size={14} />
-                                            Due: {cost.dueDate}
-                                        </span>
-                                        {cost.utilityBillable && (
-                                            <span className="utility-badge">Utility Billable</span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Inline Edit Form */}
-                                {isExpanded && (
-                                    <div className="cost-edit-form" onClick={e => e.stopPropagation()}>
-                                        <form onSubmit={(e) => handleInlineSave(e, cost.id)}>
+                                        {isExpanded && <form onSubmit={(e) => handleInlineSave(e, cost.id)}>
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 2 }}>
-                                                    <label>Name</label>
+                                                    <label>{t("Name")}</label>
                                                     <input
                                                         type="text"
                                                         name="name"
@@ -402,7 +409,7 @@ const Costs = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>Amount (€)</label>
+                                                    <label>{t("Amount (€)")}</label>
                                                     <input
                                                         type="number"
                                                         step="0.01"
@@ -415,7 +422,7 @@ const Costs = () => {
                                             </div>
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>Description</label>
+                                                    <label>{t("Description")}</label>
                                                     <textarea
                                                         name="description"
                                                         value={editFormData.description}
@@ -427,7 +434,7 @@ const Costs = () => {
                                             </div>
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>Due Date</label>
+                                                    <label>{t("Due Date")}</label>
                                                     <input
                                                         type="date"
                                                         name="dueDate"
@@ -437,7 +444,7 @@ const Costs = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>Paid Date</label>
+                                                    <label>{t("Paid Date")}</label>
                                                     <input
                                                         type="date"
                                                         name="paidDate"
@@ -450,7 +457,7 @@ const Costs = () => {
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 1 }}>
                                                     <label className="checkbox-label-inline">
-                                                        <span>Utility Billable</span>
+                                                        <span>{t("Utility Billable")}</span>
                                                         <input
                                                             type="checkbox"
                                                             name="utilityBillable"
@@ -460,14 +467,15 @@ const Costs = () => {
                                                     </label>
                                                 </div>
                                             </div>
+                                            <RecurrenceField id={`cost-${cost.id}-recurrence`} value={editFormData.recurrence} onChange={handleEditFormChange} />
                                             <div className="form-group">
-                                                <label>Associations</label>
+                                                <label>{t("Associations")}</label>
                                                 <div className="associations-container">
                                                     {/* Tenants */}
                                                     <div className="association-group">
-                                                        <div className="association-label">Tenants</div>
+                                                        <div className="association-label">{t("Tenants")}</div>
                                                         <div className="tenant-selection">
-                                                            {tenants.filter(t => t.status === 'Active').map(tenant => (
+                                                            {tenants.filter(tenant => tenant.status === 'Active').map(tenant => (
                                                                 <label key={tenant.id} className="tenant-checkbox">
                                                                     <input
                                                                         type="checkbox"
@@ -482,7 +490,7 @@ const Costs = () => {
 
                                                     {/* Properties */}
                                                     <div className="association-group">
-                                                        <div className="association-label">Properties</div>
+                                                        <div className="association-label">{t("Properties")}</div>
                                                         <div className="tenant-selection">
                                                             {properties.map(property => (
                                                                 <label key={property.id} className="tenant-checkbox">
@@ -499,9 +507,9 @@ const Costs = () => {
 
                                                     {/* Issues */}
                                                     <div className="association-group">
-                                                        <div className="association-label">Issues</div>
+                                                        <div className="association-label">{t("Issues")}</div>
                                                         <div className="tenant-selection">
-                                                            {issues.filter(i => i.status === 'Open').map(issue => (
+                                                            {issues.filter(i => i.status !== 'Closed').map(issue => (
                                                                 <label key={issue.id} className="tenant-checkbox">
                                                                     <input
                                                                         type="checkbox"
@@ -516,11 +524,11 @@ const Costs = () => {
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label>Attachments (Invoices, etc.)</label>
+                                                <label>{t("Attachments (Invoices, etc.)")}</label>
                                                 <div className="attachment-section">
                                                     <input
                                                         type="text"
-                                                        placeholder="Enter file name (e.g., invoice_2024.pdf)"
+                                                        placeholder={t("Enter file name (e.g., invoice_2024.pdf)")}
                                                         className="edit-input"
                                                         onKeyPress={(e) => {
                                                             if (e.key === 'Enter') {
@@ -552,17 +560,17 @@ const Costs = () => {
                                                 </div>
                                             </div>
                                             <div className="form-actions">
-                                                <button type="submit" className="btn-primary small">Save Changes</button>
-                                                <button type="button" className="btn-outline small" onClick={() => setExpandedCostId(null)}>Cancel</button>
+                                                <button type="submit" className="btn-primary small">{t("Save Changes")}</button>
+                                                <button type="button" className="btn-outline small" onClick={() => setExpandedCostId(null)}>{t("Cancel")}</button>
                                             </div>
-                                        </form>
-                                    </div>
-                                )}
-                            </div>
+                                        </form>}
+                            </ListRow>
                         );
                     })}
-                </div>
-            </div>
+                </List>
+            ) : (
+                <ListEmpty icon={<Euro size={40} />}>{t("Noch keine Kosten erfasst.")}</ListEmpty>
+            )}
         </div>
     );
 };

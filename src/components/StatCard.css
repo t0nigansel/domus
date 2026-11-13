@@ -22,64 +22,11 @@
     justify-content: center;
 }
 
-/* Color variants for icon backgrounds */
-.bg-primary {
-    background-color: #e0e7ff;
-}
-
-/* Indigo 100 */
-.bg-success {
-    background-color: #dcfce7;
-}
-
-/* Green 100 */
-.bg-warning {
-    background-color: #ffedd5;
-}
-
-/* Orange 100 */
-.bg-error {
-    background-color: #fee2e2;
-}
-
-/* Red 100 */
-
-/* Dark mode adjustments for icon backgrounds */
-@media (prefers-color-scheme: dark) {
-    .bg-primary {
-        background-color: #312e81;
-    }
-
-    .bg-success {
-        background-color: #14532d;
-    }
-
-    .bg-warning {
-        background-color: #7c2d12;
-    }
-
-    .bg-error {
-        background-color: #7f1d1d;
-    }
-
-    /* Fix icon colors for dark mode contrast if needed */
-    /* Using CSS vars for icon colors in JS handles most of this, 
-       but we mapped classes to background colors. */
-
-    /* Ensure the icon color CSS vars map correctly in dark mode or override here */
-    :root {
-        --color-success: #16a34a;
-        --color-warning: #ea580c;
-        --color-error: #dc2626;
-    }
-}
-
-:root {
-    /* Define these if not already in index.css */
-    --color-success: #16a34a;
-    --color-warning: #ea580c;
-    --color-error: #dc2626;
-}
+/* Color variants for icon backgrounds (Faktio-Tokens aus index.css, hell + dunkel) */
+.bg-primary { background-color: var(--color-primary-soft); }
+.bg-success { background-color: var(--color-success-soft); }
+.bg-warning { background-color: var(--color-warning-soft); }
+.bg-error { background-color: var(--color-danger-soft); }
 
 .stat-content {
     display: flex;

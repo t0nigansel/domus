@@ -33,15 +33,15 @@
 }
 
 .file-icon.pdf {
-    color: #ef4444;
+    color: var(--color-danger);
 }
 
 .file-icon.image {
-    color: #3b82f6;
+    color: var(--color-primary);
 }
 
 .file-icon.default {
-    color: #64748b;
+    color: var(--color-text-muted);
 }
 
 .file-info {

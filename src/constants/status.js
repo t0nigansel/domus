@@ -6,8 +6,12 @@ export const TENANT_STATUS = {
 
 export const ISSUE_STATUS = {
     OPEN: 'Open',
+    IN_PROGRESS: 'In Progress',
     CLOSED: 'Closed'
 };
+
+// CSS-Klasse für einen Status, z. B. 'In Progress' -> 'in-progress'.
+export const issueStatusClass = (status) => String(status || '').toLowerCase().split(' ').join('-');
 
 export const PRIORITY_LEVEL = {
     LOW: 'Low',

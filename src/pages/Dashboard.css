@@ -144,18 +144,18 @@
 }
 
 .priority-badge.high {
-    background-color: #fee2e2;
-    color: #991b1b;
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
 }
 
 .priority-badge.medium {
-    background-color: #ffedd5;
-    color: #9a3412;
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning);
 }
 
 .priority-badge.low {
-    background-color: #dcfce7;
-    color: #166534;
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
 }
 
 /* Empty State */
@@ -290,6 +290,6 @@
 }
 
 .btn-icon-danger:hover {
-    background-color: #fee2e2;
-    color: #b91c1c;
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
 }

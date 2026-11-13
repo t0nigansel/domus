@@ -1,8 +1,8 @@
 ﻿# Umbauplan: Domus als SaaS über Cloudflare
 
-Stand: 11.11.2026. Ziel ist ein **geschlossener, kostenloser Pilotbetrieb**: eingeladene Nutzer registrieren sich, erhalten ein eigenes leeres Verwaltungskonto und verwalten darin ihre Objekte. Deine Bestandsdaten werden ausschließlich in dein eigenes Konto importiert.
+Stand 12.11.2026. Die Cloud-Anwendung ist für den ersten Eigentümerzugang bereitgestellt. Der aktuelle Umsetzungsstand steht in Abschnitt 10. Ziel für weitere Nutzer ist ein **geschlossener, kostenloser Pilotbetrieb** mit getrennten, anfangs leeren Verwaltungskonten.
 
-Zielarchitektur: Cloudflare Workers für Oberfläche und API, verwaltetes PostgreSQL über Hyperdrive und private Dateien in R2. PostgreSQL und E-Mail-Versand werden außerhalb von Cloudflare betrieben. Dieser Plan beschreibt die noch umzusetzende Lösung; die Anwendung ist heute weiterhin eine lokale Einzelbenutzerinstallation.
+Architektur ist Cloudflare Workers für Oberfläche und API, verwaltetes PostgreSQL über Hyperdrive und private Dateien in R2. PostgreSQL wird bei Neon betrieben. Der E-Mail-Versand läuft vorläufig über Cloudflare Email Service mit der Faktio-Absenderdomain. Die folgenden Phasen enthalten auch die noch offenen Anforderungen für einen erweiterten Pilotbetrieb.
 
 ## 1. Geprüfter Ist-Stand
 
@@ -17,7 +17,7 @@ Zielarchitektur: Cloudflare Workers für Oberfläche und API, verwaltetes Postgr
 | Sicherheit | Lokale Host-/Origin-Beschränkungen und einzelne Fachprüfungen | Benutzerrechte und Schutz für einen öffentlich erreichbaren Dienst |
 | Tests | Vitest, Supertest, Playwright und GitHub Actions vorhanden | Isolationstests, PostgreSQL-/Workers-Integration und Wiederherstellungstest |
 
-Die Grundlagen der früheren Phase 0 sind vorhanden. Der Cloud-Worker enthält better-auth mit PostgreSQL-Anbindung; der echte Anmeldezugang bleibt bis zur Mail-Konfiguration und dem Konto-Onboarding geschlossen. Die fachliche Anwendung verwendet weiterhin lowdb. PGlite und Drizzle sind noch nicht integriert. Docker ist installiert, der lokale Docker-Daemon war bei der Prüfung nicht gestartet.
+Die Tabelle dokumentiert den Ausgangsstand vom 11.11.2026. Inzwischen sind Anmeldung, Konto-Onboarding, PostgreSQL-Fachzugriffe mit RLS und R2-Dateiverwaltung umgesetzt. Die lokale Entwicklungsanwendung verwendet weiterhin lowdb. Für die Cloud wurden die vorhandene `pg`-Abhängigkeit und versionierte SQL-Migrationen verwendet. Drizzle und PGlite wurden dafür nicht eingeführt. Integrationstests starten eine isolierte PostgreSQL-17-Instanz in Docker und führen die echte Workers-Laufzeit aus.
 
 Erhalten bleiben Oberfläche, Navigation und Fachlogik in `src/domain/`, einschließlich Wohnungsakte, Vermietung und Mietverhältnissen. Ein Framework- oder TypeScript-Wechsel gehört nicht zum Umbau.
 
@@ -148,14 +148,14 @@ Jede Phase endet mit lauffähiger Anwendung und passenden grünen Lint-, Build- 
 
 ## 5. Verbindliche Freigabeliste für den Pilot
 
-- [ ] Workers-Kompatibilität einschließlich Express, Auth, PostgreSQL-Transaktionen und R2 nachgewiesen.
-- [ ] Bestandsdaten und Dateien vollständig und ausschließlich deinem Konto zugeordnet.
-- [ ] Neue Konten starten leer; Pilotregistrierung ist serverseitig beschränkt.
+- [x] Workers-Kompatibilität einschließlich Express, Auth, PostgreSQL-Transaktionen und R2 nachgewiesen.
+- [x] Bestandsdaten und Dateien vollständig und ausschließlich deinem Konto zugeordnet.
+- [x] Neue Konten starten leer; Pilotregistrierung ist serverseitig beschränkt.
 - [ ] Isolation aller Fachrouten, Beziehungen, Dateien und Exporte mit zwei Konten getestet.
 - [ ] RLS mit Produktionsrollen und Hyperdrive geprüft; kein kontenübergreifender Cache.
 - [ ] Gleichzeitige Abschlüsse/Uploads erhalten Datenintegrität und Kontingente.
-- [ ] Registrierung, Verifizierung, Reset, Sitzungsablauf und Logout funktionieren.
-- [ ] Staging und Produktion getrennt; keine Secrets/echten Daten im öffentlichen Repository, in Vorschauen oder Testberichten.
+- [x] Registrierung, Verifizierung, Reset, Sitzungsablauf und Logout funktionieren.
+- [x] Staging und Produktion getrennt; keine Secrets/echten Daten im öffentlichen Repository, in Vorschauen oder Testberichten.
 - [ ] Export und Löschung funktionieren; Aufbewahrung und Backup-Löschung dokumentiert.
 - [ ] Datenbank und Dateien erfolgreich gemeinsam wiederhergestellt; Wiederherstellungsziele dokumentiert.
 - [ ] Monitoring, Supportkontakt, Kostenalarme und begrenzter Pilotumfang eingerichtet.
@@ -180,7 +180,7 @@ Für den ersten Pilot zurückgestellt: Zahlungsintegration, eigene Kundensubdoma
 
 Der Umbau ist ein Vorhaben über mehrere Wochen für eine Person. Eine belastbare Termin- und Kostenschätzung folgt nach Phase 0. Größte Unsicherheiten sind Workers-/Auth-Kompatibilität, Datenmigration sowie transaktionssichere Fachlogik und Kontentrennung. Die Phasen sind aufeinanderfolgende Arbeitsblöcke, keine bereits umgesetzten Funktionen.
 
-**Nächster Umsetzungsschritt:** Phase 0 mit synthetischen Testdaten durchführen. Danach die bestätigte Laufzeitintegration für die PostgreSQL-Migration verwenden. Die lokale Bestandsinstallation bleibt bis zum geprüften Import nutzbar.
+**Nächster Umsetzungsschritt für weitere Pilotnutzer:** Die noch offenen Betriebs-, Export-, Lösch- und Wiederherstellungsanforderungen aus Abschnitt 5 bearbeiten. Der Eigentümerzugang und die geprüfte Bestandsübernahme sind abgeschlossen.
 
 ## 8. Angelegte Cloudflare-Ressourcen
 
@@ -228,3 +228,17 @@ Cloudflare-Dokumentation zur gewählten Architektur, geprüft am 11.11.2026:
 - [Hyperdrive für externes PostgreSQL](https://developers.cloudflare.com/hyperdrive/)
 - [R2 Object Storage](https://developers.cloudflare.com/r2/)
 - [D1 als SQLite-Alternative, hier nicht gewählt](https://developers.cloudflare.com/d1/)
+
+## 10. Anmeldung und Cloud-Anwendung am 12.11.2026
+
+- Anmeldung, Registrierung, E-Mail-Bestätigung, erneuter Bestätigungsversand, Logout und Passwort-Reset sind in die bestehende React-Oberfläche integriert. Fachdaten werden erst nach bestätigter Sitzung geladen. Logout und Sitzungsablauf entfernen die geladene Anwendung. Antworten eines älteren Sitzungsstands dürfen keine neue Anmeldung zurücksetzen.
+- Die für den ersten Zugang freigeschaltete Adresse wird als `PILOT_EMAILS`-Secret geführt. Der Eigentümer hat Registrierung und E-Mail-Bestätigung selbst durchgeführt. Die Bestätigungsmail von `no-reply@faktio.net` wurde im Gmail-Postfach gefunden. Der gewünschte spätere Wechsel auf eine eigene Domus-Domain steht in `ToDo.MD`.
+- Verifizierte Nutzer erhalten wiederholbar genau ein eigenes Konto mit Owner-Mitgliedschaft. Organisations-Endpunkte für Teamverwaltung sind geschlossen. Die Kontoauswahl erfolgt serverseitig.
+- Die versionierte Fachmigration ist in Preview und Produktion ausgeführt. Fachliche IDs und Beziehungen, Vertragszeiträume und Geldbeträge sind relational abgesichert. JSONB erhält die bestehenden Datensatzformen. Alle Fachtabellen erzwingen RLS. Laufzeitzugriffe verwenden weiter `domus_runtime` ohne Eigentümer- oder Bypassrechte.
+- Cloud-Fachrouten decken Wohnungen, Mieter, Dokumente, Anliegen, Kosten, Kontakte und Vermietungen ab. Die bisherige Vermietungslogik wird von beiden Einstiegspunkten verwendet. Schreiboperationen pro Konto sind transaktional serialisiert. Gleichzeitige Abschlüsse liefern dasselbe Mietverhältnis. Der fachliche Tageswechsel verwendet `Europe/Berlin`.
+- Neue Dateien werden als Multipart hochgeladen, anhand ihrer Signatur geprüft und privat gespeichert. Uploadlimit ist 20 MB, Speicherkontingent pro Konto ist zunächst 1 GB. Historische Formate und größere Bestandsdateien bleiben über den expliziten Bestandsimport erhalten. Uploads und Bereinigung koordinieren sich über die Kontosperre. Ein täglicher Lauf entfernt mindestens 24 Stunden alte R2-Objekte ohne Datenbankreferenz.
+- `db:import:cloud` hat einen expliziten Eigentümer und eine explizite Umgebung, einen Trockenlauf mit zurückgerollter Beziehungsprüfung, lokale SHA-256-Prüfung, wiederholbare Übertragung, Rücklesen jeder R2-Datei und einen privaten Importbericht. Bereits übernommene Quellen werden nicht erneut eingefügt. Bestehende Ziel-Datensätze werden bei ID-Konflikten erhalten.
+- Die Bestandsübernahme ist abgeschlossen. Ausschließlich das bestätigte Eigentümerkonto in Produktion enthält die 4 Wohnungen, 2 Mieter und 154 Dokumente mit 316.037.163 Bytes. Alle Dateien wurden aus dem privaten EU-R2-Bucket zurückgelesen und ihre SHA-256-Hashes mit den Originalen verglichen. Anschließend wurden sämtliche übernommenen Datensätze und Dateiverweise über `domus_runtime` mit der Quelle verglichen. Eine erneute Ausführung erkannte den vorhandenen Import und erzeugte keine Duplikate. Preview enthält diese Bestandsdaten nicht. Quellstand, Importbericht und Originaldateien liegen im ignorierten lokalen `data/`-Bereich bzw. in der bestehenden lokalen Datenbank.
+- Die fachliche Wiederherstellung ist in einer isolierten lokalen PostgreSQL-17-Instanz und einer temporären lokalen R2-Emulation geprüft. Der Produktionssnapshot der Fachdaten wurde eingespielt, alle 154 anhand der Cloud-Prüfsummen verifizierten Originaldateien wurden wiederhergestellt und erneut vollständig gehasht. Datensätze, Dateiverweise, Größen und Hashes stimmen überein. Der Zugriff wurde mit `domus_runtime` einschließlich Verweigerung ohne Kontokontext geprüft. Die temporären Ressourcen wurden anschließend entfernt. Auth-Passwörter und aktive Sitzungen gehörten nicht zu diesem fachlichen Wiederherstellungstest. Automatisierte Gesamtsicherung, Aufbewahrung und ein vollständiger Betriebswiederanlauf bleiben Aufgaben für den erweiterten Pilotbetrieb.
+- Geprüft sind Lint, 216 bestehende Tests, beide Frontend-Builds, Workers-Smoke-Tests und 59 Integrationsprüfungen mit isoliertem PostgreSQL, tatsächlicher Workers-Laufzeit, lokalem R2 sowie Browser-Anmeldung, Abmeldung, Wohnungserstellung, Upload und Download. Kontentrennung, manipulierte Konto-IDs, fremde Beziehungen und Dateien, Passwort-Reset samt Sitzungsentzug, paralleler Abschluss, ein Upload mit genau 20 MB und die Ablehnung einer größeren Datei sind enthalten. Der Import-Trockenlauf wurde zusätzlich gegen das konkrete Eigentümerkonto geprüft.
+- Noch offen für einen erweiterten Pilotbetrieb sind insbesondere vollständiger Kontoexport und Kontolöschung, automatisierte Datenbank-/Dateisicherung samt Wiederherstellungstest, Betriebsalarme und die übrigen Freigaben aus Abschnitt 5. Die lokale Entwicklungsinstallation und die Online-Anwendung besitzen nach dem Import unabhängige Datenstände.

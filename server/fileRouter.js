@@ -1,6 +1,7 @@
 import express from 'express';
 import db from './db.js';
 import { importRawFile, listRawFiles, storeFile, storedFile, validateMetadata } from './fileStore.js';
+import { renameDocument } from '../src/domain/documents.js';
 
 export const fileRouter = express.Router();
 fileRouter.use((req, res, next) => {
@@ -28,12 +29,17 @@ fileRouter.get('/:id/content', (req, res, next) => {
     res.set('Cache-Control', 'no-store');
     if (req.query.preview === '1' && (file.mime.startsWith('image/') || file.mime === 'application/pdf')) {
         res.type(file.mime).sendFile(file.path, error => { if (error) next(error); });
-    } else res.download(file.path, file.name, error => { if (error) next(error); });
+    } else {
+        // Download unter dem aktuellen (ggf. umbenannten) Dokumentnamen.
+        const name = db.data.documents.find(d => d.id === req.params.id)?.name || file.name;
+        res.download(file.path, name, error => { if (error) next(error); });
+    }
 });
 fileRouter.put('/:id/metadata', async (req, res) => {
     const document = db.data.documents.find(d => d.id === req.params.id);
     if (!document) return res.status(404).json({ error: 'Dokument nicht gefunden.' });
     const metadata = validateMetadata({ ...document, ...req.body });
+    if (req.body?.name !== undefined) metadata.name = renameDocument(req.body.name, db.data.documentFiles?.[document.id]?.name || document.name);
     await db.update(data => {
         Object.assign(data.documents.find(d => d.id === req.params.id), metadata);
         if (metadata.cover) {

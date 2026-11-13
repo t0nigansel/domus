@@ -1,3 +1,4 @@
+import { useTranslation } from '../../i18n';
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { CheckCircle, AlertCircle, X, Info } from 'lucide-react';
 
@@ -7,6 +8,7 @@ const ToastContext = createContext();
 export const useToast = () => useContext(ToastContext);
 
 export const ToastProvider = ({ children }) => {
+    const { t } = useTranslation();
     const [toasts, setToasts] = useState([]);
 
     const removeToast = useCallback((id) => {
@@ -56,7 +58,7 @@ export const ToastProvider = ({ children }) => {
                         {toast.type === 'error' && <AlertCircle size={20} className="text-danger" />}
                         {toast.type === 'info' && <Info size={20} className="text-primary" />}
 
-                        <span style={{ flex: 1, fontSize: '0.875rem', fontWeight: 500 }}>{toast.message}</span>
+                        <span style={{ flex: 1, fontSize: '0.875rem', fontWeight: 500 }}>{t(toast.message)}</span>
 
                         <button
                             onClick={() => removeToast(toast.id)}

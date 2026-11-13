@@ -14,8 +14,12 @@
     "run_worker_first": ["/api", "/api/*", "/api-docs", "/api-docs/*"]
   },
   "observability": { "enabled": true },
+  "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
+  "triggers": { "crons": ["37 3 * * *"] },
   "vars": {
     "DOMUS_ENV": "preview",
+    "DOMUS_DOMAIN_ENABLED": "true",
+    "MAIL_FROM": "no-reply@faktio.net",
     "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
   },
   "r2_buckets": [
@@ -33,8 +37,12 @@
       "name": "domus-preview",
       "vars": {
         "DOMUS_ENV": "preview",
+        "DOMUS_DOMAIN_ENABLED": "true",
+        "MAIL_FROM": "no-reply@faktio.net",
         "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
       },
+      "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
+      "triggers": { "crons": ["37 3 * * *"] },
       "r2_buckets": [
         { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
       ],
@@ -50,8 +58,12 @@
       "name": "domus",
       "vars": {
         "DOMUS_ENV": "production",
+        "DOMUS_DOMAIN_ENABLED": "true",
+        "MAIL_FROM": "no-reply@faktio.net",
         "BETTER_AUTH_URL": "https://domus.toni-gansel.workers.dev"
       },
+      "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
+      "triggers": { "crons": ["37 3 * * *"] },
       "r2_buckets": [
         { "binding": "FILES", "bucket_name": "domus-files", "jurisdiction": "eu" }
       ],

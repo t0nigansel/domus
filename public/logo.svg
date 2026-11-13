@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2L2 14H6V28H13V18H19V28H26V14H30L16 2Z" fill="#2563eb"/>
-    <rect x="11" y="20" width="10" height="8" rx="1" fill="white" fill-opacity="0.2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="Domus">
+    <!-- Faktio-Farben: Haus in Logo-Navy (dunkel: weiß), Tür in Logo-Mint. -->
+    <style>.h{fill:#16193a}@media (prefers-color-scheme:dark){.h{fill:#fff}}</style>
+    <path class="h" d="M16 2L2 14H6V28H13V18H19V28H26V14H30L16 2Z"/>
+    <path d="M13 18h3.5a2.5 2.5 0 0 1 2.5 2.5V28h-6z" fill="#2fd08f"/>
 </svg>

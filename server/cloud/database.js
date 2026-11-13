@@ -13,9 +13,9 @@ export async function withDatabase(env, action) {
     }
 }
 
-export async function withAccountTransaction(client, accountId, action) {
+export async function withAccountTransaction(client, accountId, action, { readOnly = false } = {}) {
     if (typeof accountId !== 'string' || !accountId.trim()) throw new Error('Account ID is required');
-    await client.query('BEGIN');
+    await client.query(readOnly ? 'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY' : 'BEGIN');
     try {
         await client.query("SELECT set_config('app.account_id', $1, true)", [accountId]);
         const result = await action(client);

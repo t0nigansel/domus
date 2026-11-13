@@ -1,0 +1,59 @@
+.account-menu { position: relative; }
+.account-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 60px;
+    padding: 10px;
+    border-radius: 8px;
+    list-style: none;
+    cursor: pointer;
+    color: var(--color-text-main);
+}
+.account-menu-trigger::-webkit-details-marker { display: none; }
+.account-menu-trigger:hover, .account-menu[open] > .account-menu-trigger { background: var(--color-bg-surface-hover); }
+.account-menu-avatar {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-primary) 15%, var(--color-bg-surface));
+    color: var(--color-primary);
+    font-size: .8rem;
+    font-weight: 600;
+}
+.account-menu-label { flex: 1; min-width: 0; overflow-wrap: anywhere; font-weight: 500; }
+.account-menu-chevron { flex-shrink: 0; color: var(--color-text-muted); transform: rotate(180deg); }
+.account-menu[open] .account-menu-chevron { transform: none; }
+.account-menu-panel {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 0;
+    width: max(100%, 280px);
+    padding: 8px;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 30;
+}
+.account-menu-profile { padding: 10px 10px 14px; }
+.account-menu-profile p { margin: 0; overflow-wrap: anywhere; }
+.account-menu-name { font-weight: 600; }
+.account-menu-profile .account-menu-email { margin-top: 4px; font-size: .8rem; color: var(--color-text-muted); }
+.account-menu-appearance { display: flex; align-items: center; gap: 10px; padding: 12px 10px; border-top: 1px solid var(--color-border); }
+.account-menu-appearance > svg { flex-shrink: 0; color: var(--color-text-muted); }
+.account-menu-appearance label { flex: 1; }
+.account-menu-appearance select { min-height: 44px; max-width: 100px; padding: 6px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-surface); color: var(--color-text-main); font: inherit; }
+.account-menu-signout { padding-top: 4px; border-top: 1px solid var(--color-border); }
+.account-menu-signout button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 10px; background: transparent; border: 0; border-radius: 6px; color: var(--color-text-main); text-align: left; font: inherit; cursor: pointer; }
+.account-menu-signout button:hover { background: var(--color-bg-surface-hover); }
+.account-menu-signout button:disabled { opacity: .6; cursor: wait; }
+.account-menu-error { padding: 8px 10px; color: var(--color-danger); font-size: .85rem; }
+.account-menu-trigger:focus-visible, .account-menu-panel select:focus-visible, .account-menu-panel button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+@media (max-width: 700px) {
+    .account-menu { max-width: 320px; }
+    .account-menu-panel { top: calc(100% + 8px); bottom: auto; width: 100%; }
+}

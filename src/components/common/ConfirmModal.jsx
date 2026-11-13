@@ -1,7 +1,9 @@
+import { useTranslation } from '../../i18n';
 import React from 'react';
 import { AlertCircle } from 'lucide-react';
 
 export const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = 'Delete', confirmType = 'danger' }) => {
+    const { t } = useTranslation();
     if (!isOpen) return null;
 
     return (
@@ -11,7 +13,7 @@ export const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, conf
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'var(--color-overlay)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -31,25 +33,25 @@ export const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, conf
                     <div style={{
                         padding: '8px',
                         borderRadius: 'var(--radius-full)',
-                        backgroundColor: confirmType === 'danger' ? '#fee2e2' : '#e0e7ff',
-                        color: confirmType === 'danger' ? '#dc2626' : '#4f46e5'
+                        backgroundColor: confirmType === 'danger' ? 'var(--color-danger-soft)' : 'var(--color-primary-soft)',
+                        color: confirmType === 'danger' ? 'var(--color-danger)' : 'var(--color-primary)'
                     }}>
                         <AlertCircle size={24} />
                     </div>
-                    <h3 style={{ fontSize: '1.25rem' }}>{title}</h3>
+                    <h3 style={{ fontSize: '1.25rem' }}>{t(title)}</h3>
                 </div>
 
                 <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--spacing-xl)', lineHeight: '1.6' }}>
-                    {message}
+                    {t(message)}
                 </p>
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--spacing-md)' }}>
-                    <button className="btn-outline" onClick={onCancel}>Cancel</button>
+                    <button className="btn-outline" onClick={onCancel}>{t("Cancel")}</button>
                     <button
                         className={confirmType === 'danger' ? 'btn-danger' : 'btn-primary'}
                         onClick={onConfirm}
                     >
-                        {confirmText}
+                        {t(confirmText)}
                     </button>
                 </div>
             </div>

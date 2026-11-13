@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from '../../i18n';
 
 export const CollapsiblePanel = ({ title, isOpen, children }) => {
+    const { t } = useTranslation();
     if (!isOpen) return null;
 
     return (
@@ -12,7 +14,7 @@ export const CollapsiblePanel = ({ title, isOpen, children }) => {
             marginBottom: 'var(--spacing-xl)',
             animation: 'slideDown 0.2s ease-out'
         }}>
-            <h3 style={{ marginBottom: 'var(--spacing-md)', fontSize: '1.125rem' }}>{title}</h3>
+            <h3 style={{ marginBottom: 'var(--spacing-md)', fontSize: '1.125rem' }}>{t(title)}</h3>
             {children}
         </div>
     );

@@ -1,3 +1,4 @@
+import { useTranslation } from '../i18n';
 import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Wallet, Home, AlertCircle, CheckCircle, Paperclip, File, Trash2 } from 'lucide-react';
@@ -6,6 +7,7 @@ import { useData } from '../context/DataContext';
 import './Dashboard.css';
 
 const Dashboard = () => {
+    const { t } = useTranslation();
     const { issues, properties } = useData();
     const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ const Dashboard = () => {
         const totalProperties = properties.length;
         const occupied = properties.filter(p => p.status === 'Occupied').length;
         const maintenance = properties.filter(p => p.status === 'Maintenance').length;
-        const activeIssuesCount = issues.filter(i => i.status === 'Open').length;
+        const activeIssuesCount = issues.filter(i => i.status !== 'Closed').length;
 
         // Calculate Revenue (sum of total rent for occupied units)
         const rentedProperties = properties.filter(p => p.status === 'Occupied' && !['NonRental', 'Usufruct'].includes(p.occupancyKind));
@@ -37,7 +39,7 @@ const Dashboard = () => {
     const [editFormData, setEditFormData] = React.useState({});
     const { updateIssue, resolveIssue } = useData();
 
-    const activeIssues = issues.filter(i => i.status === 'Open').slice(0, 5);
+    const activeIssues = issues.filter(i => i.status !== 'Closed').slice(0, 5);
 
     const handleIssueClick = (issue) => {
         if (expandedIssueId === issue.id) {
@@ -86,14 +88,14 @@ const Dashboard = () => {
     return (
         <div className="dashboard-container">
             <header className="dashboard-header">
-                <h1 className="dashboard-title">Dashboard</h1>
+                <h1 className="dashboard-title">{t("Dashboard")}</h1>
             </header>
 
             <section className="stats-grid">
-                <StatCard title="Total Revenue" value={stats.revenue === null ? 'Angaben fehlen' : `€${stats.revenue}`} icon={Wallet} color="primary" />
-                <StatCard title="Occupancy Rate" value={`${stats.occupancy}%`} icon={CheckCircle} color="success" trend={`${stats.total} total units`} />
+                <StatCard title={t("Total Revenue")} value={stats.revenue === null ? t('Angaben fehlen') : `€${stats.revenue}`} icon={Wallet} color="primary" />
+                <StatCard title={t("Occupancy Rate")} value={`${stats.occupancy}%`} icon={CheckCircle} color="success" trend={t('{count} total units', { count: stats.total })} />
                 <StatCard
-                    title="Open Issues"
+                    title={t("Open Issues")}
                     value={stats.issues}
                     icon={AlertCircle}
                     color="warning"
@@ -102,7 +104,7 @@ const Dashboard = () => {
                     style={{ cursor: 'pointer' }}
                 />
                 <StatCard
-                    title="Properties"
+                    title={t("Properties")}
                     value={stats.total}
                     icon={Home}
                     color="primary"
@@ -114,7 +116,7 @@ const Dashboard = () => {
 
             <div className="dashboard-content">
                 <section className="dashboard-section">
-                    <h2>Active Issues</h2>
+                    <h2>{t("Active Issues")}</h2>
                     {activeIssues.length > 0 ? (
                         <div className="issues-list">
                             {activeIssues.map(issue => {
@@ -134,16 +136,16 @@ const Dashboard = () => {
                                             <div className="issue-info">
                                                 <h4>{issue.title}</h4>
                                                 <p className="issue-meta">
-                                                    {relatedProperty ? relatedProperty.name : 'General'} • Due: {issue.dueDate || 'No Date'}
+                                                    {relatedProperty ? relatedProperty.name : t("General")}{" "}{t("• Due:")}{" "}{issue.dueDate || t("No Date")}
                                                 </p>
                                             </div>
-                                            <span className={`priority-badge ${issue.priority?.toLowerCase()}`}>{issue.priority}</span>
+                                            <span className={`priority-badge ${issue.priority?.toLowerCase()}`}>{t(issue.priority)}</span>
                                         </div>
 
                                         {isExpanded && (
                                             <div className="issue-edit-form" onClick={(e) => e.stopPropagation()}>
                                                 <div className="form-group">
-                                                    <label>Title</label>
+                                                    <label>{t("Title")}</label>
                                                     <input
                                                         type="text"
                                                         name="title"
@@ -153,7 +155,7 @@ const Dashboard = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label>Description</label>
+                                                    <label>{t("Description")}</label>
                                                     <textarea
                                                         name="description"
                                                         value={editFormData.description || ''}
@@ -164,21 +166,21 @@ const Dashboard = () => {
                                                 </div>
                                                 <div className="form-row">
                                                     <div className="form-group" style={{ flex: 1 }}>
-                                                        <label>Priority</label>
+                                                        <label>{t("Priority")}</label>
                                                         <select name="priority" value={editFormData.priority} onChange={handleEditChange} className="edit-select">
-                                                            <option value="Low">Low</option>
-                                                            <option value="Medium">Medium</option>
-                                                            <option value="High">High</option>
+                                                            <option value="Low">{t("Low")}</option>
+                                                            <option value="Medium">{t("Medium")}</option>
+                                                            <option value="High">{t("High")}</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group" style={{ flex: 1 }}>
-                                                        <label>Due Date</label>
+                                                        <label>{t("Due Date")}</label>
                                                         <input type="date" name="dueDate" value={editFormData.dueDate || ''} onChange={handleEditChange} className="edit-input" />
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                        <label>Attachments</label>
+                                                        <label>{t("Attachments")}</label>
                                                         <input
                                                             type="file"
                                                             ref={fileInputRef}
@@ -190,8 +192,7 @@ const Dashboard = () => {
                                                             e.stopPropagation();
                                                             fileInputRef.current.click();
                                                         }}>
-                                                            <Paperclip size={14} /> Add File
-                                                        </button>
+                                                            <Paperclip size={14} />{t("Add File")}</button>
                                                     </div>
                                                     <div className="attachments-list">
                                                         {(editFormData.attachments && editFormData.attachments.length > 0) ? (
@@ -213,14 +214,14 @@ const Dashboard = () => {
                                                                 </div>
                                                             ))
                                                         ) : (
-                                                            <p className="text-muted small">No attachments.</p>
+                                                            <p className="text-muted small">{t("No attachments.")}</p>
                                                         )}
                                                     </div>
                                                 </div>
 
                                                 <div className="form-actions">
-                                                    <button className="btn-primary small" onClick={handleSave}>Save</button>
-                                                    <button className="btn-outline small" onClick={handleResolve}>Mark Resolved</button>
+                                                    <button className="btn-primary small" onClick={handleSave}>{t("Save")}</button>
+                                                    <button className="btn-outline small" onClick={handleResolve}>{t("Mark Resolved")}</button>
                                                 </div>
                                             </div>
                                         )}
@@ -230,32 +231,26 @@ const Dashboard = () => {
                         </div>
                     ) : (
                         <div className="empty-state">
-                            <p>No open issues. Great job!</p>
+                            <p>{t("No open issues. Great job!")}</p>
                         </div>
                     )}
                 </section>
 
                 <section className="dashboard-section">
-                    <h2>Quick Actions</h2>
+                    <h2>{t("Quick Actions")}</h2>
                     <div className="action-buttons">
                         <button
                             className="btn-action"
-                            onClick={() => navigate('/tenants', { state: { openAdd: true } })}
-                        >
-                            Add Tenant
-                        </button>
+                            onClick={() => navigate('/contacts?filter=tenants', { state: { openAdd: true } })}
+                        >{t("Add Tenant")}</button>
                         <button
                             className="btn-action"
                             onClick={() => navigate('/costs', { state: { openAdd: true } })}
-                        >
-                            Log Expense
-                        </button>
+                        >{t("Log Expense")}</button>
                         <button
                             className="btn-action"
                             onClick={() => navigate('/issues', { state: { openAdd: true } })}
-                        >
-                            Create Request
-                        </button>
+                        >{t("Create Request")}</button>
                     </div>
                 </section>
             </div>

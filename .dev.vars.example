@@ -3,5 +3,6 @@
 # BETTER_AUTH_URL=http://localhost:8787
 # BETTER_AUTH_SECRET=<generate at least 32 random characters>
 # PILOT_EMAILS=<comma-separated invited email addresses>
-# RESEND_API_KEY=<transactional email provider key>
-# MAIL_FROM=Domus <noreply@your-verified-domain.example>
+# MAIL_FROM=no-reply@faktio.net
+# EMAIL is provided by the Cloudflare binding. Local delivery is simulated.
+# RESEND_API_KEY=<optional fallback provider key when EMAIL is absent>

@@ -89,14 +89,19 @@ describe('Managed files', () => {
         const forged = await request(app).post('/api/documents').send({ name: 'fake.pdf', hasFile: true, path: 'server/db.json' });
         expect((await request(app).get(`/api/files/${forged.body.id}/content`)).status).toBe(404);
     });
-    it('edits allowed metadata without changing original filename or content', async () => {
+    it('edits allowed metadata and renames without changing content or file extension', async () => {
         const result = await upload();
         const id = result.body.document.id;
-        const updated = await request(app).put(`/api/files/${id}/metadata`).send({ caption: 'Grundriss', published: true, name: 'changed.pdf', hash: 'bad' });
+        const updated = await request(app).put(`/api/files/${id}/metadata`).send({ caption: 'Grundriss', published: true, name: 'Mietvertrag Müller', hash: 'bad' });
         expect(updated.status).toBe(200);
         expect(updated.body.caption).toBe('Grundriss');
-        expect(updated.body.name).toBe('example.pdf');
-        expect((await request(app).get(`/api/files/${id}/content`)).body.toString()).toContain('fictional');
+        expect(updated.body.name).toBe('Mietvertrag Müller.pdf');
+        expect(updated.body.hash).toBeUndefined();
+        const download = await request(app).get(`/api/files/${id}/content`);
+        expect(download.body.toString()).toContain('fictional');
+        expect(download.headers['content-disposition']).toMatch(/Mietvertrag M(ü|%C3%BC)ller\.pdf/);
+        expect((await request(app).put(`/api/files/${id}/metadata`).send({ name: 'a/b' })).status).toBe(400);
+        expect((await request(app).put(`/api/files/${id}/metadata`).send({ name: '  ' })).status).toBe(400);
     });
     it('rejects oversized files and non-JSON writes', async () => {
         const result = await upload({ base64: Buffer.alloc(20 * 1024 * 1024 + 1, 42).toString('base64') });

@@ -42,7 +42,7 @@
 .icon-wrapper.clickable:hover {
     background-color: var(--color-bg-surface-hover);
     /* subtle indication of interactivity */
-    box-shadow: 0 0 0 1px var(--color-primary-light, #e0e7ff);
+    box-shadow: 0 0 0 1px var(--color-primary-soft);
 }
 
 .header-info {

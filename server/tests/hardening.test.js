@@ -40,4 +40,11 @@ describe('API hardening', () => {
         const response = await request(app).get('/api');
         expect(response.headers['x-powered-by']).toBeUndefined();
     });
+
+    it('rejects unsupported cost recurrence on creation and update', async () => {
+        for (const recurrence of ['daily', '', null, {}]) {
+            expect((await request(app).post('/api/costs').send({ name: 'Invalid', amount: 10, recurrence })).status).toBe(400);
+            expect((await request(app).put('/api/costs/missing').send({ recurrence })).status).toBe(400);
+        }
+    });
 });

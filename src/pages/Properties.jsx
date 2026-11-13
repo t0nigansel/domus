@@ -1,11 +1,14 @@
+import { useTranslation } from '../i18n';
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
-import PropertyCard from '../components/PropertyCard';
-import { PageHeader, CollapsiblePanel, useToast } from '../components/common';
+import { Building, Ruler, Euro, AlertCircle } from 'lucide-react';
+import { PageHeader, CollapsiblePanel, useToast, List, ListRow, ListEmpty, Badge } from '../components/common';
 import { useQuickAction } from '../hooks/useQuickAction';
+import { ISSUE_STATUS } from '../constants/status';
 
 const Properties = () => {
-    const { properties, addProperty } = useData();
+    const { t } = useTranslation();
+    const { properties, issues, addProperty } = useData();
     const [isAddingProperty, setIsAddingProperty] = useQuickAction();
     const { addToast } = useToast();
 
@@ -50,74 +53,74 @@ const Properties = () => {
 
     return (
         <div className="page-container">
-            <PageHeader title="Properties" onAction={() => setIsAddingProperty(true)} />
+            <PageHeader title={t("Properties")} onAction={() => setIsAddingProperty(true)} />
 
-            <CollapsiblePanel title="New Property" isOpen={isAddingProperty} onClose={() => setIsAddingProperty(false)}>
+            <CollapsiblePanel title={t("New Property")} isOpen={isAddingProperty} onClose={() => setIsAddingProperty(false)}>
                 <form onSubmit={handleAddSubmit}>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Property Name</label>
+                            <label>{t("Property Name")}</label>
                             <input
                                 type="text"
                                 required
                                 value={newPropertyData.name}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, name: e.target.value })}
                                 className="edit-input"
-                                placeholder="e.g. Sunset Apartments, Apt 4"
+                                placeholder={t("e.g. Sunset Apartments, Apt 4")}
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Location</label>
+                            <label>{t("Location")}</label>
                             <input
                                 type="text"
                                 required
                                 value={newPropertyData.location}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, location: e.target.value })}
                                 className="edit-input"
-                                placeholder="Address or Area"
+                                placeholder={t("Address or Area")}
                             />
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Square Meter (m²)</label>
+                            <label>{t("Square Meter (m²)")}</label>
                             <input
                                 type="number"
                                 min="0"
                                 value={newPropertyData.size}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, size: e.target.value })}
                                 className="edit-input"
-                                placeholder="e.g. 85"
+                                placeholder={t("e.g. 85")}
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Status</label>
+                            <label>{t("Status")}</label>
                             <select
                                 value={newPropertyData.status}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, status: e.target.value })}
                                 className="edit-select"
                             >
-                                <option value="Occupied">Occupied</option>
-                                <option value="Vacant">Vacant</option>
-                                <option value="Maintenance">Maintenance</option>
+                                <option value="Occupied">{t("Occupied")}</option>
+                                <option value="Vacant">{t("Vacant")}</option>
+                                <option value="Maintenance">{t("Maintenance")}</option>
                             </select>
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Condition</label>
+                            <label>{t("Condition")}</label>
                             <select
                                 value={newPropertyData.condition}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, condition: e.target.value })}
                                 className="edit-select"
                             >
-                                <option value="Good">Good</option>
-                                <option value="Needs Repair">Needs Repair</option>
-                                <option value="Renovated">Renovated</option>
+                                <option value="Good">{t("Good")}</option>
+                                <option value="Needs Repair">{t("Needs Repair")}</option>
+                                <option value="Renovated">{t("Renovated")}</option>
                             </select>
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Cold Rent (€)</label>
+                            <label>{t("Cold Rent (€)")}</label>
                             <input
                                 type="number"
                                 min="0"
@@ -127,7 +130,7 @@ const Properties = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>Nebenkosten (€)</label>
+                            <label>{t("Nebenkosten (€)")}</label>
                             <input
                                 type="number"
                                 min="0"
@@ -138,17 +141,37 @@ const Properties = () => {
                         </div>
                     </div>
                     <div className="form-actions">
-                        <button type="submit" className="btn-primary small">Save Property</button>
-                        <button type="button" className="btn-outline small" onClick={() => setIsAddingProperty(false)}>Cancel</button>
+                        <button type="submit" className="btn-primary small">{t("Save Property")}</button>
+                        <button type="button" className="btn-outline small" onClick={() => setIsAddingProperty(false)}>{t("Cancel")}</button>
                     </div>
                 </form>
             </CollapsiblePanel>
 
-            <div className="properties-grid">
-                {properties.map(property => (
-                    <PropertyCard key={property.id} property={property} />
-                ))}
-            </div>
+            {properties.length > 0 ? (
+                <List>
+                    {properties.map(property => {
+                        const openIssues = issues.filter(i => i.propertyId === property.id && i.status !== ISSUE_STATUS.CLOSED).length;
+                        const nonRental = ['NonRental', 'Usufruct'].includes(property.occupancyKind);
+                        const hasRent = Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten);
+                        return (
+                            <ListRow
+                                key={property.id}
+                                to={`/properties/${property.id}`}
+                                icon={<Building size={20} />}
+                                title={property.name}
+                                subtitle={property.location}
+                                meta={<>
+                                    {openIssues > 0 && <Badge icon={AlertCircle} tone="warning" title={t("Has Open Issues")}>{t('{count} offen', { count: openIssues })}</Badge>}
+                                    {property.size && <Badge icon={Ruler}>{property.size} {t("m²")}</Badge>}
+                                    <Badge icon={Euro} tone="strong">{nonRental ? t("Kein Mietverhältnis") : hasRent ? `${property.coldRent + property.nebenkosten} €` : t('Noch offen')}</Badge>
+                                </>}
+                            />
+                        );
+                    })}
+                </List>
+            ) : (
+                <ListEmpty icon={<Building size={40} />}>{t("Noch keine Wohnungen angelegt.")}</ListEmpty>
+            )}
         </div>
     );
 };

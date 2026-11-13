@@ -1,0 +1,8 @@
+.legal-page { width: min(100%, 52rem); margin: 0 auto; padding: 2rem 1.5rem 3rem; overflow-wrap: anywhere; }
+.legal-page h1 { margin: 1.5rem 0; font-size: clamp(1.8rem, 5vw, 2.5rem); line-height: 1.2; }
+.legal-page h2 { margin: 2rem 0 .75rem; font-size: 1.2rem; line-height: 1.4; }
+.legal-page p { margin: .75rem 0; line-height: 1.8; }
+.legal-page a { color: var(--color-primary); text-decoration: underline; text-underline-offset: .15em; }
+.legal-page a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.legal-back { display: inline-flex; align-items: center; min-height: 44px; }
+.legal-date, .legal-sources { color: var(--color-text-muted); font-size: .9rem; }

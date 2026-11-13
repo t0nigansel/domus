@@ -1,25 +1,37 @@
 .document-workspace { min-width: 0; }
-.file-controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; margin: 16px 0; }
-.file-controls label { display: flex; flex-direction: column; gap: 8px; flex: 1 1 200px; font-size: 0.9rem; }
-.file-controls input, .file-controls select, .dossier-form input, .dossier-form textarea { min-height: 44px; min-width: 0; width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-base); color: var(--color-text-main); }
-.file-controls .file-checkbox { flex-direction: row; align-items: center; }
-.file-checkbox input { width: 20px; }
-.file-controls button, .file-actions a, .managed-file button { min-height: 44px; }
-.file-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-.raw-file-list { border: 1px solid var(--color-border); padding: 16px; border-radius: 8px; margin-bottom: 20px; }
+
+/* Hochladen */
+.file-controls { flex-wrap: wrap; align-items: flex-end; }
+.file-controls .form-group { flex: 1 1 200px; min-width: 0; }
+.file-controls .edit-input,
+.file-controls .edit-select,
+.file-controls > button { min-height: 44px; }
+.file-status { margin-bottom: var(--spacing-md); font-size: 0.875rem; color: var(--color-text-muted); }
+.file-error { color: var(--color-danger); }
+
+.raw-file-list { border: 1px solid var(--color-border); padding: 16px; border-radius: var(--radius-lg); margin-bottom: 20px; }
 .raw-file-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; overflow-wrap: anywhere; }
-.managed-files { display: grid; gap: 16px; }
-.managed-file { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; border: 1px solid var(--color-border); border-radius: 8px; }
-.managed-file-content { flex: 1 1 240px; min-width: 0; overflow-wrap: anywhere; }
-.managed-file-content h3 { margin-top: 0; }
-.document-thumbnail { width: 180px; height: 140px; object-fit: contain; border-radius: 6px; }
-.file-error { color: #f87171; }
+
+/* Aufgeklappte Dokumentzeile */
+.document-editor { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.document-preview { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--spacing-md); }
+.document-thumbnail { max-width: 240px; max-height: 180px; object-fit: contain; border-radius: var(--radius-md); background-color: var(--color-bg-base); }
+.file-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); }
+.file-actions a { min-height: 44px; }
+.file-name-input { display: flex; align-items: center; gap: 6px; }
+.file-name-input input { flex: 1; min-width: 0; }
+.file-name-extension { color: var(--color-text-muted); font-family: ui-monospace, Consolas, monospace; }
+.file-checkboxes { flex-wrap: wrap; gap: var(--spacing-lg); }
+.file-checkbox { display: inline-flex; align-items: center; gap: var(--spacing-sm); min-height: 44px; font-size: 0.875rem; cursor: pointer; }
+.file-checkbox input { width: 18px; height: 18px; }
+
+/* Wohnungsdossier */
+.dossier-form input, .dossier-form textarea { min-height: 44px; min-width: 0; width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-base); color: var(--color-text-main); }
 .dossier-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; }
 .dossier-form label { display: flex; flex-direction: column; gap: 8px; }
 .dossier-actions { grid-column: 1 / -1; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
 @media (max-width: 600px) {
-    .file-controls label, .managed-file-content { flex-basis: 100%; min-width: 0; }
     .raw-file-row { flex-wrap: wrap; }
-    .managed-file { padding: 12px; }
     .document-thumbnail { max-width: 100%; }
 }

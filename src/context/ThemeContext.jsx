@@ -8,29 +8,34 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-    // Check local storage or system preference
-    const getInitialTheme = () => {
+    const getInitialAppearance = () => {
         const storedTheme = localStorage.getItem('domus-theme');
-        if (storedTheme) {
-            return storedTheme;
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        return ['light', 'dark', 'system'].includes(storedTheme) ? storedTheme : 'system';
     };
 
-    const [theme, setTheme] = useState(getInitialTheme);
+    const [appearance, setAppearance] = useState(getInitialAppearance);
+    const [systemTheme, setSystemTheme] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const theme = appearance === 'system' ? systemTheme : appearance;
+
+    useEffect(() => {
+        const preference = window.matchMedia('(prefers-color-scheme: dark)');
+        const updateSystemTheme = event => setSystemTheme(event.matches ? 'dark' : 'light');
+        preference.addEventListener('change', updateSystemTheme);
+        return () => preference.removeEventListener('change', updateSystemTheme);
+    }, []);
 
     useEffect(() => {
         const root = window.document.documentElement;
         root.setAttribute('data-theme', theme);
-        localStorage.setItem('domus-theme', theme);
-    }, [theme]);
+        localStorage.setItem('domus-theme', appearance);
+    }, [theme, appearance]);
 
     const toggleTheme = () => {
-        setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+        setAppearance(theme === 'light' ? 'dark' : 'light');
     };
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{ theme, toggleTheme, appearance, setAppearance }}>
             {children}
         </ThemeContext.Provider>
     );
