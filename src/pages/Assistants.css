@@ -3,6 +3,12 @@
   min-width: 0;
   overflow-wrap: anywhere;
 }
+.building-section { margin: var(--spacing-lg) 0; min-width: 0; }
+.building-heading { margin-bottom: var(--spacing-md); }
+.building-details-inline { min-width: 0; overflow-wrap: anywhere; }
+.building-details-inline > :first-child { margin-top: 0; }
+.building-details-inline > :last-child { margin-bottom: 0; }
+.building-details-inline .property-photo-caption button { flex-shrink: 0; }
 .assistant-page h1 {
   font-size: clamp(1.5rem, 4vw, 2rem);
   line-height: 1.2;

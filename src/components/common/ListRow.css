@@ -154,7 +154,7 @@ a.list-row-summary:focus-visible {
     box-shadow: var(--focus-ring);
 }
 
-.list-row.expanded .list-row-toggle {
+.list-row.expanded > .list-row-summary > .list-row-toggle {
     transform: rotate(180deg);
 }
 

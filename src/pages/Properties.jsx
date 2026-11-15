@@ -1,7 +1,7 @@
 import { useTranslation } from '../i18n';
-import Buildings from '../components/Buildings';
+import Buildings from './Buildings';
 import React, { useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useMatch, useSearchParams } from 'react-router-dom';
 import { PropertyPage } from './PropertyDetails';
 import { useData } from '../context/DataContext';
 import { Building, Ruler, Euro, AlertCircle } from 'lucide-react';
@@ -14,7 +14,7 @@ const Properties = () => {
     const { properties, issues, addProperty } = useData();
     const [isAddingProperty, setIsAddingProperty] = useQuickAction();
     const { addToast } = useToast();
-    const { id: expandedId } = useParams();
+    const expandedId = useMatch('/properties/:id')?.params.id;
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 

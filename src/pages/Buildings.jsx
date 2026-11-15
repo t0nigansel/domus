@@ -1,22 +1,26 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
+import { House } from 'lucide-react';
 import { useTranslation } from "../i18n";
 import { useCloudAuth } from "../context/CloudAuthContext";
 import { useData } from "../context/DataContext";
 import { useAssistant } from "../hooks/useAssistant";
 import { api } from "../utils/api";
-import { AssistantField as Field } from "./AssistantCommon";
-import PropertyFiles from "./PropertyFiles";
+import { AssistantField as Field } from "../components/AssistantCommon";
+import { List, ListRow } from '../components/common';
+import PropertyFiles from "../components/PropertyFiles";
 
 export default function Buildings() {
   const auth = useCloudAuth(),
     { t } = useTranslation(),
     state = useAssistant("/buildings", !!auth);
   const [adding, setAdding] = useState(false);
+  const expandedId = useMatch('/buildings/:id')?.params.id;
+  const navigate = useNavigate();
   if (!auth) return null;
   return (
-    <section className="assistant-card">
-      <div className="assistant-actions">
+    <section className="building-section">
+      <div className="assistant-actions building-heading">
         <h2>{t("Häuser")}</h2>
         <button className="btn-outline" onClick={() => setAdding(!adding)}>
           {t("Haus anlegen")}
@@ -24,6 +28,7 @@ export default function Buildings() {
       </div>
       {state.error && <p role="alert">{state.error}</p>}
       {adding && (
+        <div className="assistant-card">
         <BuildingForm
           key="new"
           busy={state.busy}
@@ -35,19 +40,17 @@ export default function Buildings() {
             })
           }
         />
-      )}
-      {state.data?.map((building) => (
-        <div key={building.id} className="assistant-row">
-          <Link to={`/buildings/${building.id}`}>
-            <strong>{building.name}</strong>
-          </Link>
-          <p>
-            {[building.street, building.postalCode, building.city]
-              .filter(Boolean)
-              .join(" · ")}
-          </p>
         </div>
-      ))}
+      )}
+      {expandedId && state.data && !state.data.some(building => building.id === expandedId) && <p role="alert">{t('Haus nicht gefunden.')}</p>}
+      <List>{state.data?.map((building) => (
+        <ListRow key={building.id} icon={<House size={20} />} title={building.name}
+          subtitle={[building.street, building.postalCode, building.city].filter(Boolean).join(' · ')}
+          expanded={expandedId === building.id}
+          onToggle={() => navigate(expandedId === building.id ? '/properties' : `/buildings/${building.id}`, { preventScrollReset: true })}>
+          <BuildingDetails id={building.id} onSaved={state.refresh} />
+        </ListRow>
+      ))}</List>
       {state.data?.length === 0 && (
         <p>
           {t(
@@ -95,23 +98,20 @@ function BuildingForm({ value = {}, busy, onSave }) {
     </form>
   );
 }
-export function BuildingDetails() {
-  const { id } = useParams(),
-    { t } = useTranslation(),
+function BuildingDetails({ id, onSaved }) {
+  const { t } = useTranslation(),
     { properties, updateProperty, costs, updateCost } = useData();
   const state = useAssistant(`/buildings/${id}`),
     [editing, setEditing] = useState(false);
   if (!state.data)
     return (
-      <div className="page-container">
+      <div className="building-details-inline">
         <p>{state.error || t("Lädt …")}</p>
       </div>
     );
   const building = state.data;
   return (
-    <div className="page-container assistant-page">
-      <Link to="/properties">{t("← Zu den Wohnungen")}</Link>
-      <h1>{building.name}</h1>
+    <div className="building-details-inline">
       {state.error && (
         <p role="alert" className="assistant-error">
           {state.error}
@@ -126,6 +126,7 @@ export function BuildingDetails() {
             onSave={(value) =>
               state.run(async () => {
                 state.setData(await api.put(`/buildings/${id}`, value));
+                await onSaved();
                 setEditing(false);
               })
             }

@@ -1,4 +1,5 @@
 {
+  "Haus nicht gefunden.": { "en": "Building not found." },
   "KI-Assistenten über MCP": { "en": "AI assistants via MCP" },
   "Verbinde deinen Assistenten mit dieser MCP-Adresse. Du meldest dich mit deinem Domus-Konto an und erlaubst ausschließlich Lesen und Auswerten.": { "en": "Connect your assistant using this MCP address. Sign in with your Domus account and allow read-only analysis." },
   "Dabei erhält der KI-Anbieter des verbundenen Assistenten Zugriff auf deine Immobilien-, Mieter- und Dokumentendaten. Änderungen und Versand sind nicht möglich.": { "en": "The connected assistant's AI provider can access your property, tenant and document data. It cannot change data or send messages." },

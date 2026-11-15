@@ -16,9 +16,15 @@ export async function assistantBrowser({ page, base, check, call }) {
   await page
     .getByRole("button", { name: "Haus speichern", exact: true })
     .click();
-  await page
-    .getByRole("link", { name: "Browser Testhaus", exact: true })
-    .click();
+  const overview = page.locator('main > .page-container');
+  const overviewBefore = await overview.boundingBox();
+  await page.getByRole('heading', { name: 'Browser Testhaus', exact: true }).click();
+  await page.getByRole('button', { name: 'Hausdaten bearbeiten', exact: true }).waitFor();
+  const overviewAfter = await overview.boundingBox();
+  check(overviewAfter.x, overviewBefore.x, 'opening a house preserves overview alignment');
+  check(overviewAfter.width, overviewBefore.width, 'opening a house preserves overview width');
+  check(await page.getByRole('heading', { name: 'Wohnungen', exact: true, level: 1 }).count(), 1, 'house stays in the apartment overview');
+  check(await page.getByText('Wohnung nicht gefunden.', { exact: true }).count(), 0, 'house route is distinct from apartment route');
   const buildingUrl = page.url();
   await page
     .getByRole("button", { name: "Diesem Haus zuordnen", exact: true })
@@ -56,7 +62,7 @@ export async function assistantBrowser({ page, base, check, call }) {
   const houseFiles=(await(await page.request.get(base+'/api/documents')).json()).filter(doc=>['Hausfront.png','Hausunterlage.pdf'].includes(doc.name));
   check(houseFiles.length,2,'house photo and PDF survive reload');
   check(houseFiles.every(doc=>doc.buildingId===buildingUrl.split('/').at(-1)&&!doc.propertyId),true,'uploads stay scoped to the building');
-  const pdfRow=page.locator('.list-row').filter({has:page.getByRole('heading',{name:'Hausunterlage.pdf',exact:true})});
+  const pdfRow=page.locator('.document-workspace .list-row').filter({has:page.getByRole('heading',{name:'Hausunterlage.pdf',exact:true})});
   const download=await page.request.get(new URL(await pdfRow.getByRole('link',{name:'Herunterladen',exact:true}).getAttribute('href'),base).href);
   check((await download.body()).subarray(0,5).toString(),'%PDF-','house PDF can be downloaded');
   await page.getByRole('searchbox',{name:/Dateien suchen/}).fill('Hausunterlage');
@@ -67,6 +73,10 @@ export async function assistantBrowser({ page, base, check, call }) {
   await page.setViewportSize({width:390,height:900});
   check(await page.evaluate(()=>globalThis.document.documentElement.scrollWidth<=globalThis.innerWidth),true,'building photos and documents fit mobile layout');
   await filesSection.screenshot({path:'test-results/cloud/building-files-mobile.png'});
+  await page.setViewportSize({width:1280,height:900});
+  await page.screenshot({path:'test-results/cloud/building-inline-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:900});
+  await page.screenshot({path:'test-results/cloud/building-inline-mobile.png',fullPage:true});
   await page.setViewportSize({width:1280,height:900});
   await page.locator(".account-menu-trigger").click();
   await page.getByRole("link", { name: "Einstellungen", exact: true }).click();
