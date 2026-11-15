@@ -36,4 +36,4 @@ export function renameDocument(input, originalName) {
 }
 
 // Dokumentkategorien mit deutschem Anzeigenamen (wird über t() übersetzt).
-export const DOCUMENT_CATEGORIES = { Misc: 'Sonstiges', Photos: 'Fotos', FloorPlans: 'Grundrisse', Energy: 'Energieausweise', Leases: 'Mietverträge', Invoices: 'Rechnungen', Insurance: 'Versicherungen' };
+export const DOCUMENT_CATEGORIES = { Misc: 'Sonstiges', Photos: 'Fotos', FloorPlans: 'Grundrisse', Energy: 'Energieausweise', Leases: 'Mietverträge', Invoices: 'Rechnungen', Insurance: 'Versicherungen', Exposes: 'Exposés', Statements: 'Nebenkostenabrechnungen' };

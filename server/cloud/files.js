@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { rentalError } from '../../src/domain/rentals.js';
 import { categories } from './entities.js';
+import { validDate } from '../../src/domain/rentals.js';
 
 export const MAX_FILE_BYTES = 20 * 1024 * 1024;
 export const ACCOUNT_FILE_BYTES = 1024 * 1024 * 1024;
@@ -29,13 +30,19 @@ export function fileMime(name, buffer) {
 
 export function fileMetadata(input, data) {
     const propertyId = input.propertyId || null;
+    const buildingId = input.buildingId || null;
+    if (buildingId && !data.buildings?.some(building=>building.id===buildingId)) throw rentalError('Haus nicht gefunden.',404);
+    if (propertyId && buildingId) throw rentalError('Dateien entweder einer Wohnung oder einem Haus zuordnen.');
     if (propertyId !== null && !data.properties.some(property => property.id === propertyId)) throw rentalError('Wohnung nicht gefunden.', 404);
     const category = input.category || 'Misc';
     if (!categories.includes(category)) throw rentalError('Unbekannte Kategorie.');
     if (input.caption !== undefined && (typeof input.caption !== 'string' || input.caption.length > 2000)) throw rentalError('Beschreibung ist zu lang.');
     for (const key of ['published', 'cover']) if (input[key] !== undefined && typeof input[key] !== 'boolean') throw rentalError('Ungültige Freigabe.');
     if (input.position !== undefined && (!Number.isInteger(input.position) || input.position < 0)) throw rentalError('Ungültige Reihenfolge.');
-    return { propertyId, category, caption: input.caption || '', published: input.published === true, position: input.position || 0, cover: input.cover === true };
+    const serviceStart=validDate(input.serviceStart,'Leistungsbeginn',true), serviceEnd=validDate(input.serviceEnd,'Leistungsende',true);
+    if(serviceStart&&serviceEnd&&serviceEnd<serviceStart)throw rentalError('Ungültiger Leistungszeitraum.');
+    if(input.documentType && (typeof input.documentType!=='string'||input.documentType.length>200))throw rentalError('Ungültiger Dokumenttyp.');
+    return { propertyId, buildingId, category, caption: input.caption || '', published: input.published === true, position: input.position || 0, cover: input.cover === true, serviceStart,serviceEnd,documentType:input.documentType||'' };
 }
 
 export async function storeCloudFile(env, accountId, data, input, buffer) {
@@ -43,7 +50,7 @@ export async function storeCloudFile(env, accountId, data, input, buffer) {
     const mime = fileMime(input.name, buffer);
     const metadata = fileMetadata(input, data);
     const hash = createHash('sha256').update(buffer).digest('hex');
-    const duplicate = data.documents.find(document => (document.propertyId || null) === metadata.propertyId && data.documentFiles[document.id]?.hash === hash);
+    const duplicate = data.documents.find(document => (document.propertyId || null) === metadata.propertyId && (document.buildingId || null) === metadata.buildingId && data.documentFiles[document.id]?.hash === hash);
     if (duplicate) return { document: duplicate, duplicate: true };
     const used = Object.values(data.documentFiles).reduce((sum, file) => sum + file.bytes, 0);
     if (used + buffer.length > ACCOUNT_FILE_BYTES) throw rentalError('Das Speicherkontingent von 1 GB ist erreicht.', 413);

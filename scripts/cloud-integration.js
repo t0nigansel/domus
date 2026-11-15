@@ -7,10 +7,14 @@ import { getMigrations } from 'better-auth/db/migration';
 import { unstable_dev } from 'wrangler';
 import { authOptions } from '../server/cloud/auth.js';
 import { chromium } from '@playwright/test';
+import { assistantIntegration } from './assistant-integration.js';
+import { assistantBrowser } from './assistant-browser.js';
+import {startPdfTestService} from './assistant-pdf-service.js';
 
 const container = `domus-cloud-test-${randomUUID().slice(0, 8)}`;
 let admin;
 let worker;
+let pdfTestService;
 let checks = 0;
 const check = (actual, expected, message) => { assert.deepEqual(actual, expected, message); checks++; };
 try {
@@ -31,15 +35,18 @@ try {
         await migration.runMigrations();
     } finally { await pool.end(); }
     await admin.query(await readFile(new URL('../server/cloud/migrations/001_domain.sql', import.meta.url), 'utf8'));
+    await admin.query(await readFile(new URL('../server/cloud/migrations/002_assistants.sql', import.meta.url), 'utf8'));
     await admin.query('GRANT SELECT, INSERT, UPDATE, DELETE ON "user", session, account, verification, organization, member, invitation, "rateLimit" TO domus_runtime');
     const runtimeUrl = `postgres://domus_runtime:domus-runtime-isolated-test@127.0.0.1:${port}/postgres`;
+    pdfTestService=await startPdfTestService();
     await mkdir('.wrangler', { recursive: true });
     await writeFile('.wrangler/integration.json', JSON.stringify({
         name: 'domus-local-integration', main: '../server/tests/cloud-integration.worker.js',
         compatibility_date: '2026-11-11', compatibility_flags: ['nodejs_compat'],
         assets: { directory: '../dist-cloud', binding: 'ASSETS', not_found_handling: 'single-page-application', run_worker_first: ['/api', '/api/*', '/__test/*'] },
         r2_buckets: [{ binding: 'FILES', bucket_name: 'domus-isolated-test-files' }],
-        vars: { DOMUS_ENV: 'test', DOMUS_DOMAIN_ENABLED: 'true', DATABASE_URL: runtimeUrl,
+        workflows: [{ name:'domus-assistants-test', binding:'ASSISTANT_WORKFLOW', class_name:'AssistantWorkflow' }],
+        vars: { DOMUS_ENV: 'test', DOMUS_DOMAIN_ENABLED: 'true', DATABASE_URL: runtimeUrl, LLM_SIMULATION:'true', LLM_ENCRYPTION_KEY_V1:Buffer.alloc(32,7).toString('base64'),TEST_PDF_URL:pdfTestService.url,TEST_PDF_TOKEN:pdfTestService.token,
             BETTER_AUTH_SECRET: 'domus-isolated-integration-auth-secret-32-characters',
             MAIL_FROM: 'test@example.invalid', PILOT_EMAILS: 'a@example.invalid,b@example.invalid' },
     }));
@@ -142,6 +149,7 @@ try {
     check((await completed[0].json()).id, (await completed[1].json()).id, 'single stable lease');
     check((await call('/api/rentals', { cookie: b.cookie })).status, 200, 'other account rentals');
     check((await (await call('/api/rentals', { cookie: b.cookie })).json()).leases, [], 'lease isolation');
+    await assistantIntegration({call,post,a,b,property,check});
     const runtime = new pg.Client({ connectionString: runtimeUrl });
     try {
         await runtime.connect();
@@ -312,8 +320,8 @@ try {
             await page.setViewportSize({ width: 1280, height: 900 });
             await page.getByRole('navigation').first().getByRole('link', { name: language === 'de' ? 'Wohnungen' : 'Properties', exact: true }).click();
             await page.locator('main a[href^="/properties/"]').first().click();
-            await page.locator('a[href^="/rentals?propertyId="]').last().click();
-            await page.getByRole('heading', { name: language === 'de' ? 'Vermietungen' : 'Rentals', exact: true }).waitFor();
+            await page.getByRole('tab', { name: language === 'de' ? 'Vermietung' : 'Letting', exact: true }).click();
+            await page.getByRole('navigation', { name: language === 'de' ? 'Vermietungsbereiche' : 'Letting sections', exact: true }).waitFor();
             check(await page.locator('.sidebar-nav .nav-item.active').getAttribute('href'), '/properties', 'rentals belong to properties');
             await page.goto(`${base}/tenants`);
             await page.getByRole('heading', { name: language === 'de' ? 'Kontakte' : 'Contacts', exact: true }).waitFor();
@@ -379,6 +387,7 @@ try {
         await page.keyboard.press('Escape');
         await page.getByRole('alert').filter({ hasText: 'Dateiinhalt und Dateityp passen nicht zusammen.' }).waitFor();
         checks++;
+        await assistantBrowser({page,base,check,call});
         await accountTrigger.click();
         await page.getByRole('button', { name: 'Abmelden', exact: true }).click();
         await page.getByRole('heading', { name: 'Bei Domus anmelden' }).waitFor();
@@ -387,9 +396,21 @@ try {
         check(errors, [], 'browser runtime errors');
         checks += 2;
     } finally { await browser.close(); }
+    const relogin=await post('/api/auth/sign-in/email',{email:'a@example.invalid',password:'changed-isolated-password'});
+    const deletionCookie=relogin.headers.getSetCookie().map(value=>value.split(';')[0]).join('; ');
+    check((await post('/api/account/delete',{currentPassword:'incorrect-password',confirmation:'KONTO LÖSCHEN',requestKey:randomUUID()},deletionCookie)).status,400,'deletion password verification');
+    check((await post('/api/account/delete',{currentPassword:'changed-isolated-password',confirmation:'KONTO LÖSCHEN',requestKey:randomUUID()},deletionCookie)).status,202,'deletion scheduled');
+    for(let attempt=0;attempt<90;attempt++) {
+        if(!(await admin.query('SELECT id FROM "user" WHERE id=$1',[a.user.id])).rows.length)break;
+        await new Promise(resolve=>setTimeout(resolve,500));
+    }
+    check((await admin.query('SELECT id FROM "user" WHERE id=$1',[a.user.id])).rows,[],'authentication user removed');
+    for(const table of ['domus_accounts','properties','tenants','documents','document_files','assistant_records','assistant_jobs','llm_connections','user_settings'])check((await admin.query(`SELECT count(*)::int AS count FROM ${table} WHERE ${table==='domus_accounts'?'id':'account_id'}=$1`,[a.account.id])).rows[0].count,0,`deletion clears ${table}`);
+    check((await (await call(`/__test/files?prefix=${encodeURIComponent(a.account.id+'/')}`)).json()).objects,[],'deletion clears private R2 files and archives');
     console.log(`Cloud integration passed: ${checks} checks against isolated PostgreSQL, actual Workers runtime, local R2 and browser login/logout.`);
 } finally {
     if (worker) await worker.stop();
+    if(pdfTestService)await pdfTestService.close();
     if (admin) await admin.end();
     try { execFileSync('docker', ['rm', '-f', container], { stdio: 'ignore' }); } catch { /* Container creation may have failed. */ }
 }

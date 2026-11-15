@@ -208,6 +208,67 @@ npm run build
 npm run preview
 ```
 
+## Persönliche KI-Assistenten und Einstellungen
+
+Über das Kontomenü unten links führt **Einstellungen** zu Darstellung, Sprache,
+PDF-Absender und Logo, persönlichen OpenAI-/Anthropic-/Google-Verbindungen,
+Passwort-/E-Mail-Änderung, vollständigem ZIP-Export und endgültiger Kontolöschung.
+API-Schlüssel werden mit AES-256-GCM und an Konto/Nutzer/Anbieter gebundener
+Authentifizierung verschlüsselt. Sie werden weder zurückgegeben noch exportiert.
+Verbindungstests prüfen Dokumentenanalyse und belegte Webrecherche und können beim
+Anbieter Kosten verursachen. Es gibt keinen gemeinsamen Anbieter-Schlüssel.
+
+Unter **Wohnungen → Häuser** werden Wohnungen ausdrücklich einer gemeinsamen
+Hausakte zugeordnet. Hausunterlagen und Kosten können dort verwaltet werden.
+**Wohnung → Exposé erstellen** erzeugt einen bearbeitbaren Entwurf aus ausgewählten
+freigegebenen Bildern, Energieunterlagen, Objektfakten und belegter Webrecherche.
+Nach Prüfung wird ein PDF gespeichert. Keine automatische Veröffentlichung.
+
+**Haus → Nebenkostenabrechnungen** erstellt einen Lauf je Haus und Zeitraum.
+Dokumente werden unabhängig vom Upload-Datum geprüft. Die KI schlägt Positionen
+vor; der Nutzer bestätigt Leistungszeiträume, Vertragsgrundlagen, Umlagefähigkeit,
+Verteilerschlüssel und tatsächliche Vorauszahlungen. Die Berechnung erfolgt
+deterministisch in Cent inklusive Leerstand, Mieterwechsel, Personenzahl-Verlauf,
+Gutschriften und Cent-Restverteilung. Heiz-/Warmwasser-Einzelabrechnungen werden
+extern übernommen; keine eigene Heizkosten-/CO₂-Berechnung. Finalisierte PDFs
+bleiben unverändert; Korrekturen erzeugen neue Versionen. ZIP-Exporte sind sieben
+Tage verfügbar. Für historische Belege ohne Originaldatei ist eine manuelle
+Nachreichung erforderlich.
+
+### Betrieb und Tests
+
+Vor dem ersten Deployment dieser Version müssen **alle** SQL-Migrationen mit
+`npm run db:migrate:domain -- --apply` gegen die jeweilige, ausdrücklich ausgewählte
+Umgebung ausgeführt werden. Die bestehende Migration 001 bleibt unverändert.
+Migration 002 ergänzt Haus-/Assistentendaten, persönliche Einstellungen,
+Verbindungen, Aufträge und Kontolöschstatus einschließlich RLS.
+
+Zusätzlich braucht jede Umgebung ein eigenes Cloudflare-Secret
+`LLM_ENCRYPTION_KEY_V1` (32 zufällige Bytes, Base64-kodiert). Dies ist ein interner
+Verschlüsselungsschlüssel und **kein** Anbieter-API-Schlüssel. Nicht in Git oder
+Logs schreiben und für Wiederherstellungen gesichert aufbewahren. Bestehende
+Schlüssel bei späterer Rotation bis zur Umschlüsselung erhalten.
+Die in `wrangler.jsonc` getrennt konfigurierten Workflows und Browser-Bindings sind
+für Verarbeitung und PDF-Erstellung erforderlich. Browser-/Workflow-Nutzung wird
+über Cloudflare abgerechnet. Die neuen persönlichen Kontofunktionen stehen nur
+in der angemeldeten Cloud-Anwendung bereit; lokale lowdb-Nutzung bleibt erhalten.
+
+`npm run test:cloud:integration` verwendet ausschließlich einen kurzlebigen
+Docker-PostgreSQL, lokalen R2-Speicher, einen lokalen Chromium-PDF-Dienst und
+**simulierte** LLM-Antworten. `LLM_SIMULATION=true` wirkt nur zusammen mit
+`DOMUS_ENV=test`; Preview und Produktion akzeptieren diese Simulation nicht.
+Simulierte Entwürfe und PDFs sind unübersehbar markiert. Tests benötigen keine
+echten Anbieter-Schlüssel. Live-Tests der drei Anbieter sind separat durchzuführen.
+`npm run test:assistants:pdf` schreibt synthetische mehrseitige PDF-Muster nach
+`test-results/assistant-pdfs/` zur visuellen Kontrolle.
+
+Kontolöschung verlangt das aktuelle Passwort und die ausdrückliche Bestätigung.
+Neue Zugriffe/Aufträge werden gesperrt, laufende Workflows beendet, alle privaten
+Dateien und anschließend Fach- und Authentifizierungsdaten gelöscht. Fehlgeschlagene
+Löschschritte werden wiederholt; der tägliche Wartungslauf nimmt fehlgeschlagene
+Löschaufträge erneut auf. Technische Anbieterprotokolle und externe Backups folgen
+ihren jeweiligen Aufbewahrungsfristen.
+
 ## CI/CD
 
 GitHub Actions workflows:

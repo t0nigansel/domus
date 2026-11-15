@@ -10,6 +10,10 @@ import Documents from './pages/Documents';
 import Costs from './pages/Costs';
 import People from './pages/People';
 import Rentals from './pages/Rentals';
+import Settings, { UserPreferences } from './pages/Settings';
+import { BuildingDetails } from './components/Buildings';
+import Exposes from './pages/Exposes';
+import UtilityStatements from './pages/UtilityStatements';
 import { DataProvider } from './context/DataContext';
 
 
@@ -17,11 +21,16 @@ function App() {
   return (
     <DataProvider>
       <BrowserRouter>
+        <UserPreferences />
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="properties" element={<Properties />} />
             <Route path="properties/:id" element={<PropertyDetails />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="buildings/:id" element={<BuildingDetails />} />
+            <Route path="buildings/:id/statements" element={<UtilityStatements />} />
+            <Route path="properties/:id/exposes" element={<Exposes />} />
             <Route path="issues" element={<Issues />} />
             <Route path="tenants" element={<Navigate to="/contacts?filter=tenants" replace />} />
             <Route path="tenants/:id" element={<TenantDetails />} />

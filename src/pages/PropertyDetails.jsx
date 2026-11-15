@@ -11,6 +11,7 @@ import PropertyDossier from './PropertyDossier';
 import PropertyRentalSummary from '../components/PropertyRentalSummary';
 import PropertyFiles from '../components/PropertyFiles';
 import { RentalWorkspace } from './Rentals';
+import { useCloudAuth } from '../context/CloudAuthContext';
 import './PropertyDetails.css';
 
 const tabs = [['overview', 'Übersicht'], ['data', 'Wohnungsdaten'], ['rental', 'Vermietung'], ['files', 'Fotos & Dokumente'], ['history', 'Historie']];
@@ -27,6 +28,7 @@ export default function PropertyDetails() {
 
 function PropertyPage({ property, initialTab, startNew }) {
     const { t, locale } = useTranslation();
+    const auth = useCloudAuth();
     const { tenants, documents, issues, refreshAll } = useData();
     const workflow = useRentals(refreshAll);
     const [tab, setTab] = useState(tabs.some(([key]) => key === initialTab) ? initialTab : 'overview');
@@ -44,6 +46,7 @@ function PropertyPage({ property, initialTab, startNew }) {
                 <p className="address-row text-muted"><MapPin size={16} aria-hidden="true" />{address || t('Noch nicht erfasst')}</p>
             </div>
         </header>
+        {auth && <div className="assistant-actions"><Link className="btn-outline" to={`/properties/${property.id}/exposes`}>{t('Exposé erstellen')}</Link>{property.buildingId && <><Link className="btn-outline" to={`/buildings/${property.buildingId}`}>{t('Hausakte')}</Link><Link className="btn-outline" to={`/buildings/${property.buildingId}/statements`}>{t('Nebenkostenabrechnungen')}</Link></>}</div>}
         <div className="property-tabs" role="tablist" aria-label={t('Wohnungsbereiche')}>
             {tabs.map(([key, label]) => <button key={key} id={`tab-${key}`} role="tab" aria-selected={tab === key} aria-controls={`panel-${key}`} tabIndex={tab === key ? 0 : -1} onClick={() => selectTab(key)} onKeyDown={e => {
                 const index = tabs.findIndex(([value]) => value === key);

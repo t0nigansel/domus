@@ -16,3 +16,4 @@ const auth = betterAuth({ ...options, rateLimit: { enabled: false }, logger: { d
 export default { fetch: request => auth.handler(new Request(
     `http://localhost:8787${new URL(request.url).pathname}`, request,
 )) };
+export { AssistantWorkflow } from '../cloud/assistant-workflow.js';

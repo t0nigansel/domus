@@ -1,4 +1,5 @@
 import { useTranslation } from '../i18n';
+import Buildings from '../components/Buildings';
 import React, { useState } from 'react';
 import { useData } from '../context/DataContext';
 import { Building, Ruler, Euro, AlertCircle } from 'lucide-react';
@@ -147,6 +148,7 @@ const Properties = () => {
                 </form>
             </CollapsiblePanel>
 
+            <Buildings />
             {properties.length > 0 ? (
                 <List>
                     {properties.map(property => {

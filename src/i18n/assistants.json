@@ -1,0 +1,531 @@
+{
+  "Verarbeitet": { "de": "Verarbeitet", "en": "Processed" },
+  "Simulation: Alle Belege müssen manuell geprüft werden. Die PDFs werden als Simulation gekennzeichnet.": {
+    "de": "Simulation: Alle Belege müssen manuell geprüft werden. Die PDFs werden als Simulation gekennzeichnet.",
+    "en": "Simulation: all documents require manual review. PDFs will be marked as simulations."
+  },
+  "Arbeite die Belege, historischen Wohnungsdaten, Kosten und Vorauszahlungen durch. Erst nach vollständiger Prüfung ist die Finalisierung möglich.": {
+    "de": "Arbeite die Belege, historischen Wohnungsdaten, Kosten und Vorauszahlungen durch. Erst nach vollständiger Prüfung ist die Finalisierung möglich.",
+    "en": "Review documents, historical apartment data, costs and advance payments. Finalization requires a complete review."
+  },
+  "Alle zugeordneten Unterlagen werden nach ihrem Leistungszeitraum geprüft. Das Upload-Datum schränkt die Auswahl nicht ein.": {
+    "de": "Alle zugeordneten Unterlagen werden nach ihrem Leistungszeitraum geprüft. Das Upload-Datum schränkt die Auswahl nicht ein.",
+    "en": "All assigned documents are reviewed by service period. Upload dates do not limit selection."
+  },
+  "Ich bestätige die Verarbeitung aller nicht ausgeschlossenen Belege durch meinen persönlichen LLM-Anbieter. Dabei können API-Kosten entstehen.": {
+    "de": "Ich bestätige die Verarbeitung aller nicht ausgeschlossenen Belege durch meinen persönlichen LLM-Anbieter. Dabei können API-Kosten entstehen.",
+    "en": "I confirm processing of all documents not excluded by my personal AI provider. API charges may apply."
+  },
+  "Alle beteiligten Einheiten einschließlich Leerstand sind enthalten. Mietverhältnisse und Vertragsgrundlagen sind geprüft.": {
+    "de": "Alle beteiligten Einheiten einschließlich Leerstand sind enthalten. Mietverhältnisse und Vertragsgrundlagen sind geprüft.",
+    "en": "All participating units, including vacancies, are included. Tenancies and contractual bases have been reviewed."
+  },
+  "Betrag, Zeitraum, Umlagefähigkeit, Vertragsgrundlage und Schlüssel geprüft": {
+    "de": "Betrag, Zeitraum, Umlagefähigkeit, Vertragsgrundlage und Schlüssel geprüft",
+    "en": "Amount, service period, recoverability, contractual basis and allocation reviewed"
+  },
+  "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Domus berechnet keine eigene Heizkosten- oder CO₂-Verteilung.": {
+    "de": "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Domus berechnet keine eigene Heizkosten- oder CO₂-Verteilung.",
+    "en": "Import external heating statements for each tenancy. Domus does not calculate its own heating or CO₂ allocation."
+  },
+  "Alle erforderlichen externen Heizkostenabrechnungen sind übernommen oder es fallen keine abzurechnenden Heizkosten an.": {
+    "de": "Alle erforderlichen externen Heizkostenabrechnungen sind übernommen oder es fallen keine abzurechnenden Heizkosten an.",
+    "en": "All required external heating statements have been imported, or there are no heating costs to bill."
+  },
+  "Alle tatsächlich geleisteten Nebenkostenvorauszahlungen sind vollständig erfasst. Vertragswerte wurden nicht ungeprüft übernommen.": {
+    "de": "Alle tatsächlich geleisteten Nebenkostenvorauszahlungen sind vollständig erfasst. Vertragswerte wurden nicht ungeprüft übernommen.",
+    "en": "All actual utility advance payments have been recorded completely. Contract values were not imported without review."
+  },
+  "Änderungen der Personenzahl erfassen": {
+    "de": "Änderungen der Personenzahl erfassen",
+    "en": "Record changes in occupant count"
+  },
+  "Erfasse lückenlos die Teilzeiträume mit der jeweils dokumentierten Personenzahl.": {
+    "de": "Erfasse lückenlos die Teilzeiträume mit der jeweils dokumentierten Personenzahl.",
+    "en": "Record consecutive periods with their documented occupant counts, without gaps."
+  },
+  "Beginn": { "de": "Beginn", "en": "Start" },
+  "Ende": { "de": "Ende", "en": "End" },
+  "Personenzahl": { "de": "Personenzahl", "en": "Occupant count" },
+  "Teilzeitraum entfernen": {
+    "de": "Teilzeitraum entfernen",
+    "en": "Remove subperiod"
+  },
+  "Teilzeitraum hinzufügen": {
+    "de": "Teilzeitraum hinzufügen",
+    "en": "Add subperiod"
+  },
+  "Unter Einstellungen kannst du deine Verwaltungsdaten und Originaldateien exportieren und dein Konto nach Passwortprüfung endgültig löschen. Laufende Aufträge werden gesperrt und die Kontodaten einschließlich Dateien und persönlicher LLM-Schlüssel entfernt. Technische Sicherungskopien und Anbieterprotokolle unterliegen ihren jeweiligen Aufbewahrungsfristen; deren sofortige Löschung wird nicht zugesichert. Für die Aufbewahrung deiner Miet- und Geschäftsunterlagen bist du verantwortlich.": {
+    "de": "Unter Einstellungen kannst du deine Verwaltungsdaten und Originaldateien exportieren und dein Konto nach Passwortprüfung endgültig löschen. Laufende Aufträge werden gesperrt und die Kontodaten einschließlich Dateien und persönlicher LLM-Schlüssel entfernt. Technische Sicherungskopien und Anbieterprotokolle unterliegen ihren jeweiligen Aufbewahrungsfristen; deren sofortige Löschung wird nicht zugesichert. Für die Aufbewahrung deiner Miet- und Geschäftsunterlagen bist du verantwortlich.",
+    "en": "Settings allow you to export management data and original files and permanently delete your account after a password check. Jobs are blocked and account data, files and personal AI keys are removed. Technical backups and provider logs follow their respective retention periods; immediate deletion is not promised. You are responsible for retaining your tenancy and business records."
+  },
+  "KI-Assistenten und persönliche Anbieter": {
+    "de": "KI-Assistenten und persönliche Anbieter",
+    "en": "AI assistants and personal providers"
+  },
+  "Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Domus speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.": {
+    "de": "Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Domus speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.",
+    "en": "When you confirm an AI job, its selected property information and documents are sent to your personal OpenAI, Anthropic or Google provider. Brochure research uses necessary location information in web searches. Processing may occur outside the EU and is also governed by your agreement with that provider. Domus encrypts personal API keys and never displays them in full again. Keys and passwords are excluded from exports."
+  },
+  "Sprache und Darstellung werden für angemeldete Nutzer zusätzlich im Konto gespeichert. PDF-Erstellung und Hintergrundaufträge werden über Cloudflare verarbeitet. Bereitgestellte ZIP-Archive werden nach sieben Tagen entfernt und können erneut erstellt werden. KI-Vorschläge sind vor der Freigabe zu prüfen; simulierte Ergebnisse werden ausdrücklich gekennzeichnet.": {
+    "de": "Sprache und Darstellung werden für angemeldete Nutzer zusätzlich im Konto gespeichert. PDF-Erstellung und Hintergrundaufträge werden über Cloudflare verarbeitet. Bereitgestellte ZIP-Archive werden nach sieben Tagen entfernt und können erneut erstellt werden. KI-Vorschläge sind vor der Freigabe zu prüfen; simulierte Ergebnisse werden ausdrücklich gekennzeichnet.",
+    "en": "Language and appearance are also saved to signed-in accounts. Cloudflare processes PDFs and background jobs. ZIP archives are removed after seven days and can be generated again. AI suggestions require review before approval; simulated results are explicitly marked."
+  },
+  "Einstellungen": { "de": "Einstellungen", "en": "Settings" },
+  "Darstellung und Sprache": {
+    "de": "Darstellung und Sprache",
+    "en": "Appearance and language"
+  },
+  "Einstellungen gespeichert.": {
+    "de": "Einstellungen gespeichert.",
+    "en": "Settings saved."
+  },
+  "Einstellungen speichern": {
+    "de": "Einstellungen speichern",
+    "en": "Save settings"
+  },
+  "Absender für Dokumente": {
+    "de": "Absender für Dokumente",
+    "en": "Document sender"
+  },
+  "Name / Firma": { "de": "Name / Firma", "en": "Name / company" },
+  "Anschrift": { "de": "Anschrift", "en": "Address" },
+  "Logo": { "de": "Logo", "en": "Logo" },
+  "Logo entfernen": { "de": "Logo entfernen", "en": "Remove logo" },
+  "Logo (PNG, JPG oder WebP, bis 1 MB)": {
+    "de": "Logo (PNG, JPG oder WebP, bis 1 MB)",
+    "en": "Logo (PNG, JPG or WebP, up to 1 MB)"
+  },
+  "Das Logo darf höchstens 1 MB groß sein.": {
+    "de": "Das Logo darf höchstens 1 MB groß sein.",
+    "en": "The logo must be no larger than 1 MB."
+  },
+  "Persönliche LLM-Anbindung": {
+    "de": "Persönliche LLM-Anbindung",
+    "en": "Personal AI connection"
+  },
+  "Anbieter": { "de": "Anbieter", "en": "Provider" },
+  "API-Schlüssel": { "de": "API-Schlüssel", "en": "API key" },
+  "Modell": { "de": "Modell", "en": "Model" },
+  "Verbindung speichern / ersetzen": {
+    "de": "Verbindung speichern / ersetzen",
+    "en": "Save / replace connection"
+  },
+  "Verfügbare Modelle laden": {
+    "de": "Verfügbare Modelle laden",
+    "en": "Load available models"
+  },
+  "Verbindung prüfen": { "de": "Verbindung prüfen", "en": "Test connection" },
+  "Verbindung geprüft": {
+    "de": "Verbindung geprüft",
+    "en": "Connection tested"
+  },
+  "Noch nicht geprüft": { "de": "Noch nicht geprüft", "en": "Not tested yet" },
+  "Ausgewählt": { "de": "Ausgewählt", "en": "Selected" },
+  "Für Assistenten verwenden": {
+    "de": "Für Assistenten verwenden",
+    "en": "Use for assistants"
+  },
+  "Verbindung entfernen": {
+    "de": "Verbindung entfernen",
+    "en": "Remove connection"
+  },
+  "Schlüssel gespeichert. Bitte die Verbindung prüfen.": {
+    "de": "Schlüssel gespeichert. Bitte die Verbindung prüfen.",
+    "en": "Key saved. Please test the connection."
+  },
+  "Simulierte Verbindung geprüft.": {
+    "de": "Simulierte Verbindung geprüft.",
+    "en": "Simulated connection tested."
+  },
+  "Verbindung geprüft.": {
+    "de": "Verbindung geprüft.",
+    "en": "Connection tested."
+  },
+  "Testbetrieb: Anbieterantworten werden simuliert. Es werden keine externen LLM-Anfragen gesendet.": {
+    "de": "Testbetrieb: Anbieterantworten werden simuliert. Es werden keine externen LLM-Anfragen gesendet.",
+    "en": "Test mode: provider responses are simulated. No external AI requests are sent."
+  },
+  "Dein API-Schlüssel wird verschlüsselt gespeichert. Die API-Nutzung wird von deinem Anbieter abgerechnet. Vor jedem Auftrag siehst du, welche Unterlagen verarbeitet werden.": {
+    "de": "Dein API-Schlüssel wird verschlüsselt gespeichert. Die API-Nutzung wird von deinem Anbieter abgerechnet. Vor jedem Auftrag siehst du, welche Unterlagen verarbeitet werden.",
+    "en": "Your API key is encrypted. Your provider bills API usage. You can review the documents to be processed before each job."
+  },
+  "Zugang und Sicherheit": {
+    "de": "Zugang und Sicherheit",
+    "en": "Access and security"
+  },
+  "Aktuelles Passwort": {
+    "de": "Aktuelles Passwort",
+    "en": "Current password"
+  },
+  "Neues Passwort": { "de": "Neues Passwort", "en": "New password" },
+  "Passwort ändern": { "de": "Passwort ändern", "en": "Change password" },
+  "Neue E-Mail-Adresse": {
+    "de": "Neue E-Mail-Adresse",
+    "en": "New email address"
+  },
+  "E-Mail-Adresse ändern": {
+    "de": "E-Mail-Adresse ändern",
+    "en": "Change email address"
+  },
+  "Passwort geändert. Andere Sitzungen wurden beendet.": {
+    "de": "Passwort geändert. Andere Sitzungen wurden beendet.",
+    "en": "Password changed. Other sessions have been revoked."
+  },
+  "Bitte bestätige die Änderung zuerst über die bisherige und anschließend über die neue E-Mail-Adresse.": {
+    "de": "Bitte bestätige die Änderung zuerst über die bisherige und anschließend über die neue E-Mail-Adresse.",
+    "en": "Confirm the change using your current email address first, then your new address."
+  },
+  "Daten und Konto": { "de": "Daten und Konto", "en": "Data and account" },
+  "Alle Daten exportieren": {
+    "de": "Alle Daten exportieren",
+    "en": "Export all data"
+  },
+  "Exportiere alle Verwaltungsdaten und Originaldateien als ZIP. Zugangsschlüssel und Passwörter sind nicht enthalten.": {
+    "de": "Exportiere alle Verwaltungsdaten und Originaldateien als ZIP. Zugangsschlüssel und Passwörter sind nicht enthalten.",
+    "en": "Export all management data and original files as a ZIP archive. Keys and passwords are excluded."
+  },
+  "Konto endgültig löschen": {
+    "de": "Konto endgültig löschen",
+    "en": "Permanently delete account"
+  },
+  "Kontolöschung vorbereiten": {
+    "de": "Kontolöschung vorbereiten",
+    "en": "Prepare account deletion"
+  },
+  "Alle Daten endgültig löschen": {
+    "de": "Alle Daten endgültig löschen",
+    "en": "Permanently delete all data"
+  },
+  "Zur Bestätigung KONTO LÖSCHEN eingeben": {
+    "de": "Zur Bestätigung KONTO LÖSCHEN eingeben",
+    "en": "Type KONTO LÖSCHEN to confirm"
+  },
+  "Alle Immobilien, Mieterdaten, Unterlagen und LLM-Schlüssel werden gelöscht. Lade vorher bei Bedarf deinen vollständigen Export herunter. Diese Aktion kann nicht rückgängig gemacht werden.": {
+    "de": "Alle Immobilien, Mieterdaten, Unterlagen und LLM-Schlüssel werden gelöscht. Lade vorher bei Bedarf deinen vollständigen Export herunter. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "en": "All properties, tenant data, documents and AI keys will be deleted. Download your complete export first if needed. This cannot be undone."
+  },
+  "Dein Konto ist gesperrt und wird vollständig gelöscht. Nach Abschluss wirst du abgemeldet.": {
+    "de": "Dein Konto ist gesperrt und wird vollständig gelöscht. Nach Abschluss wirst du abgemeldet.",
+    "en": "Your account is locked and is being deleted completely. You will be signed out when this finishes."
+  },
+  "Persönliche LLM-Zugänge und Kontofunktionen stehen in der angemeldeten Cloud-Anwendung zur Verfügung.": {
+    "de": "Persönliche LLM-Zugänge und Kontofunktionen stehen in der angemeldeten Cloud-Anwendung zur Verfügung.",
+    "en": "Personal AI connections and account features are available in the signed-in cloud application."
+  },
+  "Auftrag wartet …": { "de": "Auftrag wartet …", "en": "Job queued …" },
+  "Auftrag wird verarbeitet …": {
+    "de": "Auftrag wird verarbeitet …",
+    "en": "Processing job …"
+  },
+  "Auftrag abgeschlossen.": {
+    "de": "Auftrag abgeschlossen.",
+    "en": "Job completed."
+  },
+  "Auftrag fehlgeschlagen.": {
+    "de": "Auftrag fehlgeschlagen.",
+    "en": "Job failed."
+  },
+  "Auftrag abgebrochen.": {
+    "de": "Auftrag abgebrochen.",
+    "en": "Job cancelled."
+  },
+  "Auftrag wird geladen …": {
+    "de": "Auftrag wird geladen …",
+    "en": "Loading job …"
+  },
+  "ZIP herunterladen": { "de": "ZIP herunterladen", "en": "Download ZIP" },
+  "Häuser": { "de": "Häuser", "en": "Buildings" },
+  "Haus anlegen": { "de": "Haus anlegen", "en": "Add building" },
+  "Hausbezeichnung": { "de": "Hausbezeichnung", "en": "Building name" },
+  "Hausbeschreibung": {
+    "de": "Hausbeschreibung",
+    "en": "Building description"
+  },
+  "Baujahr": { "de": "Baujahr", "en": "Year built" },
+  "Energieangaben": { "de": "Energieangaben", "en": "Energy information" },
+  "Haus speichern": { "de": "Haus speichern", "en": "Save building" },
+  "Hausdaten bearbeiten": {
+    "de": "Hausdaten bearbeiten",
+    "en": "Edit building details"
+  },
+  "Hausakte": { "de": "Hausakte", "en": "Building file" },
+  "Wohnungen zuordnen": {
+    "de": "Wohnungen zuordnen",
+    "en": "Assign apartments"
+  },
+  "Zuordnung entfernen": {
+    "de": "Zuordnung entfernen",
+    "en": "Remove assignment"
+  },
+  "Diesem Haus zuordnen": {
+    "de": "Diesem Haus zuordnen",
+    "en": "Assign to this building"
+  },
+  "Bereits einem anderen Haus zugeordnet": {
+    "de": "Bereits einem anderen Haus zugeordnet",
+    "en": "Already assigned to another building"
+  },
+  "Bestätige die Hauszuordnung ausdrücklich. Bestehende Daten bleiben erhalten.": {
+    "de": "Bestätige die Hauszuordnung ausdrücklich. Bestehende Daten bleiben erhalten.",
+    "en": "Explicitly confirm building assignments. Existing data is preserved."
+  },
+  "Lege ein Haus an, um gemeinsame Unterlagen und Nebenkostenabrechnungen zu verwalten.": {
+    "de": "Lege ein Haus an, um gemeinsame Unterlagen und Nebenkostenabrechnungen zu verwalten.",
+    "en": "Add a building to manage shared documents and utility statements."
+  },
+  "Hausunterlagen": { "de": "Hausunterlagen", "en": "Building documents" },
+  "Hauskosten und Leistungszeiträume": {
+    "de": "Hauskosten und Leistungszeiträume",
+    "en": "Building costs and service periods"
+  },
+  "Vorhandene Kosten dem Haus zuordnen": {
+    "de": "Vorhandene Kosten dem Haus zuordnen",
+    "en": "Assign existing costs to the building"
+  },
+  "Kosten erfassen und Belege zuordnen": {
+    "de": "Kosten erfassen und Belege zuordnen",
+    "en": "Record costs and attach evidence"
+  },
+  "Leistungsbeginn": { "de": "Leistungsbeginn", "en": "Service period start" },
+  "Leistungsende": { "de": "Leistungsende", "en": "Service period end" },
+  "Betriebskostenart": {
+    "de": "Betriebskostenart",
+    "en": "Operating cost category"
+  },
+  "Zeitraum speichern": { "de": "Zeitraum speichern", "en": "Save period" },
+  "← Zu den Wohnungen": {
+    "de": "← Zu den Wohnungen",
+    "en": "← Back to apartments"
+  },
+  "← Zum Haus": { "de": "← Zum Haus", "en": "← Back to building" },
+  "Exposé erstellen": {
+    "de": "Exposé erstellen",
+    "en": "Create property brochure"
+  },
+  "Neues Exposé": { "de": "Neues Exposé", "en": "New brochure" },
+  "Exposé-Entwurf": { "de": "Exposé-Entwurf", "en": "Brochure draft" },
+  "Entwurf": { "de": "Entwurf", "en": "Draft" },
+  "Finalisiert": { "de": "Finalisiert", "en": "Finalized" },
+  "PDF herunterladen": { "de": "PDF herunterladen", "en": "Download PDF" },
+  "Neue Version anlegen": {
+    "de": "Neue Version anlegen",
+    "en": "Create new version"
+  },
+  "Unterlagen und Bilder auswählen": {
+    "de": "Unterlagen und Bilder auswählen",
+    "en": "Select documents and images"
+  },
+  "Es werden ausschließlich freigegebene Objektbilder und ausgewählte Energieunterlagen verwendet. Private Mieterdaten werden nicht recherchiert.": {
+    "de": "Es werden ausschließlich freigegebene Objektbilder und ausgewählte Energieunterlagen verwendet. Private Mieterdaten werden nicht recherchiert.",
+    "en": "Only approved property images and selected energy documents are used. Private tenant information is not researched."
+  },
+  "Simulation: Dieser Entwurf enthält keine echte Webrecherche und wird im PDF als Simulation gekennzeichnet.": {
+    "de": "Simulation: Dieser Entwurf enthält keine echte Webrecherche und wird im PDF als Simulation gekennzeichnet.",
+    "en": "Simulation: this draft contains no actual web research and its PDF will be marked as a simulation."
+  },
+  "Ich bestätige die Verarbeitung der ausgewählten Objektdaten und Unterlagen durch meinen gewählten LLM-Anbieter einschließlich Webrecherche. Dabei können API-Kosten entstehen.": {
+    "de": "Ich bestätige die Verarbeitung der ausgewählten Objektdaten und Unterlagen durch meinen gewählten LLM-Anbieter einschließlich Webrecherche. Dabei können API-Kosten entstehen.",
+    "en": "I confirm processing of the selected property information and documents by my chosen AI provider, including web research. API charges may apply."
+  },
+  "KI-Entwurf erstellen": {
+    "de": "KI-Entwurf erstellen",
+    "en": "Generate AI draft"
+  },
+  "Titel": { "de": "Titel", "en": "Title" },
+  "Kurzbeschreibung": { "de": "Kurzbeschreibung", "en": "Summary" },
+  "Lagebeschreibung": {
+    "de": "Lagebeschreibung",
+    "en": "Location description"
+  },
+  "Konditionen": { "de": "Konditionen", "en": "Terms" },
+  "Kontakt im Exposé": { "de": "Kontakt im Exposé", "en": "Brochure contact" },
+  "Offene Angaben": { "de": "Offene Angaben", "en": "Missing information" },
+  "Ich habe die offenen Angaben ergänzt oder unbelegte Aussagen entfernt.": {
+    "de": "Ich habe die offenen Angaben ergänzt oder unbelegte Aussagen entfernt.",
+    "en": "I have completed the missing information or removed unsupported claims."
+  },
+  "Ich habe Objektfakten, Texte, Bilder, Quellen und Kontakt geprüft und gebe diesen Entwurf frei.": {
+    "de": "Ich habe Objektfakten, Texte, Bilder, Quellen und Kontakt geprüft und gebe diesen Entwurf frei.",
+    "en": "I have reviewed the property facts, text, images, sources and contact details and approve this draft."
+  },
+  "Entwurf speichern": { "de": "Entwurf speichern", "en": "Save draft" },
+  "PDF erstellen und finalisieren": {
+    "de": "PDF erstellen und finalisieren",
+    "en": "Generate PDF and finalize"
+  },
+  "Nebenkostenabrechnungen": {
+    "de": "Nebenkostenabrechnungen",
+    "en": "Utility statements"
+  },
+  "Abrechnungen öffnen": {
+    "de": "Abrechnungen öffnen",
+    "en": "Open statements"
+  },
+  "Abrechnungsbeginn": {
+    "de": "Abrechnungsbeginn",
+    "en": "Billing period start"
+  },
+  "Abrechnungsende": { "de": "Abrechnungsende", "en": "Billing period end" },
+  "Abrechnung anlegen": {
+    "de": "Abrechnung anlegen",
+    "en": "Create statement"
+  },
+  "Diese Abrechnung ist finalisiert. Änderungen erfolgen in einer neuen Version.": {
+    "de": "Diese Abrechnung ist finalisiert. Änderungen erfolgen in einer neuen Version.",
+    "en": "This statement is finalized. Changes require a new version."
+  },
+  "Alle PDFs als ZIP": { "de": "Alle PDFs als ZIP", "en": "All PDFs as ZIP" },
+  "Korrekturversion anlegen": {
+    "de": "Korrekturversion anlegen",
+    "en": "Create corrected version"
+  },
+  "Berechnungsvorschau": {
+    "de": "Berechnungsvorschau",
+    "en": "Calculation preview"
+  },
+  "Wohnung / Empfänger": {
+    "de": "Wohnung / Empfänger",
+    "en": "Apartment / recipient"
+  },
+  "Kostenanteil": { "de": "Kostenanteil", "en": "Allocated cost" },
+  "Vorauszahlungen": { "de": "Vorauszahlungen", "en": "Advance payments" },
+  "Nachzahlung / Guthaben": {
+    "de": "Nachzahlung / Guthaben",
+    "en": "Amount due / credit"
+  },
+  "Eigentümer- und Leerstandsanteile bleiben beim Eigentümer. Negative Salden sind Guthaben.": {
+    "de": "Eigentümer- und Leerstandsanteile bleiben beim Eigentümer. Negative Salden sind Guthaben.",
+    "en": "Owner and vacancy shares remain with the owner. Negative balances are credits."
+  },
+  "Vor Finalisierung zu prüfen": {
+    "de": "Vor Finalisierung zu prüfen",
+    "en": "Review before finalizing"
+  },
+  "Abrechnungen freigeben und PDFs erstellen": {
+    "de": "Abrechnungen freigeben und PDFs erstellen",
+    "en": "Approve statements and generate PDFs"
+  },
+  "1. Belege und KI-Vorschläge": {
+    "de": "1. Belege und KI-Vorschläge",
+    "en": "1. Evidence and AI suggestions"
+  },
+  "2. Wohnungen und historische Nutzungszeiträume": {
+    "de": "2. Wohnungen und historische Nutzungszeiträume",
+    "en": "2. Apartments and historical occupancy"
+  },
+  "3. Kosten und Verteilung": {
+    "de": "3. Kosten und Verteilung",
+    "en": "3. Costs and allocation"
+  },
+  "4. Externe Heiz- und Warmwasserkosten": {
+    "de": "4. Externe Heiz- und Warmwasserkosten",
+    "en": "4. External heating and hot water costs"
+  },
+  "5. Tatsächliche Nebenkostenvorauszahlungen": {
+    "de": "5. Tatsächliche Nebenkostenvorauszahlungen",
+    "en": "5. Actual utility advance payments"
+  },
+  "Originalbeleg": { "de": "Originalbeleg", "en": "Source document" },
+  "Belegstatus": { "de": "Belegstatus", "en": "Document review" },
+  "Noch prüfen": { "de": "Noch prüfen", "en": "Pending review" },
+  "Geprüft": { "de": "Geprüft", "en": "Reviewed" },
+  "Nicht relevant": { "de": "Nicht relevant", "en": "Not relevant" },
+  "Begründung": { "de": "Begründung", "en": "Reason" },
+  "Belege mit KI auslesen": {
+    "de": "Belege mit KI auslesen",
+    "en": "Extract documents with AI"
+  },
+  "Bereits erfasste Kosten übernehmen": {
+    "de": "Bereits erfasste Kosten übernehmen",
+    "en": "Import recorded costs"
+  },
+  "Als ungeprüfte Position übernehmen": {
+    "de": "Als ungeprüfte Position übernehmen",
+    "en": "Import for review"
+  },
+  "Wohnfläche im Abrechnungszeitraum (m²)": {
+    "de": "Wohnfläche im Abrechnungszeitraum (m²)",
+    "en": "Floor area during billing period (m²)"
+  },
+  "Historische Wohnungsdaten geprüft": {
+    "de": "Historische Wohnungsdaten geprüft",
+    "en": "Historical apartment details reviewed"
+  },
+  "Dokumentierte Personenzahl im gesamten Nutzungszeitraum": {
+    "de": "Dokumentierte Personenzahl im gesamten Nutzungszeitraum",
+    "en": "Documented number of occupants throughout occupancy"
+  },
+  "Nutzungszeitraum und Empfänger geprüft": {
+    "de": "Nutzungszeitraum und Empfänger geprüft",
+    "en": "Occupancy dates and recipient reviewed"
+  },
+  "Kostenposition": { "de": "Kostenposition", "en": "Cost item" },
+  "Kostenart": { "de": "Kostenart", "en": "Cost category" },
+  "Betrag (€), Gutschriften negativ": {
+    "de": "Betrag (€), Gutschriften negativ",
+    "en": "Amount (€), credits negative"
+  },
+  "Seite / Fundstelle": {
+    "de": "Seite / Fundstelle",
+    "en": "Page / evidence location"
+  },
+  "Rechnungsnummer / Position": {
+    "de": "Rechnungsnummer / Position",
+    "en": "Invoice / item reference"
+  },
+  "Vertragliche Grundlage der Umlage": {
+    "de": "Vertragliche Grundlage der Umlage",
+    "en": "Contractual allocation basis"
+  },
+  "Verteilerschlüssel": {
+    "de": "Verteilerschlüssel",
+    "en": "Allocation method"
+  },
+  "Wohnfläche": { "de": "Wohnfläche", "en": "Floor area" },
+  "Einheiten": { "de": "Einheiten", "en": "Units" },
+  "Personentage": { "de": "Personentage", "en": "Person days" },
+  "Verbrauch": { "de": "Verbrauch", "en": "Consumption" },
+  "Feste Anteile": { "de": "Feste Anteile", "en": "Fixed shares" },
+  "Position nicht umlegen": {
+    "de": "Position nicht umlegen",
+    "en": "Exclude item from allocation"
+  },
+  "Position entfernen": { "de": "Position entfernen", "en": "Remove item" },
+  "Kostenposition hinzufügen": {
+    "de": "Kostenposition hinzufügen",
+    "en": "Add cost item"
+  },
+  "Nutzungszeitraum / Empfänger": {
+    "de": "Nutzungszeitraum / Empfänger",
+    "en": "Occupancy / recipient"
+  },
+  "Externe Heizkostenposition geprüft": {
+    "de": "Externe Heizkostenposition geprüft",
+    "en": "External heating cost reviewed"
+  },
+  "Heizkostenposition hinzufügen": {
+    "de": "Heizkostenposition hinzufügen",
+    "en": "Add heating cost"
+  },
+  "Zahlungsdatum": { "de": "Zahlungsdatum", "en": "Payment date" },
+  "Tatsächlich gezahlter Nebenkostenbetrag (€)": {
+    "de": "Tatsächlich gezahlter Nebenkostenbetrag (€)",
+    "en": "Actual utility advance paid (€)"
+  },
+  "Zahlungsnachweis / Referenz": {
+    "de": "Zahlungsnachweis / Referenz",
+    "en": "Payment evidence / reference"
+  },
+  "Tatsächliche Vorauszahlung geprüft": {
+    "de": "Tatsächliche Vorauszahlung geprüft",
+    "en": "Actual advance payment reviewed"
+  },
+  "Zahlung entfernen": { "de": "Zahlung entfernen", "en": "Remove payment" },
+  "Vorauszahlung hinzufügen": {
+    "de": "Vorauszahlung hinzufügen",
+    "en": "Add advance payment"
+  },
+  "Dokumenttyp": { "de": "Dokumenttyp", "en": "Document type" },
+  "Exposés": { "de": "Exposés", "en": "Property brochures" }
+}

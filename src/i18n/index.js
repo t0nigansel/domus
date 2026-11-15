@@ -1,5 +1,7 @@
 import { useSyncExternalStore } from 'react';
-import messages from './messages.json';
+import baseMessages from './messages.json';
+import assistantMessages from './assistants.json';
+const messages={...baseMessages,...assistantMessages};
 
 const listeners = new Set();
 const savedLanguage = typeof localStorage === 'undefined' ? null : localStorage.getItem('domus-language');

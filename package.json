@@ -12,6 +12,7 @@
     "dev:cloud": "npm run build:cloud && wrangler dev --env preview",
     "test:cloud": "npm run build:cloud && node scripts/cloud-smoke.js",
     "test:cloud:integration": "npm run build:cloud && node scripts/cloud-integration.js",
+    "test:assistants:pdf": "node scripts/assistant-pdf-check.js",
     "deploy:preview": "npm run build:cloud && wrangler deploy --env preview",
     "deploy:production": "npm run build:cloud && wrangler deploy --env production",
     "db:migrate:auth": "node --env-file-if-exists=.env scripts/cloud-auth-migrate.js",
@@ -32,7 +33,11 @@
     "db:logs": "docker compose logs -f postgres"
   },
   "dependencies": {
+    "@cloudflare/puppeteer": "^2.0.0",
+    "fflate": "^0.8.3",
     "lucide-react": "^0.562.0",
+    "mammoth": "^1.13.0",
+    "pdf-lib": "^1.17.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.11.0"

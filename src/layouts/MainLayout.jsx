@@ -35,6 +35,7 @@ const MainLayout = () => {
                             ? location.pathname === '/'
                             : location.pathname.startsWith(item.path)
                                 || (item.path === '/properties' && location.pathname.startsWith('/rentals'))
+                                || (item.path === '/properties' && location.pathname.startsWith('/buildings'))
                                 || (item.path === '/contacts' && location.pathname.startsWith('/tenants'));
                         return (
                             <Link

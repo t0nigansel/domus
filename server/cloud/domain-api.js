@@ -4,12 +4,14 @@ import { accountAction, ensureAccount } from './store.js';
 import { changeEntity, readEntities } from './entities.js';
 import { clearOtherCovers, fileMetadata, limitedBody, MAX_FILE_BYTES, readJson, storeCloudFile } from './files.js';
 import { renameDocument } from '../../src/domain/documents.js';
+import { assistantRequest } from './assistant-api.js';
+import { recordList } from './assistant-store.js';
 
 export function json(data, status = 200) {
     return Response.json(data, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
 }
 
-export async function domainRequest(request, env, client, user) {
+export async function domainRequest(request, env, client, user, auth) {
     const url = new URL(request.url);
     const parts = url.pathname.split('/').filter(Boolean).map(decodeURIComponent).slice(1);
     const [resource, id, operation, childId] = parts;
@@ -17,7 +19,10 @@ export async function domainRequest(request, env, client, user) {
     const write = !['GET', 'HEAD'].includes(method);
     if (write && request.headers.get('Origin') !== new URL(env.BETTER_AUTH_URL).origin) throw rentalError('Ungültiger Ursprung der Anfrage.', 403);
     const account = await ensureAccount(client, user);
+    if (account.deleting && resource !== 'jobs') throw rentalError('Dieses Konto wird gelöscht.', 410);
     if (resource === 'session' && method === 'GET') return json({ user: { id: user.id, name: user.name, email: user.email }, account });
+    const assistant = await assistantRequest(request, env, client, user, account, auth);
+    if (assistant) return assistant;
 
     let input;
     let upload;
@@ -30,12 +35,17 @@ export async function domainRequest(request, env, client, user) {
             catch { throw rentalError('Ungültiger Upload.'); }
             const file = form.get('file');
             if (!file || typeof file.arrayBuffer !== 'function') throw rentalError('Bitte eine Datei auswählen.');
-            input = { name: file.name, propertyId: form.get('propertyId') || null, category: form.get('category') || 'Misc' };
+            input = { name: file.name, propertyId: form.get('propertyId') || null, buildingId: form.get('buildingId') || null, category: form.get('category') || 'Misc' };
             upload = Buffer.from(await file.arrayBuffer());
         } else input = await readJson(request);
     }
     const audit = write ? { action: method, entity: resource } : null;
     return accountAction(client, account, user.id, async data => {
+        data.buildings = await recordList(client, account.id, 'buildings');
+        if(write&&id&&['documents','files'].includes(resource)) {
+            const protectedRecord=await client.query("SELECT id FROM assistant_records WHERE account_id=$1 AND data->>'status'='final' AND ((data->'documentIds') ? $2 OR EXISTS(SELECT 1 FROM jsonb_array_elements(COALESCE(data->'documents','[]'::jsonb)) d WHERE d->>'id'=$2)) LIMIT 1",[account.id,id]);
+            if(protectedRecord.rows.length&&(method==='DELETE'||input?.propertyId!==undefined||input?.buildingId!==undefined||input?.category!==undefined))throw rentalError('Der Beleg gehört zu einer finalisierten Version. Zuordnung und Original bleiben erhalten.',409);
+        }
         if (resource === 'files') {
             if (method === 'POST' && id === 'upload' && parts.length === 2) {
                 const recent = await client.query("SELECT count(*)::int AS count FROM audit_log WHERE account_id = $1 AND entity = 'files' AND action = 'POST' AND created_at > now() - interval '1 hour'", [account.id]);

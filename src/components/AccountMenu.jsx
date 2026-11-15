@@ -1,8 +1,10 @@
 import { useTranslation } from '../i18n';
-import { useEffect, useId, useRef } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { ChevronUp, Languages, LogOut, SunMoon } from 'lucide-react';
 import { useCloudAuth } from '../context/CloudAuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { Link } from 'react-router-dom';
+import { api } from '../utils/api';
 import './AccountMenu.css';
 
 export default function AccountMenu() {
@@ -11,6 +13,12 @@ export default function AccountMenu() {
     const { appearance, setAppearance } = useTheme();
     const menu = useRef(null);
     const id = useId();
+    const [preferenceError,setPreferenceError]=useState('');
+    const savePreference=(key,value)=>{
+        const apply=()=>{if(key==='appearance')setAppearance(value);else setLanguage(value);};
+        if(auth)api.get('/settings').then(settings=>api.put('/settings',{...settings,appearance,language,[key]:value})).then(apply).catch(()=>{apply();setPreferenceError(t('Die Einstellung konnte nicht im Konto gespeichert werden.'));});
+        else apply();
+    };
     const accountName = auth?.account.name || t('Lokale Nutzung');
     const userName = auth?.user.name || accountName;
     const initials = userName.trim().split(/\s+/).slice(0, 2).map(word => word[0]).join('').toLocaleUpperCase('de-DE') || 'D';
@@ -42,6 +50,7 @@ export default function AccountMenu() {
             <ChevronUp size={18} className="account-menu-chevron" aria-hidden="true" />
         </summary>
         <div className="account-menu-panel" id={`${id}-panel`}>
+            <Link className="btn-outline" to="/settings" onClick={()=>{ if(menu.current)menu.current.open=false; }}>{t('Einstellungen')}</Link>
             <div className="account-menu-profile">
                 <p className="account-menu-name">{userName}</p>
                 {auth && <p className="account-menu-email">{auth.user.email}</p>}
@@ -49,7 +58,7 @@ export default function AccountMenu() {
             <div className="account-menu-appearance">
                 <SunMoon size={18} aria-hidden="true" />
                 <label htmlFor={`${id}-appearance`}>{t("Darstellung")}</label>
-                <select id={`${id}-appearance`} value={appearance} onChange={event => setAppearance(event.target.value)}>
+                <select id={`${id}-appearance`} value={appearance} onChange={event => savePreference('appearance',event.target.value)}>
                     <option value="system">{t("System")}</option>
                     <option value="light">{t("Hell")}</option>
                     <option value="dark">{t("Dunkel")}</option>
@@ -58,11 +67,12 @@ export default function AccountMenu() {
             <div className="account-menu-appearance">
                 <Languages size={18} aria-hidden="true" />
                 <label htmlFor={`${id}-language`}>{t('Sprache')}</label>
-                <select id={`${id}-language`} value={language} onChange={event => setLanguage(event.target.value)}>
+                <select id={`${id}-language`} value={language} onChange={event => savePreference('language',event.target.value)}>
                     <option value="de">Deutsch</option>
                     <option value="en">English</option>
                 </select>
             </div>
+            {preferenceError && <p role="alert">{preferenceError}</p>}
             {auth && <div className="account-menu-signout">
                 {auth.error && <p role="alert" className="account-menu-error">{t(auth.error)}</p>}
                 <button type="button" onClick={auth.signOut} disabled={auth.signingOut}>

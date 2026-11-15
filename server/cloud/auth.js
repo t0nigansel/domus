@@ -18,6 +18,7 @@ export function authOptions(env, database, sendMail = message => sendEmail(env, 
         appName: 'Domus',
         baseURL: env.BETTER_AUTH_URL,
         secret: env.BETTER_AUTH_SECRET,
+        user: { changeEmail: { enabled: true, sendChangeEmailConfirmation: ({ user, url }) => sendMail({ to: user.email, subject: 'Domus: E-Mail-Adresse ändern', text: `Bestätige die Änderung deiner E-Mail-Adresse:\n${url}` }) } },
         database,
         trustedOrigins: [env.BETTER_AUTH_URL],
         emailAndPassword: {

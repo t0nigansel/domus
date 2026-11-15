@@ -12,7 +12,7 @@ export default function PropertyFiles({ property }) {
     const [category, setCategory] = useState('All');
     const [search, setSearch] = useState('');
     const files = documents.filter(file => file.propertyId === property.id);
-    const categories = ['Photos', 'Leases', 'FloorPlans', 'Energy', 'Invoices', 'Insurance', 'Misc'].map(key => [key, DOCUMENT_CATEGORIES[key]]);
+    const categories = ['Photos', 'Leases', 'FloorPlans', 'Energy', 'Invoices', 'Insurance', 'Misc', 'Exposes', 'Statements'].map(key => [key, DOCUMENT_CATEGORIES[key]]);
     return <section className="details-card" aria-label={t('Fotos & Dokumente')}>
         <div className="card-header-row"><h2 className="card-title">{t('Fotos & Dokumente')} ({files.length})</h2><button className="btn-outline" onClick={() => setUploading(!uploading)} aria-expanded={uploading}>{t('Dateien hinzufügen')}</button></div>
         {uploading && <DocumentWorkspace propertyId={property.id} showFiles={false} />}

@@ -30,7 +30,7 @@ export async function ensureAccount(client, user) {
     const id = `domus-${user.id}`;
     return withAccountTransaction(client, id, async () => {
         await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1, 0))', [`onboard:${user.id}`]);
-        const existing = await client.query('SELECT a.id, o.name FROM domus_accounts a JOIN organization o ON o.id = a.id JOIN member m ON m."organizationId" = a.id AND m."userId" = $1 WHERE a.owner_user_id = $1', [user.id]);
+        const existing = await client.query('SELECT a.id, o.name, a.deleting FROM domus_accounts a JOIN organization o ON o.id = a.id JOIN member m ON m."organizationId" = a.id AND m."userId" = $1 WHERE a.owner_user_id = $1', [user.id]);
         if (existing.rows.length) return existing.rows[0];
         const name = `${user.name || 'Meine'} Immobilien`;
         await client.query('INSERT INTO organization (id, name, slug, "createdAt") VALUES ($1, $2, $1, now()) ON CONFLICT (id) DO NOTHING', [id, name]);

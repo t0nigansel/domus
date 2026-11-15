@@ -9,20 +9,20 @@ import { List, ListRow, ListEmpty, Badge } from '../components/common';
 import './DocumentWorkspace.css';
 
 
-export default function DocumentWorkspace({ propertyId = '', showFiles = true, showControls = true, categoryFilter = 'All', searchTerm = '', gallery = false, uploadedFrom = '', uploadedTo = '' }) {
+export default function DocumentWorkspace({ propertyId = '', buildingId = '', showFiles = true, showControls = true, categoryFilter = 'All', searchTerm = '', gallery = false, uploadedFrom = '', uploadedTo = '' }) {
     const { t } = useTranslation();
     const { documents, properties, refreshDocuments } = useData();
     const workspace = useFileWorkspace(refreshDocuments);
     const [target, setTarget] = useState(propertyId);
     const [category, setCategory] = useState('Misc');
     const [expandedId, setExpandedId] = useState(null);
-    const metadata = { propertyId: propertyId || target || null, category };
-    const files = documents.filter(d => (!propertyId || d.propertyId === propertyId) && (categoryFilter === 'All' || d.category === categoryFilter) && d.name.toLowerCase().includes(searchTerm.toLowerCase()) && documentInUploadRange(d, uploadedFrom, uploadedTo))
+    const metadata = { propertyId: buildingId ? null : propertyId || target || null, buildingId: buildingId || null, category };
+    const files = documents.filter(d => (!propertyId || d.propertyId === propertyId) && (!buildingId || d.buildingId === buildingId) && (categoryFilter === 'All' || d.category === categoryFilter) && d.name.toLowerCase().includes(searchTerm.toLowerCase()) && documentInUploadRange(d, uploadedFrom, uploadedTo))
         .sort((a, b) => Number(b.cover || false) - Number(a.cover || false) || (a.position || 0) - (b.position || 0));
 
     return <section className="document-workspace" aria-label={t("Dateien verwalten")}>
         {showControls && <div className="form-row file-controls">
-            {!propertyId && <div className="form-group">
+            {!propertyId && !buildingId && <div className="form-group">
                 <label htmlFor="upload-target">{t("Wohnung für neue Dateien")}</label>
                 <select id="upload-target" className="edit-select" value={target} onChange={e => setTarget(e.target.value)} disabled={workspace.busy}>
                     <option value="">{t("Ohne Wohnungszuordnung")}</option>
@@ -121,7 +121,7 @@ function DocumentEditor({ file, properties, busy, onSave, onClose }) {
     const { t } = useTranslation();
     // Die Dateiendung bleibt fest, nur der Name davor ist änderbar.
     const { base, extension } = splitDocumentName(file.name);
-    const [values, setValues] = useState({ name: base, propertyId: file.propertyId || '', category: file.category || 'Misc', caption: file.caption || '', position: file.position || 0, published: file.published || false, cover: file.cover || false });
+    const [values, setValues] = useState({ name: base, propertyId: file.propertyId || '', buildingId: file.buildingId || null, category: file.category || 'Misc', caption: file.caption || '', position: file.position || 0, published: file.published || false, cover: file.cover || false, serviceStart: file.serviceStart || '', serviceEnd: file.serviceEnd || '', documentType: file.documentType || '' });
     const change = (key, value) => setValues(previous => ({ ...previous, [key]: value }));
     const id = (name) => `doc-${file.id}-${name}`;
 
@@ -147,7 +147,7 @@ function DocumentEditor({ file, properties, busy, onSave, onClose }) {
             <div className="form-row">
                 <div className="form-group" style={{ flex: 1 }}>
                     <label htmlFor={id('property')}>{t("Wohnungszuordnung")}</label>
-                    <select id={id('property')} className="edit-select" value={values.propertyId} onChange={e => change('propertyId', e.target.value)}>
+                    <select id={id('property')} className="edit-select" value={values.propertyId} onChange={e => setValues(previous=>({...previous,propertyId:e.target.value,buildingId:null}))}>
                         <option value="">{t("Keine")}</option>
                         {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                     </select>
@@ -159,6 +159,7 @@ function DocumentEditor({ file, properties, busy, onSave, onClose }) {
                     </select>
                 </div>
             </div>
+            {import.meta.env.MODE === 'cloud' && <div className="form-row"><div className="form-group"><label htmlFor={id('service-start')}>{t('Leistungsbeginn')}</label><input id={id('service-start')} className="edit-input" type="date" value={values.serviceStart} onChange={e=>change('serviceStart',e.target.value)}/></div><div className="form-group"><label htmlFor={id('service-end')}>{t('Leistungsende')}</label><input id={id('service-end')} className="edit-input" type="date" min={values.serviceStart||undefined} value={values.serviceEnd} onChange={e=>change('serviceEnd',e.target.value)}/></div><div className="form-group"><label htmlFor={id('document-type')}>{t('Dokumenttyp')}</label><input id={id('document-type')} className="edit-input" value={values.documentType} onChange={e=>change('documentType',e.target.value)}/></div></div>}
             <div className="form-row">
                 <div className="form-group" style={{ flex: 3 }}>
                     <label htmlFor={id('caption')}>{t("Raum / Beschreibung")}</label>

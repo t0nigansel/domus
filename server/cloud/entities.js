@@ -3,13 +3,13 @@ import { moneyCents, rentalError, tenancyView, validDate, textValue } from '../.
 import { localToday } from '../rentalOperations.js';
 import { COST_RECURRENCES } from '../../src/domain/costs.js';
 
-export const categories = ['Leases', 'Invoices', 'Insurance', 'Misc', 'Photos', 'FloorPlans', 'Energy'];
+export const categories = ['Leases', 'Invoices', 'Insurance', 'Misc', 'Photos', 'FloorPlans', 'Energy', 'Exposes', 'Statements'];
 const fields = {
-    properties: ['name', 'location', 'tenantName', 'moveInDate', 'coldRent', 'nebenkosten', 'status', 'condition', 'occupants', 'occupancyNote', 'pets', 'notes', 'street', 'postalCode', 'city', 'floor', 'size', 'rooms', 'equipment', 'heating', 'energyRating', 'energyDemand', 'modernizations'],
+    properties: ['name', 'buildingId', 'location', 'tenantName', 'moveInDate', 'coldRent', 'nebenkosten', 'status', 'condition', 'occupants', 'occupancyNote', 'pets', 'notes', 'street', 'postalCode', 'city', 'floor', 'size', 'rooms', 'equipment', 'heating', 'energyRating', 'energyDemand', 'modernizations'],
     tenants: ['name', 'email', 'phone', 'propertyId', 'propertyName', 'leaseStart', 'leaseEnd', 'status', 'paymentHistory'],
-    documents: ['name', 'type', 'category', 'date', 'size', 'propertyId', 'caption', 'published', 'cover', 'position'],
+    documents: ['name', 'type', 'category', 'date', 'size', 'propertyId', 'buildingId', 'serviceStart', 'serviceEnd', 'documentType', 'caption', 'published', 'cover', 'position'],
     issues: ['title', 'description', 'propertyId', 'tenantId', 'priority', 'status', 'dueDate', 'attachments'],
-    costs: ['name', 'description', 'amount', 'dueDate', 'paidDate', 'recurrence', 'utilityBillable', 'tenantIds', 'propertyIds', 'issueIds', 'attachments'],
+    costs: ['name', 'buildingId', 'serviceStart', 'serviceEnd', 'costCategory', 'description', 'amount', 'dueDate', 'paidDate', 'recurrence', 'utilityBillable', 'tenantIds', 'propertyIds', 'issueIds', 'attachments'],
     contacts: ['name', 'role', 'description', 'contactInfo', 'email', 'phone', 'address'],
 };
 const enums = {
@@ -21,7 +21,7 @@ const enums = {
 };
 const numeric = ['coldRent', 'nebenkosten', 'amount', 'occupants', 'size', 'rooms', 'energyDemand', 'position'];
 const boolean = ['published', 'cover', 'utilityBillable'];
-const dates = ['leaseStart', 'leaseEnd', 'moveInDate', 'date', 'dueDate', 'paidDate'];
+const dates = ['leaseStart', 'leaseEnd', 'moveInDate', 'date', 'dueDate', 'paidDate', 'serviceStart', 'serviceEnd'];
 
 export function validateEntity(name, input, data, existing = {}) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) throw rentalError('Ein JSON-Objekt ist erforderlich.');
@@ -64,6 +64,8 @@ export function validateEntity(name, input, data, existing = {}) {
     for (const [key, entity] of [['propertyId', 'properties'], ['tenantId', 'tenants']]) {
         if (result[key] && !data[entity].some(item => item.id === result[key])) throw rentalError('Zuordnung nicht gefunden.', 404);
     }
+    if (result.buildingId && !data.buildings?.some(building => building.id === result.buildingId)) throw rentalError('Haus nicht gefunden.', 404);
+    if (result.serviceStart && result.serviceEnd && result.serviceEnd < result.serviceStart) throw rentalError('Ungültiger Leistungszeitraum.');
     for (const [key, entity] of [['tenantIds', 'tenants'], ['propertyIds', 'properties'], ['issueIds', 'issues']]) {
         if (result[key]?.some(id => !data[entity].some(item => item.id === id))) throw rentalError('Zuordnung nicht gefunden.', 404);
     }
@@ -78,6 +80,7 @@ export function changeEntity(data, name, method, id, input) {
     const existing = data[name].find(item => item.id === id);
     if (method !== 'POST' && !existing) throw rentalError('Eintrag nicht gefunden.', 404);
     if (method === 'DELETE') {
+        if (name === 'documents' && existing.generatedBy) throw rentalError('Erzeugte Dokumente bleiben als Teil der finalisierten Version erhalten.',409);
         if (name === 'tenants' && data.leases.some(lease => lease.tenantIds.includes(id))) throw rentalError('Vertragsparteien bleiben historisch erhalten.', 409);
         if (name === 'properties' && [...data.leases, ...data.rentals, ...data.documents, ...data.tenants, ...data.issues].some(item => item.propertyId === id)) throw rentalError('Wohnung ist noch mit Daten verknüpft.', 409);
         if (name === 'documents' && data.leases.some(lease => lease.contractDocumentId === id)) throw rentalError('Vertrag ist mit einem Mietverhältnis verknüpft.', 409);

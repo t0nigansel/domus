@@ -1,0 +1,122 @@
+.assistant-page {
+  max-width: 1100px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.assistant-page h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-lg);
+}
+.assistant-page button {
+  max-width: 100%;
+  white-space: normal;
+}
+.assistant-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  min-width: 0;
+}
+.assistant-card h2 {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+}
+.assistant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 16px;
+}
+.assistant-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  min-width: 0;
+}
+.assistant-field input,
+.assistant-field textarea,
+.assistant-field select,
+.assistant-select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  color: var(--color-text-main);
+  font: inherit;
+}
+.assistant-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 12px 0;
+  min-height: 32px;
+}
+.assistant-check input {
+  margin-top: 4px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+.assistant-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+}
+.assistant-notice {
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin: 12px 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.assistant-error {
+  color: var(--color-danger);
+  white-space: pre-line;
+}
+.assistant-row {
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 0;
+  overflow-wrap: anywhere;
+}
+.assistant-row:last-child {
+  border: 0;
+}
+.assistant-table-wrap {
+  overflow-x: auto;
+}
+.assistant-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+.assistant-table td,
+.assistant-table th {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  overflow-wrap: normal;
+}
+.assistant-page button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.assistant-card form + form {
+  margin-top: 24px;
+}
+.assistant-muted {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+.assistant-page a {
+  overflow-wrap: anywhere;
+}

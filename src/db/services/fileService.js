@@ -20,6 +20,7 @@ export const fileService = {
             const form = new FormData();
             form.append('file', file);
             form.append('propertyId', metadata.propertyId || '');
+            form.append('buildingId', metadata.buildingId || '');
             form.append('category', metadata.category || 'Misc');
             const response = await sessionFetch(`${API_BASE_URL}/files/upload`, { method: 'POST', body: form });
             const result = await response.json();
