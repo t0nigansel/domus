@@ -6,7 +6,7 @@ import { useData } from "../context/DataContext";
 import { useAssistant } from "../hooks/useAssistant";
 import { api } from "../utils/api";
 import { AssistantField as Field } from "./AssistantCommon";
-import DocumentWorkspace from "../pages/DocumentWorkspace";
+import PropertyFiles from "./PropertyFiles";
 
 export default function Buildings() {
   const auth = useCloudAuth(),
@@ -146,6 +146,7 @@ export function BuildingDetails() {
           </>
         )}
       </section>
+      <PropertyFiles building={building} />
       <section className="assistant-card">
         <h2>{t("Wohnungen zuordnen")}</h2>
         <p>
@@ -236,10 +237,6 @@ export function BuildingDetails() {
           </select>
         </label>
         <Link to="/costs">{t("Kosten erfassen und Belege zuordnen")}</Link>
-      </section>
-      <section className="assistant-card">
-        <h2>{t("Hausunterlagen")}</h2>
-        <DocumentWorkspace buildingId={id} />
       </section>
     </div>
   );

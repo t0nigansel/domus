@@ -19,9 +19,15 @@ import {
 } from "../cloud/assistant-documents.js";
 import { unzipSync, strFromU8 } from "fflate";
 import { PDFDocument } from "pdf-lib";
+import {clearOtherCovers} from '../cloud/files.js';
 
 afterEach(() => vi.unstubAllGlobals());
 describe("Assistant security and document handling", () => {
+  it('keeps cover images isolated between buildings, apartments and unassigned files',()=>{
+    const documents=[{id:'selected',buildingId:'b1',propertyId:null,cover:true},{id:'old',buildingId:'b1',propertyId:null,cover:true},{id:'other',buildingId:'b2',propertyId:null,cover:true},{id:'apartment',propertyId:'p1',cover:true},{id:'unassigned',propertyId:null,cover:true}];
+    clearOtherCovers({documents},documents[0]);
+    expect(documents.map(doc=>doc.cover)).toEqual([true,false,true,true,true]);
+  });
   const env = { LLM_ENCRYPTION_KEY_V1: Buffer.alloc(32, 3).toString("base64") };
   it("encrypts user secrets with authenticated ownership and never enables simulation in production or preview", () => {
     const secret = encryptSecret("fake-test-token", "account:user:openai", env);

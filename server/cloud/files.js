@@ -72,7 +72,7 @@ export async function storeCloudFile(env, accountId, data, input, buffer) {
 
 export function clearOtherCovers(data, document) {
     for (const other of data.documents) {
-        if (other.id !== document.id && other.propertyId === document.propertyId) other.cover = false;
+        if (other.id !== document.id && (other.propertyId || null) === (document.propertyId || null) && (other.buildingId || null) === (document.buildingId || null)) other.cover = false;
     }
 }
 

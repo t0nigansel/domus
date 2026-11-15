@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { mkdir } from "node:fs/promises";
+import { PDFDocument } from 'pdf-lib';
 
 export async function assistantBrowser({ page, base, check, call }) {
   await page.goto(`${base}/properties`);
@@ -29,11 +30,44 @@ export async function assistantBrowser({ page, base, check, call }) {
     .waitFor();
   check(
     await page
-      .getByRole("heading", { name: "Hausunterlagen", exact: true })
+      .getByRole("heading", { name: /^Fotos & Dokumente/ })
       .count(),
     1,
     "building documents in UI",
   );
+  await page.getByRole('button',{name:'Dateien hinzufügen',exact:true}).click();
+  await page.getByLabel('Kategorie für neue Dateien',{exact:true}).selectOption('Photos');
+  await page.getByLabel('Dateien hochladen (bis 20 MB je Datei)').setInputFiles({name:'Hausfront.png',mimeType:'image/png',buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO5l8F8AAAAASUVORK5CYII=','base64')});
+  await page.getByRole('img',{name:'Hausfront.png',exact:true}).waitFor();
+  const photo=page.locator('.property-photo').filter({has:page.getByRole('img',{name:'Hausfront.png',exact:true})});
+  await photo.getByRole('button',{name:'Bearbeiten',exact:true}).click();
+  check(await photo.getByLabel('Wohnungszuordnung',{exact:true}).count(),0,'house photo cannot accidentally lose its building assignment');
+  await photo.getByLabel('Raum / Beschreibung',{exact:true}).fill('Vorderansicht Testhaus');
+  await photo.getByLabel('Als Titelbild verwenden',{exact:true}).check();
+  await photo.getByRole('button',{name:'Speichern',exact:true}).click();
+  await page.getByRole('img',{name:'Vorderansicht Testhaus',exact:true}).first().waitFor();
+  const pdf=await PDFDocument.create();pdf.addPage().drawText('Synthetic building document');
+  await page.getByLabel('Kategorie für neue Dateien',{exact:true}).selectOption('Invoices');
+  await page.getByLabel('Dateien hochladen (bis 20 MB je Datei)').setInputFiles({name:'Hausunterlage.pdf',mimeType:'application/pdf',buffer:Buffer.from(await pdf.save())});
+  await page.getByRole('heading',{name:'Hausunterlage.pdf',exact:true}).waitFor();
+  await page.reload();
+  await page.getByRole('img',{name:'Vorderansicht Testhaus',exact:true}).waitFor();
+  await page.getByRole('heading',{name:'Hausunterlage.pdf',exact:true}).waitFor();
+  const houseFiles=(await(await page.request.get(base+'/api/documents')).json()).filter(doc=>['Hausfront.png','Hausunterlage.pdf'].includes(doc.name));
+  check(houseFiles.length,2,'house photo and PDF survive reload');
+  check(houseFiles.every(doc=>doc.buildingId===buildingUrl.split('/').at(-1)&&!doc.propertyId),true,'uploads stay scoped to the building');
+  const pdfRow=page.locator('.list-row').filter({has:page.getByRole('heading',{name:'Hausunterlage.pdf',exact:true})});
+  const download=await page.request.get(new URL(await pdfRow.getByRole('link',{name:'Herunterladen',exact:true}).getAttribute('href'),base).href);
+  check((await download.body()).subarray(0,5).toString(),'%PDF-','house PDF can be downloaded');
+  await page.getByRole('searchbox',{name:/Dateien suchen/}).fill('Hausunterlage');
+  check(await page.getByRole('img',{name:'Vorderansicht Testhaus',exact:true}).count(),0,'house search filters photo gallery');
+  await page.getByRole('searchbox',{name:/Dateien suchen/}).fill('');
+  const filesSection=page.getByRole('region',{name:'Fotos & Dokumente',exact:true});
+  await filesSection.screenshot({path:'test-results/cloud/building-files-desktop.png'});
+  await page.setViewportSize({width:390,height:900});
+  check(await page.evaluate(()=>globalThis.document.documentElement.scrollWidth<=globalThis.innerWidth),true,'building photos and documents fit mobile layout');
+  await filesSection.screenshot({path:'test-results/cloud/building-files-mobile.png'});
+  await page.setViewportSize({width:1280,height:900});
   await page.locator(".account-menu-trigger").click();
   await page.getByRole("link", { name: "Einstellungen", exact: true }).click();
   await page

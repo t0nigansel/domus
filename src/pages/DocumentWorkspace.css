@@ -1,4 +1,5 @@
 .document-workspace { min-width: 0; }
+.property-files .card-header-row { flex-wrap: wrap; gap: var(--spacing-md); }
 
 .document-date-filters {
     display: flex;

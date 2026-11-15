@@ -65,14 +65,15 @@ export default function DocumentWorkspace({ propertyId = '', buildingId = '', sh
                 {files.map(file => <article key={file.id} className="property-photo">
                     {file.hasFile && <a href={fileService.url(file.id, true)} target="_blank" rel="noreferrer">{file.type === 'image' ? <img src={fileService.url(file.id, true)} alt={file.caption || file.name} loading="lazy" /> : <span>{file.name}</span>}</a>}
                     <div className="property-photo-caption"><p>{file.caption || file.name}</p><button className="btn-text" onClick={() => setExpandedId(expandedId === file.id ? null : file.id)} aria-expanded={expandedId === file.id}>{t('Bearbeiten')}</button></div>
-                    {expandedId === file.id && <DocumentEditor file={file} properties={properties} busy={workspace.busy} onSave={workspace.update} onClose={() => setExpandedId(null)} />}
+                    {expandedId === file.id && <DocumentEditor file={file} properties={properties} fixedAssignment={!!buildingId} busy={workspace.busy} onSave={workspace.update} onClose={() => setExpandedId(null)} />}
                 </article>)}
             </div> : <List>
                 {files.map(file => <DocumentRow
                     key={`${file.id}-${file.propertyId}`}
                     file={file}
                     properties={properties}
-                    showProperty={!propertyId}
+                    showProperty={!propertyId && !buildingId}
+                    fixedAssignment={!!buildingId}
                     busy={workspace.busy}
                     expanded={expandedId === file.id}
                     onToggle={() => setExpandedId(expandedId === file.id ? null : file.id)}
@@ -89,12 +90,12 @@ const FileIcon = ({ file }) => {
     return <File size={20} />;
 };
 
-function DocumentRow({ file, properties, showProperty, busy, expanded, onToggle, onSave }) {
+function DocumentRow({ file, properties, showProperty, fixedAssignment, busy, expanded, onToggle, onSave }) {
     const { t } = useTranslation();
     const propertyName = file.propertyId ? properties.find(p => p.id === file.propertyId)?.name : null;
     const subtitle = [
         t(categories[file.category] || file.category),
-        showProperty && (propertyName || t("Ohne Wohnungszuordnung")),
+        showProperty && (propertyName || t(file.buildingId ? 'Hausunterlage' : "Ohne Wohnungszuordnung")),
         file.date,
     ].filter(Boolean).join(' · ');
 
@@ -113,11 +114,11 @@ function DocumentRow({ file, properties, showProperty, busy, expanded, onToggle,
             {file.hasFile && <a className="list-badge" href={fileService.url(file.id)} download aria-label={t("Herunterladen")} title={t("Herunterladen")}><Download size={14} aria-hidden="true" /></a>}
         </>}
     >
-        <DocumentEditor file={file} properties={properties} busy={busy} onSave={onSave} onClose={onToggle} />
+        <DocumentEditor file={file} properties={properties} fixedAssignment={fixedAssignment} busy={busy} onSave={onSave} onClose={onToggle} />
     </ListRow>;
 }
 
-function DocumentEditor({ file, properties, busy, onSave, onClose }) {
+function DocumentEditor({ file, properties, fixedAssignment = false, busy, onSave, onClose }) {
     const { t } = useTranslation();
     // Die Dateiendung bleibt fest, nur der Name davor ist änderbar.
     const { base, extension } = splitDocumentName(file.name);
@@ -145,13 +146,13 @@ function DocumentEditor({ file, properties, busy, onSave, onClose }) {
                 </div>
             </div>
             <div className="form-row">
-                <div className="form-group" style={{ flex: 1 }}>
+                {!fixedAssignment && <div className="form-group" style={{ flex: 1 }}>
                     <label htmlFor={id('property')}>{t("Wohnungszuordnung")}</label>
                     <select id={id('property')} className="edit-select" value={values.propertyId} onChange={e => setValues(previous=>({...previous,propertyId:e.target.value,buildingId:null}))}>
                         <option value="">{t("Keine")}</option>
                         {properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                     </select>
-                </div>
+                </div>}
                 <div className="form-group" style={{ flex: 1 }}>
                     <label htmlFor={id('category')}>{t("Kategorie")}</label>
                     <select id={id('category')} className="edit-select" value={values.category} onChange={e => change('category', e.target.value)}>
