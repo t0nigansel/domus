@@ -19,14 +19,22 @@ function MoneyFields({ values, change, required = false }) {
         <Field label={t("Kaltmiete (€ / Monat)")} type="number" min="0" step="0.01" required={required} value={values.coldRent} onChange={v => change('coldRent', v)} />
         <Field label={t("Nebenkosten (€ / Monat)")} type="number" min="0" step="0.01" required={required} value={values.utilities} onChange={v => change('utilities', v)} />
         <Field label={t("Kaution (€)")} type="number" min="0" step="0.01" required={required} value={values.deposit} onChange={v => change('deposit', v)} />
-        <Field label={t("Mitvermietete Bestandteile")} value={values.included} onChange={v => change('included', v)} />
     </>;
 }
 function LeaseFields({ values, change }) {
     const { t } = useTranslation();
-    return <><Field label={t("Mietbeginn")} type="date" required value={values.start} onChange={v => change('start', v)} />
-        <label>{t('Mietende (leer = unbefristet)')}<input type="date" min={values.start || undefined} value={values.end} onChange={e => change('end', e.target.value)} /><small className="text-muted">{t('Ein Enddatum zählt als letzter Miettag.')}</small></label>
-        <MoneyFields values={values} change={change} required /></>;
+    return <>
+        <fieldset className="rental-wide lease-field-group">
+            <legend>{t('Mietzeitraum')}</legend>
+            <Field label={t("Mietbeginn")} type="date" required value={values.start} onChange={v => change('start', v)} />
+            <label>{t('Mietende (leer = unbefristet)')}<input type="date" min={values.start || undefined} value={values.end} onChange={e => change('end', e.target.value)} /><small className="text-muted">{t('Ein Enddatum zählt als letzter Miettag.')}</small></label>
+        </fieldset>
+        <fieldset className="rental-wide lease-field-group lease-money-group">
+            <legend>{t('Miete und Kaution')}</legend>
+            <MoneyFields values={values} change={change} required />
+        </fieldset>
+        <label className="rental-wide">{t('Mitvermietete Bestandteile')}<input value={values.included} onChange={e => change('included', e.target.value)} /></label>
+    </>;
 }
 
 export default function Rentals() {

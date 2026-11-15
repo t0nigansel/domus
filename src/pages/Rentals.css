@@ -1,12 +1,12 @@
 .rental-section { background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: 12px; padding: 24px; margin: 20px 0; }
 .rental-section h2 { margin-bottom: 12px; }
 .rental-section p { margin: 8px 0; overflow-wrap: anywhere; }
-.rental-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; margin: 16px 0; }
-.rentals-page label { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.rentals-page input, .rentals-page select, .rentals-page textarea { width: 100%; min-width: 0; min-height: 44px; padding: 10px; color: var(--color-text-main); background: var(--color-bg-base); border: 1px solid var(--color-border); border-radius: 6px; font: inherit; }
-.rentals-page textarea { resize: vertical; }
-.rentals-page button, .rentals-page .btn-outline { min-height: 44px; }
-.rentals-page fieldset { min-width: 0; border: 1px solid var(--color-border); padding: 16px; border-radius: 8px; }
+.rental-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 16px 0; }
+.rental-form label { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.rental-form input, .rental-form select, .rental-form textarea { width: 100%; min-width: 0; min-height: 44px; padding: 10px; color: var(--color-text-main); background: var(--color-bg-base); border: 1px solid var(--color-field-border); border-radius: var(--radius-sm); font: inherit; }
+.rental-form textarea { resize: vertical; }
+.rental-section button, .rental-section .btn-outline { min-height: 44px; }
+.rental-form fieldset { min-width: 0; border: 1px solid var(--color-border); padding: 16px; border-radius: 8px; }
 .rental-wide { grid-column: 1 / -1; }
 .rental-form > button { grid-column: 1 / -1; justify-self: start; align-self: start; }
 .rental-summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--color-border); padding: 20px 0; flex-wrap: wrap; }
@@ -15,9 +15,9 @@
 .rental-summary a:not(.btn-outline) { color: var(--color-primary); }
 .inset-form, .lease-card { border: 1px solid var(--color-border); border-radius: 8px; padding: 16px; margin: 16px 0; }
 .rental-error { padding: 16px; border: 1px solid var(--color-danger); color: var(--color-danger); border-radius: 6px; }
-.rentals-page .rental-check { flex-direction: row; align-items: center; margin: 8px 0; }
-.rental-check input { width: 20px; flex: 0 0 20px; }
-.rentals-page summary { cursor: pointer; min-height: 44px; padding: 12px 0; }
+.rental-form .rental-check { flex-direction: row; align-items: center; margin: 8px 0; }
+.rental-check input { width: 20px; min-height: 20px; flex: 0 0 20px; }
+.rental-section summary { cursor: pointer; min-height: 44px; padding: 12px 0; }
 .rental-prewrap { white-space: pre-wrap; }
 @media (max-width: 600px) { .rental-section { padding: 16px; } }
 .rental-navigation { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; padding-bottom: 12px; border-bottom: 1px solid var(--color-border); }
@@ -39,4 +39,13 @@
     .lease-amounts, .lease-details { grid-template-columns: 1fr; gap: 16px; }
     .rental-navigation { gap: 4px; }
     .rental-navigation button { padding: 8px 10px; }
+}
+
+.rental-form .lease-field-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; border: 0; border-top: 1px solid var(--color-border); border-radius: 0; padding: 16px 0 0; margin: 0 0 8px; }
+.lease-field-group legend { padding: 0 12px 0 0; font-weight: 600; }
+.rental-form .lease-money-group { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rental-form :is(input, select, textarea):focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.rental-form > .rental-actions { border-top: 1px solid var(--color-border); padding-top: 20px; margin-top: 4px; }
+@media (max-width: 600px) {
+    .rental-form, .rental-form .lease-field-group { grid-template-columns: minmax(0, 1fr); }
 }
