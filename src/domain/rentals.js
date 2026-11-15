@@ -69,7 +69,7 @@ export function tenancyView(data, today) {
         const activeTenants = tenants.filter(tenant => tenant.propertyId === property.id && tenant.status === 'Active');
         return { ...property, leaseManaged: true, occupants: activeTenants.length,
             status: activeTenants.length ? 'Occupied' : property.status === 'Maintenance' ? 'Maintenance' : 'Vacant',
-            ...(activeLease ? { coldRent: activeLease.coldRentCents / 100, nebenkosten: activeLease.utilitiesCents / 100 } : {}),
+            ...(activeLease ? { occupancyKind: 'Rental', coldRent: activeLease.coldRentCents == null ? null : activeLease.coldRentCents / 100, nebenkosten: activeLease.utilitiesCents == null ? null : activeLease.utilitiesCents / 100 } : {}),
         };
     });
     return { tenants, properties };

@@ -31,7 +31,7 @@ function LeaseFields({ values, change }) {
         </fieldset>
         <fieldset className="rental-wide lease-field-group lease-money-group">
             <legend>{t('Miete und Kaution')}</legend>
-            <MoneyFields values={values} change={change} required />
+            <MoneyFields values={values} change={change} />
         </fieldset>
         <label className="rental-wide">{t('Mitvermietete Bestandteile')}<input value={values.included} onChange={e => change('included', e.target.value)} /></label>
     </>;
@@ -57,7 +57,7 @@ export default function Rentals() {
                     {properties.map(property => {
                         const active = workflow.leases.find(lease => lease.propertyId === property.id && lease.status === 'Active');
                         const running = workflow.rentals.filter(rental => rental.propertyId === property.id && !['Completed', 'Archived'].includes(rental.phase));
-                        return <article className="rental-summary" key={property.id}><div><h3>{property.name}</h3><p>{active ? `${active.tenantIds.map(id => tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')).join(' & ')} · ${amountLabel(active.coldRentCents + active.utilitiesCents)}` : t('Kein aktiver Mietvertrag erfasst')}{running.length > 0 && ` · ${t('Neuvermietung läuft')}`}</p></div><Link className="btn-outline" to={`/rentals?propertyId=${property.id}`}>{t('Öffnen')}</Link></article>;
+                        return <article className="rental-summary" key={property.id}><div><h3>{property.name}</h3><p>{active ? `${active.tenantIds.map(id => tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')).join(' & ')} · ${amountLabel(active.coldRentCents == null || active.utilitiesCents == null ? null : active.coldRentCents + active.utilitiesCents)}` : t('Kein aktiver Mietvertrag erfasst')}{running.length > 0 && ` · ${t('Neuvermietung läuft')}`}</p></div><Link className="btn-outline" to={`/rentals?propertyId=${property.id}`}>{t('Öffnen')}</Link></article>;
                     })}
                     {!properties.length && <p>{t('Noch keine Wohnungen vorhanden.')}</p>}
                 </section>}
@@ -179,9 +179,9 @@ function RentalDetail({ rental, workflow, property, documents }) {
         </section>}
         {step === 3 && <section className="rental-section"><h2>{t("Vertrag")}</h2>
             {locked ? <Link className="btn-outline" to={`/properties/${rental.propertyId}?tab=rental`}>{t('Mietverhältnis ansehen')}</Link> : selected ? <>
-                <p>{t('Unterschriebenen Mietvertrag auswählen und die Vertragsdaten bestätigen.')}</p>
+                <p>{t('Nur der Mietbeginn ist erforderlich. Weitere Angaben und eine Vertragsdatei können später ergänzt werden.')}</p>
                 <Link to={`/properties/${rental.propertyId}?tab=files`}>{t('Vertrag bei der Wohnung hochladen')}</Link>
-                <CompletionForm key={`${rental.id}-${selected.id}`} rental={rental} selected={selected} documents={documents.filter(d => d.propertyId === rental.propertyId && d.category === 'Leases' && d.hasFile)} busy={workflow.busy} onSave={values => workflow.save(`/${rental.id}/complete`, values)} />
+                <CompletionForm key={`${rental.id}-${selected.id}`} rental={rental} selected={selected} documents={documents.filter(d => d.propertyId === rental.propertyId && d.category === 'Leases' && d.hasFile)} busy={workflow.busy} error={workflow.error} onSave={values => workflow.save(`/${rental.id}/complete`, values)} />
             </> : <p>{t("Zuerst eine Bewerbung für den Vertrag auswählen.")}</p>}
         </section>}
         {!locked && step < 3 && <div className="rental-next"><button className="btn-primary" disabled={workflow.busy || editingPreparation || addingApplication || !!editingApplication || addingViewing || !!editingViewing || (step === 1 && !rental.applications.length) || (step === 2 && !selected)} onClick={next}>{t('Weiter zu {step}', { step: t(steps[step + 1][1]) })}</button>{step === 2 && !selected && <p className="text-muted">{t('Für den Vertrag zuerst einen Interessenten auswählen.')} <button className="btn-text" onClick={() => setStep(1)}>{t('Zu den Interessenten')}</button></p>}</div>}
@@ -217,16 +217,16 @@ function ViewingForm({ viewing, applications, busy, onSave, onCancel }) {
         <div className="rental-wide rental-actions"><button className="btn-primary" disabled={busy}>{t("Termin speichern")}</button><button type="button" className="btn-outline" onClick={onCancel}>{t("Abbrechen")}</button></div>
     </form>;
 }
-function CompletionForm({ rental, selected, documents, busy, onSave }) {
+function CompletionForm({ rental, selected, documents, busy, error, onSave }) {
     const { t } = useTranslation();
-    const [values, setValues] = useState(() => ({ ...leaseForm(rental), contractDocumentId: '', confirmSigned: false }));
+    const [values, setValues] = useState(() => ({ ...leaseForm(rental), contractDocumentId: '' }));
     const change = (key, value) => setValues(previous => ({ ...previous, [key]: value }));
     return <form className="rental-form" onSubmit={e => { e.preventDefault(); onSave(values); }}>
         <p className="rental-wide">{t("Vertragsparteien:")}{" "}<strong>{selected.parties.map(p => p.name).join(' & ')}</strong></p>
         <LeaseFields values={values} change={change} />
-        <label className="rental-wide">{t("Unterschriebener Mietvertrag")}<select required value={values.contractDocumentId} onChange={e => change('contractDocumentId', e.target.value)}><option value="">{t("Bitte auswählen")}</option>{documents.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select></label>
-        <label className="rental-wide rental-check"><input type="checkbox" required checked={values.confirmSigned} onChange={e => change('confirmSigned', e.target.checked)} />{t("Ich habe die Vertragsdaten geprüft und die ausgewählte Datei enthält den unterschriebenen Vertrag.")}</label>
-        <button className="btn-primary" disabled={busy || !documents.length}>{t("Abschließen und Mietverhältnis anlegen")}</button>
+        <label className="rental-wide">{t('Mietvertrag (optional)')}<select value={values.contractDocumentId} onChange={e => change('contractDocumentId', e.target.value)}><option value="">{t('Noch nicht zugeordnet')}</option>{documents.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}</select></label>
+        {error && <p className="rental-wide rental-error" role="alert">{t(error)}</p>}
+        <button className="btn-primary" disabled={busy}>{t('Speichern')}</button>
     </form>;
 }
 function LeaseCard({ lease, property, tenants, documents, workflow }) {
@@ -236,7 +236,7 @@ function LeaseCard({ lease, property, tenants, documents, workflow }) {
     return <article className="rental-section lease-overview" aria-label={t('Mietvertrag')}>
         <div className="rental-heading"><h2>{lease.tenantIds.map(id => tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')).join(' & ')}</h2><span className="rental-status">{t(LEASE_STATUSES[lease.status])}</span></div>
         <p>{t(lease.status === 'Planned' ? 'Ab' : 'Seit')} {date(lease.start)} · {lease.end ? t('Bis {date}', { date: date(lease.end) }) : t('unbefristet')}</p>
-        <div className="lease-amounts"><div><span>{t('Kaltmiete')}</span><strong>{amountLabel(lease.coldRentCents)}</strong></div><div><span>{t('Nebenkosten')}</span><strong>{amountLabel(lease.utilitiesCents)}</strong></div><div><span>{t('Gesamtmiete / Monat')}</span><strong>{amountLabel(lease.coldRentCents + lease.utilitiesCents)}</strong></div></div>
+        <div className="lease-amounts"><div><span>{t('Kaltmiete')}</span><strong>{amountLabel(lease.coldRentCents)}</strong></div><div><span>{t('Nebenkosten')}</span><strong>{amountLabel(lease.utilitiesCents)}</strong></div><div><span>{t('Gesamtmiete / Monat')}</span><strong>{amountLabel(lease.coldRentCents == null || lease.utilitiesCents == null ? null : lease.coldRentCents + lease.utilitiesCents)}</strong></div></div>
         {!editing && <div className="rental-actions"><button className="btn-primary" onClick={() => setEditing(true)}>{t('Vertragsdaten bearbeiten')}</button>{lease.contractDocumentId && <a className="btn-outline" href={fileService.url(lease.contractDocumentId, true)} target="_blank" rel="noreferrer">{t('Mietvertrag ansehen')}</a>}</div>}
         {editing && <LeaseEditForm key={lease.id + '-' + lease.start + '-' + lease.coldRentCents + '-' + lease.utilitiesCents + '-' + lease.end} lease={lease} documents={documents.filter(document => document.propertyId === property.id && document.category === 'Leases' && document.hasFile)} busy={workflow.busy} onCancel={() => setEditing(false)} onSave={async values => {
             if (await workflow.save('/leases/' + lease.id, values, 'PUT')) setEditing(false);
@@ -244,7 +244,7 @@ function LeaseCard({ lease, property, tenants, documents, workflow }) {
         <details><summary>{t('Details')}</summary><dl className="lease-details"><div><dt>{t('Kaution (€)')}</dt><dd>{amountLabel(lease.depositCents)}</dd></div><div><dt>{t('Mitvermietete Bestandteile')}</dt><dd>{lease.included || t('Noch nicht erfasst')}</dd></div></dl>
             <div className="rental-actions">{lease.tenantIds.map(id => <Link key={id} to={'/tenants/' + id}>{t('Kontaktdaten')}: {tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')}</Link>)}</div>
         </details>
-        <details><summary>{t('Weitere Aktionen')}</summary><details><summary>{t('Mietende festlegen oder korrigieren')}</summary><LeaseEndForm key={lease.id + '-' + lease.end} lease={lease} busy={workflow.busy} onSave={values => workflow.save('/leases/' + lease.id + '/end', values, 'PUT')} /></details></details>
+        <details><summary>{t('Mietende festlegen oder korrigieren')}</summary><LeaseEndForm key={lease.id + '-' + lease.end} lease={lease} busy={workflow.busy} onSave={values => workflow.save('/leases/' + lease.id + '/end', values, 'PUT')} /></details>
     </article>;
 }
 function LeaseEditForm({ lease, documents, busy, onSave, onCancel }) {

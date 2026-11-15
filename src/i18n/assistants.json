@@ -1,4 +1,6 @@
 {
+  "Nur der Mietbeginn ist erforderlich. Weitere Angaben und eine Vertragsdatei können später ergänzt werden.": { "en": "Only the lease start date is required. Other details and a contract file can be added later." },
+  "Mietvertrag (optional)": { "en": "Lease document (optional)" },
   "Mietzeitraum": { "en": "Rental period" },
   "Miete und Kaution": { "en": "Rent and deposit" },
   "Hausunterlage":{"de":"Hausunterlage","en":"Building document"},

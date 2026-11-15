@@ -81,6 +81,17 @@ describe('Letting workspace', () => {
         workflow.rentals[0].phase = 'Completed';
         show('/rentals/r1');
         expect(screen.getByText('Vermietung abgeschlossen.')).toBeVisible();
-        expect(screen.queryByRole('button', { name: 'Abschließen und Mietverhältnis anlegen' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Speichern', exact: true })).not.toBeInTheDocument();
+    });
+    it('saves a lease without a document, signature confirmation or amounts', async () => {
+        workflow.rentals = [{ id: 'r1', propertyId: 'p2', title: 'Neue Vermietung', phase: 'Contract', applications: [{ id: 'a1', parties: [{ name: 'Alex' }], status: 'Interested' }], selectedApplicationId: 'a1', viewings: [] }];
+        show('/rentals/r1');
+        fireEvent.change(screen.getByLabelText('Mietbeginn'), { target: { value: '2025-07-01' } });
+        const button = screen.getByRole('button', { name: 'Speichern', exact: true });
+        expect(button).toBeEnabled();
+        expect(button.closest('form').checkValidity()).toBe(true);
+        expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
+        fireEvent.click(button);
+        await waitFor(() => expect(workflow.save).toHaveBeenCalledWith('/r1/complete', expect.objectContaining({ start: '2025-07-01', end: '', coldRent: '', utilities: '', deposit: '', contractDocumentId: '' })));
     });
 });

@@ -106,15 +106,28 @@ describe('Rental workflow and leases', () => {
         expect((await request(app).post(`/api/rentals/${rental.id}/viewings`).send({ ...viewing, applicationId: 'foreign' })).status).toBe(400);
         expect((await request(app).post(`/api/rentals/${rental.id}/viewings`).send({ ...viewing, time: '28:00' })).status).toBe(400);
     });
-    it('requires a matching stored contract and explicit confirmation', async () => {
+    it('validates any supplied contract before creating a lease', async () => {
         const { rental } = await preparedRental();
         const endpoint = `/api/rentals/${rental.id}/complete`;
-        expect((await request(app).post(endpoint).send({ ...terms, contractDocumentId: 'signed' })).status).toBe(400);
         expect((await request(app).post(endpoint).send({ ...terms, contractDocumentId: 'missing', confirmSigned: true })).status).toBe(400);
         db.data.documents[0].propertyId = 'other';
         expect((await complete(rental.id)).status).toBe(400);
         expect(db.data.leases).toHaveLength(0);
         expect(db.data.tenants).toHaveLength(0);
+    });
+    it('saves with only a start date and keeps omitted money unknown, then allows completing the details', async () => {
+        const { rental } = await preparedRental();
+        db.data.documents = [];
+        db.data.documentFiles = {};
+        const result = await request(app).post(`/api/rentals/${rental.id}/complete`).send({ start: '2020-01-01', coldRent: '', utilities: '', deposit: '', contractDocumentId: '' });
+        expect(result.status).toBe(200);
+        expect(result.body).toMatchObject({ start: '2020-01-01', end: null, coldRentCents: null, utilitiesCents: null, depositCents: null, contractDocumentId: null });
+        expect(db.data.rentals[0].phase).toBe('Completed');
+        expect(db.data.tenants).toHaveLength(2);
+        expect(tenancyView(db.data, '2026-11-15').properties[0]).toMatchObject({ status: 'Occupied', coldRent: null, nebenkosten: null });
+        const updated = await request(app).put(`/api/rentals/leases/${result.body.id}`).send({ ...terms, coldRent: '0', utilities: '', deposit: '' });
+        expect(updated.status).toBe(200);
+        expect(updated.body).toMatchObject({ coldRentCents: 0, utilitiesCents: null, depositCents: null });
     });
     it('completes atomically and idempotently with multiple parties and an open-ended lease', async () => {
         const { rental } = await preparedRental();

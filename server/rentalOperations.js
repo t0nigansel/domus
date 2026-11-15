@@ -118,7 +118,7 @@ export function createRentalService(db) {
         const start = validDate(input.start, 'Mietbeginn');
         const end = validDate(input.end, 'Mietende', true);
         if (end && end < start) throw rentalError('Mietende muss am oder nach dem Mietbeginn liegen.');
-        return { start, end, coldRentCents: moneyCents(input.coldRent, 'Kaltmiete'), utilitiesCents: moneyCents(input.utilities, 'Nebenkosten'), depositCents: moneyCents(input.deposit, 'Kaution'), included: textValue(input.included, 'Mitvermietete Bestandteile') };
+        return { start, end, coldRentCents: moneyCents(input.coldRent, 'Kaltmiete', true), utilitiesCents: moneyCents(input.utilities, 'Nebenkosten', true), depositCents: moneyCents(input.deposit, 'Kaution', true), included: textValue(input.included, 'Mitvermietete Bestandteile') };
     }
     function assertNoOverlap(data, lease, excludeId = null) {
         const conflict = data.leases.find(other => other.id !== excludeId && (other.propertyId === lease.propertyId || other.tenantIds.some(id => lease.tenantIds.includes(id))) && overlaps(other, lease));
@@ -157,10 +157,9 @@ export function createRentalService(db) {
         const previous = data.leases.find(l => l.rentalId === id);
         if (previous) return previous;
         if (rental.phase === 'Archived') throw rentalError('Archivierter Vorgang kann nicht abgeschlossen werden.', 409);
-        if (input.confirmSigned !== true) throw rentalError('Unterschrift und Vertragsdaten ausdrücklich bestätigen.');
         const application = rental.applications.find(a => a.id === rental.selectedApplicationId);
         if (!application || ['Withdrawn', 'Rejected'].includes(application.status)) throw rentalError('Zuerst eine aktive Bewerbung auswählen.');
-        const contractDocumentId = signedDocument(data, input.contractDocumentId, rental.propertyId);
+        const contractDocumentId = input.contractDocumentId ? signedDocument(data, input.contractDocumentId, rental.propertyId) : null;
         const fields = leaseFields(input);
         const parties = application.parties.map(p => ({ ...p, id: randomUUID(), paymentHistory: [] }));
         const lease = { id: randomUUID(), rentalId: id, propertyId: rental.propertyId, tenantIds: parties.map(p => p.id), ...fields, contractDocumentId,
