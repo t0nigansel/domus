@@ -1,6 +1,8 @@
 import { useTranslation } from '../i18n';
 import Buildings from '../components/Buildings';
 import React, { useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { PropertyPage } from './PropertyDetails';
 import { useData } from '../context/DataContext';
 import { Building, Ruler, Euro, AlertCircle } from 'lucide-react';
 import { PageHeader, CollapsiblePanel, useToast, List, ListRow, ListEmpty, Badge } from '../components/common';
@@ -12,6 +14,9 @@ const Properties = () => {
     const { properties, issues, addProperty } = useData();
     const [isAddingProperty, setIsAddingProperty] = useQuickAction();
     const { addToast } = useToast();
+    const { id: expandedId } = useParams();
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
 
     // New Property State
     const [newPropertyData, setNewPropertyData] = useState({
@@ -149,6 +154,7 @@ const Properties = () => {
             </CollapsiblePanel>
 
             <Buildings />
+            {expandedId && !properties.some(property => property.id === expandedId) && <p role="alert">{t('Wohnung nicht gefunden.')}</p>}
             {properties.length > 0 ? (
                 <List>
                     {properties.map(property => {
@@ -158,7 +164,8 @@ const Properties = () => {
                         return (
                             <ListRow
                                 key={property.id}
-                                to={`/properties/${property.id}`}
+                                expanded={expandedId === property.id}
+                                onToggle={() => navigate(expandedId === property.id ? '/properties' : `/properties/${property.id}`, { preventScrollReset: true })}
                                 icon={<Building size={20} />}
                                 title={property.name}
                                 subtitle={property.location}
@@ -167,7 +174,15 @@ const Properties = () => {
                                     {property.size && <Badge icon={Ruler}>{property.size} {t("m²")}</Badge>}
                                     <Badge icon={Euro} tone="strong">{nonRental ? t("Kein Mietverhältnis") : hasRent ? `${property.coldRent + property.nebenkosten} €` : t('Noch offen')}</Badge>
                                 </>}
-                            />
+                            >
+                                <PropertyPage
+                                    key={`${property.id}-${searchParams.get('tab')}-${searchParams.get('new')}`}
+                                    property={property}
+                                    embedded
+                                    initialTab={searchParams.get('tab')}
+                                    startNew={searchParams.get('new') === '1'}
+                                />
+                            </ListRow>
                         );
                     })}
                 </List>

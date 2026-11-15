@@ -269,7 +269,7 @@ try {
         await page.getByRole('heading', { name: 'Browser-created flat', exact: true }).waitFor();
         await page.reload();
         await page.getByRole('heading', { name: 'Browser-created flat', exact: true }).waitFor();
-        check(await page.locator('main a[href^="/properties/"]').count(), 1, 'UI creation persists');
+        check(await page.locator('main .list-row-title h3').filter({hasText:'Browser-created flat'}).count(), 1, 'UI creation persists');
         await page.getByRole('link', { name: 'Dokumente', exact: true }).click();
         await page.getByRole('button', { name: 'Hinzufügen', exact: true }).click();
         await page.getByLabel('Dateien hochladen (bis 20 MB je Datei)').setInputFiles({ name: 'browser.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.7\nBrowser test\n%%EOF') });
@@ -319,7 +319,20 @@ try {
             }
             await page.setViewportSize({ width: 1280, height: 900 });
             await page.getByRole('navigation').first().getByRole('link', { name: language === 'de' ? 'Wohnungen' : 'Properties', exact: true }).click();
-            await page.locator('main a[href^="/properties/"]').first().click();
+            const apartmentRow=page.locator('main .list-row').filter({has:page.getByRole('heading',{name:'Browser-created flat',exact:true})});
+            const before=await page.locator('main > .page-container').boundingBox();
+            await apartmentRow.getByRole('heading',{name:'Browser-created flat',exact:true}).click();
+            const after=await page.locator('main > .page-container').boundingBox();
+            check(after.x,before.x,'apartment expansion keeps overview horizontally aligned');
+            check(after.width,before.width,'apartment expansion keeps overview width');
+            check(await page.getByRole('heading',{name:language==='de'?'Wohnungen':'Properties',exact:true}).count(),1,'apartment expansion keeps overview header');
+            if(language==='de') {
+                await page.screenshot({path:'test-results/cloud/apartment-inline-desktop.png',fullPage:true,animations:'disabled'});
+                await page.setViewportSize({width:390,height:900});
+                check(await page.evaluate(()=>globalThis.document.documentElement.scrollWidth<=globalThis.innerWidth),true,'expanded apartment fits mobile overview');
+                await page.screenshot({path:'test-results/cloud/apartment-inline-mobile.png',fullPage:true,animations:'disabled'});
+                await page.setViewportSize({width:1280,height:900});
+            }
             await page.getByRole('tab', { name: language === 'de' ? 'Vermietung' : 'Letting', exact: true }).click();
             await page.getByRole('navigation', { name: language === 'de' ? 'Vermietungsbereiche' : 'Letting sections', exact: true }).waitFor();
             check(await page.locator('.sidebar-nav .nav-item.active').getAttribute('href'), '/properties', 'rentals belong to properties');

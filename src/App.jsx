@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Properties from './pages/Properties';
-import PropertyDetails from './pages/PropertyDetails';
 import Issues from './pages/Issues';
 
 import TenantDetails from './pages/TenantDetails';
@@ -26,7 +25,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="properties" element={<Properties />} />
-            <Route path="properties/:id" element={<PropertyDetails />} />
+            <Route path="properties/:id" element={<Properties />} />
             <Route path="settings" element={<Settings />} />
             <Route path="buildings/:id" element={<BuildingDetails />} />
             <Route path="buildings/:id/statements" element={<UtilityStatements />} />

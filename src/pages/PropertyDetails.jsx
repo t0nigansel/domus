@@ -26,7 +26,7 @@ export default function PropertyDetails() {
     return <PropertyPage key={`${id}-${searchParams.get('tab')}-${searchParams.get('new')}`} property={property} initialTab={searchParams.get('tab')} startNew={searchParams.get('new') === '1'} />;
 }
 
-function PropertyPage({ property, initialTab, startNew }) {
+export function PropertyPage({ property, initialTab, startNew, embedded = false }) {
     const { t, locale } = useTranslation();
     const auth = useCloudAuth();
     const { tenants, documents, issues, refreshAll } = useData();
@@ -39,10 +39,10 @@ function PropertyPage({ property, initialTab, startNew }) {
     const total = Number.isFinite(facts.coldRent) && Number.isFinite(facts.nebenkosten) ? new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(facts.coldRent + facts.nebenkosten) : t('Noch nicht erfasst');
     const overviewFields = nonRental ? ['size', 'rooms', 'condition', 'pets', 'occupants', 'occupancyNote'] : ['tenantName', 'moveInDate', 'size', 'rooms', 'coldRent', 'nebenkosten', 'condition', 'pets', 'occupants'];
     const selectTab = next => setTab(next);
-    return <div className="property-details-container">
-        <div className="details-header-nav"><Link className="back-link" to="/properties"><ArrowLeft size={18} />{t('Back to Properties')}</Link></div>
+    return <div className={`property-details-container${embedded ? ' property-details-inline' : ''}`}>
+        {!embedded && <div className="details-header-nav"><Link className="back-link" to="/properties"><ArrowLeft size={18} />{t('Back to Properties')}</Link></div>}
         <header className="details-header">
-            <div><div className="title-row"><h1 className="details-title">{property.name}</h1><span className={`property-status status-${property.status.toLowerCase()}`}>{t(property.status)}</span></div>
+            <div><div className="title-row">{!embedded && <h1 className="details-title">{property.name}</h1>}<span className={`property-status status-${property.status.toLowerCase()}`}>{t(property.status)}</span></div>
                 <p className="address-row text-muted"><MapPin size={16} aria-hidden="true" />{address || t('Noch nicht erfasst')}</p>
             </div>
         </header>

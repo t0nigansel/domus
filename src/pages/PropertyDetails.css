@@ -87,6 +87,12 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+.property-details-container.property-details-inline {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+    min-width: 0;
+}
 
 .details-header-nav {
     margin-bottom: var(--spacing-lg);
