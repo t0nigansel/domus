@@ -141,13 +141,14 @@ export function createRentalService(db) {
         data.leases.push(lease);
         return lease;
     });
-    const updateLease = (id, input) => transact(data => {
+    const updateLease = (id, input, editTerms = false) => transact(data => {
         const lease = data.leases.find(l => l.id === id);
         if (!lease) throw rentalError('Mietverhältnis nicht gefunden.', 404);
-        const end = validDate(input.end, 'Mietende', true);
-        if (end && end < lease.start) throw rentalError('Mietende liegt vor dem Mietbeginn.');
-        assertNoOverlap(data, { ...lease, end }, id);
-        lease.end = end;
+        const fields = editTerms ? leaseFields(input) : { end: validDate(input.end, 'Mietende', true) };
+        if (fields.end && fields.end < (fields.start || lease.start)) throw rentalError('Mietende liegt vor dem Mietbeginn.');
+        if (input.contractDocumentId !== undefined) fields.contractDocumentId = input.contractDocumentId ? signedDocument(data, input.contractDocumentId, lease.propertyId) : null;
+        assertNoOverlap(data, { ...lease, ...fields }, id);
+        Object.assign(lease, fields);
         return lease;
     });
     const completeRental = (id, input) => transact(data => {

@@ -4,12 +4,12 @@ import { Download, Eye, FileText, Image, File, FolderOpen, Star, Globe, AlertCir
 import { useData } from '../context/DataContext';
 import { useFileWorkspace } from '../hooks/domain/useFileWorkspace';
 import { fileService } from '../db/services/fileService';
-import { splitDocumentName, DOCUMENT_CATEGORIES as categories } from '../domain/documents';
+import { splitDocumentName, documentInUploadRange, DOCUMENT_CATEGORIES as categories } from '../domain/documents';
 import { List, ListRow, ListEmpty, Badge } from '../components/common';
 import './DocumentWorkspace.css';
 
 
-export default function DocumentWorkspace({ propertyId = '', showFiles = true, showControls = true, categoryFilter = 'All', searchTerm = '' }) {
+export default function DocumentWorkspace({ propertyId = '', showFiles = true, showControls = true, categoryFilter = 'All', searchTerm = '', gallery = false, uploadedFrom = '', uploadedTo = '' }) {
     const { t } = useTranslation();
     const { documents, properties, refreshDocuments } = useData();
     const workspace = useFileWorkspace(refreshDocuments);
@@ -17,7 +17,7 @@ export default function DocumentWorkspace({ propertyId = '', showFiles = true, s
     const [category, setCategory] = useState('Misc');
     const [expandedId, setExpandedId] = useState(null);
     const metadata = { propertyId: propertyId || target || null, category };
-    const files = documents.filter(d => (!propertyId || d.propertyId === propertyId) && (categoryFilter === 'All' || d.category === categoryFilter) && d.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    const files = documents.filter(d => (!propertyId || d.propertyId === propertyId) && (categoryFilter === 'All' || d.category === categoryFilter) && d.name.toLowerCase().includes(searchTerm.toLowerCase()) && documentInUploadRange(d, uploadedFrom, uploadedTo))
         .sort((a, b) => Number(b.cover || false) - Number(a.cover || false) || (a.position || 0) - (b.position || 0));
 
     return <section className="document-workspace" aria-label={t("Dateien verwalten")}>
@@ -61,7 +61,13 @@ export default function DocumentWorkspace({ propertyId = '', showFiles = true, s
         </div>}
         {showFiles && (files.length === 0
             ? <ListEmpty icon={<FolderOpen size={40} />}>{t("Noch keine Dateien zugeordnet.")}</ListEmpty>
-            : <List>
+            : gallery ? <div className="property-photo-gallery">
+                {files.map(file => <article key={file.id} className="property-photo">
+                    {file.hasFile && <a href={fileService.url(file.id, true)} target="_blank" rel="noreferrer">{file.type === 'image' ? <img src={fileService.url(file.id, true)} alt={file.caption || file.name} loading="lazy" /> : <span>{file.name}</span>}</a>}
+                    <div className="property-photo-caption"><p>{file.caption || file.name}</p><button className="btn-text" onClick={() => setExpandedId(expandedId === file.id ? null : file.id)} aria-expanded={expandedId === file.id}>{t('Bearbeiten')}</button></div>
+                    {expandedId === file.id && <DocumentEditor file={file} properties={properties} busy={workspace.busy} onSave={workspace.update} onClose={() => setExpandedId(null)} />}
+                </article>)}
+            </div> : <List>
                 {files.map(file => <DocumentRow
                     key={`${file.id}-${file.propertyId}`}
                     file={file}

@@ -5,7 +5,7 @@ import { PageHeader } from '../components/common';
 import { useData } from '../context/DataContext';
 import { useRentals } from '../hooks/domain/useRentals';
 import { RENTAL_PHASES, APPLICATION_STATUSES, LEASE_STATUSES } from '../domain/rentals';
-import { rentalForm, leaseForm, newParty, amountLabel } from '../utils/rentalForms';
+import { rentalForm, leaseForm, newParty, amountLabel, euros } from '../utils/rentalForms';
 import { fileService } from '../db/services/fileService';
 import './Rentals.css';
 
@@ -25,58 +25,95 @@ function MoneyFields({ values, change, required = false }) {
 function LeaseFields({ values, change }) {
     const { t } = useTranslation();
     return <><Field label={t("Mietbeginn")} type="date" required value={values.start} onChange={v => change('start', v)} />
-        <Field label={t("Mietende (leer = unbefristet)")} type="date" value={values.end} onChange={v => change('end', v)} />
+        <label>{t('Mietende (leer = unbefristet)')}<input type="date" min={values.start || undefined} value={values.end} onChange={e => change('end', e.target.value)} /><small className="text-muted">{t('Ein Enddatum zählt als letzter Miettag.')}</small></label>
         <MoneyFields values={values} change={change} required /></>;
 }
 
 export default function Rentals() {
     const { t } = useTranslation();
     const { id } = useParams();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const { properties, tenants, documents, refreshAll } = useData();
     const workflow = useRentals(refreshAll);
-    const [creating, setCreating] = useState(searchParams.get('new') === '1');
-    const navigate = useNavigate();
     const propertyId = searchParams.get('propertyId') || '';
     const selectedProperty = properties.find(p => p.id === propertyId);
     const rental = workflow.rentals.find(r => r.id === id);
     return <div className="page-container rentals-page">
-        <PageHeader title="Vermietungen" description="Vorbereiten, Interessenten begleiten und Mietverhältnisse festhalten." onAction={id ? undefined : () => setCreating(!creating)} />
+        <PageHeader title={selectedProperty ? t('Mietverhältnis · {name}', { name: selectedProperty.name }) : 'Vermietung'} />
         {!id && selectedProperty && <Link to={`/properties/${selectedProperty.id}`}>{t("← Zur Wohnung")}{" "}{selectedProperty.name}</Link>}
         {workflow.error && <p role="alert" className="rental-error">{t(workflow.error)}</p>}
         {workflow.message && <p role="status">{t(workflow.message)}</p>}
         {workflow.loading ? <p>{t("Lädt …")}</p> : id ? rental ? <RentalDetail key={rental.id} rental={rental} workflow={workflow} property={properties.find(p => p.id === rental.propertyId)} documents={documents} /> : <p>{t("Vermietung nicht gefunden.")}{" "}<Link to="/rentals">{t("Zur Übersicht")}</Link></p> : <>
-            <label className="rental-filter">{t("Wohnung filtern")}<select value={propertyId} onChange={e => setSearchParams(e.target.value ? { propertyId: e.target.value } : {})}><option value="">{t("Alle Wohnungen")}</option>{properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label>
-            {creating && <RentalForm key={propertyId} property={selectedProperty} properties={properties} busy={workflow.busy} onSave={async values => {
-                const saved = await workflow.save('', values);
-                if (saved) { setCreating(false); navigate(`/rentals/${saved.id}`); }
-            }} />}
-            <section className="rental-section"><h2>{t("Vorgänge")}</h2>
-                {!workflow.rentals.length && <p>{t("Noch keine Vermietung angelegt.")}</p>}
-                {workflow.rentals.filter(r => !propertyId || r.propertyId === propertyId).map(r => <article className="rental-summary" key={r.id}>
-                    <div><h3><Link to={`/rentals/${r.id}`}>{r.title}</Link></h3><p>{properties.find(p => p.id === r.propertyId)?.name} · {t(RENTAL_PHASES[r.phase])}</p></div>
-                    <Link className="btn-outline" to={`/rentals/${r.id}`}>{t("Öffnen")}</Link>
-                </article>)}
-            </section>
-            <LeaseList workflow={workflow} properties={properties} tenants={tenants} propertyId={propertyId} />
-            <LegacyConfirmation key={propertyId} workflow={workflow} properties={properties} propertyId={propertyId} />
+            {selectedProperty ? <RentalWorkspace key={`${propertyId}-${searchParams.get('new')}`} property={selectedProperty} tenants={tenants} documents={documents} workflow={workflow} startNew={searchParams.get('new') === '1'} />
+                : propertyId ? <p>{t('Wohnung nicht gefunden.')}</p> : <section className="rental-section"><h2>{t('Wohnung auswählen')}</h2>
+                    {properties.map(property => {
+                        const active = workflow.leases.find(lease => lease.propertyId === property.id && lease.status === 'Active');
+                        const running = workflow.rentals.filter(rental => rental.propertyId === property.id && !['Completed', 'Archived'].includes(rental.phase));
+                        return <article className="rental-summary" key={property.id}><div><h3>{property.name}</h3><p>{active ? `${active.tenantIds.map(id => tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')).join(' & ')} · ${amountLabel(active.coldRentCents + active.utilitiesCents)}` : t('Kein aktiver Mietvertrag erfasst')}{running.length > 0 && ` · ${t('Neuvermietung läuft')}`}</p></div><Link className="btn-outline" to={`/rentals?propertyId=${property.id}`}>{t('Öffnen')}</Link></article>;
+                    })}
+                    {!properties.length && <p>{t('Noch keine Wohnungen vorhanden.')}</p>}
+                </section>}
         </>}
     </div>;
 }
 
-function RentalForm({ rental, property, properties = [], busy, onSave }) {
+function RentalNavigation({ items, value, onChange, label, disabled = false }) {
+    const { t } = useTranslation();
+    return <nav className="rental-navigation" aria-label={t(label)}>{items.map(([key, title]) => <button type="button" key={key} disabled={disabled} aria-pressed={value === key} onClick={() => onChange(key)}>{t(title)}</button>)}</nav>;
+}
+
+export function RentalWorkspace({ property, tenants, documents, workflow, startNew = false }) {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+    const [tab, setTab] = useState(startNew ? 'letting' : 'current');
+    const [creating, setCreating] = useState(startNew);
+    const leases = workflow.leases.filter(lease => lease.propertyId === property.id).sort((a, b) => b.start.localeCompare(a.start));
+    const rentals = workflow.rentals.filter(rental => rental.propertyId === property.id);
+    const running = rentals.filter(rental => !['Completed', 'Archived'].includes(rental.phase));
+    const candidates = workflow.legacyTenants.filter(tenant => !tenant.propertyId || tenant.propertyId === property.id);
+    const leaseCards = items => items.map(lease => <LeaseCard key={lease.id} lease={lease} property={property} tenants={tenants} documents={documents} workflow={workflow} />);
+    const rentalCards = items => items.map(rental => <article className="rental-summary" key={rental.id}><div><h3>{rental.title}</h3><p>{t(RENTAL_PHASES[rental.phase])} · {t('{count} Interessenten', { count: rental.applications.length })}</p></div><Link className="btn-outline" to={`/rentals/${rental.id}`}>{t('Öffnen')}</Link></article>);
+    return <>
+        <RentalNavigation label="Vermietungsbereiche" items={[["current", "Aktuelles Mietverhältnis"], ["letting", "Neuvermietung"], ["history", "Historie"]]} value={tab} onChange={setTab} />
+        {tab === 'current' && <>
+            {leaseCards(leases.filter(lease => lease.status === 'Active'))}
+            {!leases.some(lease => lease.status === 'Active') && <section className="rental-section"><h2>{t('Aktuelles Mietverhältnis')}</h2><p>{t('Kein aktiver Mietvertrag erfasst')}</p>{property.tenantName && <p>{t('Mieter')}: {property.tenantName}</p>}
+                {candidates.length > 0 && <details className="rental-capture"><summary>{t('Bestehenden Mietvertrag erfassen')}</summary><LegacyForm property={property} candidates={candidates} workflow={workflow} /></details>}
+                {!candidates.length && <button className="btn-primary" onClick={() => { setTab('letting'); setCreating(true); }}>{t('Neuvermietung starten')}</button>}
+            </section>}
+            {leases.some(lease => lease.status === 'Active') && candidates.length > 0 && <details className="rental-section"><summary>{t('Weiteren Bestandsvertrag erfassen')}</summary><LegacyForm property={property} candidates={candidates} workflow={workflow} /></details>}
+            {leases.some(lease => lease.status === 'Planned') && <section className="rental-section"><h2>{t('Kommende Mietverhältnisse')}</h2>{leaseCards(leases.filter(lease => lease.status === 'Planned'))}</section>}
+        </>}
+        {tab === 'letting' && <section className="rental-section"><div className="rental-heading"><h2>{t('Neuvermietung')}</h2>{!creating && <button className="btn-primary" onClick={() => setCreating(true)}>{t('Neuvermietung starten')}</button>}</div>
+            {rentalCards(running)}
+            {creating && <RentalForm property={property} busy={workflow.busy} onCancel={() => setCreating(false)} onSave={async values => {
+                const saved = await workflow.save('', values);
+                if (saved) navigate(`/rentals/${saved.id}`);
+            }} />}
+        </section>}
+        {tab === 'history' && <section className="rental-section"><h2>{t('Historie')}</h2>{leaseCards(leases.filter(lease => lease.status === 'Ended'))}{rentalCards(rentals.filter(rental => ['Completed', 'Archived'].includes(rental.phase)))}
+            {!leases.some(lease => lease.status === 'Ended') && !rentals.some(rental => ['Completed', 'Archived'].includes(rental.phase)) && <p>{t('Noch keine abgeschlossenen Mietverhältnisse oder Vermietungen.')}</p>}
+        </section>}
+    </>;
+}
+
+function RentalForm({ rental, property, busy, onSave, onCancel }) {
     const { t } = useTranslation();
     const [values, setValues] = useState(() => rentalForm(rental, property));
     const change = (key, value) => setValues(previous => ({ ...previous, [key]: value }));
     return <section className="rental-section"><h2>{rental ? t("Vorbereitung und Inserat") : t("Vermietung anlegen")}</h2>
         <form className="rental-form" onSubmit={e => { e.preventDefault(); onSave(values); }}>
-            {!rental && <label>{t("Wohnung")}<select required value={values.propertyId} onChange={e => change('propertyId', e.target.value)}><option value="">{t("Bitte auswählen")}</option>{properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label>}
             <Field label={t("Bezeichnung")} required value={values.title} onChange={v => change('title', v)} />
             <Field label={t("Verfügbar ab")} type="date" value={values.availableFrom} onChange={v => change('availableFrom', v)} />
-            <MoneyFields values={values} change={change} />
+            <Field label="Kaltmiete (€ / Monat)" type="number" min="0" step="0.01" value={values.coldRent} onChange={v => change('coldRent', v)} />
+            <Field label="Nebenkosten (€ / Monat)" type="number" min="0" step="0.01" value={values.utilities} onChange={v => change('utilities', v)} />
+            <details className="rental-wide"><summary>{t('Weitere Angaben und Inserat')}</summary><div className="rental-form">
+            <Field label="Kaution (€)" type="number" min="0" step="0.01" value={values.deposit} onChange={v => change('deposit', v)} />
+            <Field label="Mitvermietete Bestandteile" value={values.included} onChange={v => change('included', v)} />
             <label className="rental-wide">{t("Interne Notizen")}<textarea value={values.notes} onChange={e => change('notes', e.target.value)} /></label>
             <label className="rental-wide">{t("Inseratentwurf (manuell)")}<textarea rows="5" value={values.listing} onChange={e => change('listing', e.target.value)} /></label>
-            <div className="rental-wide"><button className="btn-primary" disabled={busy}>{t("Vorgang speichern")}</button></div>
+            </div></details>
+            <div className="rental-wide rental-actions"><button className="btn-primary" disabled={busy}>{t("Vorgang speichern")}</button>{onCancel && <button type="button" className="btn-outline" disabled={busy} onClick={onCancel}>{t('Abbrechen')}</button>}</div>
         </form>
     </section>;
 }
@@ -87,24 +124,34 @@ function RentalDetail({ rental, workflow, property, documents }) {
     const [addingApplication, setAddingApplication] = useState(false);
     const [editingViewing, setEditingViewing] = useState(null);
     const [addingViewing, setAddingViewing] = useState(false);
+    const [editingPreparation, setEditingPreparation] = useState(false);
+    const steps = [['Preparation', 'Vorbereitung'], ['Inquiries', 'Interessenten'], ['Viewings', 'Besichtigungen'], ['Contract', 'Vertrag']];
+    const [step, setStep] = useState(() => ({ Preparation: 0, Listing: 0, Inquiries: 1, Viewings: 2, Selection: 1, Contract: 3, Completed: 3, Archived: 0 }[rental.phase] ?? 0));
     const locked = ['Completed', 'Archived'].includes(rental.phase);
     const selected = rental.applications.find(a => a.id === rental.selectedApplicationId);
+    const next = async () => {
+        const nextStep = Math.min(step + 1, steps.length - 1);
+        if (await workflow.save(`/${rental.id}`, { phase: steps[nextStep][0] }, 'PUT')) setStep(nextStep);
+    };
     return <>
-        <Link to={`/rentals?propertyId=${rental.propertyId}`}>{t("← Zur Übersicht und den Mietverhältnissen")}</Link>
+        <Link to={`/properties/${rental.propertyId}?tab=rental`}>{t("← Zur Übersicht und den Mietverhältnissen")}</Link>
         <section className="rental-section"><h2>{rental.title}</h2><p><Link to={`/properties/${rental.propertyId}`}>{property?.name}</Link> · {t(RENTAL_PHASES[rental.phase])}</p>
-            {!locked && <label>{t("Bearbeitungsphase")}<select value={rental.phase} disabled={workflow.busy} onChange={e => workflow.save(`/${rental.id}`, { phase: e.target.value }, 'PUT')}>
-                {Object.entries(RENTAL_PHASES).filter(([key]) => !['Completed', 'Archived'].includes(key)).map(([key, label]) => <option key={key} value={key}>{t(label)}</option>)}
-            </select></label>}
-            {!locked && <details><summary>{t("Vorgang abbrechen")}</summary><p>{t("Der Vorgang bleibt lesbar. Es wird kein Mietverhältnis angelegt.")}</p><button className="btn-outline" disabled={workflow.busy} onClick={() => workflow.save(`/${rental.id}`, { phase: 'Archived' }, 'PUT')}>{t("Vorgang archivieren")}</button></details>}
-            {locked && <><p>{rental.phase === 'Completed' ? t("Der Abschluss ist gespeichert. Zeitraum und Status findest du in der Übersicht unter Mietverhältnisse.") : t("Dieser Vorgang wurde archiviert.")}</p><p>{rental.notes}</p><p className="rental-prewrap">{rental.listing}</p></>}
+            <RentalNavigation label="Vermietungsschritte" items={steps.map(([, label], index) => [index, `${index + 1}. ${t(label)}`])} value={step} onChange={setStep} disabled={workflow.busy || editingPreparation || addingApplication || !!editingApplication || addingViewing || !!editingViewing} />
+            {!locked && <details><summary>{t('Weitere Aktionen')}</summary><button className="btn-outline" disabled={workflow.busy} onClick={() => workflow.save(`/${rental.id}`, { phase: 'Archived' }, 'PUT')}>{t("Vorgang archivieren")}</button></details>}
+            {locked && <p>{t(rental.phase === 'Completed' ? 'Vermietung abgeschlossen.' : 'Dieser Vorgang wurde archiviert.')}</p>}
         </section>
-        {!locked && <RentalForm rental={rental} property={property} busy={workflow.busy} onSave={values => workflow.save(`/${rental.id}`, values, 'PUT')} />}
-        <section className="rental-section"><h2>{t("Interessenten und Vertragsparteien")}</h2>
+        {step === 0 && <section className="rental-section"><div className="rental-heading"><h2>{t('Vorbereitung')}</h2>{!locked && !editingPreparation && <button className="btn-outline" onClick={() => setEditingPreparation(true)}>{t('Bearbeiten')}</button>}</div>
+            {editingPreparation && !locked ? <RentalForm rental={rental} property={property} busy={workflow.busy} onCancel={() => setEditingPreparation(false)} onSave={async values => { if (await workflow.save(`/${rental.id}`, values, 'PUT')) setEditingPreparation(false); }} /> : <>
+                <dl className="lease-details"><div><dt>{t('Verfügbar ab')}</dt><dd>{rental.availableFrom || t('Noch nicht erfasst')}</dd></div><div><dt>{t('Kaltmiete')}</dt><dd>{amountLabel(rental.coldRentCents)}</dd></div><div><dt>{t('Nebenkosten')}</dt><dd>{amountLabel(rental.utilitiesCents)}</dd></div></dl>
+                <details><summary>{t('Weitere Angaben und Inserat')}</summary><p>{t('Kaution (€)')}: {amountLabel(rental.depositCents)}</p><p>{rental.included}</p><p className="rental-prewrap">{rental.notes}</p><p className="rental-prewrap">{rental.listing}</p></details>
+            </>}
+        </section>}
+        {step === 1 && <section className="rental-section"><h2>{t("Interessenten")}</h2>
             {!locked && <button className="btn-outline" onClick={() => { setAddingApplication(true); setEditingApplication(null); }}>{t("Bewerbung hinzufügen")}</button>}
             {rental.applications.length === 0 && <p>{t("Noch keine Interessenten erfasst.")}</p>}
             {rental.applications.map(a => <article className="rental-summary" key={a.id}>
                 <div><h3>{a.parties.map(p => p.name).join(' & ')}</h3><p>{t(a.status)}{a.id === rental.selectedApplicationId ? t(" · Ausgewählt") : ''}</p>
-                    {a.parties.map((p, i) => <p key={i}>{p.email} {p.phone}</p>)}<p className="rental-prewrap">{a.inquiry}</p><p className="rental-prewrap">{a.notes}</p></div>
+                    <details><summary>{t('Details')}</summary>{a.parties.map((p, i) => <p key={i}>{p.email} {p.phone}</p>)}<p className="rental-prewrap">{a.inquiry}</p><p className="rental-prewrap">{a.notes}</p></details></div>
                 {!locked && <div className="rental-actions"><button className="btn-outline" onClick={() => { setEditingApplication(a); setAddingApplication(false); }}>{t("Bewerbung bearbeiten")}</button>
                     <button className="btn-outline" disabled={workflow.busy || ['Withdrawn', 'Rejected'].includes(a.status)} onClick={() => workflow.save(`/${rental.id}`, { selectedApplicationId: a.id }, 'PUT')}>{t("Für Vertrag auswählen")}</button></div>}
             </article>)}
@@ -112,8 +159,8 @@ function RentalDetail({ rental, workflow, property, documents }) {
                 const result = await workflow.save(`/${rental.id}/applications${editingApplication ? `/${editingApplication.id}` : ''}`, values, editingApplication ? 'PUT' : 'POST');
                 if (result) { setAddingApplication(false); setEditingApplication(null); }
             }} />}
-        </section>
-        <section className="rental-section"><h2>{t("Besichtigungen")}</h2><p>{t("Datum und Uhrzeit gelten am Ort der Wohnung.")}</p>
+        </section>}
+        {step === 2 && <section className="rental-section"><h2>{t("Besichtigungen")}</h2>
             {!locked && <button className="btn-outline" disabled={!rental.applications.length} onClick={() => { setAddingViewing(true); setEditingViewing(null); }}>{t("Besichtigung hinzufügen")}</button>}
             {rental.viewings.map(v => <article className="rental-summary" key={v.id}><div><h3>{v.date} · {v.time}</h3><p>{rental.applications.find(a => a.id === v.applicationId)?.parties.map(p => p.name).join(' & ')} · {{ Scheduled: t("Geplant"), Done: t("Durchgeführt"), Cancelled: t("Abgesagt") }[v.status]}</p><p className="rental-prewrap">{v.notes}</p></div>
                 {!locked && <button className="btn-outline" onClick={() => { setEditingViewing(v); setAddingViewing(false); }}>{t("Termin bearbeiten")}</button>}</article>)}
@@ -121,10 +168,15 @@ function RentalDetail({ rental, workflow, property, documents }) {
                 const result = await workflow.save(`/${rental.id}/viewings${editingViewing ? `/${editingViewing.id}` : ''}`, values, editingViewing ? 'PUT' : 'POST');
                 if (result) { setAddingViewing(false); setEditingViewing(null); }
             }} />}
-        </section>
-        {!locked && <section className="rental-section"><h2>{t("Mietverhältnis übernehmen")}</h2><p>{t("Nach externer Unterzeichnung: Vertrag in der Wohnungsakte als „Mietverträge“ hochladen und hier zuordnen. Eine Vertragsgenerierung folgt in einem späteren Schritt.")}</p>
-            {selected ? <CompletionForm key={`${rental.id}-${selected.id}`} rental={rental} selected={selected} documents={documents.filter(d => d.propertyId === rental.propertyId && d.category === 'Leases' && d.hasFile)} busy={workflow.busy} onSave={values => workflow.save(`/${rental.id}/complete`, values)} /> : <p>{t("Zuerst eine Bewerbung für den Vertrag auswählen.")}</p>}
         </section>}
+        {step === 3 && <section className="rental-section"><h2>{t("Vertrag")}</h2>
+            {locked ? <Link className="btn-outline" to={`/properties/${rental.propertyId}?tab=rental`}>{t('Mietverhältnis ansehen')}</Link> : selected ? <>
+                <p>{t('Unterschriebenen Mietvertrag auswählen und die Vertragsdaten bestätigen.')}</p>
+                <Link to={`/properties/${rental.propertyId}?tab=files`}>{t('Vertrag bei der Wohnung hochladen')}</Link>
+                <CompletionForm key={`${rental.id}-${selected.id}`} rental={rental} selected={selected} documents={documents.filter(d => d.propertyId === rental.propertyId && d.category === 'Leases' && d.hasFile)} busy={workflow.busy} onSave={values => workflow.save(`/${rental.id}/complete`, values)} />
+            </> : <p>{t("Zuerst eine Bewerbung für den Vertrag auswählen.")}</p>}
+        </section>}
+        {!locked && step < 3 && <div className="rental-next"><button className="btn-primary" disabled={workflow.busy || editingPreparation || addingApplication || !!editingApplication || addingViewing || !!editingViewing || (step === 1 && !rental.applications.length) || (step === 2 && !selected)} onClick={next}>{t('Weiter zu {step}', { step: t(steps[step + 1][1]) })}</button>{step === 2 && !selected && <p className="text-muted">{t('Für den Vertrag zuerst einen Interessenten auswählen.')} <button className="btn-text" onClick={() => setStep(1)}>{t('Zu den Interessenten')}</button></p>}</div>}
     </>;
 }
 
@@ -151,7 +203,7 @@ function ViewingForm({ viewing, applications, busy, onSave, onCancel }) {
     return <form className="rental-form inset-form" onSubmit={e => { e.preventDefault(); onSave(values); }}>
         <label>{t("Bewerbung")}<select required value={values.applicationId} onChange={e => change('applicationId', e.target.value)}>{applications.map(a => <option key={a.id} value={a.id}>{a.parties.map(p => p.name).join(' & ')}</option>)}</select></label>
         <Field label={t("Datum")} type="date" required value={values.date} onChange={v => change('date', v)} />
-        <Field label={t("Uhrzeit")} type="time" required value={values.time} onChange={v => change('time', v)} />
+        <label>{t('Uhrzeit')}<input type="time" required value={values.time} onChange={e => change('time', e.target.value)} /><small className="text-muted">{t('Ortszeit der Wohnung')}</small></label>
         <label>{t("Terminstatus")}<select value={values.status} onChange={e => change('status', e.target.value)}><option value="Scheduled">{t("Geplant")}</option><option value="Done">{t("Durchgeführt")}</option><option value="Cancelled">{t("Abgesagt")}</option></select></label>
         <label className="rental-wide">{t("Ergebnis und offene Fragen")}<textarea value={values.notes} onChange={e => change('notes', e.target.value)} /></label>
         <div className="rental-wide rental-actions"><button className="btn-primary" disabled={busy}>{t("Termin speichern")}</button><button type="button" className="btn-outline" onClick={onCancel}>{t("Abbrechen")}</button></div>
@@ -169,41 +221,46 @@ function CompletionForm({ rental, selected, documents, busy, onSave }) {
         <button className="btn-primary" disabled={busy || !documents.length}>{t("Abschließen und Mietverhältnis anlegen")}</button>
     </form>;
 }
-function LeaseList({ workflow, properties, tenants, propertyId }) {
+function LeaseCard({ lease, property, tenants, documents, workflow }) {
+    const { t, locale } = useTranslation();
+    const [editing, setEditing] = useState(false);
+    const date = value => new Date(value + 'T12:00:00').toLocaleDateString(locale);
+    return <article className="rental-section lease-overview" aria-label={t('Mietvertrag')}>
+        <div className="rental-heading"><h2>{lease.tenantIds.map(id => tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')).join(' & ')}</h2><span className="rental-status">{t(LEASE_STATUSES[lease.status])}</span></div>
+        <p>{t(lease.status === 'Planned' ? 'Ab' : 'Seit')} {date(lease.start)} · {lease.end ? t('Bis {date}', { date: date(lease.end) }) : t('unbefristet')}</p>
+        <div className="lease-amounts"><div><span>{t('Kaltmiete')}</span><strong>{amountLabel(lease.coldRentCents)}</strong></div><div><span>{t('Nebenkosten')}</span><strong>{amountLabel(lease.utilitiesCents)}</strong></div><div><span>{t('Gesamtmiete / Monat')}</span><strong>{amountLabel(lease.coldRentCents + lease.utilitiesCents)}</strong></div></div>
+        {!editing && <div className="rental-actions"><button className="btn-primary" onClick={() => setEditing(true)}>{t('Vertragsdaten bearbeiten')}</button>{lease.contractDocumentId && <a className="btn-outline" href={fileService.url(lease.contractDocumentId, true)} target="_blank" rel="noreferrer">{t('Mietvertrag ansehen')}</a>}</div>}
+        {editing && <LeaseEditForm key={lease.id + '-' + lease.start + '-' + lease.coldRentCents + '-' + lease.utilitiesCents + '-' + lease.end} lease={lease} documents={documents.filter(document => document.propertyId === property.id && document.category === 'Leases' && document.hasFile)} busy={workflow.busy} onCancel={() => setEditing(false)} onSave={async values => {
+            if (await workflow.save('/leases/' + lease.id, values, 'PUT')) setEditing(false);
+        }} />}
+        <details><summary>{t('Details')}</summary><dl className="lease-details"><div><dt>{t('Kaution (€)')}</dt><dd>{amountLabel(lease.depositCents)}</dd></div><div><dt>{t('Mitvermietete Bestandteile')}</dt><dd>{lease.included || t('Noch nicht erfasst')}</dd></div></dl>
+            <div className="rental-actions">{lease.tenantIds.map(id => <Link key={id} to={'/tenants/' + id}>{t('Kontaktdaten')}: {tenants.find(tenant => tenant.id === id)?.name || t('Vertragspartei')}</Link>)}</div>
+        </details>
+        <details><summary>{t('Weitere Aktionen')}</summary><details><summary>{t('Mietende festlegen oder korrigieren')}</summary><LeaseEndForm key={lease.id + '-' + lease.end} lease={lease} busy={workflow.busy} onSave={values => workflow.save('/leases/' + lease.id + '/end', values, 'PUT')} /></details></details>
+    </article>;
+}
+function LeaseEditForm({ lease, documents, busy, onSave, onCancel }) {
     const { t } = useTranslation();
-    return <section className="rental-section"><h2>{t("Mietverhältnisse")}</h2><p>{t("Beginn und Ende bestimmen den Status automatisch. Ein Enddatum zählt als letzter Miettag.")}</p>
-        {!workflow.leases.length && <p>{t("Noch keine Mietverhältnisse bestätigt.")}</p>}
-        {workflow.leases.filter(l => !propertyId || l.propertyId === propertyId).map(lease => <article className="lease-card" key={lease.id}>
-            <h3>{properties.find(p => p.id === lease.propertyId)?.name} · {t(LEASE_STATUSES[lease.status])}</h3>
-            <p>{lease.tenantIds.map(id => tenants.find(tenant => tenant.id === id)?.name || 'Vertragspartei').join(' & ')}</p>
-            <p>{lease.start}{" "}{t("bis")}{" "}{lease.end || t("unbefristet")}{" "}{t("· Kaltmiete")}{" "}{amountLabel(lease.coldRentCents)}{" "}{t("· Nebenkosten")}{" "}{amountLabel(lease.utilitiesCents)}</p>
-            {lease.contractDocumentId && <a className="btn-outline" href={fileService.url(lease.contractDocumentId)}>{t("Vertrag herunterladen")}</a>}
-            <details><summary>{t("Mietende festlegen oder korrigieren")}</summary><LeaseEndForm key={`${lease.id}-${lease.end}`} lease={lease} busy={workflow.busy} onSave={values => workflow.save(`/leases/${lease.id}/end`, values, 'PUT')} /></details>
-        </article>)}
-    </section>;
+    const [values, setValues] = useState(() => ({ start: lease.start, end: lease.end || '', coldRent: euros(lease.coldRentCents), utilities: euros(lease.utilitiesCents), deposit: euros(lease.depositCents), included: lease.included || '', contractDocumentId: lease.contractDocumentId || '' }));
+    const change = (key, value) => setValues(previous => ({ ...previous, [key]: value }));
+    return <form className="rental-form" onSubmit={e => { e.preventDefault(); onSave(values); }}>
+        <LeaseFields values={values} change={change} />
+        <label className="rental-wide">{t('Mietvertrag')}<select value={values.contractDocumentId} onChange={e => change('contractDocumentId', e.target.value)}><option value="">{t('Noch nicht zugeordnet')}</option>{documents.map(document => <option key={document.id} value={document.id}>{document.name}</option>)}</select></label>
+        <div className="rental-wide rental-actions"><button className="btn-primary" disabled={busy}>{t('Vertragsdaten speichern')}</button><button type="button" className="btn-outline" disabled={busy} onClick={onCancel}>{t('Abbrechen')}</button></div>
+    </form>;
 }
 function LeaseEndForm({ lease, busy, onSave }) {
     const { t } = useTranslation();
     const [end, setEnd] = useState(lease.end || '');
     return <form className="rental-form" onSubmit={e => { e.preventDefault(); onSave({ end }); }}><Field label={t("Letzter Miettag (leer = unbefristet)")} type="date" value={end} onChange={setEnd} /><button className="btn-primary" disabled={busy}>{t("Mietende speichern")}</button></form>;
 }
-function LegacyConfirmation({ workflow, properties, propertyId }) {
-    const { t } = useTranslation();
-    const [target, setTarget] = useState(propertyId);
-    const property = properties.find(p => p.id === target);
-    const candidates = workflow.legacyTenants.filter(tenant => !tenant.propertyId || tenant.propertyId === target);
-    return <section className="rental-section"><h2>{t("Bestandsmieter prüfen")}</h2><p>{t("Vorhandene Zuordnungen bleiben erhalten. Wähle ausdrücklich die Personen aus, die denselben Vertrag unterschrieben haben, und bestätige Zeitraum und Konditionen. Früher vorbelegte Enddaten bitte am Vertrag prüfen.")}</p>
-        <label>{t("Wohnung für Bestandsvertrag")}<select value={target} onChange={e => setTarget(e.target.value)}><option value="">{t("Bitte auswählen")}</option>{properties.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select></label>
-        {target && <LegacyForm key={`${target}-${candidates.map(tenant => tenant.id).join(',')}`} property={property} candidates={candidates} workflow={workflow} />}
-    </section>;
-}
 function LegacyForm({ property, candidates, workflow }) {
     const { t } = useTranslation();
-    const [values, setValues] = useState(() => ({ ...leaseForm(null, property), propertyId: property.id, tenantIds: [] }));
+    const [values, setValues] = useState(() => ({ ...leaseForm(null, property), start: property.moveInDate || (candidates.length === 1 ? candidates[0].leaseStart || '' : ''), propertyId: property.id, tenantIds: candidates.length === 1 ? [candidates[0].id] : [] }));
     const change = (key, value) => setValues(previous => ({ ...previous, [key]: value }));
     if (!candidates.length) return <p>{t("Keine ungeprüften Bestandsmieter für diese Wohnung.")}</p>;
     return <form className="rental-form" onSubmit={e => { e.preventDefault(); workflow.save('/leases/confirm', values); }}>
-        <fieldset className="rental-wide"><legend>{t("Gemeinsame Vertragsparteien auswählen")}</legend>{candidates.map(tenant => <label className="rental-check" key={tenant.id}><input type="checkbox" checked={values.tenantIds.includes(tenant.id)} onChange={e => change('tenantIds', e.target.checked ? [...values.tenantIds, tenant.id] : values.tenantIds.filter(id => id !== tenant.id))} />{tenant.name}{" "}{t("· bisher")}{" "}{tenant.leaseStart || t("Beginn unbekannt")}{" "}{t("bis")}{" "}{tenant.leaseEnd || t("kein Ende angegeben")} ({t(tenant.status)})</label>)}</fieldset>
+        <fieldset className="rental-wide"><legend>{t("Gemeinsame Vertragsparteien auswählen")}</legend>{candidates.map(tenant => <label className="rental-check" key={tenant.id}><input type="checkbox" checked={values.tenantIds.includes(tenant.id)} onChange={e => change('tenantIds', e.target.checked ? [...values.tenantIds, tenant.id] : values.tenantIds.filter(id => id !== tenant.id))} />{tenant.name}</label>)}</fieldset>
         <LeaseFields values={values} change={change} />
         <button className="btn-primary" disabled={workflow.busy || !values.tenantIds.length}>{t("Bestandsvertrag bestätigen")}</button>
     </form>;

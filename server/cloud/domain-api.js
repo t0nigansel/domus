@@ -74,6 +74,7 @@ export async function domainRequest(request, env, client, user) {
             if (method === 'GET' && parts.length === 1) return json(service.overview());
             if (method === 'POST' && parts.length === 1) return json(await service.createRental(input), 201);
             if (method === 'POST' && id === 'leases' && operation === 'confirm' && parts.length === 3) return json(await service.confirmLegacyLease(input), 201);
+            if (method === 'PUT' && id === 'leases' && parts.length === 3) return json(await service.updateLease(operation, input, true));
             if (method === 'PUT' && id === 'leases' && childId === 'end' && parts.length === 4) return json(await service.updateLease(operation, input));
             if (method === 'PUT' && parts.length === 2) return json(await service.updateRental(id, input));
             if (method === 'POST' && operation === 'complete' && parts.length === 3) return json(await service.completeRental(id, input));

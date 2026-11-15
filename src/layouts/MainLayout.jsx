@@ -34,7 +34,6 @@ const MainLayout = () => {
                         const isActive = item.path === '/'
                             ? location.pathname === '/'
                             : location.pathname.startsWith(item.path)
-                                // Vermietung is part of the property, not its own menu entry.
                                 || (item.path === '/properties' && location.pathname.startsWith('/rentals'))
                                 || (item.path === '/contacts' && location.pathname.startsWith('/tenants'));
                         return (

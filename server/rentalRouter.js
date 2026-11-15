@@ -18,6 +18,7 @@ rentalRouter.post('/:id/viewings', async (req, res) => res.status(201).json(awai
 rentalRouter.put('/:id/viewings/:viewingId', async (req, res) => res.json(await saveViewing(req.params.id, req.params.viewingId, req.body)));
 rentalRouter.post('/:id/complete', async (req, res) => res.json(await completeRental(req.params.id, req.body)));
 rentalRouter.post('/leases/confirm', async (req, res) => res.status(201).json(await confirmLegacyLease(req.body)));
+rentalRouter.put('/leases/:id', async (req, res) => res.json(await updateLease(req.params.id, req.body, true)));
 rentalRouter.put('/leases/:id/end', async (req, res) => res.json(await updateLease(req.params.id, req.body)));
 rentalRouter.use((error, _req, res, next) => {
     if (res.headersSent) return next(error);

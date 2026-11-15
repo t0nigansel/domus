@@ -1,5 +1,23 @@
 .document-workspace { min-width: 0; }
 
+.document-date-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+.document-date-filters label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    flex: 0 1 220px;
+    min-width: 0;
+    font-size: 0.875rem;
+}
+.document-date-filters input,
+.document-date-filters button { min-height: 44px; }
+
 /* Hochladen */
 .file-controls { flex-wrap: wrap; align-items: flex-end; }
 .file-controls .form-group { flex: 1 1 200px; min-width: 0; }
@@ -26,7 +44,7 @@
 .file-checkbox input { width: 18px; height: 18px; }
 
 /* Wohnungsdossier */
-.dossier-form input, .dossier-form textarea { min-height: 44px; min-width: 0; width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-base); color: var(--color-text-main); }
+.dossier-form input, .dossier-form textarea, .dossier-form select { min-height: 44px; min-width: 0; width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-bg-base); color: var(--color-text-main); }
 .dossier-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; }
 .dossier-form label { display: flex; flex-direction: column; gap: 8px; }
 .dossier-actions { grid-column: 1 / -1; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }

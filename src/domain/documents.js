@@ -1,6 +1,15 @@
 // Dokumentnamen: von Oberfläche, lokalem Server und Cloud gemeinsam genutzt.
 const failure = (message) => Object.assign(new Error(message), { status: 400 });
 
+export function documentInUploadRange(document, from = '', to = '') {
+    if (!from && !to) return true;
+    const uploaded = document.createdAt ? new Date(document.createdAt) : null;
+    const date = uploaded && !Number.isNaN(uploaded.getTime())
+        ? `${uploaded.getFullYear()}-${String(uploaded.getMonth() + 1).padStart(2, '0')}-${String(uploaded.getDate()).padStart(2, '0')}`
+        : document.date;
+    return Boolean(date && (!from || date >= from) && (!to || date <= to));
+}
+
 // Endung inklusive Punkt, z. B. ".pdf"; leer, wenn der Name keine hat.
 export function fileExtension(name) {
     const match = /(\.[A-Za-z0-9]{1,8})$/.exec(name || '');

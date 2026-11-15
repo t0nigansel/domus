@@ -5,7 +5,7 @@ import { COST_RECURRENCES } from '../../src/domain/costs.js';
 
 export const categories = ['Leases', 'Invoices', 'Insurance', 'Misc', 'Photos', 'FloorPlans', 'Energy'];
 const fields = {
-    properties: ['name', 'location', 'coldRent', 'nebenkosten', 'status', 'condition', 'occupants', 'pets', 'notes', 'street', 'postalCode', 'city', 'floor', 'size', 'rooms', 'equipment', 'heating', 'energyRating', 'energyDemand', 'modernizations'],
+    properties: ['name', 'location', 'tenantName', 'moveInDate', 'coldRent', 'nebenkosten', 'status', 'condition', 'occupants', 'occupancyNote', 'pets', 'notes', 'street', 'postalCode', 'city', 'floor', 'size', 'rooms', 'equipment', 'heating', 'energyRating', 'energyDemand', 'modernizations'],
     tenants: ['name', 'email', 'phone', 'propertyId', 'propertyName', 'leaseStart', 'leaseEnd', 'status', 'paymentHistory'],
     documents: ['name', 'type', 'category', 'date', 'size', 'propertyId', 'caption', 'published', 'cover', 'position'],
     issues: ['title', 'description', 'propertyId', 'tenantId', 'priority', 'status', 'dueDate', 'attachments'],
@@ -14,14 +14,14 @@ const fields = {
 };
 const enums = {
     costs: { recurrence: COST_RECURRENCES },
-    properties: { status: ['Occupied', 'Vacant', 'Maintenance'], condition: ['Good', 'Ok', 'Bad', 'Needs Repair', 'Renovated'] },
+    properties: { status: ['Occupied', 'Vacant', 'Maintenance'], condition: ['', 'Good', 'Ok', 'Bad', 'Needs Repair', 'Renovated'] },
     tenants: { status: ['Active', 'Past', 'Pending'] },
     documents: { category: categories, type: ['image', 'pdf', 'document'] },
     issues: { status: ['Open', 'In Progress', 'Closed'], priority: ['Low', 'Medium', 'High'] },
 };
 const numeric = ['coldRent', 'nebenkosten', 'amount', 'occupants', 'size', 'rooms', 'energyDemand', 'position'];
 const boolean = ['published', 'cover', 'utilityBillable'];
-const dates = ['leaseStart', 'leaseEnd', 'date', 'dueDate', 'paidDate'];
+const dates = ['leaseStart', 'leaseEnd', 'moveInDate', 'date', 'dueDate', 'paidDate'];
 
 export function validateEntity(name, input, data, existing = {}) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) throw rentalError('Ein JSON-Objekt ist erforderlich.');

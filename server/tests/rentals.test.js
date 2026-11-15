@@ -29,6 +29,31 @@ async function preparedRental() {
 const complete = id => request(app).post(`/api/rentals/${id}/complete`).send({ ...terms, contractDocumentId: 'signed', confirmSigned: true });
 
 describe('Rental workflow and leases', () => {
+    it('edits contract terms and its file atomically while preserving parties and source references', async () => {
+        const { rental } = await preparedRental();
+        const lease = (await complete(rental.id)).body;
+        const endpoint = `/api/rentals/leases/${lease.id}`;
+        const response = await request(app).put(endpoint).send({ ...terms, start: '2035-02-01', coldRent: '900.50', utilities: '160', contractDocumentId: 'signed', propertyId: 'foreign', tenantIds: ['foreign'] });
+        expect(response.status).toBe(200);
+        expect(response.body).toMatchObject({ propertyId: 'unit', start: '2035-02-01', coldRentCents: 90050, utilitiesCents: 16000, rentalId: rental.id, contractDocumentId: 'signed', tenantIds: lease.tenantIds });
+        const view = tenancyView(db.data, '2035-02-01');
+        expect(view.properties[0]).toMatchObject({ coldRent: 900.5, nebenkosten: 160 });
+        expect(view.tenants[0].leaseStart).toBe('2035-02-01');
+        const before = structuredClone(db.data.leases);
+        for (const fields of [{}, { ...terms, coldRent: '-1' }, { ...terms, start: '2035-02-30' }, { ...terms, contractDocumentId: 'foreign' }]) {
+            expect((await request(app).put(endpoint).send(fields)).status).toBe(400);
+            expect(db.data.leases).toEqual(before);
+        }
+    });
+    it('rejects overlapping corrected dates without modifying a stored contract', async () => {
+        const { rental } = await preparedRental();
+        const lease = (await complete(rental.id)).body;
+        db.data.leases.push({ id: 'earlier', propertyId: 'unit', tenantIds: [], start: '2030-01-01', end: '2034-12-31' });
+        const before = structuredClone(db.data.leases);
+        expect((await request(app).put(`/api/rentals/leases/${lease.id}`).send({ ...terms, start: '2034-12-31' })).status).toBe(409);
+        expect(db.data.leases).toEqual(before);
+        expect((await request(app).put('/api/rentals/leases/foreign').send(terms)).status).toBe(404);
+    });
     it('backs up a real legacy fixture before migration and keeps it stable across restarts', async () => {
         const directory = await mkdtemp(path.join(os.tmpdir(), 'domus-migration-test-'));
         try {

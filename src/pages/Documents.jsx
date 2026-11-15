@@ -4,7 +4,7 @@ import { useData } from '../context/DataContext';
 import { PageHeader, CollapsiblePanel, ListToolbar } from '../components/common';
 import { useQuickAction } from '../hooks/useQuickAction';
 import DocumentWorkspace from './DocumentWorkspace';
-import { DOCUMENT_CATEGORIES } from '../domain/documents';
+import { DOCUMENT_CATEGORIES, documentInUploadRange } from '../domain/documents';
 
 const Documents = () => {
     const { t } = useTranslation();
@@ -12,13 +12,16 @@ const Documents = () => {
     const [isAddingDocument, setIsAddingDocument] = useQuickAction();
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [searchTerm, setSearchTerm] = useState('');
+    const [uploadedFrom, setUploadedFrom] = useState('');
+    const [uploadedTo, setUploadedTo] = useState('');
+    const documentsInRange = documents.filter(document => documentInUploadRange(document, uploadedFrom, uploadedTo));
 
     // Gleiche Zuordnung wie der Filter in DocumentWorkspace (d.category === Kategorie).
-    const categoryCounts = documents.reduce((counts, document) => {
+    const categoryCounts = documentsInRange.reduce((counts, document) => {
         counts[document.category] = (counts[document.category] || 0) + 1;
         return counts;
-    }, { All: documents.length });
-    const filters = [['All', t('Alle'), documents.length], ...Object.entries(DOCUMENT_CATEGORIES).map(([key, label]) => [key, t(label), categoryCounts[key] || 0])];
+    }, { All: documentsInRange.length });
+    const filters = [['All', t('Alle'), documentsInRange.length], ...Object.entries(DOCUMENT_CATEGORIES).map(([key, label]) => [key, t(label), categoryCounts[key] || 0])];
 
     return (
         <div className="page-container">
@@ -36,7 +39,19 @@ const Documents = () => {
                 filterLabel={t("Categories")}
             />
 
-            <DocumentWorkspace showControls={false} categoryFilter={selectedCategory} searchTerm={searchTerm} />
+            <div className="document-date-filters" role="group" aria-label={t('Upload-Zeitraum')}>
+                <label>
+                    {t('Hochgeladen von')}
+                    <input className="edit-input" type="date" value={uploadedFrom} max={uploadedTo || undefined} onChange={e => setUploadedFrom(e.target.value)} />
+                </label>
+                <label>
+                    {t('Hochgeladen bis')}
+                    <input className="edit-input" type="date" value={uploadedTo} min={uploadedFrom || undefined} onChange={e => setUploadedTo(e.target.value)} />
+                </label>
+                {(uploadedFrom || uploadedTo) && <button type="button" className="btn-outline" onClick={() => { setUploadedFrom(''); setUploadedTo(''); }}>{t('Zeitraum zurücksetzen')}</button>}
+            </div>
+
+            <DocumentWorkspace showControls={false} categoryFilter={selectedCategory} searchTerm={searchTerm} uploadedFrom={uploadedFrom} uploadedTo={uploadedTo} />
         </div>
     );
 };

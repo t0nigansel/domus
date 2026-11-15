@@ -1,485 +1,119 @@
+﻿import React, { useState } from 'react';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, MapPin } from 'lucide-react';
 import { useTranslation } from '../i18n';
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, MapPin, Euro, Home, User, FileText, Settings, Save, X, Activity, Users, PawPrint, Plus, Trash2 } from 'lucide-react';
 import { useData } from '../context/DataContext';
-import { issueStatusClass } from '../constants/status';
-import './PropertyDetails.css';
+import { useRentals } from '../hooks/domain/useRentals';
+import { propertyOverview } from '../domain/propertyOverview';
+import { dossierFields } from '../domain/propertyDossier';
+import { fileService } from '../db/services/fileService';
 import PropertyDossier from './PropertyDossier';
 import PropertyRentalSummary from '../components/PropertyRentalSummary';
+import PropertyFiles from '../components/PropertyFiles';
+import { RentalWorkspace } from './Rentals';
+import './PropertyDetails.css';
 
-const PropertyDetails = () => {
-    const { t } = useTranslation();
+const tabs = [['overview', 'Übersicht'], ['data', 'Wohnungsdaten'], ['rental', 'Vermietung'], ['files', 'Fotos & Dokumente'], ['history', 'Historie']];
+
+export default function PropertyDetails() {
     const { id } = useParams();
-    const { properties, tenants, issues, updateProperty, addTenant, removeTenant, addIssue, resolveIssue } = useData();
-    const property = properties.find(p => p.id === id);
-    const propertyTenants = tenants.filter(tenant => tenant.propertyId === id && tenant.status === 'Active');
-    const propertyIssues = issues.filter(i => i.propertyId === id);
+    const [searchParams] = useSearchParams();
+    const { properties } = useData();
+    const property = properties.find(item => item.id === id);
+    const { t } = useTranslation();
+    if (!property) return <div className="property-not-found"><h2>{t('Property Not Found')}</h2><Link to="/properties">{t('Back to Properties')}</Link></div>;
+    return <PropertyPage key={`${id}-${searchParams.get('tab')}-${searchParams.get('new')}`} property={property} initialTab={searchParams.get('tab')} startNew={searchParams.get('new') === '1'} />;
+}
 
-    const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState({});
-
-    // Add Tenant State
-    const [isAddingTenant, setIsAddingTenant] = useState(false);
-    const [newTenantData, setNewTenantData] = useState({ name: '', email: '', phone: '' });
-
-    // Add Issue State
-    const [isAddingIssue, setIsAddingIssue] = useState(false);
-    const [newIssueData, setNewIssueData] = useState({ title: '', description: '', priority: 'Medium' });
-
-    const handleEdit = () => {
-        if (property) {
-            setFormData({
-                name: property.name,
-                location: property.location,
-                coldRent: property.coldRent,
-                nebenkosten: property.nebenkosten,
-                status: property.status,
-                condition: property.condition,
-                occupants: property.occupants,
-                pets: property.pets,
-                notes: property.notes
-            });
-            setIsEditing(true);
-        }
-    };
-
-    const handleSave = () => {
-        updateProperty(property.id, formData);
-        setIsEditing(false);
-    };
-
-    const handleCancel = () => {
-        setIsEditing(false);
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: (name === 'coldRent' || name === 'nebenkosten' || name === 'occupants') ? parseFloat(value) : value
-        }));
-    };
-
-    const handleAddTenantSubmit = (e) => {
-        e.preventDefault();
-        addTenant(property.id, newTenantData);
-        setIsAddingTenant(false);
-        setNewTenantData({ name: '', email: '', phone: '' });
-    };
-
-    const handleAddIssueSubmit = (e) => {
-        e.preventDefault();
-        addIssue({
-            ...newIssueData,
-            propertyId: property.id
-        });
-        setIsAddingIssue(false);
-        setNewIssueData({ title: '', description: '', priority: 'Medium' });
-    };
-
-    if (!property) {
-        return (
-            <div className="property-not-found">
-                <h2>{t("Property Not Found")}</h2>
-                <Link to="/properties" className="btn-primary">{t("Back to Properties")}</Link>
+function PropertyPage({ property, initialTab, startNew }) {
+    const { t, locale } = useTranslation();
+    const { tenants, documents, issues, refreshAll } = useData();
+    const workflow = useRentals(refreshAll);
+    const [tab, setTab] = useState(tabs.some(([key]) => key === initialTab) ? initialTab : 'overview');
+    const overview = propertyOverview(property, tenants, workflow.leases);
+    const { facts, nonRental, missing, areaReview } = overview;
+    const openIssues = issues.filter(issue => issue.propertyId === property.id && issue.status !== 'Closed');
+    const address = [property.street, [property.postalCode, property.city].filter(Boolean).join(' '), property.floor || t(property.location)].filter(Boolean).join(' · ');
+    const total = Number.isFinite(facts.coldRent) && Number.isFinite(facts.nebenkosten) ? new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(facts.coldRent + facts.nebenkosten) : t('Noch nicht erfasst');
+    const overviewFields = nonRental ? ['size', 'rooms', 'condition', 'pets', 'occupants', 'occupancyNote'] : ['tenantName', 'moveInDate', 'size', 'rooms', 'coldRent', 'nebenkosten', 'condition', 'pets', 'occupants'];
+    const selectTab = next => setTab(next);
+    return <div className="property-details-container">
+        <div className="details-header-nav"><Link className="back-link" to="/properties"><ArrowLeft size={18} />{t('Back to Properties')}</Link></div>
+        <header className="details-header">
+            <div><div className="title-row"><h1 className="details-title">{property.name}</h1><span className={`property-status status-${property.status.toLowerCase()}`}>{t(property.status)}</span></div>
+                <p className="address-row text-muted"><MapPin size={16} aria-hidden="true" />{address || t('Noch nicht erfasst')}</p>
             </div>
-        );
-    }
-
-    const getStatusColor = (status) => {
-        switch (status) {
-            case 'Occupied': return 'var(--status-success)';
-            case 'Vacant': return 'var(--status-error)';
-            case 'Maintenance': return 'var(--status-warning)';
-            default: return 'var(--color-text-muted)';
-        }
-    };
-
-    return (
-        <div className="property-details-container">
-            {/* Header / Breadcrumb */}
-            <div className="details-header-nav">
-                <Link to="/properties" className="back-link">
-                    <ArrowLeft size={20} />
-                    <span>{t("Back to Properties")}</span>
-                </Link>
-            </div>
-
-            {/* Main Header */}
-            <header className="details-header">
-                <div style={{ flex: 1 }}>
-                    <div className="title-row">
-                        {isEditing ? (
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="edit-input title-input"
-                            />
-                        ) : (
-                            <h1 className="details-title">{property.name}</h1>
-                        )}
-
-                        {isEditing ? (
-                            <select
-                                name="status"
-                                value={formData.status}
-                                onChange={handleChange}
-                                className="edit-select status-select"
-                            >
-                                <option value="Occupied">{t("Occupied")}</option>
-                                <option value="Vacant">{t("Vacant")}</option>
-                                <option value="Maintenance">{t("Maintenance")}</option>
-                            </select>
-                        ) : (
-                            <span
-                                className="status-badge-large"
-                                style={{
-                                    backgroundColor: getStatusColor(property.status),
-                                    color: property.status === 'Occupied' ? 'var(--color-success)' :
-                                        property.status === 'Vacant' ? 'var(--color-danger)' : 'var(--color-warning)'
-                                }}
-                            >
-                                {t(property.status)}
-                            </span>
-                        )}
-                    </div>
-
-                    <div className="address-row">
-                        <MapPin size={18} className="text-muted" />
-                        {isEditing ? (
-                            <select
-                                name="location"
-                                value={formData.location}
-                                onChange={handleChange}
-                                className="edit-select"
-                            >
-                                <option value="Bottom Left">{t("Bottom Left")}</option>
-                                <option value="Bottom Right">{t("Bottom Right")}</option>
-                                <option value="Top Left">{t("Top Left")}</option>
-                                <option value="Top Right">{t("Top Right")}</option>
-                            </select>
-                        ) : (
-                            <span className="text-muted">{property.location}</span>
-                        )}
-                    </div>
-                </div>
-
-                <div className="action-buttons-group">
-                    {isEditing ? (
-                        <>
-                            <button className="btn-primary" onClick={handleSave}>
-                                <Save size={18} />
-                                <span>{t("Save")}</span>
-                            </button>
-                            <button className="btn-outline" onClick={handleCancel}>
-                                <X size={18} />
-                                <span>{t("Cancel")}</span>
-                            </button>
-                        </>
-                    ) : (
-                        <button className="btn-outline" onClick={handleEdit}>
-                            <Settings size={18} />
-                            <span>{t("Edit Property")}</span>
-                        </button>
-                    )}
-                </div>
-            </header>
-
-            <PropertyDossier key={property.id} property={property} />
-            <PropertyRentalSummary key={`rental-${property.id}`} property={property} />
-
-            <div className="details-grid">
-                {/* Left Column: Stats & Info */}
-                <div className="details-main">
-                    {/* Key Stats */}
-                    <section className="details-card">
-                        <h2 className="card-title">{t("Property Overview")}</h2>
-                        <div className="stats-row">
-                            {/* Rent Section */}
-                            <div className="stat-item full-width-mobile">
-                                <Euro className="stat-icon" />
-                                <div>
-                                    <p className="label">{t("Monthly Rent (Total)")}</p>
-                                    <div className="value-group">
-                                        {isEditing ? (
-                                            <div className="rent-edit-group">
-                                                <div className="input-group">
-                                                    <label>{t("Cold")}</label>
-                                                    <input
-                                                        type="number"
-                                                        name="coldRent"
-                                                        value={formData.coldRent}
-                                                        onChange={handleChange}
-                                                        className="edit-input"
-                                                        style={{ width: '80px' }}
-                                                    />
-                                                </div>
-                                                <span>+</span>
-                                                <div className="input-group">
-                                                    <label>{t("Utils")}</label>
-                                                    <input
-                                                        type="number"
-                                                        name="nebenkosten"
-                                                        value={formData.nebenkosten}
-                                                        onChange={handleChange}
-                                                        className="edit-input"
-                                                        style={{ width: '80px' }}
-                                                    />
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="rent-display">
-                                                <span className="value">{['NonRental', 'Usufruct'].includes(property.occupancyKind) ? t("Kein Mietverhältnis") : Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) ? `${property.coldRent + property.nebenkosten} €` : t("Noch offen")}</span>
-                                                {Number.isFinite(property.coldRent) && Number.isFinite(property.nebenkosten) && <span className="small-detail">({property.coldRent} € + {property.nebenkosten} €)</span>}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Condition */}
-                            <div className="stat-item">
-                                <Activity className="stat-icon" />
-                                <div>
-                                    <p className="label">{t("Condition")}</p>
-                                    {isEditing ? (
-                                        <select
-                                            name="condition"
-                                            value={formData.condition}
-                                            onChange={handleChange}
-                                            className="edit-select"
-                                        >
-                                            <option value="Good">{t("Good")}</option>
-                                            <option value="Ok">{t("Ok")}</option>
-                                            <option value="Bad">{t("Bad")}</option>
-                                        </select>
-                                    ) : (
-                                        <p className="value">{t(property.condition)}</p>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="stats-row mt-4">
-                            {/* Occupants */}
-                            <div className="stat-item">
-                                <Users className="stat-icon" />
-                                <div>
-                                    <p className="label">{t("Occupants")}</p>
-                                    {isEditing ? (
-                                        <input
-                                            type="number"
-                                            name="occupants"
-                                            value={formData.occupants}
-                                            onChange={handleChange}
-                                            className="edit-input"
-                                            style={{ width: '60px' }}
-                                        />
-                                    ) : (
-                                        <p className="value">{property.occupants}</p>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Pets */}
-                            <div className="stat-item">
-                                <PawPrint className="stat-icon" />
-                                <div>
-                                    <p className="label">{t("Pets")}</p>
-                                    {isEditing ? (
-                                        <input
-                                            type="text"
-                                            name="pets"
-                                            value={formData.pets}
-                                            onChange={handleChange}
-                                            className="edit-input"
-                                            style={{ width: '120px' }}
-                                        />
-                                    ) : (
-                                        <p className="value">{property.pets}</p>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Tenant Information Multi-View */}
-                    <section className="details-card">
-                        <div className="card-header-row">
-                            <h2 className="card-title">{t("Tenants (")}{propertyTenants.length})</h2>
-                            {property.leaseManaged ? <Link className="btn-text" to={`/rentals?propertyId=${property.id}`}>{t("Mietverhältnisse verwalten")}</Link> : !isAddingTenant && (
-                                <button className="btn-text" onClick={() => setIsAddingTenant(true)}>
-                                    <Plus size={16} />{t("Add Tenant")}</button>
-                            )}
-                        </div>
-                        {isAddingTenant && (
-                            <form onSubmit={handleAddTenantSubmit} className="add-tenant-form">
-                                <div className="form-row">
-                                    <input
-                                        type="text"
-                                        placeholder={t("Full Name")}
-                                        required
-                                        value={newTenantData.name}
-                                        onChange={e => setNewTenantData({ ...newTenantData, name: e.target.value })}
-                                        className="edit-input"
-                                    />
-                                    <input
-                                        type="email"
-                                        placeholder={t("Email")}
-                                        value={newTenantData.email}
-                                        onChange={e => setNewTenantData({ ...newTenantData, email: e.target.value })}
-                                        className="edit-input"
-                                    />
-                                </div>
-                                <div className="form-actions">
-                                    <button type="submit" className="btn-primary small">{t("Add")}</button>
-                                    <button type="button" className="btn-outline small" onClick={() => setIsAddingTenant(false)}>{t("Cancel")}</button>
-                                </div>
-                            </form>
-                        )}
-                        {propertyTenants.length > 0 ? (
-                            <div className="tenant-list-grid">
-                                {propertyTenants.map(tenant => (
-                                    <div key={tenant.id} className="tenant-info-card">
-                                        <div className="tenant-header">
-                                            <div className="tenant-avatar">
-                                                <User size={20} />
-                                            </div>
-                                            <div className="tenant-meta">
-                                                <Link to={`/tenants/${tenant.id}`} className="tenant-link">
-                                                    <h3>{tenant.name}</h3>
-                                                </Link>
-                                                <p className="text-muted small">{tenant.email || t("No email")}</p>
-                                            </div>
-                                            <button
-                                                className="btn-icon-danger"
-                                                title={tenant.leaseManaged ? t("Mietverhältnis unter Vermietungen beenden") : t("Remove Tenant")}
-                                                disabled={tenant.leaseManaged}
-                                                onClick={() => removeTenant(tenant.id)}
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="empty-tenant-state">
-                                <User size={48} className="text-muted" style={{ opacity: 0.3 }} />
-                                <p>{t("No tenants assigned.")}</p>
-                            </div>
-                        )}
-                    </section>
-                </div>
-
-                {/* Issues Section - Moved to main column for better visibility */}
-                <div className="details-main" style={{ marginTop: 'var(--spacing-lg)' }}>
-                    <section className="details-card">
-                        <div className="card-header-row">
-                            <h2 className="card-title">{t("Issues")}</h2>
-                            {!isAddingIssue && (
-                                <button className="btn-text" onClick={() => setIsAddingIssue(true)}>
-                                    <Plus size={16} />{t("Report Issue")}</button>
-                            )}
-                        </div>
-
-                        {isAddingIssue && (
-                            <form onSubmit={handleAddIssueSubmit} className="add-tenant-form">
-                                <div className="form-row">
-                                    <input
-                                        type="text"
-                                        placeholder={t("Issue Title")}
-                                        required
-                                        value={newIssueData.title}
-                                        onChange={e => setNewIssueData({ ...newIssueData, title: e.target.value })}
-                                        className="edit-input"
-                                        style={{ flex: 2 }}
-                                    />
-                                    <select
-                                        value={newIssueData.priority}
-                                        onChange={e => setNewIssueData({ ...newIssueData, priority: e.target.value })}
-                                        className="edit-select"
-                                        style={{ flex: 1 }}
-                                    >
-                                        <option value="Low">{t("Low Priority")}</option>
-                                        <option value="Medium">{t("Medium Priority")}</option>
-                                        <option value="High">{t("High Priority")}</option>
-                                    </select>
-                                </div>
-                                <div className="form-row">
-                                    <input
-                                        type="text"
-                                        placeholder={t("Description")}
-                                        value={newIssueData.description}
-                                        onChange={e => setNewIssueData({ ...newIssueData, description: e.target.value })}
-                                        className="edit-input"
-                                        style={{ width: '100%' }}
-                                    />
-                                </div>
-                                <div className="form-actions">
-                                    <button type="submit" className="btn-primary small">{t("Save Issue")}</button>
-                                    <button type="button" className="btn-outline small" onClick={() => setIsAddingIssue(false)}>{t("Cancel")}</button>
-                                </div>
-                            </form>
-                        )}
-
-                        {propertyIssues.length > 0 ? (
-                            <div className="issues-list-grid">
-                                {propertyIssues.map(issue => (
-                                    <div key={issue.id} className={`issue-card item-status-${issueStatusClass(issue.status)}`}>
-                                        <div className="issue-header-row">
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                <Activity size={16} className={issue.status === 'Closed' ? 'text-success' : 'text-warning'} />
-                                                <h4 style={{ margin: 0 }}>{issue.title}</h4>
-                                            </div>
-                                            <span className={`priority-badge ${issue.priority.toLowerCase()}`}>{t(issue.priority)}</span>
-                                        </div>
-                                        <p className="text-muted small mt-2">{issue.description || t("No description")}</p>
-                                        <div className="issue-footer-row mt-3">
-                                            <span className="text-muted small">{t("Due:")}{" "}{issue.dueDate || t("No Date")}</span>
-                                            {issue.status !== 'Closed' && (
-                                                <button
-                                                    className="btn-outline small"
-                                                    onClick={() => resolveIssue(issue.id)}
-                                                >{t("Mark Resolved")}</button>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="empty-state">
-                                <p>{t("No open issues for this property.")}</p>
-                            </div>
-                        )}
-                    </section>
-                </div>
-
-                {/* Right Column: Documents & Tasks */}
-                <div className="details-sidebar">
-                    <section className="details-card">
-                        <h2 className="card-title">{t("Notes")}</h2>
-                        {isEditing ? (
-                            <textarea
-                                name="notes"
-                                value={formData.notes || ''}
-                                onChange={handleChange}
-                                className="edit-textarea"
-                                rows="4"
-                            />
-                        ) : (
-                            <p className="text-muted small">
-                                {property.notes || t("No notes added.")}
-                            </p>
-                        )}
-                    </section>
-                </div>
-            </div>
+        </header>
+        <div className="property-tabs" role="tablist" aria-label={t('Wohnungsbereiche')}>
+            {tabs.map(([key, label]) => <button key={key} id={`tab-${key}`} role="tab" aria-selected={tab === key} aria-controls={`panel-${key}`} tabIndex={tab === key ? 0 : -1} onClick={() => selectTab(key)} onKeyDown={e => {
+                const index = tabs.findIndex(([value]) => value === key);
+                const next = e.key === 'ArrowRight' ? (index + 1) % tabs.length : e.key === 'ArrowLeft' ? (index + tabs.length - 1) % tabs.length : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+                if (next !== null) { e.preventDefault(); selectTab(tabs[next][0]); document.getElementById(`tab-${tabs[next][0]}`).focus(); }
+            }}>{t(label)}{key === 'overview' && openIssues.length > 0 && <span className="property-count">{openIssues.length}</span>}</button>)}
         </div>
-    );
-};
+        {workflow.error && <p role="alert" className="file-error">{t(workflow.error)}</p>}
+        {workflow.message && <p role="status">{t(workflow.message)}</p>}
+        {tabs.map(([key]) => <div key={key} role="tabpanel" id={`panel-${key}`} aria-labelledby={`tab-${key}`} hidden={tab !== key}>
+            {key === 'overview' && <>
+                <PropertyDossier property={facts} title={nonRental ? 'Belegung und Eckdaten' : 'Belegung und Miete'} fields={overviewFields} areaPending={!!areaReview}>
+                    {!nonRental && <div className="property-section-footer">
+                        <p className="property-total"><span>{t('Monatliche Gesamtmiete')}</span><strong>{total}</strong></p>
+                        <p className="text-muted">{workflow.loading ? t('Lädt …') : overview.activeLease ? t('Mietvertrag zugeordnet') : facts.tenantName ? t('Mieter erfasst · Mietvertrag noch nicht zugeordnet') : t('Kein Mieter erfasst')}</p>
+                        {property.leaseManaged && <p className="text-muted">{t('Mieter und Mietbeträge werden über das verknüpfte Mietverhältnis verwaltet.')}</p>}
+                        <div className="property-links"><button className="btn-outline" onClick={() => selectTab('rental')}>{t('Mietverhältnis verwalten')}</button>{overview.parties.map(party => <Link key={party.id} to={`/tenants/${party.id}`}>{t('Kontaktdaten')}: {party.name}</Link>)}</div>
+                    </div>}
+                </PropertyDossier>
+                <section className="details-card" aria-label={t('Handlungsbedarf')}>
+                    <h2 className="card-title">{t('Handlungsbedarf')}</h2>
+                    {missing.length > 0 && <p className="property-notice">{t('Fehlende Angaben')}: {missing.map(key => t(dossierFields.find(field => field[0] === key)[1])).join(', ')}</p>}
+                    {areaReview && <p className="property-notice">{t('Wohnfläche: Quelle noch zu prüfen.')} <button className="btn-text" onClick={() => selectTab('history')}>{t('Quelle und ältere Angaben ansehen')}</button></p>}
+                    <PropertyIssues key={property.id} property={property} issues={openIssues} />
+                </section>
+                {workflow.rentals.filter(rental => rental.propertyId === property.id && !['Completed', 'Archived'].includes(rental.phase)).map(rental => <p className="property-notice" key={rental.id}><Link to={`/rentals/${rental.id}`}>{t('Laufende Vermietung')}: {rental.title}</Link></p>)}
+            </>}
+            {key === 'data' && <>
+                <PropertyDossier property={property} title="Bezeichnung und Adresse" fields={['name', 'status', 'location', 'street', 'postalCode', 'city', 'floor']} />
+                <PropertyDossier property={property} title="Ausstattung und Modernisierungen" fields={['equipment', 'modernizations']} />
+                <PropertyDossier property={property} title="Heizung und Energie" fields={['heating', 'energyRating', 'energyDemand']} />
+            </>}
+            {key === 'rental' && tab === 'rental' && (workflow.loading ? <p>{t('Lädt …')}</p> : <RentalWorkspace property={property} tenants={tenants} documents={documents} workflow={workflow} startNew={startNew} />)}
+            {key === 'files' && tab === 'files' && <PropertyFiles property={property} />}
+            {key === 'history' && <>
+                <PropertyRentalSummary property={property} workflow={workflow} />
+                <section className="details-card"><h2 className="card-title">{t('Quellen und Importangaben')}</h2>
+                    <p className="text-muted">{t('Historische Angaben dienen als Nachweis. Die aktuellen Werte stehen in der Übersicht.')}</p>
+                    {!property.importReview?.length && !overview.residents.length && <p>{t('Keine älteren Angaben vorhanden.')}</p>}
+                    {overview.residents.map((resident, index) => <p className="property-source" key={`resident-${index}`}>{resident.name} · {t(resident.role === 'Tenant' ? 'Mieter' : resident.role === 'UsufructResident' ? 'Bewohner mit Nießbrauch, kein Mieter' : 'Bewohner, kein Mietverhältnis')} · {resident.confirmedAsOf}</p>)}
+                    {property.importReview?.map((item, index) => <article className="property-source" key={index}><h3>{t(item.label)}</h3><p>{item.value} {item.unit} · {item.sourceDate}</p>{item.conflictingOlderValues?.length > 0 && <p>{t('Ältere Quellen: {values} {unit}.', { values: item.conflictingOlderValues.join(', '), unit: item.unit })}</p>}<a href={fileService.url(item.sourceDocumentId, true)} target="_blank" rel="noreferrer">{t('Quelle ansehen')}</a></article>)}
+                </section>
+                <PropertyDossier property={property} title="Übernommene Notizen" fields={['notes']} />
+                <section className="details-card"><h2 className="card-title">{t('Erledigte Anliegen')}</h2>{issues.filter(issue => issue.propertyId === property.id && issue.status === 'Closed').map(issue => <p key={issue.id}>{issue.title}</p>)}</section>
+            </>}
+        </div>)}
+    </div>;
+}
 
-export default PropertyDetails;
+function PropertyIssues({ property, issues }) {
+    const { t } = useTranslation();
+    const { addIssue, resolveIssue } = useData();
+    const [adding, setAdding] = useState(false);
+    const [values, setValues] = useState({ title: '', description: '', priority: 'Medium' });
+    const [busy, setBusy] = useState(false);
+    const [error, setError] = useState('');
+    const run = async action => {
+        setBusy(true); setError('');
+        try { await action(); } catch (err) { setError(err.message); } finally { setBusy(false); }
+    };
+    return <div className="property-issues">
+        <div className="card-header-row"><h3>{t('Offene Anliegen')} ({issues.length})</h3><button className="btn-outline small" onClick={() => setAdding(!adding)}>{t('Anliegen melden')}</button></div>
+        {error && <p role="alert" className="file-error">{t(error)}</p>}
+        {adding && <form className="dossier-form" onSubmit={e => { e.preventDefault(); run(async () => { await addIssue({ ...values, propertyId: property.id }); setAdding(false); setValues({ title: '', description: '', priority: 'Medium' }); }); }}>
+            <label>{t('Issue Title')}<input required value={values.title} onChange={e => setValues({ ...values, title: e.target.value })} /></label>
+            <label>{t('Description')}<textarea value={values.description} onChange={e => setValues({ ...values, description: e.target.value })} /></label>
+            <label>{t('Priority')}<select value={values.priority} onChange={e => setValues({ ...values, priority: e.target.value })}>{['Low', 'Medium', 'High'].map(priority => <option key={priority} value={priority}>{t(priority)}</option>)}</select></label>
+            <div className="dossier-actions"><button className="btn-primary" disabled={busy}>{t('Save Issue')}</button><button type="button" className="btn-outline" disabled={busy} onClick={() => setAdding(false)}>{t('Cancel')}</button></div>
+        </form>}
+        {!issues.length && <p className="text-muted">{t('Keine offenen Anliegen für diese Wohnung.')}</p>}
+        {issues.map(issue => <article className="issue-card" key={issue.id}><div className="issue-header-row"><h3>{issue.title}</h3><span className={`priority-badge ${issue.priority.toLowerCase()}`}>{t(issue.priority)}</span></div><p className="text-muted">{issue.description}</p><div className="issue-footer-row"><span>{t(issue.status)}{issue.dueDate && ` · ${issue.dueDate}`}</span><button className="btn-outline small" disabled={busy} onClick={() => run(() => resolveIssue(issue.id))}>{t('Mark Resolved')}</button></div></article>)}
+    </div>;
+}
