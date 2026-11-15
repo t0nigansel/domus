@@ -11,7 +11,7 @@ try {
     const health = await worker.fetch('/api/health');
     assert.equal(health.status, 200);
     assert.equal((await health.json()).service, 'domus');
-    for (const [path, method] of [['/api/properties', 'GET'], ['/api/files/upload', 'POST'], ['/api/auth/sign-up/email', 'POST'], ['/api/not-a-route', 'GET']]) {
+    for (const [path, method] of [['/api/properties', 'GET'], ['/api/files/upload', 'POST'], ['/api/auth/sign-up/email', 'POST'], ['/api/not-a-route', 'GET'], ['/mcp', 'POST'], ['/.well-known/oauth-protected-resource/mcp', 'GET']]) {
         const response = await worker.fetch(path, { method });
         assert.equal(response.status, 503, `${method} ${path} must stay closed during setup`);
         assert.match(response.headers.get('Content-Type'), /application\/json/);

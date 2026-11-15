@@ -1,5 +1,8 @@
 # Domus - Property Management System
 
+Der Lesezugang für KI-Assistenten ist in [MCP.md](MCP.md) dokumentiert,
+einschließlich Werkzeugen, OAuth-Freigabe, Widerruf und Freischaltung nach Migration.
+
 [![CI Pipeline](https://github.com/t0nigansel/domus/actions/workflows/ci.yml/badge.svg)](https://github.com/t0nigansel/domus/actions/workflows/ci.yml)
 [![Nightly Tests](https://github.com/t0nigansel/domus/actions/workflows/nightly-agents.yml/badge.svg)](https://github.com/t0nigansel/domus/actions/workflows/nightly-agents.yml)
 [![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](LICENSE)

@@ -5,6 +5,8 @@ import { createAuth, missingAuthSettings } from './auth.js';
 import pg from 'pg';
 import { domainRequest, json } from './domain-api.js';
 import { withAccountTransaction, withDatabase } from './database.js';
+import { mcpRequest } from './mcp.js';
+import { mcpEnabled, mcpAccountRequest } from './mcp-auth.js';
 
 const app = createCloudApp(env);
 export { AssistantWorkflow } from './assistant-workflow.js';
@@ -14,11 +16,15 @@ const expressHandler = httpServerHandler({ port: 3000 });
 export default {
     async fetch(request, bindings, context) {
         const path = new URL(request.url).pathname;
+        const metadataPath = path.startsWith('/.well-known/oauth-');
+        const mcpPath = path === '/mcp';
+        const mcpAccountPath = path.startsWith('/api/mcp/');
         const authPath = path === '/api/auth' || path.startsWith('/api/auth/');
         const domainPath = path.startsWith('/api/') && path !== '/api/health';
         const ready = bindings.DOMUS_DOMAIN_ENABLED === 'true' && missingAuthSettings(bindings).length === 0;
         if (path === '/api/access') return json({ ready });
-        if (authPath || (domainPath && ready)) {
+        if ((mcpPath || mcpAccountPath || metadataPath) && (!ready || !mcpEnabled(bindings))) return json({ error: 'Der MCP-Zugang ist noch nicht freigeschaltet.' }, 503);
+        if (authPath || metadataPath || mcpPath || (domainPath && ready)) {
             if (missingAuthSettings(bindings).length) {
                 return Response.json({ error: 'Der Zugang wird vorbereitet.', code: 'AUTH_SETUP_PENDING' }, {
                     status: 503, headers: { 'Cache-Control': 'no-store' },
@@ -31,17 +37,26 @@ export default {
             try {
                 const auth = createAuth(bindings, pool);
                 let response;
-                if (authPath) response = await auth.handler(request);
+                if (authPath || metadataPath) response = await auth.handler(request);
+                else if (mcpPath) {
+                    const client = await pool.connect();
+                    try { response = await mcpRequest(request, bindings, client, auth); }
+                    finally { client.release(); }
+                }
                 else {
                     const session = await auth.api.getSession({ headers: request.headers, query: { disableCookieCache: true } });
                     if (!session) return json({ error: 'Bitte melde dich an.' }, 401);
-                    const client = await pool.connect();
-                    try { response = await domainRequest(request, bindings, client, session.user, auth); }
-                    finally { client.release(); }
+                    if (mcpAccountPath) response = await mcpAccountRequest(request, bindings, auth);
+                    else {
+                        const client = await pool.connect();
+                        try { response = await domainRequest(request, bindings, client, session.user, auth); }
+                        finally { client.release(); }
+                    }
                 }
                 const headers = new Headers(response.headers);
                 headers.set('Cache-Control', 'no-store');
                 headers.set('X-Content-Type-Options', 'nosniff');
+                if (metadataPath) headers.set('Access-Control-Allow-Origin', '*');
                 return new Response(response.body, { status: response.status, headers });
             } catch (error) {
                 if(error.body?.code==='INVALID_PASSWORD')return json({error:'Das aktuelle Passwort stimmt nicht.'},400);

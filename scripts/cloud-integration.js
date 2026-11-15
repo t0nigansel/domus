@@ -10,6 +10,7 @@ import { chromium } from '@playwright/test';
 import { assistantIntegration } from './assistant-integration.js';
 import { assistantBrowser } from './assistant-browser.js';
 import {startPdfTestService} from './assistant-pdf-service.js';
+import { mcpIntegration } from './mcp-integration.js';
 
 const container = `domus-cloud-test-${randomUUID().slice(0, 8)}`;
 let admin;
@@ -31,22 +32,22 @@ try {
     await admin.query("CREATE ROLE domus_runtime LOGIN PASSWORD 'domus-runtime-isolated-test'");
     const pool = new pg.Pool({ connectionString: adminUrl, max: 1 });
     try {
-        const migration = await getMigrations(authOptions({ BETTER_AUTH_URL: 'http://localhost:8787' }, pool));
+        const migration = await getMigrations(authOptions({ BETTER_AUTH_URL: 'http://localhost:8787', DOMUS_MCP_ENABLED: 'true' }, pool));
         await migration.runMigrations();
     } finally { await pool.end(); }
     await admin.query(await readFile(new URL('../server/cloud/migrations/001_domain.sql', import.meta.url), 'utf8'));
     await admin.query(await readFile(new URL('../server/cloud/migrations/002_assistants.sql', import.meta.url), 'utf8'));
-    await admin.query('GRANT SELECT, INSERT, UPDATE, DELETE ON "user", session, account, verification, organization, member, invitation, "rateLimit" TO domus_runtime');
+    await admin.query('GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO domus_runtime');
     const runtimeUrl = `postgres://domus_runtime:domus-runtime-isolated-test@127.0.0.1:${port}/postgres`;
     pdfTestService=await startPdfTestService();
     await mkdir('.wrangler', { recursive: true });
     await writeFile('.wrangler/integration.json', JSON.stringify({
         name: 'domus-local-integration', main: '../server/tests/cloud-integration.worker.js',
         compatibility_date: '2026-11-11', compatibility_flags: ['nodejs_compat'],
-        assets: { directory: '../dist-cloud', binding: 'ASSETS', not_found_handling: 'single-page-application', run_worker_first: ['/api', '/api/*', '/__test/*'] },
+        assets: { directory: '../dist-cloud', binding: 'ASSETS', not_found_handling: 'single-page-application', run_worker_first: ['/api', '/api/*', '/__test/*', '/mcp', '/.well-known/*'] },
         r2_buckets: [{ binding: 'FILES', bucket_name: 'domus-isolated-test-files' }],
         workflows: [{ name:'domus-assistants-test', binding:'ASSISTANT_WORKFLOW', class_name:'AssistantWorkflow' }],
-        vars: { DOMUS_ENV: 'test', DOMUS_DOMAIN_ENABLED: 'true', DATABASE_URL: runtimeUrl, LLM_SIMULATION:'true', LLM_ENCRYPTION_KEY_V1:Buffer.alloc(32,7).toString('base64'),TEST_PDF_URL:pdfTestService.url,TEST_PDF_TOKEN:pdfTestService.token,
+        vars: { DOMUS_ENV: 'test', DOMUS_DOMAIN_ENABLED: 'true', DOMUS_MCP_ENABLED: 'true', DATABASE_URL: runtimeUrl, LLM_SIMULATION:'true', LLM_ENCRYPTION_KEY_V1:Buffer.alloc(32,7).toString('base64'),TEST_PDF_URL:pdfTestService.url,TEST_PDF_TOKEN:pdfTestService.token,
             BETTER_AUTH_SECRET: 'domus-isolated-integration-auth-secret-32-characters',
             MAIL_FROM: 'test@example.invalid', PILOT_EMAILS: 'a@example.invalid,b@example.invalid' },
     }));
@@ -149,6 +150,7 @@ try {
     check((await completed[0].json()).id, (await completed[1].json()).id, 'single stable lease');
     check((await call('/api/rentals', { cookie: b.cookie })).status, 200, 'other account rentals');
     check((await (await call('/api/rentals', { cookie: b.cookie })).json()).leases, [], 'lease isolation');
+    await mcpIntegration({base,call,post,a,b,property,check});
     await assistantIntegration({call,post,a,b,property,check});
     const runtime = new pg.Client({ connectionString: runtimeUrl });
     try {
@@ -320,8 +322,10 @@ try {
             await page.setViewportSize({ width: 1280, height: 900 });
             await page.getByRole('navigation').first().getByRole('link', { name: language === 'de' ? 'Wohnungen' : 'Properties', exact: true }).click();
             const apartmentRow=page.locator('main .list-row').filter({has:page.getByRole('heading',{name:'Browser-created flat',exact:true})});
+            await apartmentRow.waitFor({ state: 'visible' });
             const before=await page.locator('main > .page-container').boundingBox();
             await apartmentRow.getByRole('heading',{name:'Browser-created flat',exact:true}).click();
+            await apartmentRow.getByRole('tab', { name: language === 'de' ? 'Vermietung' : 'Letting', exact: true }).waitFor();
             const after=await page.locator('main > .page-container').boundingBox();
             check(after.x,before.x,'apartment expansion keeps overview horizontally aligned');
             check(after.width,before.width,'apartment expansion keeps overview width');
@@ -400,7 +404,11 @@ try {
         await page.keyboard.press('Escape');
         await page.getByRole('alert').filter({ hasText: 'Dateiinhalt und Dateityp passen nicht zusammen.' }).waitFor();
         checks++;
-        await assistantBrowser({page,base,check,call});
+        try { await assistantBrowser({page,base,check,call}); }
+        catch (error) {
+            await page.screenshot({ path: 'test-results/cloud/assistant-browser-failure.png', fullPage: true });
+            throw error;
+        }
         await accountTrigger.click();
         await page.getByRole('button', { name: 'Abmelden', exact: true }).click();
         await page.getByRole('heading', { name: 'Bei Domus anmelden' }).waitFor();

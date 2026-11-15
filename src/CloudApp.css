@@ -1,4 +1,11 @@
 .cloud-welcome {
+    --color-btn-bg: #dfe2ee;
+    --color-btn-hover: #ffffff;
+    --color-btn-fg: #12141c;
+    --color-text-main: #e6e8f0;
+    --color-text-muted: #9a9fb2;
+    --color-border: #666c80;
+    --color-bg-surface-hover: #1c1f29;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
@@ -26,3 +33,4 @@
 .cloud-auth .auth-error { color: #ff8a7f; }
 .cloud-auth .auth-message { color: #2fd08f; }
 .cloud-auth button:disabled { opacity: .6; cursor: wait; }
+.cloud-auth .btn-primary, .cloud-auth .btn-outline { min-height: 44px; }

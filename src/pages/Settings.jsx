@@ -5,6 +5,7 @@ import { useCloudAuth } from "../context/CloudAuthContext";
 import { useAssistant } from "../hooks/useAssistant";
 import { api } from "../utils/api";
 import { fileService } from "../db/services/fileService";
+import { McpConnections } from './McpAccess';
 import {
   AssistantField as Field,
   JobStatus,
@@ -163,6 +164,7 @@ export default function Settings() {
             }
           />
           <Security />
+          <McpConnections />
           <section className="assistant-card">
             <h2>{t("Daten und Konto")}</h2>
             <p>

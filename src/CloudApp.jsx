@@ -4,6 +4,7 @@ import App from './App';
 import { CloudAuthContext } from './context/CloudAuthContext';
 import { advanceApiSession } from './utils/api';
 import DomusLogo from './components/DomusLogo';
+import { McpConsent } from './pages/McpAccess';
 import './CloudApp.css';
 
 const authErrors = {
@@ -89,7 +90,7 @@ export default function CloudApp() {
 
     if (loading) return <main className="cloud-welcome"><p role="status">{t("Domus wird geladen …")}</p></main>;
     if (session) return <CloudAuthContext.Provider value={{ ...session, signOut, signingOut, error }}>
-        <App key={`${session.user.id}:${session.account.id}`} />
+        {window.location.pathname === '/mcp/consent' ? <McpConsent /> : <App key={`${session.user.id}:${session.account.id}`} />}
     </CloudAuthContext.Provider>;
     return <main className="cloud-welcome">
         <section className="cloud-auth" aria-label={t("Domus-Zugang")}>
@@ -133,7 +134,8 @@ function AuthForm({ onLogin }) {
         event.preventDefault();
         return perform(async () => {
             if (mode === 'login') {
-                await authRequest('sign-in/email', { email, password });
+                const result = await authRequest('sign-in/email', { email, password, ...(window.location.pathname === '/mcp/consent' ? { oauth_query: window.location.search.slice(1) } : {}) });
+                if (result.redirect && result.url) { window.location.assign(result.url); return; }
                 await onLogin();
             } else if (mode === 'register') {
                 await authRequest('sign-up/email', { email, password, name, callbackURL: `${window.location.origin}/?verified=1` });

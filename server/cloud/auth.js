@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { organization } from 'better-auth/plugins';
 import { ensureAccount } from './store.js';
+import { mcpPlugins, mcpEnabled } from './mcp-auth.js';
 
 export function missingAuthSettings(env) {
     const missing = ['BETTER_AUTH_URL', 'BETTER_AUTH_SECRET', 'MAIL_FROM', 'PILOT_EMAILS']
@@ -18,6 +19,7 @@ export function authOptions(env, database, sendMail = message => sendEmail(env, 
         appName: 'Domus',
         baseURL: env.BETTER_AUTH_URL,
         secret: env.BETTER_AUTH_SECRET,
+        ...(mcpEnabled(env) ? { disabledPaths: ['/token'] } : {}),
         user: { changeEmail: { enabled: true, sendChangeEmailConfirmation: ({ user, url }) => sendMail({ to: user.email, subject: 'Domus: E-Mail-Adresse ändern', text: `Bestätige die Änderung deiner E-Mail-Adresse:\n${url}` }) } },
         database,
         trustedOrigins: [env.BETTER_AUTH_URL],
@@ -59,7 +61,7 @@ export function authOptions(env, database, sendMail = message => sendEmail(env, 
                 if (ctx.path.startsWith('/organization/')) throw new APIError('FORBIDDEN', { message: 'Teamzugänge sind noch nicht freigeschaltet.' });
             }),
         },
-        plugins: [organization({ allowUserToCreateOrganization: false })],
+        plugins: [organization({ allowUserToCreateOrganization: false }), ...mcpPlugins(env, database)],
     };
 }
 

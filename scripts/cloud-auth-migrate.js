@@ -8,6 +8,7 @@ const pool = new pg.Pool({ connectionString: process.env.DOMUS_MIGRATION_DATABAS
 try {
     const options = authOptions({
         ...process.env,
+        DOMUS_MCP_ENABLED: 'true',
         BETTER_AUTH_URL: process.env.BETTER_AUTH_URL || 'http://localhost:8787',
     }, pool);
     const migration = await getMigrations(options);

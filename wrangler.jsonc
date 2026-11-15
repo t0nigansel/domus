@@ -13,13 +13,14 @@
     "directory": "./dist-cloud",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api", "/api/*", "/api-docs", "/api-docs/*"]
+    "run_worker_first": ["/api", "/api/*", "/api-docs", "/api-docs/*", "/mcp", "/.well-known/*"]
   },
   "observability": { "enabled": true },
   "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
   "triggers": { "crons": ["37 3 * * *"] },
   "vars": {
     "DOMUS_ENV": "preview",
+    "DOMUS_MCP_ENABLED": "true",
     "DOMUS_DOMAIN_ENABLED": "true",
     "MAIL_FROM": "no-reply@faktio.net",
     "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
@@ -41,6 +42,7 @@
       "workflows": [{ "name": "domus-assistants-preview", "binding": "ASSISTANT_WORKFLOW", "class_name": "AssistantWorkflow" }],
       "vars": {
         "DOMUS_ENV": "preview",
+        "DOMUS_MCP_ENABLED": "true",
         "DOMUS_DOMAIN_ENABLED": "true",
         "MAIL_FROM": "no-reply@faktio.net",
         "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
@@ -64,6 +66,7 @@
       "workflows": [{ "name": "domus-assistants", "binding": "ASSISTANT_WORKFLOW", "class_name": "AssistantWorkflow" }],
       "vars": {
         "DOMUS_ENV": "production",
+        "DOMUS_MCP_ENABLED": "true",
         "DOMUS_DOMAIN_ENABLED": "true",
         "MAIL_FROM": "no-reply@faktio.net",
         "BETTER_AUTH_URL": "https://domus.toni-gansel.workers.dev"
