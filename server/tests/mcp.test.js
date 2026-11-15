@@ -23,7 +23,7 @@ async function rpc(method, params = {}) {
 }
 const call = async (name, args) => (await rpc('tools/call', { name, arguments: args })).result;
 
-describe('Read-only Domus MCP tools', () => {
+describe('Read-only Zuloni MCP tools', () => {
     it('exposes exactly eight read-only tools and rejects mutation tools and extra arguments', async () => {
         const { result } = await rpc('tools/list');
         expect(result.tools).toHaveLength(8);

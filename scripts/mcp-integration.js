@@ -88,7 +88,7 @@ export async function mcpIntegration({ base, call, post, a, b, property, check }
         await page.getByLabel('E-Mail-Adresse', { exact: true }).fill('a@example.invalid');
         await page.getByLabel('Passwort', { exact: true }).fill('isolated-test-password');
         await page.getByRole('button', { name: 'Anmelden', exact: true }).click();
-        await page.getByRole('heading', { name: 'Assistent mit Domus verbinden' }).waitFor();
+        await page.getByRole('heading', { name: 'Assistent mit Zuloni verbinden' }).waitFor();
         await page.getByText('Isolated MCP client', { exact: true }).waitFor();
         await mkdir('test-results/cloud', { recursive: true });
         await page.screenshot({ path: 'test-results/cloud/mcp-consent-desktop.png', fullPage: true });

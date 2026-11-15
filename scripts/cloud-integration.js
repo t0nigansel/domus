@@ -44,7 +44,7 @@ try {
     await writeFile('.wrangler/integration.json', JSON.stringify({
         name: 'domus-local-integration', main: '../server/tests/cloud-integration.worker.js',
         compatibility_date: '2026-11-11', compatibility_flags: ['nodejs_compat'],
-        assets: { directory: '../dist-cloud', binding: 'ASSETS', not_found_handling: 'single-page-application', run_worker_first: ['/api', '/api/*', '/__test/*', '/mcp', '/.well-known/*'] },
+        assets: { directory: '../dist-cloud', binding: 'ASSETS', not_found_handling: 'single-page-application', run_worker_first: true },
         r2_buckets: [{ binding: 'FILES', bucket_name: 'domus-isolated-test-files' }],
         workflows: [{ name:'domus-assistants-test', binding:'ASSISTANT_WORKFLOW', class_name:'AssistantWorkflow' }],
         vars: { DOMUS_ENV: 'test', DOMUS_DOMAIN_ENABLED: 'true', DOMUS_MCP_ENABLED: 'true', DATABASE_URL: runtimeUrl, LLM_SIMULATION:'true', LLM_ENCRYPTION_KEY_V1:Buffer.alloc(32,7).toString('base64'),TEST_PDF_URL:pdfTestService.url,TEST_PDF_TOKEN:pdfTestService.token,
@@ -196,7 +196,7 @@ try {
         check(await page.evaluate(() => globalThis.document.documentElement.scrollWidth <= globalThis.innerWidth), true, 'mobile privacy layout');
         await page.setViewportSize({ width: 1280, height: 900 });
         await page.goto(base);
-        await page.getByRole('heading', { name: 'Bei Domus anmelden' }).waitFor();
+        await page.getByRole('heading', { name: 'Bei Zuloni anmelden' }).waitFor();
         await mkdir('test-results/cloud', { recursive: true });
         await page.screenshot({ path: 'test-results/cloud/login-desktop.png', fullPage: true });
         await page.setViewportSize({ width: 390, height: 844 });
@@ -392,7 +392,7 @@ try {
         await page.getByRole('contentinfo').getByRole('link', { name: 'Privacy policy', exact: true }).click();
         await page.getByRole('heading', { name: 'Privacy policy', exact: true }).waitFor();
         check(await page.getByRole('heading', { name: '5. Cookies and browser storage', exact: true }).count(), 1, 'English privacy policy');
-        await page.getByRole('link', { name: '← Back to Domus', exact: true }).click();
+        await page.getByRole('link', { name: '← Back to Zuloni', exact: true }).click();
         await page.getByRole('heading', { name: 'Dashboard', exact: true }).waitFor();
         await page.getByRole('navigation').first().getByRole('link', { name: 'Documents', exact: true }).click();
         await page.getByRole('button', { name: 'Add', exact: true }).click();
@@ -411,7 +411,7 @@ try {
         }
         await accountTrigger.click();
         await page.getByRole('button', { name: 'Abmelden', exact: true }).click();
-        await page.getByRole('heading', { name: 'Bei Domus anmelden' }).waitFor();
+        await page.getByRole('heading', { name: 'Bei Zuloni anmelden' }).waitFor();
         await page.getByRole('button', { name: 'Passwort vergessen?' }).click();
         await page.getByRole('heading', { name: 'Passwort zurücksetzen' }).waitFor();
         check(errors, [], 'browser runtime errors');

@@ -1,6 +1,6 @@
-// Domus-Bildmarke in Faktio-Farben. Inline statt <img>, damit das Haus der in der App
+// Zuloni-Bildmarke in Faktio-Farben. Inline statt <img>, damit das Haus der in der App
 // gewählten Darstellung folgt (--color-logo), nicht nur der Systemeinstellung.
-const DomusLogo = ({ size = 32, className, title }) => (
+const ZuloniLogo = ({ size = 32, className, title }) => (
     <svg
         className={className}
         width={size}
@@ -15,4 +15,4 @@ const DomusLogo = ({ size = 32, className, title }) => (
     </svg>
 );
 
-export default DomusLogo;
+export default ZuloniLogo;

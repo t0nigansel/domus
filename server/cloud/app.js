@@ -11,7 +11,7 @@ export function createCloudApp(env) {
         next();
     });
     app.get('/api/health', (_req, res) => res.json({
-        service: 'domus',
+        service: 'zuloni',
         environment: env.DOMUS_ENV,
         status: env.DOMUS_DOMAIN_ENABLED === 'true' && !missingAuthSettings(env).length ? 'ready' : 'setup',
     }));

@@ -4,7 +4,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Building, FileText, Coins, AlertCircle, BookUser } from 'lucide-react';
 import AccountMenu from '../components/AccountMenu';
 import GlobalSearch from '../components/GlobalSearch';
-import DomusLogo from '../components/DomusLogo';
+import ZuloniLogo from '../components/ZuloniLogo';
 import './MainLayout.css';
 
 const MainLayout = () => {
@@ -24,8 +24,8 @@ const MainLayout = () => {
         <div className="layout">
             <aside className="sidebar">
                 <div className="sidebar-header">
-                    <DomusLogo size={32} className="sidebar-logo" />
-                    <span className="logo-text">Domus</span>
+                    <ZuloniLogo size={32} className="sidebar-logo" />
+                    <span className="logo-text">Zuloni</span>
                 </div>
                 <GlobalSearch />
                 <nav className="sidebar-nav">

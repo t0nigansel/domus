@@ -1,4 +1,4 @@
-# Domus - Property Management System
+# Zuloni - Property Management System
 
 Der [Styleguide](STYLEGUIDE.md) hält Designwerte, UI-Verhalten und vereinbarte
 Gestaltungswünsche fest. Neue Oberflächen orientieren sich an diesen Regeln.
@@ -13,6 +13,9 @@ einschließlich Werkzeugen, OAuth-Freigabe, Widerruf und Freischaltung nach Migr
 A property management application for small landlords: properties, tenants, issues, documents, costs and contacts.
 
 > This project was previously hosted at `github.com/tonileet/domus` and is now maintained here.
+
+Die produktive Anwendung ist unter **https://www.zuloni.com** erreichbar.
+Die Umstellung ist in [ZULONI-MIGRATION.md](ZULONI-MIGRATION.md) dokumentiert.
 
 ## Architecture
 
@@ -73,8 +76,7 @@ also preserves historical file formats and larger files. A daily job removes R2
 objects that have had no metadata reference for at least 24 hours.
 
 Required runtime secrets are `BETTER_AUTH_SECRET` and `PILOT_EMAILS`. Transactional
-mail uses the `EMAIL` Cloudflare binding, restricted to `MAIL_FROM`. The temporary
-sender is `no-reply@faktio.net`; the Domus-domain migration is tracked in `ToDo.MD`.
+mail uses the `EMAIL` Cloudflare binding, restricted to `MAIL_FROM`. The sender is `no-reply@zuloni.com`, authenticated through Cloudflare Email Sending.
 `RESEND_API_KEY` remains supported for environments using Resend instead of the
 binding. `BETTER_AUTH_URL` is configured separately per environment. Each
 environment now has its own Neon PostgreSQL 17 project in AWS Frankfurt

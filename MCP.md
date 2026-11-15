@@ -1,6 +1,8 @@
-# Domus MCP: Lesen und Auswerten
+# Zuloni MCP: Lesen und Auswerten
 
-Der entfernte MCP-Endpunkt ist `/mcp` auf derselben Domain wie Domus. Er verwendet
+Der produktive MCP-Endpunkt ist `https://www.zuloni.com/mcp`. Nach dem Domainwechsel
+m?ssen bestehende Clients diese Adresse verwenden und erneut autorisiert werden;
+vorherige Tokens bleiben an den bisherigen Issuer und die bisherige Ressource gebunden. Er verwendet
 Streamable HTTP mit dem offiziellen TypeScript SDK; MCP 2026-07-28 sowie die
 zustandslose Kompatibilität für 2025-Clients werden unterstützt.
 
@@ -30,8 +32,8 @@ Ergebnis ist eine Datenbasis, keine fertige Nebenkostenabrechnung oder Anlage V.
 
 ## Verbindung durch einen Nutzer
 
-1. Im MCP-fähigen Assistenten die Domus-Adresse mit `/mcp` eintragen.
-2. Mit dem eigenen Domus-Konto anmelden.
+1. Im MCP-fähigen Assistenten die Zuloni-Adresse mit `/mcp` eintragen.
+2. Mit dem eigenen Zuloni-Konto anmelden.
 3. Assistenten und Rücksprungadresse prüfen und den Lesezugriff freigeben. Die
    Seite erklärt die Weitergabe personenbezogener Daten an den KI-Anbieter.
 4. Unter **Einstellungen → KI-Assistenten über MCP** können Verbindungen getrennt
@@ -71,7 +73,7 @@ Für Preview und Produktion jeweils getrennt:
 
 4. `DOMUS_MCP_ENABLED: "true"` im passenden Wrangler-Environment setzen, Preview
    deployen und prüfen. Produktion danach separat freischalten. `BETTER_AUTH_URL`
-   muss die echte Domus-Domain der Umgebung sein; sie bestimmt die MCP-Ressource.
+   muss die echte Zuloni-Domain der Umgebung sein; sie bestimmt die MCP-Ressource.
 
 Öffentliche Discovery-Routen:
 

@@ -1,6 +1,6 @@
-# Contributing to Domus
+# Contributing to Zuloni
 
-Thank you for your interest in contributing to Domus! This guide will help you understand our development workflow and CI/CD pipeline.
+Thank you for your interest in contributing to Zuloni! This guide will help you understand our development workflow and CI/CD pipeline.
 
 ## Development Workflow
 

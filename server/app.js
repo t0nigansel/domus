@@ -37,13 +37,13 @@ app.use('/api/contacts', createCrudRouter('contacts'));
 
 // Root endpoint
 app.get('/', (req, res) => {
-    res.json({ message: 'Domus API is running' });
+    res.json({ message: 'Zuloni API is running' });
 });
 
 // API Root
 app.get('/api', (req, res) => {
     res.json({
-        message: 'Domus API v1',
+        message: 'Zuloni API v1',
         resources: [
             '/api/tenants',
             '/api/properties',

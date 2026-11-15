@@ -14,12 +14,12 @@ export default function LegalPage({ page }) {
     const privacy = page === 'datenschutz';
     const title = t(privacy ? 'Datenschutzerklärung' : 'Impressum');
     return <main className="legal-page">
-        <title>{title}{" "}{t("· Domus")}</title>
+        <title>{title}{" "}{t("· Zuloni")}</title>
         <meta name="robots" content="noindex" />
-        <a className="legal-back" href="/">{t("← Zurück zu Domus")}</a>
+        <a className="legal-back" href="/">{t("← Zurück zu Zuloni")}</a>
         <h1>{title}</h1>
         {privacy ? <PrivacyPolicy /> : <>
-            <h2>{t("Betreiber von Domus")}</h2>
+            <h2>{t("Betreiber von Zuloni")}</h2>
             <OperatorContact />
             <p>{t("Für Datenschutzanfragen kannst du die oben genannte E-Mail-Adresse verwenden.")}</p>
             <p><a href="/datenschutz.html">{t("Datenschutzerklärung")}</a></p>
@@ -31,11 +31,11 @@ function PrivacyPolicy() {
     const { t } = useTranslation();
     return <>
         <p className="legal-date">{t("Stand 13. November 2026")}</p>
-        <p>{t("Domus unterstützt die Verwaltung von Immobilien, Mietern, Vermietungen und Unterlagen. Hier erfährst du, welche Daten dabei verarbeitet werden und wie du deine Rechte wahrnehmen kannst.")}</p>
+        <p>{t("Zuloni unterstützt die Verwaltung von Immobilien, Mietern, Vermietungen und Unterlagen. Hier erfährst du, welche Daten dabei verarbeitet werden und wie du deine Rechte wahrnehmen kannst.")}</p>
 
         <h2>{t("1. Verantwortlicher und Kontakt")}</h2>
         <OperatorContact />
-        <p>{t("Dieser Kontakt gilt für den Betrieb von Domus und für Datenschutzanfragen. Die Faktio-Adresse wird vorläufig auch für Domus verwendet.")}</p>
+        <p>{t("Dieser Kontakt gilt für den Betrieb von Zuloni und für Datenschutzanfragen. Die Faktio-Adresse wird vorläufig auch für Zuloni verwendet.")}</p>
 
         <h2>{t("2. Kontodaten und Immobilienverwaltung")}</h2>
         <p>{t("Für Registrierung und Anmeldung verarbeiten wir deinen Namen, deine E-Mail-Adresse, den Passwort-Hash, den Bestätigungsstatus, Sitzungen und deine Kontomitgliedschaft. Hinzu kommen Vorgänge zur E-Mail-Bestätigung und zum Zurücksetzen des Passworts.")}</p>
@@ -47,8 +47,8 @@ function PrivacyPolicy() {
         <h2>{t("3. Hosting, Datenbank, Dateien und Protokolle")}</h2>
         <p>{t("Die Website und die Anwendung werden über Cloudflare betrieben. Dabei können IP-Adresse, Zeitpunkt, angefragte Adresse, Browserinformationen sowie Verbindungs- und Fehlerdaten verarbeitet werden. Cloudflare übernimmt die Auslieferung der Anwendung, die Verbindung zur Datenbank und den Schutz der Infrastruktur.")}</p>
         <p>{t("Kontodaten und Fachdaten werden in einer PostgreSQL-Datenbank bei Neon (Databricks) am gewählten Standort Frankfurt am Main gespeichert. Hochgeladene Dateien liegen in einem privaten Cloudflare-R2-Bucket mit EU-Jurisdiktion. Downloads werden nach Prüfung der Anmeldung und Kontozuordnung bereitgestellt.")}</p>
-        <p>{t("Zur Zugriffssicherung werden Zähler für Anfragelimits in der Datenbank geführt. Bei Änderungen protokolliert Domus Konto, Nutzerkennung, Zeitpunkt, Aktion und betroffenen Datenbereich. Diese Verarbeitung dient der Sicherheit und Nachvollziehbarkeit auf Grundlage von Art. 6 Abs. 1 Buchstabe f DSGVO.")}</p>
-        <p>{t("Cloudflare und Neon gehören zu US-Unternehmen. Insbesondere technische Daten können auch außerhalb der EU beziehungsweise des EWR verarbeitet werden. Informationen zu den Anbietern und ihren Übermittlungsgarantien stehen im Cloudflare Data Processing Addendum und in den Neon-Vertragsbedingungen einschließlich der darin einbezogenen Databricks-Bedingungen. Auskünfte zu den konkret für Domus geltenden Vereinbarungen erhältst du beim Verantwortlichen.")}</p>
+        <p>{t("Zur Zugriffssicherung werden Zähler für Anfragelimits in der Datenbank geführt. Bei Änderungen protokolliert Zuloni Konto, Nutzerkennung, Zeitpunkt, Aktion und betroffenen Datenbereich. Diese Verarbeitung dient der Sicherheit und Nachvollziehbarkeit auf Grundlage von Art. 6 Abs. 1 Buchstabe f DSGVO.")}</p>
+        <p>{t("Cloudflare und Neon gehören zu US-Unternehmen. Insbesondere technische Daten können auch außerhalb der EU beziehungsweise des EWR verarbeitet werden. Informationen zu den Anbietern und ihren Übermittlungsgarantien stehen im Cloudflare Data Processing Addendum und in den Neon-Vertragsbedingungen einschließlich der darin einbezogenen Databricks-Bedingungen. Auskünfte zu den konkret für Zuloni geltenden Vereinbarungen erhältst du beim Verantwortlichen.")}</p>
         <p className="legal-sources"><a href="https://www.cloudflare.com/cloudflare-customer-dpa/">{t("Cloudflare Data Processing Addendum")}</a> · <a href="https://neon.com/platform-terms">{t("Neon-Vertragsbedingungen")}</a></p>
 
         <h2>{t("4. E-Mails und Kontaktanfragen")}</h2>
@@ -58,10 +58,10 @@ function PrivacyPolicy() {
         <p className="legal-sources"><a href="https://www.microsoft.com/de-de/privacy/privacystatement">{t("Microsoft-Datenschutzbestimmungen")}</a></p>
 
         <h2>{t("5. Cookies und Browserspeicher")}</h2>
-        <p>{t("Domus verwendet technisch notwendige Anmelde-Cookies von Better Auth. Das Cookie")}{" "}<code>__Secure-better-auth.session_token</code>{" "}{t("ordnet die Anmeldung einer Sitzung zu. Eine Sitzung gilt regulär sieben Tage und kann bei weiterer Nutzung verlängert werden. Beim Abmelden wird die aktuelle Sitzung ungültig. Ein Passwort-Reset beendet bestehende Anmeldungen.")}</p>
-        <p>{t("Deine Wahl zwischen heller, dunkler oder der Systemdarstellung wird unter")}{" "}<code>domus-theme</code>{" "}{t("im lokalen Browserspeicher abgelegt, bis du die Wahl änderst oder die Browserdaten löschst. Bei Systemdarstellung folgt Domus den Darstellungseinstellungen deines Geräts.")}</p>
+        <p>{t("Zuloni verwendet technisch notwendige Anmelde-Cookies von Better Auth. Das Cookie")}{" "}<code>__Secure-better-auth.session_token</code>{" "}{t("ordnet die Anmeldung einer Sitzung zu. Eine Sitzung gilt regulär sieben Tage und kann bei weiterer Nutzung verlängert werden. Beim Abmelden wird die aktuelle Sitzung ungültig. Ein Passwort-Reset beendet bestehende Anmeldungen.")}</p>
+        <p>{t("Deine Wahl zwischen heller, dunkler oder der Systemdarstellung wird unter")}{" "}<code>domus-theme</code>{" "}{t("im lokalen Browserspeicher abgelegt, bis du die Wahl änderst oder die Browserdaten löschst. Bei Systemdarstellung folgt Zuloni den Darstellungseinstellungen deines Geräts.")}</p>
         <p>{t('Deine gewählte UI-Sprache wird unter')}{' '}<code>domus-language</code>{' '}{t('lokal in deinem Browser gespeichert, bis du die Sprache änderst oder die Browserdaten löschst.')}</p>
-        <p>{t("Diese Speicherungen dienen der von dir angeforderten Anmeldung und Darstellungswahl nach § 25 Abs. 2 Nr. 2 TDDDG. Die anschließende Verarbeitung beruht auf Art. 6 Abs. 1 Buchstabe b beziehungsweise f DSGVO. Domus verwendet keine Werbe- oder Analyse-Tracker.")}</p>
+        <p>{t("Diese Speicherungen dienen der von dir angeforderten Anmeldung und Darstellungswahl nach § 25 Abs. 2 Nr. 2 TDDDG. Die anschließende Verarbeitung beruht auf Art. 6 Abs. 1 Buchstabe b beziehungsweise f DSGVO. Zuloni verwendet keine Werbe- oder Analyse-Tracker.")}</p>
 
         <h2>{t("6. Speicherdauer, Dateien und Löschanfragen")}</h2>
         <p>{t("Konto- und Verwaltungsdaten werden grundsätzlich für die Dauer der Nutzung gespeichert. Bestätigungslinks gelten 24 Stunden, Passwort-Reset-Links eine Stunde. Der Ablauf eines Links führt zur Ungültigkeit dieses Links und bewirkt keine Löschung sämtlicher zugehöriger Datenbankeinträge.")}</p>
@@ -69,11 +69,11 @@ function PrivacyPolicy() {
         <p>{t("Für die Wartung, Bestandsübernahme und Wiederherstellung können geschützte lokale Kopien beim Betreiber bestehen. Bei einer Löschanfrage werden auch diese Kopien und die anwendbaren Aufbewahrungspflichten berücksichtigt. R2-Dateien ohne zugehörigen Datenbankeintrag werden durch einen täglichen Bereinigungslauf frühestens nach 24 Stunden entfernt.")}</p>
         <p>{t("Unter Einstellungen kannst du deine Verwaltungsdaten und Originaldateien exportieren und dein Konto nach Passwortprüfung endgültig löschen. Laufende Aufträge werden gesperrt und die Kontodaten einschließlich Dateien und persönlicher LLM-Schlüssel entfernt. Technische Sicherungskopien und Anbieterprotokolle unterliegen ihren jeweiligen Aufbewahrungsfristen; deren sofortige Löschung wird nicht zugesichert. Für die Aufbewahrung deiner Miet- und Geschäftsunterlagen bist du verantwortlich.")}</p>
         <h2>{t('KI-Assistenten und persönliche Anbieter')}</h2>
-        <p>{t('Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Domus speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.')}</p>
+        <p>{t('Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Zuloni speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.')}</p>
         <p>{t('Sprache und Darstellung werden für angemeldete Nutzer zusätzlich im Konto gespeichert. PDF-Erstellung und Hintergrundaufträge werden über Cloudflare verarbeitet. Bereitgestellte ZIP-Archive werden nach sieben Tagen entfernt und können erneut erstellt werden. KI-Vorschläge sind vor der Freigabe zu prüfen; simulierte Ergebnisse werden ausdrücklich gekennzeichnet.')}</p>
 
         <h2>{t("7. Automatisierte Entscheidungen")}</h2>
-        <p>{t("Domus trifft keine automatisierten Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung und führt kein darauf gerichtetes Profiling durch.")}</p>
+        <p>{t("Zuloni trifft keine automatisierten Entscheidungen mit rechtlicher oder ähnlich erheblicher Wirkung und führt kein darauf gerichtetes Profiling durch.")}</p>
 
         <h2>{t("8. Deine Rechte")}</h2>
         <p>{t("Im Rahmen der gesetzlichen Voraussetzungen hast du Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit. Eine erteilte Einwilligung kannst du für die Zukunft widerrufen.")}</p>

@@ -16,11 +16,11 @@ export function missingAuthSettings(env) {
 export function authOptions(env, database, sendMail = message => sendEmail(env, message)) {
     const allowed = new Set((env.PILOT_EMAILS || '').split(',').map(email => email.trim().toLowerCase()).filter(Boolean));
     return {
-        appName: 'Domus',
+        appName: 'Zuloni',
         baseURL: env.BETTER_AUTH_URL,
         secret: env.BETTER_AUTH_SECRET,
         ...(mcpEnabled(env) ? { disabledPaths: ['/token'] } : {}),
-        user: { changeEmail: { enabled: true, sendChangeEmailConfirmation: ({ user, url }) => sendMail({ to: user.email, subject: 'Domus: E-Mail-Adresse ändern', text: `Bestätige die Änderung deiner E-Mail-Adresse:\n${url}` }) } },
+        user: { changeEmail: { enabled: true, sendChangeEmailConfirmation: ({ user, url }) => sendMail({ to: user.email, subject: 'Zuloni: E-Mail-Adresse ändern', text: `Bestätige die Änderung deiner E-Mail-Adresse:\n${url}` }) } },
         database,
         trustedOrigins: [env.BETTER_AUTH_URL],
         emailAndPassword: {
@@ -30,7 +30,7 @@ export function authOptions(env, database, sendMail = message => sendEmail(env, 
             revokeSessionsOnPasswordReset: true,
             resetPasswordTokenExpiresIn: 60 * 60,
             sendResetPassword: ({ user, url }) => sendMail({
-                to: user.email, subject: 'Domus: Passwort zurücksetzen',
+                to: user.email, subject: 'Zuloni: Passwort zurücksetzen',
                 text: `Über diesen Link kannst du dein Passwort zurücksetzen:\n${url}`,
             }),
         },
@@ -38,7 +38,7 @@ export function authOptions(env, database, sendMail = message => sendEmail(env, 
             sendOnSignUp: true,
             expiresIn: 24 * 60 * 60,
             sendVerificationEmail: ({ user, url }) => sendMail({
-                to: user.email, subject: 'Domus: E-Mail-Adresse bestätigen',
+                to: user.email, subject: 'Zuloni: E-Mail-Adresse bestätigen',
                 text: `Bestätige deine E-Mail-Adresse über diesen Link:\n${url}`,
             }),
             afterEmailVerification: async user => {

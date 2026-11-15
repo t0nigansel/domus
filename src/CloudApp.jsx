@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import App from './App';
 import { CloudAuthContext } from './context/CloudAuthContext';
 import { advanceApiSession } from './utils/api';
-import DomusLogo from './components/DomusLogo';
+import ZuloniLogo from './components/ZuloniLogo';
 import { McpConsent } from './pages/McpAccess';
 import './CloudApp.css';
 
@@ -51,7 +51,7 @@ export default function CloudApp() {
         async function start() {
             try {
                 const response = await fetch('/api/access', { cache: 'no-store' });
-                if (!response.ok) throw new Error('Domus ist gerade nicht erreichbar.');
+                if (!response.ok) throw new Error('Zuloni ist gerade nicht erreichbar.');
                 const access = await response.json();
                 if (!active) return;
                 setReady(access.ready);
@@ -88,14 +88,14 @@ export default function CloudApp() {
         finally { setSigningOut(false); }
     }
 
-    if (loading) return <main className="cloud-welcome"><p role="status">{t("Domus wird geladen …")}</p></main>;
+    if (loading) return <main className="cloud-welcome"><p role="status">{t("Zuloni wird geladen …")}</p></main>;
     if (session) return <CloudAuthContext.Provider value={{ ...session, signOut, signingOut, error }}>
         {window.location.pathname === '/mcp/consent' ? <McpConsent /> : <App key={`${session.user.id}:${session.account.id}`} />}
     </CloudAuthContext.Provider>;
     return <main className="cloud-welcome">
-        <section className="cloud-auth" aria-label={t("Domus-Zugang")}>
-            <DomusLogo size={48} className="cloud-logo" />
-            <p className="cloud-brand">DOMUS</p>
+        <section className="cloud-auth" aria-label={t("Zuloni-Zugang")}>
+            <ZuloniLogo size={48} className="cloud-logo" />
+            <p className="cloud-brand">ZULONI</p>
             {ready ? <AuthForm onLogin={async () => { generation.current++; advanceApiSession(); await loadSession(); }} /> : <>
                 <h1>{t("Deine Immobilien.")}<br />{t("Alles an einem Ort.")}</h1>
                 <p>{t("Der Zugang wird vorbereitet.")}</p>
@@ -116,7 +116,7 @@ function AuthForm({ onLogin }) {
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState(query.has('error') ? 'Dieser Link ist ungültig oder abgelaufen. Bitte fordere einen neuen an.' : '');
     const [message, setMessage] = useState(query.get('verified') === '1' ? 'Deine E-Mail-Adresse ist bestätigt. Du kannst dich jetzt anmelden.' : '');
-    const titles = { login: 'Bei Domus anmelden', register: 'Zugang erstellen', forgot: 'Passwort zurücksetzen', reset: 'Neues Passwort setzen' };
+    const titles = { login: 'Bei Zuloni anmelden', register: 'Zugang erstellen', forgot: 'Passwort zurücksetzen', reset: 'Neues Passwort setzen' };
 
     function changeMode(next) {
         setMode(next); setError(''); setMessage(''); setPassword('');

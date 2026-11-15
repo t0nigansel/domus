@@ -315,7 +315,7 @@ export async function assistantRequest(
       return new Response(file.body, {
         headers: {
           "Content-Type": "application/zip",
-          "Content-Disposition": 'attachment; filename="domus-export.zip"',
+          "Content-Disposition": 'attachment; filename="zuloni-export.zip"',
           "Cache-Control": "no-store",
         },
       });

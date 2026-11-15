@@ -11,7 +11,7 @@ export function McpConnections() {
     }, []);
     return <section className="assistant-card">
         <h2>{t('KI-Assistenten über MCP')}</h2>
-        <p>{t('Verbinde deinen Assistenten mit dieser MCP-Adresse. Du meldest dich mit deinem Domus-Konto an und erlaubst ausschließlich Lesen und Auswerten.')}</p>
+        <p>{t('Verbinde deinen Assistenten mit dieser MCP-Adresse. Du meldest dich mit deinem Zuloni-Konto an und erlaubst ausschließlich Lesen und Auswerten.')}</p>
         {data && <p><code>{data.url}</code></p>}
         <p className="text-muted">{t('Dabei erhält der KI-Anbieter des verbundenen Assistenten Zugriff auf deine Immobilien-, Mieter- und Dokumentendaten. Änderungen und Versand sind nicht möglich.')}</p>
         {error && <p role="alert">{error}</p>}
@@ -47,7 +47,7 @@ export function McpConsent() {
         } catch (err) { setError(err.message); setBusy(false); }
     }
     return <main className="cloud-welcome"><section className="cloud-auth">
-        <h1>{t('Assistent mit Domus verbinden')}</h1>
+        <h1>{t('Assistent mit Zuloni verbinden')}</h1>
         {error && <p role="alert" className="auth-error">{error}</p>}
         {!data && !error && <p role="status">{t('Lädt …')}</p>}
         {data && <>

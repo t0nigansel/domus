@@ -1,9 +1,9 @@
-# Domus Styleguide
+# Zuloni Styleguide
 
 Stand: 15. November 2026. Grundlage: `6b01ec8`; die anschließend lokal
 umgesetzte UI-Vereinheitlichung ist in den folgenden Regeln berücksichtigt.
 
-Dieser Guide beschreibt das Erscheinungsbild und das Verhalten von Domus. Er
+Dieser Guide beschreibt das Erscheinungsbild und das Verhalten von Zuloni. Er
 verbindet den aktuellen Stil mit den bereits gewünschten UI-Regeln. Neue Masken
 und Änderungen sollen dieselben Muster verwenden. Einzelne bestehende
 Abweichungen sind keine neuen Designregeln und werden bei der Überarbeitung
@@ -42,7 +42,7 @@ erreichbar; Minimalismus darf sie nicht hinter unnötigen Klicks verstecken.
   der Übersicht öffnen.
 
 Die Palette ist im bestehenden Code aus der Faktio-Palette abgeleitet. Die
-sichtbare Produktmarke bleibt Domus.
+sichtbare Produktmarke bleibt Zuloni.
 
 ## Farben
 

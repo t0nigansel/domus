@@ -10,7 +10,7 @@ import { betterAuth } from 'better-auth';
 describe('Cloud isolation from local storage', () => {
     const app = createCloudApp({ DOMUS_ENV: 'preview' });
     it('exposes liveness but keeps data and documentation closed', async () => {
-        expect((await request(app).get('/api/health')).body).toEqual({ service: 'domus', environment: 'preview', status: 'setup' });
+        expect((await request(app).get('/api/health')).body).toEqual({ service: 'zuloni', environment: 'preview', status: 'setup' });
         for (const path of ['/api/properties', '/api/tenants', '/api/files/raw-files', '/api/rentals', '/api/unknown']) {
             const response = await request(app).get(path);
             expect(response.status).toBe(503);

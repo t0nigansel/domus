@@ -521,7 +521,7 @@ function StatementEditor({ record, onReload }) {
             <summary>{t("4. Externe Heiz- und Warmwasserkosten")}</summary>
             <p>
               {t(
-                "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Domus berechnet keine eigene Heizkosten- oder CO₂-Verteilung.",
+                "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Zuloni berechnet keine eigene Heizkosten- oder CO₂-Verteilung.",
               )}
             </p>
             {form.heating.map((item, index) => (

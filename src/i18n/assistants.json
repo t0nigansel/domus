@@ -6,12 +6,12 @@
   "Noch keine Hauskosten zugeordnet.": { "en": "No building costs assigned yet." },
   "Haus nicht gefunden.": { "en": "Building not found." },
   "KI-Assistenten über MCP": { "en": "AI assistants via MCP" },
-  "Verbinde deinen Assistenten mit dieser MCP-Adresse. Du meldest dich mit deinem Domus-Konto an und erlaubst ausschließlich Lesen und Auswerten.": { "en": "Connect your assistant using this MCP address. Sign in with your Domus account and allow read-only analysis." },
+  "Verbinde deinen Assistenten mit dieser MCP-Adresse. Du meldest dich mit deinem Zuloni-Konto an und erlaubst ausschließlich Lesen und Auswerten.": { "en": "Connect your assistant using this MCP address. Sign in with your Zuloni account and allow read-only analysis." },
   "Dabei erhält der KI-Anbieter des verbundenen Assistenten Zugriff auf deine Immobilien-, Mieter- und Dokumentendaten. Änderungen und Versand sind nicht möglich.": { "en": "The connected assistant's AI provider can access your property, tenant and document data. It cannot change data or send messages." },
   "Keine Assistenten verbunden.": { "en": "No assistants connected." },
   "Nur Lesen": { "en": "Read only" },
   "Verbindung trennen": { "en": "Disconnect" },
-  "Assistent mit Domus verbinden": { "en": "Connect assistant to Domus" },
+  "Assistent mit Zuloni verbinden": { "en": "Connect assistant to Zuloni" },
   "Die Verbindung konnte nicht freigegeben werden.": { "en": "The connection could not be authorized." },
   "Dieser Assistent darf deine Wohnungen, Mietverhältnisse, Mieter, Kosten, Schäden und Dokumente lesen und auswerten. Er darf nichts ändern oder versenden.": { "en": "This assistant may read and analyze your apartments, leases, tenants, costs, issues and documents. It cannot change anything or send messages." },
   "Dabei werden auch personenbezogene Mieterdaten und Dokumenteninhalte an den KI-Anbieter des Assistenten übermittelt. Du kannst den Zugriff jederzeit in den Einstellungen widerrufen.": { "en": "Personal tenant data and document contents will also be shared with the assistant's AI provider. You can revoke access at any time in settings." },
@@ -48,9 +48,9 @@
     "de": "Betrag, Zeitraum, Umlagefähigkeit, Vertragsgrundlage und Schlüssel geprüft",
     "en": "Amount, service period, recoverability, contractual basis and allocation reviewed"
   },
-  "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Domus berechnet keine eigene Heizkosten- oder CO₂-Verteilung.": {
-    "de": "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Domus berechnet keine eigene Heizkosten- oder CO₂-Verteilung.",
-    "en": "Import external heating statements for each tenancy. Domus does not calculate its own heating or CO₂ allocation."
+  "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Zuloni berechnet keine eigene Heizkosten- oder CO₂-Verteilung.": {
+    "de": "Übernimm die Beträge der externen Einzelabrechnung je Mietverhältnis. Zuloni berechnet keine eigene Heizkosten- oder CO₂-Verteilung.",
+    "en": "Import external heating statements for each tenancy. Zuloni does not calculate its own heating or CO₂ allocation."
   },
   "Alle erforderlichen externen Heizkostenabrechnungen sind übernommen oder es fallen keine abzurechnenden Heizkosten an.": {
     "de": "Alle erforderlichen externen Heizkostenabrechnungen sind übernommen oder es fallen keine abzurechnenden Heizkosten an.",
@@ -87,9 +87,9 @@
     "de": "KI-Assistenten und persönliche Anbieter",
     "en": "AI assistants and personal providers"
   },
-  "Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Domus speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.": {
-    "de": "Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Domus speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.",
-    "en": "When you confirm an AI job, its selected property information and documents are sent to your personal OpenAI, Anthropic or Google provider. Brochure research uses necessary location information in web searches. Processing may occur outside the EU and is also governed by your agreement with that provider. Domus encrypts personal API keys and never displays them in full again. Keys and passwords are excluded from exports."
+  "Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Zuloni speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.": {
+    "de": "Wenn du einen KI-Auftrag bestätigst, werden die dafür ausgewählten Objektdaten und Unterlagen an deinen persönlichen Anbieter OpenAI, Anthropic oder Google übermittelt. Bei der Exposé-Recherche werden notwendige Lageangaben für die Websuche verwendet. Die Verarbeitung kann außerhalb der EU erfolgen und richtet sich zusätzlich nach deinem Vertrag mit dem gewählten Anbieter. Zuloni speichert persönliche API-Schlüssel verschlüsselt und zeigt sie nicht erneut vollständig an. Zugangsschlüssel und Passwörter sind vom Datenexport ausgeschlossen.",
+    "en": "When you confirm an AI job, its selected property information and documents are sent to your personal OpenAI, Anthropic or Google provider. Brochure research uses necessary location information in web searches. Processing may occur outside the EU and is also governed by your agreement with that provider. Zuloni encrypts personal API keys and never displays them in full again. Keys and passwords are excluded from exports."
   },
   "Sprache und Darstellung werden für angemeldete Nutzer zusätzlich im Konto gespeichert. PDF-Erstellung und Hintergrundaufträge werden über Cloudflare verarbeitet. Bereitgestellte ZIP-Archive werden nach sieben Tagen entfernt und können erneut erstellt werden. KI-Vorschläge sind vor der Freigabe zu prüfen; simulierte Ergebnisse werden ausdrücklich gekennzeichnet.": {
     "de": "Sprache und Darstellung werden für angemeldete Nutzer zusätzlich im Konto gespeichert. PDF-Erstellung und Hintergrundaufträge werden über Cloudflare verarbeitet. Bereitgestellte ZIP-Archive werden nach sieben Tagen entfernt und können erneut erstellt werden. KI-Vorschläge sind vor der Freigabe zu prüfen; simulierte Ergebnisse werden ausdrücklich gekennzeichnet.",

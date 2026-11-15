@@ -43,7 +43,7 @@ try {
     const userId = users.rows[0].id;
     const accountId = `domus-${userId}`;
     const accounts = await withAccountTransaction(client, accountId, () => client.query('SELECT id FROM domus_accounts WHERE id = $1 AND owner_user_id = $2', [accountId, userId]));
-    if (!accounts.rows.length) throw new Error('The verified user must open Domus once before importing');
+    if (!accounts.rows.length) throw new Error('The verified user must open Zuloni once before importing');
     manifest.accountId = accountId;
     console.log(JSON.stringify({ environment, entities: manifest.entities, files: manifest.files.length, bytes: manifest.bytes, apply: args.includes('--apply') }));
     // Validate all relational references in a rolled-back database transaction before any upload.

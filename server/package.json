@@ -1,7 +1,7 @@
 {
-    "name": "domus-server",
+    "name": "zuloni-server",
     "version": "1.0.0",
-    "description": "API server for Domus",
+    "description": "API server for Zuloni",
     "main": "index.js",
     "type": "module",
     "scripts": {

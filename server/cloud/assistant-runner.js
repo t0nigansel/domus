@@ -142,7 +142,7 @@ export async function runAssistant(env, params, step, renderer = renderPdf) {
             const { documentFiles: _files, ...publicData } = snapshot.data;
             yield {
               name: "README.txt",
-              text: "Domus Datenexport, Formatversion 1. data.json enthält alle Fachdaten, records.json Häuser und Entwürfe, settings.json persönliche Einstellungen. Dateien stehen unter files/<Dokument-ID>/<Dateiname>. API-Schlüssel, Passwort-Hashes und Sitzungen sind nicht enthalten. JSON-Zuordnungen verwenden die ursprünglichen IDs.",
+              text: "Zuloni Datenexport, Formatversion 1. data.json enthält alle Fachdaten, records.json Häuser und Entwürfe, settings.json persönliche Einstellungen. Dateien stehen unter files/<Dokument-ID>/<Dateiname>. API-Schlüssel, Passwort-Hashes und Sitzungen sind nicht enthalten. JSON-Zuordnungen verwenden die ursprünglichen IDs.",
             };
             yield {
               name: "data.json",

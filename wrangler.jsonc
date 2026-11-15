@@ -4,29 +4,56 @@
   "account_id": "f218aabec74d3c0817a632fe07cbb3d5",
   "main": "server/cloud/worker.js",
   "compatibility_date": "2026-11-11",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "workers_dev": true,
   "preview_urls": false,
-  "browser": { "binding": "BROWSER" },
-  "workflows": [{ "name": "domus-assistants-local", "binding": "ASSISTANT_WORKFLOW", "class_name": "AssistantWorkflow" }],
+  "browser": {
+    "binding": "BROWSER"
+  },
+  "workflows": [
+    {
+      "name": "domus-assistants-local",
+      "binding": "ASSISTANT_WORKFLOW",
+      "class_name": "AssistantWorkflow"
+    }
+  ],
   "assets": {
     "directory": "./dist-cloud",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api", "/api/*", "/api-docs", "/api-docs/*", "/mcp", "/.well-known/*"]
+    "run_worker_first": true
   },
-  "observability": { "enabled": true },
-  "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
-  "triggers": { "crons": ["37 3 * * *"] },
+  "observability": {
+    "enabled": true
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": [
+        "no-reply@zuloni.com"
+      ]
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "37 3 * * *"
+    ]
+  },
   "vars": {
     "DOMUS_ENV": "preview",
     "DOMUS_MCP_ENABLED": "true",
     "DOMUS_DOMAIN_ENABLED": "true",
-    "MAIL_FROM": "no-reply@faktio.net",
+    "MAIL_FROM": "no-reply@zuloni.com",
     "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
   },
   "r2_buckets": [
-    { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
+    {
+      "binding": "FILES",
+      "bucket_name": "domus-preview-files",
+      "jurisdiction": "eu"
+    }
   ],
   "hyperdrive": [
     {
@@ -38,19 +65,42 @@
   "env": {
     "preview": {
       "name": "domus-preview",
-      "browser": { "binding": "BROWSER" },
-      "workflows": [{ "name": "domus-assistants-preview", "binding": "ASSISTANT_WORKFLOW", "class_name": "AssistantWorkflow" }],
+      "browser": {
+        "binding": "BROWSER"
+      },
+      "workflows": [
+        {
+          "name": "domus-assistants-preview",
+          "binding": "ASSISTANT_WORKFLOW",
+          "class_name": "AssistantWorkflow"
+        }
+      ],
       "vars": {
         "DOMUS_ENV": "preview",
         "DOMUS_MCP_ENABLED": "true",
         "DOMUS_DOMAIN_ENABLED": "true",
-        "MAIL_FROM": "no-reply@faktio.net",
+        "MAIL_FROM": "no-reply@zuloni.com",
         "BETTER_AUTH_URL": "https://domus-preview.toni-gansel.workers.dev"
       },
-      "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
-      "triggers": { "crons": ["37 3 * * *"] },
+      "send_email": [
+        {
+          "name": "EMAIL",
+          "allowed_sender_addresses": [
+            "no-reply@zuloni.com"
+          ]
+        }
+      ],
+      "triggers": {
+        "crons": [
+          "37 3 * * *"
+        ]
+      },
       "r2_buckets": [
-        { "binding": "FILES", "bucket_name": "domus-preview-files", "jurisdiction": "eu" }
+        {
+          "binding": "FILES",
+          "bucket_name": "domus-preview-files",
+          "jurisdiction": "eu"
+        }
       ],
       "hyperdrive": [
         {
@@ -62,25 +112,60 @@
     },
     "production": {
       "name": "domus",
-      "browser": { "binding": "BROWSER" },
-      "workflows": [{ "name": "domus-assistants", "binding": "ASSISTANT_WORKFLOW", "class_name": "AssistantWorkflow" }],
+      "browser": {
+        "binding": "BROWSER"
+      },
+      "workflows": [
+        {
+          "name": "domus-assistants",
+          "binding": "ASSISTANT_WORKFLOW",
+          "class_name": "AssistantWorkflow"
+        }
+      ],
       "vars": {
         "DOMUS_ENV": "production",
         "DOMUS_MCP_ENABLED": "true",
         "DOMUS_DOMAIN_ENABLED": "true",
-        "MAIL_FROM": "no-reply@faktio.net",
-        "BETTER_AUTH_URL": "https://domus.toni-gansel.workers.dev"
+        "MAIL_FROM": "no-reply@zuloni.com",
+        "BETTER_AUTH_URL": "https://www.zuloni.com"
       },
-      "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["no-reply@faktio.net"] }],
-      "triggers": { "crons": ["37 3 * * *"] },
+      "send_email": [
+        {
+          "name": "EMAIL",
+          "allowed_sender_addresses": [
+            "no-reply@zuloni.com"
+          ]
+        }
+      ],
+      "triggers": {
+        "crons": [
+          "37 3 * * *"
+        ]
+      },
       "r2_buckets": [
-        { "binding": "FILES", "bucket_name": "domus-files", "jurisdiction": "eu" }
+        {
+          "binding": "FILES",
+          "bucket_name": "domus-files",
+          "jurisdiction": "eu"
+        }
       ],
       "hyperdrive": [
         {
           "binding": "HYPERDRIVE",
           "id": "b9c1a073416646c0ac8929022803bce9",
           "localConnectionString": "postgres://domus:domus-dev-only@127.0.0.1:5432/domus"
+        }
+      ],
+      "routes": [
+        {
+          "pattern": "www.zuloni.com",
+          "custom_domain": true,
+          "zone_name": "zuloni.com"
+        },
+        {
+          "pattern": "zuloni.com",
+          "custom_domain": true,
+          "zone_name": "zuloni.com"
         }
       ]
     }

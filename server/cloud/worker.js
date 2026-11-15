@@ -7,6 +7,7 @@ import { domainRequest, json } from './domain-api.js';
 import { withAccountTransaction, withDatabase } from './database.js';
 import { mcpRequest } from './mcp.js';
 import { mcpEnabled, mcpAccountRequest } from './mcp-auth.js';
+import { canonicalRedirect, isAssetRequest } from './routing.js';
 
 const app = createCloudApp(env);
 export { AssistantWorkflow } from './assistant-workflow.js';
@@ -15,6 +16,8 @@ const expressHandler = httpServerHandler({ port: 3000 });
 
 export default {
     async fetch(request, bindings, context) {
+        const redirect = canonicalRedirect(request, bindings);
+        if (redirect) return redirect;
         const path = new URL(request.url).pathname;
         const metadataPath = path.startsWith('/.well-known/oauth-');
         const mcpPath = path === '/mcp';
@@ -70,6 +73,7 @@ export default {
                 context.waitUntil(pool.end());
             }
         }
+        if (bindings.ASSETS && isAssetRequest(request)) return bindings.ASSETS.fetch(request);
         return expressHandler.fetch(request, bindings, context);
     },
     async scheduled(_event, bindings, context) {
