@@ -14,7 +14,7 @@ export async function assistantBrowser({ page, base, check, call }) {
   await page.getByLabel("Postleitzahl", { exact: true }).fill("10115");
   await page.getByLabel("Ort", { exact: true }).fill("Berlin");
   await page
-    .getByRole("button", { name: "Haus speichern", exact: true })
+    .getByRole("button", { name: "Speichern", exact: true })
     .click();
   const overview = page.locator('main > .page-container');
   const overviewBefore = await overview.boundingBox();
@@ -26,6 +26,7 @@ export async function assistantBrowser({ page, base, check, call }) {
   check(await page.getByRole('heading', { name: 'Wohnungen', exact: true, level: 1 }).count(), 1, 'house stays in the apartment overview');
   check(await page.getByText('Wohnung nicht gefunden.', { exact: true }).count(), 0, 'house route is distinct from apartment route');
   const buildingUrl = page.url();
+  await page.getByRole('button', { name: 'Zuordnung verwalten', exact: true }).click();
   await page
     .getByRole("button", { name: "Diesem Haus zuordnen", exact: true })
     .first()

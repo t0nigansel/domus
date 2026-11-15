@@ -3,7 +3,6 @@
 .rental-section p { margin: 8px 0; overflow-wrap: anywhere; }
 .rental-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 16px 0; }
 .rental-form label { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.rental-form input, .rental-form select, .rental-form textarea { width: 100%; min-width: 0; min-height: 44px; padding: 10px; color: var(--color-text-main); background: var(--color-bg-base); border: 1px solid var(--color-field-border); border-radius: var(--radius-sm); font: inherit; }
 .rental-form textarea { resize: vertical; }
 .rental-section button, .rental-section .btn-outline { min-height: 44px; }
 .rental-form fieldset { min-width: 0; border: 1px solid var(--color-border); padding: 16px; border-radius: 8px; }
@@ -16,7 +15,7 @@
 .inset-form, .lease-card { border: 1px solid var(--color-border); border-radius: 8px; padding: 16px; margin: 16px 0; }
 .rental-error { padding: 16px; border: 1px solid var(--color-danger); color: var(--color-danger); border-radius: 6px; }
 .rental-form .rental-check { flex-direction: row; align-items: center; margin: 8px 0; }
-.rental-check input { width: 20px; min-height: 20px; flex: 0 0 20px; }
+.rental-check input { width: 20px; min-height: 20px; padding: 0; flex: 0 0 20px; }
 .rental-section summary { cursor: pointer; min-height: 44px; padding: 12px 0; }
 .rental-prewrap { white-space: pre-wrap; }
 @media (max-width: 600px) { .rental-section { padding: 16px; } }
@@ -44,7 +43,6 @@
 .rental-form .lease-field-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; border: 0; border-top: 1px solid var(--color-border); border-radius: 0; padding: 16px 0 0; margin: 0 0 8px; }
 .lease-field-group legend { padding: 0 12px 0 0; font-weight: 600; }
 .rental-form .lease-money-group { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.rental-form :is(input, select, textarea):focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .rental-form > .rental-actions { border-top: 1px solid var(--color-border); padding-top: 20px; margin-top: 4px; }
 @media (max-width: 600px) {
     .rental-form, .rental-form .lease-field-group { grid-template-columns: minmax(0, 1fr); }

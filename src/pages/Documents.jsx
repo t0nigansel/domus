@@ -21,7 +21,7 @@ const Documents = () => {
         counts[document.category] = (counts[document.category] || 0) + 1;
         return counts;
     }, { All: documentsInRange.length });
-    const filters = [['All', t('Alle'), documentsInRange.length], ...Object.entries(DOCUMENT_CATEGORIES).map(([key, label]) => [key, t(label), categoryCounts[key] || 0])];
+    const filters = [['All', t('Alle'), documentsInRange.length], ...Object.entries(DOCUMENT_CATEGORIES).filter(([key]) => key === selectedCategory || categoryCounts[key]).map(([key, label]) => [key, t(label), categoryCounts[key] || 0])];
 
     return (
         <div className="page-container">
@@ -31,7 +31,7 @@ const Documents = () => {
                 <DocumentWorkspace showFiles={false} />
             </CollapsiblePanel>
 
-            <ListToolbar
+            {documents.length > 0 && <><ListToolbar
                 search={{ value: searchTerm, onChange: setSearchTerm, placeholder: t("Search files...") }}
                 filters={filters}
                 filter={selectedCategory}
@@ -50,6 +50,7 @@ const Documents = () => {
                 </label>
                 {(uploadedFrom || uploadedTo) && <button type="button" className="btn-outline" onClick={() => { setUploadedFrom(''); setUploadedTo(''); }}>{t('Zeitraum zurücksetzen')}</button>}
             </div>
+            </>}
 
             <DocumentWorkspace showControls={false} categoryFilter={selectedCategory} searchTerm={searchTerm} uploadedFrom={uploadedFrom} uploadedTo={uploadedTo} />
         </div>

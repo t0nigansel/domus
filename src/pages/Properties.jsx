@@ -65,8 +65,9 @@ const Properties = () => {
                 <form onSubmit={handleAddSubmit}>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Property Name")}</label>
+                            <label htmlFor="new-property-name">{t("Property Name")}</label>
                             <input
+                                id="new-property-name"
                                 type="text"
                                 required
                                 value={newPropertyData.name}
@@ -76,8 +77,9 @@ const Properties = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Location")}</label>
+                            <label htmlFor="new-property-location">{t("Location")}</label>
                             <input
+                                id="new-property-location"
                                 type="text"
                                 required
                                 value={newPropertyData.location}
@@ -89,8 +91,9 @@ const Properties = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Square Meter (m²)")}</label>
+                            <label htmlFor="new-property-size">{t("Square Meter (m²)")}</label>
                             <input
+                                id="new-property-size"
                                 type="number"
                                 min="0"
                                 value={newPropertyData.size}
@@ -100,8 +103,9 @@ const Properties = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Status")}</label>
+                            <label htmlFor="new-property-status">{t("Status")}</label>
                             <select
+                                id="new-property-status"
                                 value={newPropertyData.status}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, status: e.target.value })}
                                 className="edit-select"
@@ -112,8 +116,9 @@ const Properties = () => {
                             </select>
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Condition")}</label>
+                            <label htmlFor="new-property-condition">{t("Condition")}</label>
                             <select
+                                id="new-property-condition"
                                 value={newPropertyData.condition}
                                 onChange={e => setNewPropertyData({ ...newPropertyData, condition: e.target.value })}
                                 className="edit-select"
@@ -126,8 +131,9 @@ const Properties = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Cold Rent (€)")}</label>
+                            <label htmlFor="new-property-rent">{t("Cold Rent (€)")}</label>
                             <input
+                                id="new-property-rent"
                                 type="number"
                                 min="0"
                                 value={newPropertyData.coldRent}
@@ -136,8 +142,9 @@ const Properties = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Nebenkosten (€)")}</label>
+                            <label htmlFor="new-property-utilities">{t("Nebenkosten (€)")}</label>
                             <input
+                                id="new-property-utilities"
                                 type="number"
                                 min="0"
                                 value={newPropertyData.nebenkosten}

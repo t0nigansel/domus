@@ -15,11 +15,11 @@ export default function PropertyFiles({ property, building }) {
     const files = documents.filter(file => building ? file.buildingId === building.id : file.propertyId === property.id);
     const categories = ['Photos', 'Leases', 'FloorPlans', 'Energy', 'Invoices', 'Insurance', 'Misc', 'Exposes', 'Statements'].map(key => [key, DOCUMENT_CATEGORIES[key]]);
     return <section className="details-card property-files" aria-label={t('Fotos & Dokumente')}>
-        <div className="card-header-row"><h2 className="card-title">{t('Fotos & Dokumente')} ({files.length})</h2><button className="btn-outline" onClick={() => setUploading(!uploading)} aria-expanded={uploading}>{t('Dateien hinzufügen')}</button></div>
+        <div className="card-header-row"><h2 className="card-title">{t('Fotos & Dokumente')} ({files.length})</h2><button className="btn-outline" onClick={() => setUploading(!uploading)} aria-expanded={uploading}>{t(uploading ? 'Schließen' : 'Dateien hinzufügen')}</button></div>
         {uploading && <DocumentWorkspace {...scope} showFiles={false} />}
-        <ListToolbar search={{ value: search, onChange: setSearch, placeholder: t('Search files...') }} filters={[
-            ['All', t('Alle'), files.length], ...categories.map(([key, label]) => [key, t(label), files.filter(file => file.category === key).length]),
-        ]} filter={category} onFilter={setCategory} filterLabel={t('Categories')} />
+        {files.length > 0 && <ListToolbar search={{ value: search, onChange: setSearch, placeholder: t('Search files...') }} filters={[
+            ['All', t('Alle'), files.length], ...categories.filter(([key]) => key === category || files.some(file => file.category === key)).map(([key, label]) => [key, t(label), files.filter(file => file.category === key).length]),
+        ]} filter={category} onFilter={setCategory} filterLabel={t('Categories')} />}
         {files.length === 0 && <p className="text-muted">{t('Noch keine Dateien zugeordnet.')}</p>}
         {categories.filter(([key]) => (category === 'All' || category === key) && files.some(file => file.category === key && file.name.toLowerCase().includes(search.toLowerCase()))).map(([key, label]) => <div className="property-file-group" key={key}>
             <h3>{t(label)}</h3>

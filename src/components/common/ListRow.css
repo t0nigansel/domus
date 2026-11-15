@@ -301,7 +301,9 @@ a.list-badge:focus-visible {
 }
 
 @media (max-width: 700px) {
+    .list-row-identity { flex: 1 1 0; }
     .list-row-summary {
+        column-gap: var(--spacing-sm);
         padding: var(--spacing-md);
     }
 

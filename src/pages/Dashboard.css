@@ -194,41 +194,10 @@
 }
 
 /* Form Styles */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
 
-.form-group label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--color-text-muted);
-}
 
-.form-row {
-    display: flex;
-    gap: var(--spacing-md);
-}
 
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--spacing-sm);
-}
 
-.dashboard-section .edit-input,
-.dashboard-section .edit-select,
-.dashboard-section .edit-textarea {
-    width: 100%;
-    background-color: var(--color-bg-base);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 6px 8px;
-    font-family: inherit;
-    font-size: 0.875rem;
-    color: var(--color-text-main);
-}
 
 /* Attachment Styles */
 .btn-text.small {

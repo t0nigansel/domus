@@ -22,6 +22,30 @@ const row = name => screen.getByRole('heading', { name, level: 3 }).closest('.li
 beforeEach(() => Object.assign(data, { properties: [{ id: 'p1', name: 'EG rechts', status: 'Vacant' }], tenants: [], documents: [], issues: [], costs: [], refreshAll: vi.fn(), updateProperty: vi.fn() }));
 
 describe('Buildings in the apartment overview', () => {
+    it('reveals assignment and cost controls only on request', () => {
+        data.properties[0].buildingId = 'b1';
+        data.costs = [{ id: 'c1', name: 'Hausversicherung', amount: 850, buildingId: 'b1' }];
+        show('/buildings/b1');
+        expect(screen.getByRole('heading', { name: 'Hausversicherung' })).toBeVisible();
+        expect(screen.queryByLabelText('Leistungsbeginn')).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: 'Zuordnung entfernen' })).not.toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', { name: 'Zuordnung verwalten' }));
+        expect(screen.getByRole('button', { name: 'Zuordnung entfernen' })).toBeVisible();
+        fireEvent.click(screen.getByRole('button', { name: 'Fertig' }));
+        expect(screen.queryByRole('button', { name: 'Zuordnung entfernen' })).not.toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', { name: 'Kosten bearbeiten' }));
+        expect(screen.getByLabelText('Leistungsbeginn')).toBeVisible();
+        fireEvent.click(screen.getByRole('button', { name: 'Fertig' }));
+        expect(screen.queryByLabelText('Leistungsbeginn')).not.toBeInTheDocument();
+    });
+    it('discards a house edit when cancelled', () => {
+        show('/buildings/b1');
+        fireEvent.click(screen.getByRole('button', { name: 'Hausdaten bearbeiten' }));
+        fireEvent.change(screen.getByLabelText('Hausbezeichnung'), { target: { value: 'Nicht speichern' } });
+        fireEvent.click(screen.getByRole('button', { name: 'Abbrechen' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Hausdaten bearbeiten' }));
+        expect(screen.getByLabelText('Hausbezeichnung')).toHaveValue('Testhaus');
+    });
     it('opens and closes in place while retaining the overview and apartment rows', () => {
         show();
         const heading = screen.getByRole('heading', { name: 'Wohnungen', level: 1 }), building = row('Testhaus'), apartment = row('EG rechts');

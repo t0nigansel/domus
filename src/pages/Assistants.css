@@ -43,20 +43,6 @@
   margin-bottom: 12px;
   min-width: 0;
 }
-.assistant-field input,
-.assistant-field textarea,
-.assistant-field select,
-.assistant-select {
-  width: 100%;
-  min-width: 0;
-  min-height: 44px;
-  padding: 10px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-base);
-  color: var(--color-text-main);
-  font: inherit;
-}
 .assistant-check {
   display: flex;
   gap: 10px;

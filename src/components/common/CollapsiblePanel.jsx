@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from '../../i18n';
+import { X } from 'lucide-react';
 
-export const CollapsiblePanel = ({ title, isOpen, children }) => {
+export const CollapsiblePanel = ({ title, isOpen, onClose, children }) => {
     const { t } = useTranslation();
     if (!isOpen) return null;
 
@@ -14,7 +15,10 @@ export const CollapsiblePanel = ({ title, isOpen, children }) => {
             marginBottom: 'var(--spacing-xl)',
             animation: 'slideDown 0.2s ease-out'
         }}>
-            <h3 style={{ marginBottom: 'var(--spacing-md)', fontSize: '1.125rem' }}>{t(title)}</h3>
+            <div className="collapsible-panel-heading">
+                <h3>{t(title)}</h3>
+                {onClose && <button type="button" className="btn-outline" onClick={onClose} aria-label={t('Schließen')}><X size={20} aria-hidden="true" /></button>}
+            </div>
             {children}
         </div>
     );

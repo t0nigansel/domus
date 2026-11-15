@@ -205,41 +205,10 @@
     color: var(--color-text-main);
 }
 
-.form-row {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-}
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
 
-.form-group label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text-muted);
-}
 
-.edit-input,
-.edit-select {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-bg-base);
-    color: var(--color-text-main);
-    font-size: 0.875rem;
-}
 
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-lg);
-}
 
 @media (max-width: 768px) {
     .form-row {

@@ -32,6 +32,7 @@ export default function Buildings() {
         <BuildingForm
           key="new"
           busy={state.busy}
+          onCancel={() => setAdding(false)}
           onSave={(value) =>
             state.run(async () => {
               await api.post("/buildings", value);
@@ -61,7 +62,7 @@ export default function Buildings() {
     </section>
   );
 }
-function BuildingForm({ value = {}, busy, onSave }) {
+function BuildingForm({ value = {}, busy, onSave, onCancel }) {
   const { t } = useTranslation(),
     [form, setForm] = useState(value);
   return (
@@ -92,17 +93,20 @@ function BuildingForm({ value = {}, busy, onSave }) {
           />
         ))}
       </div>
-      <button className="btn-primary" disabled={busy}>
-        {t("Haus speichern")}
-      </button>
+      <div className="assistant-actions">
+        <button className="btn-primary" disabled={busy}>{t('Speichern')}</button>
+        <button type="button" className="btn-outline" disabled={busy} onClick={onCancel}>{t('Abbrechen')}</button>
+      </div>
     </form>
   );
 }
 function BuildingDetails({ id, onSaved }) {
-  const { t } = useTranslation(),
+  const { t, locale } = useTranslation(),
     { properties, updateProperty, costs, updateCost } = useData();
   const state = useAssistant(`/buildings/${id}`),
-    [editing, setEditing] = useState(false);
+    [editing, setEditing] = useState(false),
+    [managingUnits, setManagingUnits] = useState(false),
+    [editingCosts, setEditingCosts] = useState(false);
   if (!state.data)
     return (
       <div className="building-details-inline">
@@ -110,6 +114,8 @@ function BuildingDetails({ id, onSaved }) {
       </div>
     );
   const building = state.data;
+  const assigned = properties.filter(property => property.buildingId === id);
+  const houseCosts = costs.filter(cost => cost.buildingId === id || cost.propertyIds?.some(propertyId => assigned.some(property => property.id === propertyId)));
   return (
     <div className="building-details-inline">
       {state.error && (
@@ -123,6 +129,7 @@ function BuildingDetails({ id, onSaved }) {
             key={building.revision}
             value={building}
             busy={state.busy}
+            onCancel={() => setEditing(false)}
             onSave={(value) =>
               state.run(async () => {
                 state.setData(await api.put(`/buildings/${id}`, value));
@@ -149,8 +156,15 @@ function BuildingDetails({ id, onSaved }) {
       </section>
       <PropertyFiles building={building} />
       <section className="assistant-card">
-        <h2>{t("Wohnungen zuordnen")}</h2>
-        <p>
+        <div className="assistant-actions">
+          <h2>{t('Wohnungen')} ({assigned.length})</h2>
+          <button type="button" className="btn-outline" disabled={state.busy} aria-expanded={managingUnits} onClick={() => setManagingUnits(!managingUnits)}>{t(managingUnits ? 'Fertig' : 'Zuordnung verwalten')}</button>
+        </div>
+        {!managingUnits && <>
+          {assigned.map(property => <p className="assistant-row" key={property.id}><Link to={`/properties/${property.id}`}>{property.name}</Link></p>)}
+          {!assigned.length && <p className="text-muted">{t('Noch keine Wohnungen zugeordnet.')}</p>}
+        </>}
+        {managingUnits && <><p>
           {t(
             "Bestätige die Hauszuordnung ausdrücklich. Bestehende Daten bleiben erhalten.",
           )}
@@ -188,7 +202,7 @@ function BuildingDetails({ id, onSaved }) {
               )}
             </div>
           </div>
-        ))}
+        ))}</>}
       </section>
       <section className="assistant-card">
         <h2>{t("Nebenkostenabrechnungen")}</h2>
@@ -197,19 +211,19 @@ function BuildingDetails({ id, onSaved }) {
         </Link>
       </section>
       <section className="assistant-card">
-        <h2>{t("Hauskosten und Leistungszeiträume")}</h2>
-        {costs
-          .filter(
-            (cost) =>
-              cost.buildingId === id ||
-              cost.propertyIds?.some((propertyId) =>
-                properties.some(
-                  (property) =>
-                    property.id === propertyId && property.buildingId === id,
-                ),
-              ),
-          )
-          .map((cost) => (
+        <div className="assistant-actions">
+          <h2>{t('Hauskosten und Leistungszeiträume')}</h2>
+          <button type="button" className="btn-outline" disabled={state.busy} aria-expanded={editingCosts} onClick={() => setEditingCosts(!editingCosts)}>{t(editingCosts ? 'Fertig' : 'Kosten bearbeiten')}</button>
+        </div>
+        {!editingCosts && <>
+          {houseCosts.map(cost => <div className="assistant-row" key={cost.id}>
+            <h3>{cost.name}</h3>
+            <p>{Number.isFinite(cost.amount) ? new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(cost.amount) : t('Noch offen')}</p>
+            {(cost.serviceStart || cost.serviceEnd) && <p className="text-muted">{cost.serviceStart || '…'} – {cost.serviceEnd || '…'}</p>}
+          </div>)}
+          {!houseCosts.length && <p className="text-muted">{t('Noch keine Hauskosten zugeordnet.')}</p>}
+        </>}
+        {editingCosts && <>{houseCosts.map((cost) => (
             <HouseCost
               key={`${cost.id}-${cost.serviceStart}-${cost.serviceEnd}-${cost.costCategory}`}
               cost={cost}
@@ -236,7 +250,7 @@ function BuildingDetails({ id, onSaved }) {
                 </option>
               ))}
           </select>
-        </label>
+        </label></>}
         <Link to="/costs">{t("Kosten erfassen und Belege zuordnen")}</Link>
       </section>
     </div>

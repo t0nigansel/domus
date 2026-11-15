@@ -206,8 +206,8 @@ const Costs = () => {
                 <form onSubmit={handleAddSubmit}>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 2 }}>
-                            <label>{t("Name")}</label>
-                            <input
+                            <label htmlFor="new-cost-name">{t("Name")}</label>
+                            <input id="new-cost-name"
                                 type="text"
                                 required
                                 value={newCostData.name}
@@ -217,8 +217,8 @@ const Costs = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Amount (€)")}</label>
-                            <input
+                            <label htmlFor="new-cost-amount">{t("Amount (€)")}</label>
+                            <input id="new-cost-amount"
                                 type="number"
                                 step="0.01"
                                 required
@@ -231,8 +231,8 @@ const Costs = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Description")}</label>
-                            <textarea
+                            <label htmlFor="new-cost-description">{t("Description")}</label>
+                            <textarea id="new-cost-description"
                                 value={newCostData.description}
                                 onChange={e => setNewCostData({ ...newCostData, description: e.target.value })}
                                 className="edit-textarea"
@@ -243,8 +243,8 @@ const Costs = () => {
                     </div>
                     <div className="form-row">
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Due Date")}</label>
-                            <input
+                            <label htmlFor="new-cost-due">{t("Due Date")}</label>
+                            <input id="new-cost-due"
                                 type="date"
                                 required
                                 value={newCostData.dueDate}
@@ -253,8 +253,8 @@ const Costs = () => {
                             />
                         </div>
                         <div className="form-group" style={{ flex: 1 }}>
-                            <label>{t("Paid Date (Optional)")}</label>
-                            <input
+                            <label htmlFor="new-cost-paid">{t("Paid Date (Optional)")}</label>
+                            <input id="new-cost-paid"
                                 type="date"
                                 value={newCostData.paidDate}
                                 onChange={e => setNewCostData({ ...newCostData, paidDate: e.target.value })}
@@ -399,8 +399,8 @@ const Costs = () => {
                                         {isExpanded && <form onSubmit={(e) => handleInlineSave(e, cost.id)}>
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 2 }}>
-                                                    <label>{t("Name")}</label>
-                                                    <input
+                                                    <label htmlFor={`cost-${cost.id}-name`}>{t("Name")}</label>
+                                                    <input id={`cost-${cost.id}-name`}
                                                         type="text"
                                                         name="name"
                                                         value={editFormData.name}
@@ -409,8 +409,8 @@ const Costs = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>{t("Amount (€)")}</label>
-                                                    <input
+                                                    <label htmlFor={`cost-${cost.id}-amount`}>{t("Amount (€)")}</label>
+                                                    <input id={`cost-${cost.id}-amount`}
                                                         type="number"
                                                         step="0.01"
                                                         name="amount"
@@ -422,8 +422,8 @@ const Costs = () => {
                                             </div>
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>{t("Description")}</label>
-                                                    <textarea
+                                                    <label htmlFor={`cost-${cost.id}-description`}>{t("Description")}</label>
+                                                    <textarea id={`cost-${cost.id}-description`}
                                                         name="description"
                                                         value={editFormData.description}
                                                         onChange={handleEditFormChange}
@@ -434,8 +434,8 @@ const Costs = () => {
                                             </div>
                                             <div className="form-row">
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>{t("Due Date")}</label>
-                                                    <input
+                                                    <label htmlFor={`cost-${cost.id}-due`}>{t("Due Date")}</label>
+                                                    <input id={`cost-${cost.id}-due`}
                                                         type="date"
                                                         name="dueDate"
                                                         value={editFormData.dueDate}
@@ -444,8 +444,8 @@ const Costs = () => {
                                                     />
                                                 </div>
                                                 <div className="form-group" style={{ flex: 1 }}>
-                                                    <label>{t("Paid Date")}</label>
-                                                    <input
+                                                    <label htmlFor={`cost-${cost.id}-paid`}>{t("Paid Date")}</label>
+                                                    <input id={`cost-${cost.id}-paid`}
                                                         type="date"
                                                         name="paidDate"
                                                         value={editFormData.paidDate}

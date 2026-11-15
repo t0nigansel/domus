@@ -20,6 +20,13 @@ vi.mock('../context/DataContext', () => ({
 vi.mock('../hooks/domain/useFileWorkspace', () => ({ useFileWorkspace: () => ({ rawFiles: null }) }));
 
 describe('Document upload date filter', () => {
+    it('closes an upload panel without uploading a document', () => {
+        render(<MemoryRouter><Documents /></MemoryRouter>);
+        fireEvent.click(screen.getByRole('button', { name: 'Hinzufügen' }));
+        expect(screen.getByLabelText('Dateien hochladen (bis 20 MB je Datei)')).toBeVisible();
+        fireEvent.click(screen.getByRole('button', { name: 'Schließen' }));
+        expect(screen.queryByLabelText('Dateien hochladen (bis 20 MB je Datei)')).not.toBeInTheDocument();
+    });
     it('combines inclusive dates with categories and search, and resets only the dates', () => {
         render(<MemoryRouter><Documents /></MemoryRouter>);
         expect(screen.getByText('Unbekannt.pdf')).toBeVisible();

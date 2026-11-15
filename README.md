@@ -1,5 +1,8 @@
 # Domus - Property Management System
 
+Der [Styleguide](STYLEGUIDE.md) hält Designwerte, UI-Verhalten und vereinbarte
+Gestaltungswünsche fest. Neue Oberflächen orientieren sich an diesen Regeln.
+
 Der Lesezugang für KI-Assistenten ist in [MCP.md](MCP.md) dokumentiert,
 einschließlich Werkzeugen, OAuth-Freigabe, Widerruf und Freischaltung nach Migration.
 

@@ -1,4 +1,9 @@
 {
+  "Zuordnung verwalten": { "en": "Manage assignment" },
+  "Kosten bearbeiten": { "en": "Edit costs" },
+  "Fertig": { "en": "Done" },
+  "Noch keine Wohnungen zugeordnet.": { "en": "No apartments assigned yet." },
+  "Noch keine Hauskosten zugeordnet.": { "en": "No building costs assigned yet." },
   "Haus nicht gefunden.": { "en": "Building not found." },
   "KI-Assistenten über MCP": { "en": "AI assistants via MCP" },
   "Verbinde deinen Assistenten mit dieser MCP-Adresse. Du meldest dich mit deinem Domus-Konto an und erlaubst ausschließlich Lesen und Auswerten.": { "en": "Connect your assistant using this MCP address. Sign in with your Domus account and allow read-only analysis." },

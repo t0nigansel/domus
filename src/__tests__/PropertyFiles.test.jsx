@@ -17,6 +17,17 @@ beforeEach(() => {
     ] });
 });
 describe('Shared apartment and building files', () => {
+    it('keeps empty file sections quiet while allowing uploads in every category', () => {
+        data.documents = [];
+        render(<PropertyFiles building={{ id: 'b1' }} />);
+        expect(screen.getByText('Noch keine Dateien zugeordnet.')).toBeVisible();
+        expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+        expect(screen.queryByRole('group', { name: 'Kategorien' })).not.toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', { name: 'Dateien hinzufügen' }));
+        expect(screen.getByLabelText('Kategorie für neue Dateien')).toBeVisible();
+        fireEvent.click(screen.getByRole('button', { name: 'Schließen' }));
+        expect(screen.queryByLabelText('Kategorie für neue Dateien')).not.toBeInTheDocument();
+    });
     it('shows only the selected building, with a photo gallery and searchable category groups', () => {
         render(<PropertyFiles building={{ id: 'b1' }} />);
         expect(screen.getByRole('heading', { name: 'Fotos & Dokumente (2)' })).toBeVisible();
